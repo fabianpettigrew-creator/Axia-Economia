@@ -1,0 +1,92 @@
+# ESTUDIOS DE AXIA
+# Este archivo alimenta la sección "Estudios" de la página.
+#
+# CÓMO AGREGAR UN ESTUDIO:
+# 1. Copiá uno de los bloques de abajo (desde "Título:" hasta la línea "---").
+# 2. Pegalo arriba de todo (el primero de la lista se muestra primero).
+# 3. Cambiá los textos que están después de los dos puntos.
+# 4. Las líneas en inglés (Title, Sector EN, Summary) son opcionales:
+#    si las dejás vacías, en inglés se muestra el texto en español.
+#
+# VISOR PROTEGIDO (recomendado para publicar un estudio completo):
+# - Dejá el PDF en la carpeta "Estudios" de tu computadora y agregalo a la
+#   lista ESTUDIOS de Estudios/build-visor.py. Después corré:  py build-visor.py
+# - Eso genera una carpeta dentro de "visor" con las páginas convertidas a
+#   imagen y cifradas. El PDF original NO se sube nunca.
+# - En el bloque del estudio agregá una línea "Visor:" con el nombre de esa
+#   carpeta.  Ejemplo:  Visor: langostino-argentino
+# - En la web aparece el botón "Ver el estudio online": se lee en pantalla,
+#   pero no se puede descargar, imprimir, copiar texto ni guardar las imágenes.
+#
+# ARCHIVOS CON RESULTADOS (opcional, queda descargable sin protección):
+# - Subí el archivo a la carpeta "estudios" del repositorio en GitHub.
+# - En el bloque del estudio agregá una línea "Archivo:" con el nombre exacto.
+#   Ejemplo:  Archivo: resultados-pesca-2025.pdf
+# - Para más de un archivo, separalos con punto y coma:
+#   Archivo: informe.pdf; anexo-datos.xlsx
+# - Si tenés versión en inglés:  Archivo EN: results-fisheries-2025.pdf
+# - Usá nombres sin espacios, sin tildes ni ñ (usá guiones: informe-final.pdf).
+# - Tamaño máximo por archivo al subirlo desde la web de GitHub: 25 MB.
+# - La carpeta del repositorio tiene que llamarse "estudios", todo en minúscula.
+# - OJO: todo lo que se publique con "Archivo:" queda público, se puede
+#   descargar, imprimir y copiar. Para estudios propios usá "Visor:".
+#
+# Las líneas que empiezan con # no se muestran en la web.
+# No nombres clientes sin su permiso.
+
+Título: Cuánto ganan y en qué gastan los hogares argentinos
+Title: How much Argentine households earn and what they spend it on
+Año: 2026
+Sector: Consumo y comercio minorista
+Sector EN: Consumer and retail
+Resumen: Ingreso de los hogares corregido por subdeclaración, cinco estratos socioeconómicos y estructura del gasto por rubro y por región, sobre la Encuesta Permanente de Hogares y la Encuesta Nacional de Gastos del INDEC. Datos al tercer trimestre de 2025.
+Summary: Household income adjusted for under-reporting, five socioeconomic strata and the structure of spending by category and region, based on INDEC's household income and expenditure surveys. Data up to the third quarter of 2025.
+Visor: hogares-ingresos-consumo
+---
+
+Título: Langostino argentino: precio, comercio y posición competitiva
+Title: Argentine red shrimp: price, trade and competitive position
+Año: 2026
+Sector: Pesca y agroindustria
+Sector EN: Fisheries and agribusiness
+Resumen: Estudio de mercado del langostino salvaje argentino: evolución de la captura y de los precios, mercados de destino y competencia del langostino de cultivo. Dónde está el valor del producto y cómo defenderlo.
+Summary: Market study of Argentine wild red shrimp: catch and price trends, destination markets and competition from farmed shrimp. Where the product's value lies and how to defend it.
+Visor: langostino-argentino
+---
+
+Título: Cuánto cuesta llenar el mismo changuito en cuatro ciudades
+Title: What the same basket of goods costs in four cities
+Año: 2026
+Sector: Consumo y comercio minorista
+Sector EN: Consumer and retail
+Resumen: Índice de canasta de consumo hogareña: 61 ítems de alimentos, limpieza y cuidado personal, con cantidades físicas constantes y precios relevados en CABA, Madrid, São Paulo y Miami.
+Summary: Household consumption basket index: 61 food, cleaning and personal care items, with constant physical quantities and prices surveyed in Buenos Aires, Madrid, São Paulo and Miami.
+Visor: canasta-cuatro-ciudades
+---
+
+Título: Perjuicio económico de la exploración offshore sobre la actividad pesquera
+Title: Economic damage of offshore exploration on fishing activity
+Año:
+Sector: Pesca y agroindustria
+Sector EN: Fisheries and agribusiness
+Resumen: Cuantificación del impacto económico de una zona de exclusión por exploración de hidrocarburos en la Cuenca Marina Austral sobre la flota pesquera y su cadena de valor.
+Summary: Quantification of the economic impact of an oil exploration exclusion zone in the Austral Marine Basin on the fishing fleet and its value chain.
+---
+
+Título: Ingresos y gastos de los hogares en la Argentina
+Title: Household income and expenditure in Argentina
+Año: 2021
+Sector: Consumo y comercio minorista
+Sector EN: Consumer and retail
+Resumen: Análisis nacional y regional de ingresos y patrones de gasto de los hogares, en base a la Encuesta Permanente de Hogares y la Encuesta Nacional de Gasto. Realizado para una cadena de supermercados.
+Summary: National and regional analysis of household income and spending patterns, based on INDEC household surveys. Prepared for a supermarket chain.
+---
+
+Título: Mercado internacional de cemento y factibilidad exportadora
+Title: International cement market and export feasibility
+Año:
+Sector: Industria
+Sector EN: Industry
+Resumen: Análisis de los principales mercados productores y consumidores de cemento portland, sus perspectivas y la factibilidad de exportar cemento argentino. Realizado para una cementera líder.
+Summary: Analysis of the main producing and consuming markets for portland cement, their outlook and the feasibility of exporting Argentine cement. Prepared for a leading cement producer.
+---

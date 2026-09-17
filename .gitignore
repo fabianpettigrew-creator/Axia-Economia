@@ -1,0 +1,9 @@
+# Originales de los estudios: NO se publican nunca.
+# El visor de la web se arma desde ahi, pero los PDF y PPTX
+# quedan solo en la computadora.
+Estudios/
+
+# Basura de Windows y OneDrive
+desktop.ini
+Thumbs.db
+.DS_Store

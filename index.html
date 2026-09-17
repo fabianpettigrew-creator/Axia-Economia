@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AXIA | Consultora Económica</title>
+<meta name="description" content="AXIA, consultora económica independiente: inteligencia comercial, estudios de mercado, proyectos de inversión, perjuicio económico y defensa de la competencia.">
+<meta property="og:title" content="AXIA | Consultora Económica">
+<meta property="og:description" content="Inteligencia comercial, estudios de mercado, proyectos de inversión, perjuicio económico y defensa de la competencia.">
+<meta property="og:image" content="https://axiaeconomia.ar/og-image.png">
+<meta property="og:url" content="https://axiaeconomia.ar/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 46'%3E%3Ccircle cx='23' cy='23' r='20.5' fill='%23fff' stroke='%231a2233' stroke-width='3'/%3E%3Cpath d='M14 27 L23 15 L32 27' fill='none' stroke='%23b8874a' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;background:#f7f4ee}
+  body{background:#f7f4ee;color:#232b3b;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ul{list-style:none}
+  a{color:#b8874a;text-decoration:none}
+  a:hover{color:#8f6531}
+  .scp0:hover{color:#b8874a !important}
+  .scp1:hover{border-color:#b8874a !important;color:#b8874a !important}
+  .scp2:hover{background:#b8874a !important;color:#fff !important}
+  [data-en]{display:none}
+  html[data-lang="en"] [data-es]{display:none}
+  html[data-lang="en"] [data-en]{display:revert}
+  [hidden]{display:none !important}
+
+  /* Celular */
+  @media (max-width:760px){
+    nav a{display:none !important}
+    [style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr) !important}
+    [style*="clamp(48px, 6vw, 86px)"],[style*="clamp(48px,6vw,86px)"]{grid-template-columns:40px minmax(0,1fr) !important;row-gap:10px !important}
+    [style*="clamp(48px, 6vw, 86px)"] > :last-child,[style*="clamp(48px,6vw,86px)"] > :last-child{grid-column:2}
+    #inicio > svg{width:90vw !important;right:-30% !important}
+  }
+
+  /* Visor de estudios: contenido protegido, no descargable */
+  #vs{position:fixed;inset:0;z-index:100;display:none;background:#12192a;
+      -webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none}
+  html.vs-open{overflow:hidden}
+  html.vs-open #vs{display:flex;flex-direction:column}
+  #vs-bar{flex:0 0 auto;display:flex;align-items:center;gap:clamp(10px,2vw,20px);
+          padding:0 clamp(12px,3vw,26px);height:62px;color:#dfe4ec;
+          border-bottom:1px solid rgba(255,255,255,.12)}
+  #vs-tit{flex:1 1 auto;min-width:0;font-family:"Cormorant Garamond",Georgia,serif;
+          font-size:clamp(15px,2vw,22px);line-height:1.2;color:#fff;
+          white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #vs-num{flex:0 0 auto;font-size:13px;letter-spacing:.06em;color:#9aa4b6;font-variant-numeric:tabular-nums}
+  .vs-b{flex:0 0 auto;width:38px;height:38px;background:none;border:1px solid rgba(255,255,255,.22);
+        border-radius:2px;color:#dfe4ec;font:inherit;font-size:18px;line-height:1;cursor:pointer}
+  .vs-b:hover{border-color:#b8874a;color:#b8874a}
+  .vs-b[disabled]{opacity:.28;cursor:default;border-color:rgba(255,255,255,.14);color:#dfe4ec}
+  #vs-esc{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;
+          gap:clamp(6px,2vw,18px);padding:clamp(10px,2vw,22px);background:#2c3446}
+  #vs-pag{flex:1 1 auto;min-width:0;height:100%;position:relative;
+          background-repeat:no-repeat;background-position:center;background-size:contain;
+          filter:drop-shadow(0 10px 28px rgba(0,0,0,.42))}
+  #vs-pag::after{content:"";position:absolute;inset:0}
+  #vs-carga{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+            color:#7c8699;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+  #vs-pie{flex:0 0 auto;padding:0 clamp(12px,3vw,26px) 14px;text-align:center;
+          font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#6c7688}
+  #vs-tip{position:fixed;left:50%;bottom:74px;z-index:101;transform:translateX(-50%);
+          max-width:88vw;background:rgba(18,25,42,.96);border:1px solid rgba(184,135,74,.55);
+          color:#efeae1;font-size:13.5px;line-height:1.4;padding:11px 18px;border-radius:2px;
+          opacity:0;transition:opacity .25s;pointer-events:none;text-align:center}
+  #vs-tip.on{opacity:1}
+  #vs-print{display:none}
+  @media (max-width:760px){
+    #vs-bar{height:54px} .vs-b{width:34px;height:34px;font-size:16px}
+    #vs-esc{padding:6px;gap:4px} #vs-pie{font-size:10px;padding-bottom:10px}
+  }
+  @media (max-height:480px){
+    #vs-pie{display:none} #vs-bar{height:46px} #vs-esc{padding:4px}
+  }
+  @media (max-width:760px) and (orientation:portrait){
+    #vs-esc{padding:0;gap:0} .vs-nav{display:none}
+    #vs-tip{bottom:58px}
+  }
+  @media print{
+    html.vs-open body>*:not(#vs-print){display:none !important}
+    html.vs-open #vs-print{display:block;padding:48px;font-family:Georgia,serif;font-size:15px;color:#1a2233}
+  }
+</style>
+</head>
+<body>
+<div style="background: rgb(247, 244, 238); color: rgb(35, 43, 59); font-family: Manrope, system-ui, sans-serif; line-height: 1.6;">
+
+  <header style="position: sticky; top: 0px; z-index: 20; background: rgba(247, 244, 238, 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgb(221, 214, 201);">
+    <div style="max-width: 1160px; margin: 0px auto; padding: 0px clamp(20px, 5vw, 56px); height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a href="#inicio" aria-label="AXIA" style="display: flex; align-items: center; gap: 13px; text-decoration: none;">
+        <svg width="38" height="38" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.6"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="display: block;">
+          <span style="display: block; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 600; font-size: 25px; letter-spacing: 0.2em; color: rgb(26, 34, 51); line-height: 1;">AXIA</span>
+          <span style="display: block; margin-top: 3px; font-size: 8px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(106, 115, 130);"><span data-es>Consultora Económica</span><span data-en>Economic Consulting</span></span>
+        </span>
+      </a>
+      <nav style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px);">
+        <a href="#servicios" class="scp0" style="font-size: 14px; font-weight: 500; color: rgb(35, 43, 59); text-decoration: none;"><span data-es>Servicios</span><span data-en>Services</span></a>
+        <a href="#estudios" class="scp0" style="font-size: 14px; font-weight: 500; color: rgb(35, 43, 59); text-decoration: none;"><span data-es>Estudios</span><span data-en>Studies</span></a>
+        <a href="#trayectoria" class="scp0" style="font-size: 14px; font-weight: 500; color: rgb(35, 43, 59); text-decoration: none;"><span data-es>Equipo</span><span data-en>Team</span></a>
+        <a href="#contacto" class="scp0" style="font-size: 14px; font-weight: 500; color: rgb(35, 43, 59); text-decoration: none;"><span data-es>Contacto</span><span data-en>Contact</span></a>
+        <button id="lang" type="button" class="scp1" style="border: 1px solid rgb(221, 214, 201); background: transparent; border-radius: 2px; padding: 6px 11px; font-style: inherit; font-variant: inherit; font-weight: 600; font-stretch: inherit; font-size: 11px; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; letter-spacing: 0.14em; color: rgb(26, 34, 51); cursor: pointer;"><span data-es>EN</span><span data-en>ES</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="inicio" style="position: relative; overflow: hidden; border-bottom: 1px solid rgb(221, 214, 201);">
+      <svg viewBox="0 0 46 46" aria-hidden="true" style="position: absolute; right: -9%; top: -14%; width: min(58vw, 640px); opacity: 0.09; pointer-events: none;"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width=".7"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <div style="position: relative; max-width: 1160px; margin: 0px auto; padding: clamp(72px, 11vw, 140px) clamp(20px, 5vw, 56px) clamp(56px, 8vw, 104px); display: grid; grid-template-columns: minmax(0px, 1.55fr) minmax(0px, 0.75fr); gap: clamp(32px, 6vw, 72px); align-items: end;">
+        <div>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: clamp(24px, 4vw, 40px);"><span data-es>Consultora económica independiente</span><span data-en>Independent economic consultancy</span></span>
+          <h1 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(40px, 6.6vw, 84px); line-height: 1.04; letter-spacing: -0.012em; text-wrap: balance; max-width: 16ch;">
+            <span data-es>Análisis económico para decidir mejor</span>
+            <span data-en>Economic analysis for better decisions</span>
+          </h1>
+          <p style="margin-top: clamp(24px, 3.4vw, 38px); max-width: 52ch; font-size: clamp(17px, 1.35vw, 19px); color: rgb(93, 102, 118); text-wrap: pretty;">
+            <span data-es>Ayudamos a empresas y organizaciones a entender sus mercados, evaluar inversiones y competir en el comercio internacional.</span>
+            <span data-en>We help companies and organizations understand their markets, assess investments and compete in international trade.</span>
+          </p>
+          <a href="#contacto" class="scp2" style="display: inline-flex; align-items: center; gap: 12px; margin-top: clamp(28px, 3.6vw, 44px); padding: 15px 28px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border-radius: 2px;">
+            <span data-es>Hablemos</span><span data-en>Get in touch</span>
+            <span aria-hidden="true" style="font-size: 15px;">→</span>
+          </a>
+        </div>
+        <ul style="display: grid; gap: 22px; border-top: 1px solid rgb(221, 214, 201); padding-top: 22px;">
+          <li>
+            <span style="display: block; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 34px; line-height: 1; color: rgb(26, 34, 51);">25+</span>
+            <span style="display: block; margin-top: 6px; font-size: 12.5px; color: rgb(106, 115, 130);"><span data-es>años de experiencia profesional</span><span data-en>years of professional experience</span></span>
+          </li>
+          <li>
+            <span style="display: block; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 34px; line-height: 1; color: rgb(26, 34, 51);">05</span>
+            <span style="display: block; margin-top: 6px; font-size: 12.5px; color: rgb(106, 115, 130);"><span data-es>líneas de trabajo</span><span data-en>practice areas</span></span>
+          </li>
+          <li style="border-top: 1px solid rgb(221, 214, 201); padding-top: 18px;">
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(106, 115, 130);">Buenos Aires</span>
+            <span style="display: block; margin-top: 6px; font-size: 12.5px; color: rgb(106, 115, 130);">Argentina</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="servicios" style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 120px) clamp(20px, 5vw, 56px);">
+      <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
+        <div>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Servicios</span><span data-en>Services</span></span>
+          <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>Cinco líneas de trabajo</span><span data-en>Five practice areas</span></h2>
+        </div>
+        <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
+          <span data-es>Cada trabajo combina datos confiables, métodos rigurosos y conocimiento del contexto argentino e internacional.</span>
+          <span data-en>Every project combines reliable data, rigorous methods and deep knowledge of the Argentine and international context.</span>
+        </p>
+      </div>
+
+      <ul style="margin-top: clamp(40px, 6vw, 72px); display: grid; gap: 0px;">
+        <li style="display: grid; grid-template-columns: clamp(48px, 6vw, 86px) minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(16px, 3vw, 44px); padding: clamp(26px, 3vw, 38px) 0px; border-top: 1px solid rgb(221, 214, 201);">
+          <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 22px; color: rgb(184, 135, 74); line-height: 1.3;">01</span>
+          <h3 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(23px, 2.1vw, 29px); line-height: 1.18; letter-spacing: -0.005em;"><span data-es>Inteligencia comercial y comercio exterior</span><span data-en>Trade intelligence and foreign trade</span></h3>
+          <p style="font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Mercados de destino, precios de exportación, identificación de compradores y análisis de competidores.</span><span data-en>Target markets, export prices, buyer identification and competitor analysis.</span></p>
+        </li>
+        <li style="display: grid; grid-template-columns: clamp(48px, 6vw, 86px) minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(16px, 3vw, 44px); padding: clamp(26px, 3vw, 38px) 0px; border-top: 1px solid rgb(221, 214, 201);">
+          <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 22px; color: rgb(184, 135, 74); line-height: 1.3;">02</span>
+          <h3 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(23px, 2.1vw, 29px); line-height: 1.18; letter-spacing: -0.005em;"><span data-es>Estudios de mercado y sectoriales</span><span data-en>Market and sector studies</span></h3>
+          <p style="font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Tamaño de mercado, demanda, consumo de los hogares y mercado de trabajo, con fuentes primarias y secundarias.</span><span data-en>Market size, demand, household consumption and labor market, using primary and secondary sources.</span></p>
+        </li>
+        <li style="display: grid; grid-template-columns: clamp(48px, 6vw, 86px) minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(16px, 3vw, 44px); padding: clamp(26px, 3vw, 38px) 0px; border-top: 1px solid rgb(221, 214, 201);">
+          <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 22px; color: rgb(184, 135, 74); line-height: 1.3;">03</span>
+          <h3 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(23px, 2.1vw, 29px); line-height: 1.18; letter-spacing: -0.005em;"><span data-es>Proyectos de inversión y valuación de empresas</span><span data-en>Investment projects and business valuation</span></h3>
+          <p style="font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Estudios de prefactibilidad y factibilidad, flujos de fondos, VAN y TIR, y valuación de empresas.</span><span data-en>Pre-feasibility and feasibility studies, cash flows, NPV and IRR, and business valuation.</span></p>
+        </li>
+        <li style="display: grid; grid-template-columns: clamp(48px, 6vw, 86px) minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(16px, 3vw, 44px); padding: clamp(26px, 3vw, 38px) 0px; border-top: 1px solid rgb(221, 214, 201);">
+          <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 22px; color: rgb(184, 135, 74); line-height: 1.3;">04</span>
+          <h3 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(23px, 2.1vw, 29px); line-height: 1.18; letter-spacing: -0.005em;"><span data-es>Perjuicio económico y análisis de impacto</span><span data-en>Economic damages and impact assessment</span></h3>
+          <p style="font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Cuantificamos el daño económico que sufre una empresa o un sector por hechos de terceros: restricciones a su actividad, incumplimientos comerciales o cambios en las condiciones de mercado. Estimamos lucro cesante, pérdida de ingresos y el impacto sobre la cadena de valor, con informes técnicos que sirven de respaldo para negociaciones o reclamos.</span><span data-en>We quantify the economic harm suffered by a company or sector due to third-party actions: operating restrictions, commercial breaches or changes in market conditions. We estimate lost profits, revenue losses and value-chain impacts, with technical reports that support negotiations or claims.</span></p>
+        </li>
+        <li style="display: grid; grid-template-columns: clamp(48px, 6vw, 86px) minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(16px, 3vw, 44px); padding: clamp(26px, 3vw, 38px) 0px; border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
+          <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 22px; color: rgb(184, 135, 74); line-height: 1.3;">05</span>
+          <h3 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(23px, 2.1vw, 29px); line-height: 1.18; letter-spacing: -0.005em;"><span data-es>Defensa de la competencia y regulación</span><span data-en>Competition and regulation</span></h3>
+          <p style="font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Análisis económico de concentraciones y conductas, definición de mercados relevantes y capacitación de equipos en defensa de la competencia.</span><span data-en>Economic analysis of mergers and conduct, relevant market definition and competition-law training for corporate teams.</span></p>
+        </li>
+      </ul>
+
+      
+        <div style="margin-top: clamp(32px, 4vw, 52px); display: flex; flex-wrap: wrap; align-items: baseline; gap: clamp(14px, 2vw, 28px);">
+          <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Sectores</span><span data-en>Sectors</span></span>
+          <ul style="display: flex; flex-wrap: wrap; gap: 10px 28px;">
+            <li style="font-size: 15px; color: rgb(26, 34, 51);"><span data-es>Pesca y agroindustria</span><span data-en>Fisheries and agribusiness</span></li>
+            <li style="font-size: 15px; color: rgb(26, 34, 51);"><span data-es>Turismo y hotelería</span><span data-en>Tourism and hospitality</span></li>
+            <li style="font-size: 15px; color: rgb(26, 34, 51);"><span data-es>Consumo y comercio minorista</span><span data-en>Consumer and retail</span></li>
+            <li style="font-size: 15px; color: rgb(26, 34, 51);"><span data-es>Finanzas</span><span data-en>Finance</span></li>
+          </ul>
+        </div>
+      
+    </section>
+
+    <section id="estudios" hidden style="background: rgb(239, 234, 225); border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
+      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
+        <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
+          <div>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Estudios</span><span data-en>Studies</span></span>
+            <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>Trabajos realizados</span><span data-en>Selected work</span></h2>
+          </div>
+          <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
+            <span data-es>Una selección de estudios. Si le interesa alguno, escríbanos y le contamos más.</span>
+            <span data-en>A selection of our studies. If any of them interests you, write to us and we will tell you more.</span>
+          </p>
+        </div>
+        <div id="estudios-lista" style="margin-top: clamp(36px, 5vw, 64px);"></div>
+      </div>
+    </section>
+
+    <section id="trayectoria" style="background: rgb(21, 29, 43); color: rgb(195, 202, 214);">
+      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 120px) clamp(20px, 5vw, 56px);">
+        <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(201, 154, 95); margin-bottom: 18px;"><span data-es>Equipo</span><span data-en>Team</span></span>
+        <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(255, 255, 255); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>Quiénes somos</span><span data-en>Who we are</span></h2>
+        <div style="margin-top: clamp(36px, 5vw, 60px); display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr); gap: clamp(36px, 6vw, 72px); align-items: start;">
+      <div>
+          <h3 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(255, 255, 255); font-size: clamp(28px, 3.2vw, 40px); line-height: 1.08; letter-spacing: -0.01em;">Fabián Pettigrew</h3>
+          <span style="display: block; margin-top: 12px; font-size: 13px; letter-spacing: 0.06em; color: rgb(201, 154, 95);"><span data-es>Economista · Director</span><span data-en>Economist · Director</span></span>
+          <p style="margin-top: clamp(18px, 2.4vw, 26px); font-size: 16px; color: rgb(174, 182, 196); max-width: 46ch; text-wrap: pretty;">
+            <span data-es>Licenciado en Economía (Universidad Nacional de Mar del Plata), con posgrado en evaluación económica y social de proyectos de inversión (Universidad de los Andes, Bogotá). Más de 25 años de experiencia en el sector público, organismos internacionales, la docencia universitaria y la consultoría privada.</span>
+            <span data-en>Economist (Universidad Nacional de Mar del Plata), with postgraduate studies in economic and social project appraisal (Universidad de los Andes, Bogotá). Over 25 years of experience in the public sector, international organizations, university teaching and private consulting.</span>
+          </p>
+          <ul style="display: grid; gap: 0px; margin-top: clamp(20px, 2.6vw, 30px);">
+            <li style="padding: clamp(16px, 2.2vw, 22px) 0px; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 15.5px; color: rgb(223, 228, 236); text-wrap: pretty;"><span data-es>Vocal de la Comisión Nacional de Defensa de la Competencia (2009–2016).</span><span data-en>Board member, Argentine National Competition Commission (2009–2016).</span></li>
+            <li style="padding: clamp(16px, 2.2vw, 22px) 0px; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 15.5px; color: rgb(223, 228, 236); text-wrap: pretty;"><span data-es>Consultorías para el BID, el Banco Mundial y el IICA, incluidas negociaciones agrícolas ante la OMC.</span><span data-en>Consulting for the IDB, the World Bank and IICA, including agricultural negotiations at the WTO.</span></li>
+            <li style="padding: clamp(16px, 2.2vw, 22px) 0px; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 15.5px; color: rgb(223, 228, 236); text-wrap: pretty;"><span data-es>Asesoramiento económico y de comercio exterior a empresas exportadoras del sector pesquero.</span><span data-en>Economic and trade advisory for seafood exporters.</span></li>
+            <li style="padding: clamp(16px, 2.2vw, 22px) 0px; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 15.5px; color: rgb(223, 228, 236); text-wrap: pretty; border-bottom: 1px solid rgba(255, 255, 255, 0.14);"><span data-es>Docente de Estadística y Econometría en la UNSAM y la UNMdP.</span><span data-en>Lecturer in Statistics and Econometrics at UNSAM and UNMdP.</span></li>
+          </ul>
+        </div>
+      <div>
+          <h3 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(255, 255, 255); font-size: clamp(28px, 3.2vw, 40px); line-height: 1.08; letter-spacing: -0.01em;">José Tonelli</h3>
+          <span style="display: block; margin-top: 12px; font-size: 13px; letter-spacing: 0.06em; color: rgb(201, 154, 95);"><span data-es>Economista · Consultor asociado</span><span data-en>Economist · Associate consultant</span></span>
+          <p style="margin-top: clamp(18px, 2.4vw, 26px); font-size: 16px; color: rgb(174, 182, 196); max-width: 46ch; text-wrap: pretty;">
+            <span data-es>Licenciado en Economía (Universidad Nacional del Sur) y magíster en Economía Aplicada (Universidad Católica Argentina). Especialista en planificación económica y financiera, análisis de rentabilidad, control de gestión y acceso al financiamiento, con experiencia en empresas, agronegocios y el sector público.</span>
+            <span data-en>Economist (Universidad Nacional del Sur) with a master’s degree in Applied Economics (Universidad Católica Argentina). He specializes in economic and financial planning, profitability analysis, management control and access to financing, with experience in companies, agribusiness and the public sector.</span>
+          </p>
+          <ul style="display: grid; gap: 0px; margin-top: clamp(20px, 2.6vw, 30px);">
+            <li style="padding: clamp(16px, 2.2vw, 22px) 0px; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 15.5px; color: rgb(223, 228, 236); text-wrap: pretty;"><span data-es>Consultor en economía y finanzas para empresas: presupuesto, cash flow, financiamiento y evaluación de proyectos.</span><span data-en>Economics and finance consultant for companies: budgeting, cash flow, financing and project appraisal.</span></li>
+            <li style="padding: clamp(16px, 2.2vw, 22px) 0px; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 15.5px; color: rgb(223, 228, 236); text-wrap: pretty;"><span data-es>Líder de Finanzas en una empresa de agronegocios y cofundador de una pyme industrial.</span><span data-en>Head of Finance at an agribusiness company and co-founder of an industrial SME.</span></li>
+            <li style="padding: clamp(16px, 2.2vw, 22px) 0px; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 15.5px; color: rgb(223, 228, 236); text-wrap: pretty;"><span data-es>Economista senior en la Comisión Nacional de Defensa de la Competencia y en el Ministerio de Industria de la Nación.</span><span data-en>Senior economist at the Argentine National Competition Commission and at the Ministry of Industry.</span></li>
+            <li style="padding: clamp(16px, 2.2vw, 22px) 0px; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 15.5px; color: rgb(223, 228, 236); text-wrap: pretty; border-bottom: 1px solid rgba(255, 255, 255, 0.14);"><span data-es>Secretario de Hacienda del Municipio de Coronel Pringles (2013–2015).</span><span data-en>Secretary of Finance, Municipality of Coronel Pringles (2013–2015).</span></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 124px) clamp(20px, 5vw, 56px);">
+      <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Contacto</span><span data-en>Contact</span></span>
+      <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.01em; max-width: 24ch;"><span data-es>¿Tiene un proyecto en mente?</span><span data-en>Have a project in mind?</span></h2>
+      <p style="margin-top: 20px; font-size: 16.5px; color: rgb(93, 102, 118); max-width: 46ch;"><span data-es>Escríbanos y le responderemos a la brevedad.</span><span data-en>Write to us and we will get back to you shortly.</span></p>
+      <div style="margin-top: clamp(32px, 4vw, 52px); display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(20px, 3vw, 40px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(26px, 3vw, 38px);">
+        <div>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-bottom: 10px;"><span data-es>Correo</span><span data-en>Email</span></span>
+          <a href="mailto:info@axiaeconomia.ar" class="scp0" style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: clamp(24px, 2.6vw, 32px); color: rgb(26, 34, 51); text-decoration: none; border-bottom: 1px solid rgb(184, 135, 74); padding-bottom: 3px;">info@axiaeconomia.ar</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="border-top: 1px solid rgb(221, 214, 201);">
+    <div style="max-width: 1160px; margin: 0px auto; padding: 30px clamp(20px, 5vw, 56px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+      <span style="display: flex; align-items: center; gap: 11px;">
+        <svg width="28" height="28" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.8"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 20px; letter-spacing: 0.2em; color: rgb(26, 34, 51);">AXIA</span>
+      </span>
+      <span style="font-size: 13px; color: rgb(106, 115, 130);">© 2026 AXIA · axiaeconomia.ar · Buenos Aires, Argentina</span>
+    </div>
+  </footer></div>
+<script>
+  // Idioma: botón ES / EN, recuerda la elección
+  (function(){
+    function setLang(l){
+      document.documentElement.setAttribute('data-lang', l);
+      document.documentElement.lang = l;
+      try { localStorage.setItem('axia-lang', l); } catch(e){}
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('axia-lang'); } catch(e){}
+    setLang(saved || 'es');
+    var btn = document.getElementById('lang');
+    if (btn) btn.addEventListener('click', function(){
+      setLang(document.documentElement.getAttribute('data-lang') === 'en' ? 'es' : 'en');
+    });
+  })();
+
+  // Estudios: se cargan desde el archivo estudios.txt del repositorio
+  (function(){
+    var esc = function(t){ return (t||'').replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+    var norm = function(k){ return k.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); };
+    fetch('estudios.txt', {cache:'no-cache'}).then(function(r){ return r.ok ? r.text() : ''; }).then(function(txt){
+      var items = txt.split(/^\s*---\s*$/m).map(function(b){
+        var o = {};
+        b.split(/\r?\n/).forEach(function(l){
+          if (l.trim().charAt(0) === '#') return;
+          var i = l.indexOf(':'); if (i < 0) return;
+          o[norm(l.slice(0,i))] = l.slice(i+1).trim();
+        });
+        return o;
+      }).filter(function(o){ return o['titulo']; });
+      if (!items.length) return;
+      var tipo = function(n){ var e = (n.split('.').pop() || '').toUpperCase(); return e ? ' (' + e + ')' : ''; };
+      var lista = function(v){ return (v||'').split(';').map(function(x){ return x.trim(); }).filter(Boolean); };
+      var enlaces = function(nombres, txt){
+        return nombres.map(function(n){
+          var etiqueta = nombres.length > 1 ? n.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ') : txt;
+          return '<a href="estudios/' + encodeURIComponent(n) + '" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;font-weight:600;color:#1a2233;text-decoration:none">' +
+            '<span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid #b8874a;border-radius:2px;color:#b8874a;font-size:12px">↓</span>' +
+            '<span style="border-bottom:1px solid #ddd6c9">' + esc(etiqueta) + esc(tipo(n)) + '</span></a>';
+        }).join('');
+      };
+      var visor = function(o){
+        if (!o['visor']) return '';
+        return '<div style="margin-top:14px"><button type="button" class="scp2" data-visor="' + esc(o['visor']) +
+          '" data-vt-es="' + esc(o['titulo']) + '" data-vt-en="' + esc(o['title'] || o['titulo']) + '"' +
+          ' style="display:inline-flex;align-items:center;gap:9px;background:none;border:1px solid #b8874a;border-radius:2px;color:#b8874a;font:inherit;font-size:14px;font-weight:600;padding:9px 16px;cursor:pointer">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13.5" rx="1"></rect><path d="M9 21h6"></path><path d="M12 17.5V21"></path></svg>' +
+          '<span data-es>Ver el estudio online</span><span data-en>View the study online</span></button></div>';
+      };
+      var archivos = function(o){
+        var es = lista(o['archivo']), en = lista(o['archivo en']);
+        if (!es.length && !en.length) return '';
+        if (!en.length) en = es;
+        if (!es.length) es = en;
+        return '<div style="margin-top:6px"><span data-es>' + enlaces(es, 'Descargar resultados') + '</span>' +
+               '<span data-en>' + enlaces(en, 'Download results') + '</span></div>';
+      };
+      var row = 'display:grid;grid-template-columns:clamp(48px,6vw,86px) minmax(0,1fr) minmax(0,1.35fr);gap:clamp(16px,3vw,44px);padding:clamp(26px,3vw,38px) 0;border-top:1px solid #ddd6c9;align-items:start';
+      document.getElementById('estudios-lista').innerHTML = items.map(function(o, idx){
+        var tEs = esc(o['titulo']), tEn = esc(o['title'] || o['titulo']);
+        var sEs = esc(o['sector']), sEn = esc(o['sector en'] || o['sector']);
+        var rEs = esc(o['resumen']), rEn = esc(o['summary'] || o['resumen']);
+        var anio = esc(o['ano'] || o['anio'] || '') || '—';
+        var asunto = encodeURIComponent('Consulta sobre el estudio: ' + o['titulo']);
+        var last = idx === items.length - 1 ? ';border-bottom:1px solid #ddd6c9' : '';
+        return '<article style="' + row + last + '">' +
+          '<span style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:22px;color:#b8874a;line-height:1.3">' + anio + '</span>' +
+          '<div><h3 style="font-family:\'Cormorant Garamond\',Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(22px,2vw,27px);line-height:1.18">' +
+            '<span data-es>' + tEs + '</span><span data-en>' + tEn + '</span></h3>' +
+            '<span style="display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6a7382">' +
+            '<span data-es>' + sEs + '</span><span data-en>' + sEn + '</span></span></div>' +
+          '<div><p style="font-size:16px;color:#5d6676;text-wrap:pretty"><span data-es>' + rEs + '</span><span data-en>' + rEn + '</span></p>' +
+            visor(o) + archivos(o) +
+            '<a href="mailto:info@axiaeconomia.ar?subject=' + asunto + '" style="display:inline-block;margin-top:14px;font-size:14px;font-weight:600;color:#b8874a;text-decoration:none">' +
+            '<span data-es>Consultar por este estudio →</span><span data-en>Ask about this study →</span></a></div>' +
+          '</article>';
+      }).join('');
+      document.getElementById('estudios').hidden = false;
+    }).catch(function(){});
+  })();
+</script>
+
+<div id="vs" role="dialog" aria-modal="true" aria-label="Visor de estudios">
+  <div id="vs-bar">
+    <span aria-hidden="true" style="flex:0 0 auto">
+      <svg width="26" height="26" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#aeb6c4" stroke-width="1.8"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </span>
+    <span id="vs-tit"></span>
+    <span id="vs-num"></span>
+    <button type="button" class="vs-b" id="vs-cerrar" aria-label="Cerrar" title="Cerrar (Esc)">&#10005;</button>
+  </div>
+  <div id="vs-esc">
+    <button type="button" class="vs-b vs-nav" id="vs-ant" aria-label="Anterior" title="Anterior">&#8249;</button>
+    <div id="vs-pag"><div id="vs-carga"><span data-es>Cargando</span><span data-en>Loading</span></div></div>
+    <button type="button" class="vs-b vs-nav" id="vs-sig" aria-label="Siguiente" title="Siguiente">&#8250;</button>
+  </div>
+  <div id="vs-pie">
+    <span data-es>Documento protegido &middot; no se puede descargar ni imprimir &middot; &copy; AXIA</span>
+    <span data-en>Protected document &middot; download and printing disabled &middot; &copy; AXIA</span>
+  </div>
+</div>
+<div id="vs-tip" role="status" aria-live="polite"></div>
+<div id="vs-print">Contenido protegido &mdash; AXIA &middot; axiaeconomia.ar</div>
+
+<script>
+  /* Visor de estudios de AXIA -------------------------------------------------
+     Las paginas viven en visor/<carpeta>/pNN.dat: son imagenes WebP cifradas.
+     El navegador las descifra en memoria, asi que la URL directa no sirve para
+     nada y no hay ningun PDF ni imagen publicada que se pueda guardar.
+     La clave tiene que ser la misma que CLAVE en Estudios/build-visor.py.      */
+  (function(){
+    var CLAVE = 'AXIA-axiaeconomia.ar-2026';
+    var raiz  = document.documentElement;
+    var vs    = document.getElementById('vs');
+    var elTit = document.getElementById('vs-tit');
+    var elNum = document.getElementById('vs-num');
+    var elPag = document.getElementById('vs-pag');
+    var elCar = document.getElementById('vs-carga');
+    var bAnt  = document.getElementById('vs-ant');
+    var bSig  = document.getElementById('vs-sig');
+    var tip   = document.getElementById('vs-tip');
+    if (!vs) return;
+
+    var carpeta = null, info = null, n = 0, urls = {}, reloj = null, quienAbrio = null, avisado = false;
+
+    var en = function(){ return raiz.getAttribute('data-lang') === 'en'; };
+    var abierto = function(){ return raiz.classList.contains('vs-open'); };
+
+    function aviso(es, ing){
+      tip.textContent = en() ? ing : es;
+      tip.classList.add('on');
+      clearTimeout(reloj);
+      reloj = setTimeout(function(){ tip.classList.remove('on'); }, 2400);
+    }
+
+    // descarga y descifra una pagina; devuelve una URL de blob local
+    function pagina(i){
+      if (urls[i]) return Promise.resolve(urls[i]);
+      return fetch('visor/' + carpeta + '/' + info.archivos[i], {cache:'force-cache'})
+        .then(function(r){ if (!r.ok) throw new Error('404'); return r.arrayBuffer(); })
+        .then(function(buf){
+          var a = new Uint8Array(buf);
+          for (var k = 0; k < a.length; k++) a[k] ^= CLAVE.charCodeAt(k % CLAVE.length);
+          urls[i] = URL.createObjectURL(new Blob([a], {type:'image/webp'}));
+          return urls[i];
+        });
+    }
+
+    function mostrar(i){
+      if (!info || i < 0 || i >= info.paginas) return;
+      n = i;
+      elNum.textContent = (i + 1) + ' / ' + info.paginas;
+      bAnt.disabled = (i === 0);
+      bSig.disabled = (i === info.paginas - 1);
+      elCar.hidden = false;
+      pagina(i).then(function(u){
+        if (n !== i) return;
+        elPag.style.backgroundImage = 'url("' + u + '")';
+        elCar.hidden = true;
+        [i + 1, i - 1].forEach(function(m){
+          if (m >= 0 && m < info.paginas) pagina(m).catch(function(){});
+        });
+      }).catch(function(){
+        elCar.hidden = true;
+        aviso('No se pudo cargar la pagina.', 'The page could not be loaded.');
+      });
+    }
+
+    function abrir(nueva, titulo, boton){
+      quienAbrio = boton || null;
+      if (carpeta !== nueva){
+        Object.keys(urls).forEach(function(k){ URL.revokeObjectURL(urls[k]); });
+        urls = {}; info = null;
+        elPag.style.backgroundImage = 'none';
+      }
+      carpeta = nueva;
+      elTit.textContent = titulo || '';
+      elNum.textContent = '';
+      elCar.hidden = false;
+      raiz.classList.add('vs-open');
+      document.getElementById('vs-cerrar').focus();
+      if (!avisado && window.innerWidth < 760 && window.innerHeight > window.innerWidth){
+        avisado = true;
+        setTimeout(function(){
+          aviso('Girá el teléfono, o pellizcá la pantalla para ampliar.',
+                'Rotate your phone, or pinch to zoom in.');
+        }, 900);
+      }
+      if (info){ mostrar(0); return; }
+      fetch('visor/' + nueva + '/info.json', {cache:'no-cache'})
+        .then(function(r){ if (!r.ok) throw new Error('404'); return r.json(); })
+        .then(function(j){
+          info = j;
+          if (!titulo && j.titulo) elTit.textContent = j.titulo;
+          mostrar(0);
+        })
+        .catch(function(){
+          elCar.hidden = true;
+          aviso('El estudio no esta disponible por ahora.', 'This study is not available right now.');
+        });
+    }
+
+    function cerrar(){
+      raiz.classList.remove('vs-open');
+      if (quienAbrio) { try { quienAbrio.focus(); } catch(e){} }
+    }
+
+    // abre el visor desde el boton de cada estudio
+    document.addEventListener('click', function(e){
+      var b = e.target && e.target.closest ? e.target.closest('[data-visor]') : null;
+      if (!b) return;
+      e.preventDefault();
+      abrir(b.getAttribute('data-visor'),
+            b.getAttribute(en() ? 'data-vt-en' : 'data-vt-es'), b);
+    });
+
+    document.getElementById('vs-cerrar').addEventListener('click', cerrar);
+    bAnt.addEventListener('click', function(){ mostrar(n - 1); });
+    bSig.addEventListener('click', function(){ mostrar(n + 1); });
+
+    // clic sobre la pagina: mitad derecha avanza, mitad izquierda retrocede
+    elPag.addEventListener('click', function(e){
+      var c = elPag.getBoundingClientRect();
+      mostrar(e.clientX < c.left + c.width / 2 ? n - 1 : n + 1);
+    });
+
+    // gestos en celular
+    var x0 = null, y0 = null;
+    vs.addEventListener('touchstart', function(e){
+      if (e.touches.length !== 1){ x0 = null; return; }   // pinch: no es un gesto de pagina
+      x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+    }, {passive:true});
+    vs.addEventListener('touchend', function(e){
+      if (x0 === null || e.changedTouches.length !== 1) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      var dy = e.changedTouches[0].clientY - y0;
+      x0 = null;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) mostrar(dx < 0 ? n + 1 : n - 1);
+    });
+
+    // proteccion: sin menu contextual, sin arrastrar, sin imprimir ni guardar
+    vs.addEventListener('contextmenu', function(e){
+      e.preventDefault();
+      aviso('Contenido protegido.', 'Protected content.');
+    });
+    vs.addEventListener('dragstart', function(e){ e.preventDefault(); });
+
+    document.addEventListener('keydown', function(e){
+      if (!abierto()) return;
+      var mod = e.ctrlKey || e.metaKey;
+      if (mod && /^[psPS]$/.test(e.key)){
+        e.preventDefault();
+        aviso('Contenido protegido: no se puede imprimir ni guardar.',
+              'Protected content: printing and saving are disabled.');
+        return;
+      }
+      if (e.key === 'Escape'){ cerrar(); }
+      else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){ e.preventDefault(); mostrar(n + 1); }
+      else if (e.key === 'ArrowLeft'  || e.key === 'PageUp'){ e.preventDefault(); mostrar(n - 1); }
+      else if (e.key === 'Home'){ mostrar(0); }
+      else if (e.key === 'End' && info){ mostrar(info.paginas - 1); }
+    });
+
+    document.addEventListener('keyup', function(e){
+      if (!abierto() || e.key !== 'PrintScreen') return;
+      try { navigator.clipboard.writeText('Contenido protegido - AXIA - axiaeconomia.ar'); } catch(x){}
+      aviso('Contenido protegido.', 'Protected content.');
+    });
+
+    window.addEventListener('beforeprint', function(){
+      if (abierto()) aviso('Contenido protegido: no se puede imprimir.',
+                           'Protected content: printing is disabled.');
+    });
+  })();
+</script>
+</body>
+</html>

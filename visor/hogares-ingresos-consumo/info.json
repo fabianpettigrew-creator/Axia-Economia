@@ -1,0 +1,23 @@
+{
+ "titulo": "Cuánto ganan y en qué gastan los hogares argentinos",
+ "paginas": 14,
+ "archivos": [
+  "p01.dat",
+  "p02.dat",
+  "p03.dat",
+  "p04.dat",
+  "p05.dat",
+  "p06.dat",
+  "p07.dat",
+  "p08.dat",
+  "p09.dat",
+  "p10.dat",
+  "p11.dat",
+  "p12.dat",
+  "p13.dat",
+  "p14.dat"
+ ],
+ "ancho": 1800,
+ "alto": 1054,
+ "v": 1
+}
