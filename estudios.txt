@@ -64,29 +64,35 @@ Summary: Household consumption basket index: 61 food, cleaning and personal care
 Visor: canasta-cuatro-ciudades
 ---
 
-Título: Perjuicio económico de la exploración offshore sobre la actividad pesquera
-Title: Economic damage of offshore exploration on fishing activity
-Año:
-Sector: Pesca y agroindustria
-Sector EN: Fisheries and agribusiness
-Resumen: Cuantificación del impacto económico de una zona de exclusión por exploración de hidrocarburos en la Cuenca Marina Austral sobre la flota pesquera y su cadena de valor.
-Summary: Quantification of the economic impact of an oil exploration exclusion zone in the Austral Marine Basin on the fishing fleet and its value chain.
----
+# ---------------------------------------------------------------
+# ESTUDIOS OCULTOS: los bloques de abajo estan comentados con "#" y
+# NO se muestran en la web. Para volver a publicarlos, sacarles el
+# "# " del comienzo de cada renglon.
+# ---------------------------------------------------------------
 
-Título: Ingresos y gastos de los hogares en la Argentina
-Title: Household income and expenditure in Argentina
-Año: 2021
-Sector: Consumo y comercio minorista
-Sector EN: Consumer and retail
-Resumen: Análisis nacional y regional de ingresos y patrones de gasto de los hogares, en base a la Encuesta Permanente de Hogares y la Encuesta Nacional de Gasto. Realizado para una cadena de supermercados.
-Summary: National and regional analysis of household income and spending patterns, based on INDEC household surveys. Prepared for a supermarket chain.
----
+# Título: Perjuicio económico de la exploración offshore sobre la actividad pesquera
+# Title: Economic damage of offshore exploration on fishing activity
+# Año:
+# Sector: Pesca y agroindustria
+# Sector EN: Fisheries and agribusiness
+# Resumen: Cuantificación del impacto económico de una zona de exclusión por exploración de hidrocarburos en la Cuenca Marina Austral sobre la flota pesquera y su cadena de valor.
+# Summary: Quantification of the economic impact of an oil exploration exclusion zone in the Austral Marine Basin on the fishing fleet and its value chain.
+# ---
 
-Título: Mercado internacional de cemento y factibilidad exportadora
-Title: International cement market and export feasibility
-Año:
-Sector: Industria
-Sector EN: Industry
-Resumen: Análisis de los principales mercados productores y consumidores de cemento portland, sus perspectivas y la factibilidad de exportar cemento argentino. Realizado para una cementera líder.
-Summary: Analysis of the main producing and consuming markets for portland cement, their outlook and the feasibility of exporting Argentine cement. Prepared for a leading cement producer.
----
+# Título: Ingresos y gastos de los hogares en la Argentina
+# Title: Household income and expenditure in Argentina
+# Año: 2021
+# Sector: Consumo y comercio minorista
+# Sector EN: Consumer and retail
+# Resumen: Análisis nacional y regional de ingresos y patrones de gasto de los hogares, en base a la Encuesta Permanente de Hogares y la Encuesta Nacional de Gasto. Realizado para una cadena de supermercados.
+# Summary: National and regional analysis of household income and spending patterns, based on INDEC household surveys. Prepared for a supermarket chain.
+# ---
+
+# Título: Mercado internacional de cemento y factibilidad exportadora
+# Title: International cement market and export feasibility
+# Año:
+# Sector: Industria
+# Sector EN: Industry
+# Resumen: Análisis de los principales mercados productores y consumidores de cemento portland, sus perspectivas y la factibilidad de exportar cemento argentino. Realizado para una cementera líder.
+# Summary: Analysis of the main producing and consuming markets for portland cement, their outlook and the feasibility of exporting Argentine cement. Prepared for a leading cement producer.
+# ---
