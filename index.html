@@ -35,6 +35,8 @@
     [style*="clamp(48px, 6vw, 86px)"],[style*="clamp(48px,6vw,86px)"]{grid-template-columns:40px minmax(0,1fr) !important;row-gap:10px !important}
     [style*="clamp(48px, 6vw, 86px)"] > :last-child,[style*="clamp(48px,6vw,86px)"] > :last-child{grid-column:2}
     #inicio > svg{width:90vw !important;right:-30% !important}
+    #bol-indicadores{grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important}
+    #bol-indicadores li{border-top:1px solid #ddd6c9 !important}
   }
 
   /* Visor de estudios: contenido protegido, no descargable */
@@ -100,6 +102,7 @@
       </a>
       <nav style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px);">
         <a href="#servicios" class="scp0" style="font-size: 14px; font-weight: 500; color: rgb(35, 43, 59); text-decoration: none;"><span data-es>Servicios</span><span data-en>Services</span></a>
+        <a href="#boletin" class="scp0" style="font-size: 14px; font-weight: 500; color: rgb(35, 43, 59); text-decoration: none;"><span data-es>Boletín</span><span data-en>Bulletin</span></a>
         <a href="#estudios" class="scp0" style="font-size: 14px; font-weight: 500; color: rgb(35, 43, 59); text-decoration: none;"><span data-es>Estudios</span><span data-en>Studies</span></a>
         <a href="#trayectoria" class="scp0" style="font-size: 14px; font-weight: 500; color: rgb(35, 43, 59); text-decoration: none;"><span data-es>Equipo</span><span data-en>Team</span></a>
         <a href="#contacto" class="scp0" style="font-size: 14px; font-weight: 500; color: rgb(35, 43, 59); text-decoration: none;"><span data-es>Contacto</span><span data-en>Contact</span></a>
@@ -195,6 +198,33 @@
           </ul>
         </div>
       
+    </section>
+
+    <section id="boletin" hidden style="border-top: 1px solid rgb(221, 214, 201);">
+      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
+        <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
+          <div>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Boletín Estadístico</span><span data-en>Statistical Bulletin</span></span>
+            <h2 id="bol-edicion" style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"></h2>
+          </div>
+          <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
+            <span data-es>Todos los meses, los principales indicadores de la economía argentina con análisis propio: actividad, precios, dólar, cuentas fiscales, comercio exterior, empleo, mercados y proyecciones.</span>
+            <span data-en>Every month, the key indicators of the Argentine economy with our own analysis: activity, prices, exchange rate, fiscal accounts, trade, employment, markets and forecasts. Published in Spanish.</span>
+          </p>
+        </div>
+        <div style="margin-top: clamp(36px, 5vw, 64px); display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(26px, 3vw, 38px); align-items: start;">
+          <div>
+            <h3 id="bol-titular" style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(24px, 2.4vw, 32px); line-height: 1.16; text-wrap: balance;"></h3>
+            <p id="bol-bajada" style="margin-top: 16px; font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"></p>
+            <span id="bol-corte" style="display: block; margin-top: 14px; font-size: 12.5px; color: rgb(106, 115, 130);"></span>
+            <div style="margin-top: clamp(22px, 3vw, 32px); display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center;">
+              <a id="bol-leer" href="boletin/" class="scp2" style="display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border-radius: 2px;"><span data-es>Leer el boletín</span><span data-en>Read the bulletin</span><span aria-hidden="true">→</span></a>
+              <a id="bol-pdf" href="#" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↓</span><span style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Descargar PDF</span><span data-en>Download PDF</span></span></a>
+            </div>
+          </div>
+          <ul id="bol-indicadores" style="display: grid; grid-template-columns: repeat(3, minmax(0px, 1fr)); gap: 0px;"></ul>
+        </div>
+      </div>
     </section>
 
     <section id="estudios" hidden style="background: rgb(239, 234, 225); border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
@@ -323,6 +353,28 @@
     if (btn) btn.addEventListener('click', function(){
       setLang(document.documentElement.getAttribute('data-lang') === 'en' ? 'es' : 'en');
     });
+  })();
+
+  // Boletín: la última edición se lee de boletin/ultimo.json (lo genera el Boletín Estadístico)
+  (function(){
+    var esc = function(t){ return (t||'').replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+    fetch('boletin/ultimo.json', {cache:'no-cache'}).then(function(r){ return r.ok ? r.json() : null; }).then(function(b){
+      if (!b || !b.titular) return;
+      document.getElementById('bol-edicion').textContent = b.edicion;
+      document.getElementById('bol-titular').textContent = b.titular;
+      document.getElementById('bol-bajada').textContent = b.bajada;
+      document.getElementById('bol-corte').innerHTML = '<span data-es>Edición N.º ' + esc(b.numero) + ' · Datos al ' + esc(b.corte) + '</span>' +
+        '<span data-en>Issue No. ' + esc(b.numero) + ' · Data as of ' + esc(b.corte) + ' (in Spanish)</span>';
+      document.getElementById('bol-leer').href = b.url;
+      document.getElementById('bol-pdf').href = b.pdf;
+      document.getElementById('bol-indicadores').innerHTML = (b.indicadores || []).map(function(x, i){
+        return '<li style="padding:18px 16px 18px 0;border-top:' + (i < 3 ? '0' : '1px solid #ddd6c9') + ';min-width:0">' +
+          '<span style="display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#6a7382">' + esc(x.etiqueta) + '</span>' +
+          '<span style="display:block;margin-top:8px;font-family:\'Cormorant Garamond\',Georgia,serif;font-size:clamp(24px,2.3vw,31px);line-height:1.05;color:#1a2233;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap">' + esc(x.valor) + '</span>' +
+          '<span style="display:block;margin-top:6px;font-size:12.5px;color:#6a7382">' + esc(x.detalle) + '</span></li>';
+      }).join('');
+      document.getElementById('boletin').hidden = false;
+    }).catch(function(){});
   })();
 
   // Estudios: se cargan desde el archivo estudios.txt del repositorio
