@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="datos.js?v=b409648e"></script>
+<script src="datos.js?v=c16cd6e1"></script>
 <style>
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
 :root{
@@ -297,7 +297,7 @@ const DEF = {
              ["M2 privado real",fsig(k.m2_real.valor)+"%","interanual · "+mesAnio(k.m2_real.fecha)]],
     tabs:[{n:"Reservas", t:"Reservas internacionales del BCRA", st:"Millones de dólares, datos diarios", d:x=>x.reservas, tipo:"line", u:"US$ M", dec:0, rango:"2A"},
           {n:"Compras del BCRA", t:"Compras netas de divisas del BCRA", st:"Millones de dólares por mes", d:x=>x.compras, tipo:"bar", u:"US$ M", dec:0, rango:"Todo", signo:true},
-          {n:"Tasas", t:"Tasas de interés e inflación esperada", st:"%, promedios mensuales (tasas en TNA)", d:x=>x.tasas, tipo:"line", u:"%", dec:1, rango:"Todo"},
+          {n:"Tasas", t:"Tasas de interés e inflación", st:"%, promedios mensuales (tasas en TNA) · inflación esperada a 12 meses (REM) e interanual observada (INDEC)", d:x=>x.tasas, tipo:"line", u:"%", dec:1, rango:"Todo"},
           {n:"Crédito y depósitos", t:"Crédito, depósitos y dinero en términos reales", st:"Variación % real interanual, promedios mensuales", d:x=>x.credito, tipo:"line", u:"%", dec:1, rango:"5A"},
           {n:"Dólares", t:"Préstamos y depósitos en dólares", st:"Millones de dólares, fin de mes", d:x=>x.dolares, tipo:"line", u:"US$ M", dec:0, rango:"5A"}],
     nota:"Las variaciones reales del último mes se calculan con la inflación esperada por el REM cuando el INDEC todavía no publicó el IPC."},
@@ -431,7 +431,7 @@ function dibujar(){
   document.querySelector(".lienzo").hidden = false;
   if (esG20){ rangos.style.display = "none"; dibujarG20(tab, x.g20, x.g20_ult); return; }
   if (tab.tipo === "brechas"){ rangos.style.display = "none"; dibujarBrechas(x.brechas); return; }
-  const ink3 = CSSV("--ink-3"), grid = CSSV("--rule-2"), cols = [CSSV("--s1"), CSSV("--s2"), CSSV("--s3"), CSSV("--s4")];
+  const ink3 = CSSV("--ink-3"), grid = CSSV("--rule-2"), cols = [CSSV("--s1"), CSSV("--s2"), CSSV("--s3"), CSSV("--s4"), "#6b5b95", "#4a8f8f"];
   const tip = {backgroundColor:"#1a2233", titleFont:{family:"Manrope",weight:"600"}, bodyFont:{family:"Manrope"}, padding:10, boxPadding:4,
     callbacks:{label:c=>` ${c.dataset.label}: ${tab.rebase ? fnum(c.parsed.y,1) : fval(tab, c.parsed[tab.tipo==="hbar"?"x":"y"])}`}};
   const ticksY = {color:ink3, font:{family:"Manrope",size:11}, callback:v=>fnum(v, Math.abs(v)>=100 || tab.dec===0 ? 0 : (Math.abs(v)<10 ? Math.min(tab.dec,2) : 1))};
