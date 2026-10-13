@@ -38,7 +38,8 @@ def _norm(x) -> str:
 
 
 def _bajar(url: str) -> bytes:
-    for intento in range(4):
+    esperas = [5, 15, 30, 60, 90]                      # el sitio del INDEC a veces no responde unos minutos
+    for intento in range(len(esperas) + 1):
         try:
             r = requests.get(url, headers=HDR, timeout=90)
             r.raise_for_status()
@@ -48,9 +49,9 @@ def _bajar(url: str) -> bytes:
         except FileNotFoundError:
             raise
         except Exception:
-            if intento == 3:
+            if intento == len(esperas):
                 raise
-            time.sleep(5 * (intento + 1))
+            time.sleep(esperas[intento])
 
 
 def _excel(rel: str, hoja):

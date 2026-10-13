@@ -55,6 +55,23 @@ def controlar(hoy: str):
         raise RuntimeError(f"datos.js demasiado chico ({len(t)} bytes)")
 
 
+def fechas_kpi(ruta: Path) -> dict:
+    """{sección/indicador: fecha} de todos los indicadores destacados de un datos.js."""
+    if not ruta.exists():
+        return {}
+    t = ruta.read_text(encoding="utf-8")
+    d = json.loads(t[len("window.DATOS = "):].rstrip().rstrip(";"))
+    return {f"{sec}/{k}": v["fecha"] for sec, x in d["secciones"].items()
+            for k, v in x.get("kpis", {}).items() if isinstance(v, dict) and "fecha" in v}
+
+
+def no_retrocede():
+    """Lista de indicadores que quedarían con un dato más viejo que el publicado (p. ej. si esta corrida no pudo
+    leer al INDEC y la que publicó antes sí). Vacía = se puede publicar."""
+    nuevo, publicado = fechas_kpi(AQUI / "demo" / "datos.js"), fechas_kpi(SITIO / "tablero" / "datos.js")
+    return [f"{k}: {nuevo[k]} < {publicado[k]}" for k in publicado if k in nuevo and nuevo[k] < publicado[k]]
+
+
 def sembrar(vintages: Path):
     """Sin vintages previos (primer uso en GitHub o caché vencida): parte del último vintage conocido,
     para poder rellenar lo que la API no devuelva y las series que solo existen en la computadora (pobreza)."""
@@ -115,6 +132,10 @@ def main(push: bool, usar_git: bool, nube: bool):
         sys.stdout = avisos.destino
     preparar_datos.main()
     controlar(hoy)
+    atras = no_retrocede()
+    if atras:
+        print("AVISO: no se publica: esta corrida tiene datos más viejos que los publicados -> " + "; ".join(atras))
+        return
     preparar_datos.publicar(SITIO)
     escribir_estado(avisos.lineas, "GitHub Actions" if nube else "computadora de AXIA")
     if nube:
