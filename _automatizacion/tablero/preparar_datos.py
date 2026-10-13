@@ -65,7 +65,7 @@ CLASES = {"01.1.1": "Pan y cereales", "01.1.2": "Carnes y derivados", "01.1.4": 
 REGIONES = ["Nacional", "GBA", "Pampeana", "Noreste", "Noroeste", "Cuyo", "Patagonia"]
 
 
-def ipc_indec(cual: str, horas=12) -> pd.DataFrame:
+def ipc_indec(cual: str, horas=1) -> pd.DataFrame:
     """Archivo de series del IPC del INDEC (caché local; si falla la descarga se usa la copia guardada).
     Devuelve columnas Codigo, Region, fecha, v (índice dic-2016 = 100)."""
     import requests
@@ -90,24 +90,24 @@ def ipc_indec(cual: str, horas=12) -> pd.DataFrame:
     return df[["Codigo", "Region", "fecha", "v"]]
 
 
-def ipc_categorias_regiones(horas=12) -> dict:
-    """Núcleo, regulados y estacionales por región, del cuadro mensual del INDEC sh_ipc_MM_AA.xls (MM_AA = mes de
-    publicación; se busca el más reciente hacia atrás). Devuelve {región: {categoría: serie}}."""
+def ipc_categorias_regiones(horas=1) -> dict:
+    """Núcleo, regulados y estacionales por región, del cuadro del INDEC sh_ipc_divisiones.xls (o, de respaldo, el
+    fechado sh_ipc_MM_AA.xls). Devuelve {región: {categoría: serie}}."""
     import requests
     cache = AQUI / "cache" / "sh_ipc.xls"
     viejo = not cache.exists() or (pd.Timestamp.now() - pd.Timestamp(cache.stat().st_mtime, unit="s")).total_seconds() > horas * 3600
     if viejo:
         hoy = pd.Timestamp.now()
-        for k in range(4):
-            m = (hoy - pd.DateOffset(months=k))
+        nombres = ["sh_ipc_divisiones.xls"] + [f"sh_ipc_{m:%m}_{m:%y}.xls" for m in (hoy - pd.DateOffset(months=k) for k in range(4))]
+        for nombre in nombres:   # nombre fijo primero; los fechados quedan de respaldo
             try:
-                r = requests.get(f"{URL_INDEC}sh_ipc_{m:%m}_{m:%y}.xls", timeout=180, headers={"User-Agent": "Mozilla/5.0"})
+                r = requests.get(f"{URL_INDEC}{nombre}", timeout=180, headers={"User-Agent": "Mozilla/5.0"})
                 if r.ok and r.content[:4] == b"\xd0\xcf\x11\xe0":   # archivo Excel (si no existe, el INDEC devuelve una página HTML)
                     cache.parent.mkdir(exist_ok=True)
                     cache.write_bytes(r.content)
                     break
             except Exception as e:
-                print(f"Aviso: no se pudo bajar sh_ipc_{m:%m}_{m:%y}.xls del INDEC -", e)
+                print(f"Aviso: no se pudo bajar {nombre} del INDEC -", e)
         else:
             if not cache.exists():
                 raise RuntimeError("No hay cuadro sh_ipc del INDEC ni copia guardada")

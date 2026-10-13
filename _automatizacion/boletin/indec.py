@@ -117,10 +117,11 @@ def ipc() -> dict:
     out["ipc"] = [pd.Series(pd.to_numeric(c.Indice_IPC.str.replace(",", "."), errors="coerce").values,
                             index=pd.to_datetime(c.Periodo, format="%Y%m")).dropna()]
     hoy = pd.Timestamp.today()
-    for k in range(3):                                   # sh_ipc_MM_AA.xls: MM_AA = mes de publicación
-        m = hoy - pd.DateOffset(months=k)
+    # cuadro por regiones con categorías: nombre fijo sh_ipc_divisiones.xls; de respaldo, sh_ipc_MM_AA.xls (mes de publicación)
+    nombres = ["economia/sh_ipc_divisiones.xls"] + [f"economia/sh_ipc_{m:%m}_{m:%y}.xls" for m in (hoy - pd.DateOffset(months=k) for k in range(3))]
+    for nombre in nombres:
         try:
-            x = _excel(f"economia/sh_ipc_{m:%m}_{m:%y}.xls", 2)
+            x = _excel(nombre, 2)
         except FileNotFoundError:
             continue
         fila0 = x.index[x.iloc[:, 0].astype(str).str.strip() == "Total nacional"][0]
