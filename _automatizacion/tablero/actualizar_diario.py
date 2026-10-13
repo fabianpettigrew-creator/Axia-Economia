@@ -82,7 +82,7 @@ class Avisos:
         self.destino.write(t)
         self._buf += t
         *completas, self._buf = self._buf.split("\n")
-        self.lineas += [x.strip() for x in completas if x.startswith("AVISO")]
+        self.lineas += [x.strip() for x in completas if x.upper().startswith("AVISO")]   # "AVISO" (descargas) y "Aviso" (INDEC, FMI, OCDE)
     def flush(self):
         self.destino.flush()
 
