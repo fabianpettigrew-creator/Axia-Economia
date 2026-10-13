@@ -57,7 +57,7 @@ jobs:
         run: |
           git config user.name "AXIA tablero (automático)"
           git config user.email "info@axiaeconomia.ar"
-          git add tablero/index.html tablero/datos.js
+          git add tablero/index.html tablero/datos.js tablero/estado.json
           if git diff --cached --quiet; then
             echo "Sin cambios en el tablero"; exit 0
           fi

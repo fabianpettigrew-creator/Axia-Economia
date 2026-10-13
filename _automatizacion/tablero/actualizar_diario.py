@@ -74,6 +74,29 @@ def podar(vintages: Path, dejar=3):
             viejo.unlink()
 
 
+class Avisos:
+    """Copia la salida al destino de siempre y junta las líneas AVISO (series que no respondieron)."""
+    def __init__(self, destino):
+        self.destino, self.lineas, self._buf = destino, [], ""
+    def write(self, t):
+        self.destino.write(t)
+        self._buf += t
+        *completas, self._buf = self._buf.split("\n")
+        self.lineas += [x.strip() for x in completas if x.startswith("AVISO")]
+    def flush(self):
+        self.destino.flush()
+
+
+def escribir_estado(avisos: list[str], origen: str):
+    """tablero/estado.json: cuándo y dónde corrió la actualización y qué series se rellenaron con el día anterior."""
+    import re
+    rellenas = sorted({m.group(1) for a in avisos if (m := re.match(r"AVISO: (\w+): \d+ dato", a))})
+    estado = {"actualizado": dt.datetime.now().strftime("%Y-%m-%d %H:%M"), "origen": origen,
+              "series_rellenas_con_el_dia_anterior": rellenas,
+              "otros_avisos": [a for a in avisos if not re.match(r"AVISO: \w+: \d+ dato", a)]}
+    (SITIO / "tablero" / "estado.json").write_text(json.dumps(estado, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
 def main(push: bool, usar_git: bool, nube: bool):
     import datos
     import preparar_datos
@@ -83,15 +106,21 @@ def main(push: bool, usar_git: bool, nube: bool):
     if usar_git:
         git("pull", "--ff-only", "-q")        # por si se subieron cambios al sitio desde otro lado
     sembrar(datos.VINTAGES)
-    print("Vintage:", datos.actualizar(forzar=True))
+    avisos = Avisos(sys.stdout)
+    sys.stdout = avisos
+    try:
+        print("Vintage:", datos.actualizar(forzar=True))
+    finally:
+        sys.stdout = avisos.destino
     preparar_datos.main()
     controlar(hoy)
     preparar_datos.publicar(SITIO)
+    escribir_estado(avisos.lineas, "GitHub Actions" if nube else "computadora de AXIA")
     if nube:
         podar(datos.VINTAGES)
     if not usar_git:
         return
-    git("add", "tablero/index.html", "tablero/datos.js")
+    git("add", "tablero/index.html", "tablero/datos.js", "tablero/estado.json")
     if not git("diff", "--cached", "--name-only"):
         print("Sin cambios en el tablero: no hay nada que publicar")
     else:
