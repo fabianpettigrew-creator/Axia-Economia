@@ -165,9 +165,17 @@ def _parse_rem(contenido: bytes) -> pd.DataFrame:
     return out
 
 
+LIBRO_LABORAL = AQUI.parent / "salida" / "laboral-social.xlsx"
+POBREZA_CSV = AQUI.parent / "datos_locales" / "pobreza.csv"   # copia de la serie para GitHub Actions (sin el Excel)
+
+
 def pobreza() -> pd.Series:
-    """Pobreza en personas, total país (INDEC), desde el libro laboral-social del Boletín."""
-    x = pd.read_excel(AQUI.parent / "salida" / "laboral-social.xlsx", sheet_name="Pobreza Nueva met", header=None)
+    """Pobreza en personas, total país (INDEC), desde el libro laboral-social del Boletín.
+    Donde no está el Excel (GitHub Actions) usa la copia datos_locales/pobreza.csv que sube tablero/vigilar_excel.py."""
+    if not LIBRO_LABORAL.exists() and POBREZA_CSV.exists():
+        c = pd.read_csv(POBREZA_CSV, parse_dates=["fecha"])
+        return pd.Series(c.valor.values, index=c.fecha).sort_index()
+    x = pd.read_excel(LIBRO_LABORAL, sheet_name="Pobreza Nueva met", header=None)
     anios = x.iloc[3].ffill()
     sem = x.iloc[4].ffill()
     fila = x[x[1].astype(str).str.strip() == "Total País"].iloc[0]
