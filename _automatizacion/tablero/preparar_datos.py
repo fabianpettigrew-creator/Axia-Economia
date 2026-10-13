@@ -232,7 +232,7 @@ def main():
     ipc = d["ipc"]
     sec["precios"] = {
         "kpis": {"mensual": kv(ipc.index[-1], C.var(ipc).iloc[-1]), "interanual": kv(ipc.index[-1], C.ia(ipc).iloc[-1]),
-                 "nucleo": kv(ipc.index[-1], C.var(d["ipc_nucleo"]).iloc[-1]), "rem12": ult(d["rem_ipc12"], 1)},
+                 "nucleo": ult(C.var(d["ipc_nucleo"])), "rem12": ult(d["rem_ipc12"], 1)},
         "mensual": {"Nivel general": serie(C.var(ipc)["2017":], 1)},
         "brechas": brechas(d),
     }

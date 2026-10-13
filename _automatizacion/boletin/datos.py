@@ -188,6 +188,38 @@ def pobreza() -> pd.Series:
     return pd.Series(out).sort_index()
 
 
+INDEC_FTP = "https://www.indec.gob.ar/ftp/cuadros/economia/"
+
+
+def ipc_indec() -> dict[str, pd.Series]:
+    """IPC nacional directo de los archivos del INDEC (índices dic-2016 = 100, los mismos de la API).
+    El día de la publicación el INDEC los sube a las 16 y la API de datos.gob.ar tarda horas o días en reflejarlo.
+    Nivel general: serie_ipc_divisiones.csv. Núcleo, regulados y estacionales: cuadro sh_ipc_MM_AA.xls más reciente."""
+    hdr = {"User-Agent": "Mozilla/5.0"}
+    out = {}
+    r = requests.get(INDEC_FTP + "serie_ipc_divisiones.csv", headers=hdr, timeout=120)
+    r.raise_for_status()
+    c = pd.read_csv(io.StringIO(r.content.decode("latin-1")), sep=";", dtype={"Codigo": str, "Periodo": str})
+    c = c[(c.Codigo == "0") & (c.Region == "Nacional")]
+    out["ipc"] = pd.Series(pd.to_numeric(c.Indice_IPC.str.replace(",", "."), errors="coerce").values,
+                           index=pd.to_datetime(c.Periodo, format="%Y%m")).dropna()
+    hoy = pd.Timestamp.today()
+    for k in range(3):                                  # sh_ipc_MM_AA.xls: MM_AA = mes de publicación
+        m = hoy - pd.DateOffset(months=k)
+        r = requests.get(f"{INDEC_FTP}sh_ipc_{m:%m}_{m:%y}.xls", headers=hdr, timeout=120)
+        if r.ok and r.content[:4] == b"\xd0\xcf\x11\xe0":
+            x = pd.read_excel(io.BytesIO(r.content), sheet_name=2, header=None)
+            fila0 = x.index[x.iloc[:, 0].astype(str).str.strip() == "Total nacional"][0]
+            fechas = pd.to_datetime(x.iloc[fila0, 1:], errors="coerce")
+            fin = x.index[x.iloc[:, 0].astype(str).str.startswith("Región")][0]   # solo el bloque nacional
+            for clave, etiqueta in (("ipc_nucleo", "Núcleo"), ("ipc_reg", "Regulados"), ("ipc_est", "Estacional")):
+                f = x.loc[fila0:fin][x.loc[fila0:fin].iloc[:, 0].astype(str).str.strip() == etiqueta].iloc[0]
+                s = pd.Series(pd.to_numeric(f.iloc[1:].values, errors="coerce"), index=fechas.values)
+                out[clave] = s[s.index.notna()].dropna()
+            break
+    return out
+
+
 def descargar() -> pd.DataFrame:
     """Baja todo el catálogo y devuelve el formato largo (fecha, clave, valor)."""
     cat = catalogo()
@@ -197,10 +229,21 @@ def descargar() -> pd.DataFrame:
         largo.append(pd.DataFrame({"fecha": s.index, "clave": clave, "valor": s.values}))
 
     # la API de series agrega a la frecuencia más baja si se mezclan: se pide por frecuencia
+    try:
+        indec = ipc_indec()
+    except Exception as e:
+        print(f"AVISO: no se pudieron leer los archivos del IPC del INDEC: {e}")
+        indec = {}
     for frec, ser in cat[cat.fuente == "series"].groupby("frec"):
         df = api_series(list(ser.id))
         for clave, sid in ser.id.items():
-            agregar(clave, df[sid])
+            s = df[sid].dropna()
+            extra = indec.get(clave)
+            if extra is not None and len(s) and len(extra) and extra.index[-1] > s.index[-1]:
+                nuevos = extra[extra.index > s.index[-1]]   # meses que el INDEC ya publicó y la API todavía no
+                s = pd.concat([s, nuevos])
+                print(f"INDEC: {clave} completada hasta {nuevos.index[-1]:%Y-%m} con los archivos del INDEC (la API todavía no lo tiene)")
+            agregar(clave, s)
     fetch = {"bcra": lambda i: api_bcra(int(i)), "fred": api_fred, "yahoo": api_yahoo,
              "argdatos": api_argdatos, "libro": lambda i: pobreza()}
     for clave, fila in cat[cat.fuente != "series"].iterrows():
