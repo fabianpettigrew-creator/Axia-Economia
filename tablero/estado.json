@@ -1,10 +1,12 @@
 {
- "actualizado": "2026-10-13 19:54",
+ "actualizado": "2026-10-13 20:49",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
+  "brl",
   "emae",
   "emae_de",
   "emae_tc",
+  "eph_empleo",
   "eurusd",
   "expo",
   "financiero",
@@ -16,8 +18,12 @@
   "isac",
   "m_cyl",
   "m_pzas",
+  "rec_cheq",
   "rec_comb",
+  "rec_contr",
+  "rec_gan",
   "rec_iva",
+  "rec_total",
   "s_adm",
   "s_agro",
   "s_com",
@@ -36,10 +42,6 @@
   "x_cye",
   "x_moi"
  ],
- "series_con_dato_nuevo_del_indec": [
-  "ipc_nucleo con dato a 2026-09 (la API llegaba a 2026-08)",
-  "ipc_reg con dato a 2026-09 (la API llegaba a 2026-08)",
-  "ipc_est con dato a 2026-09 (la API llegaba a 2026-08)"
- ],
+ "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": []
 }
