@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tablero macro · AXIA</title>
+<meta name="description" content="Tablero macroeconómico de AXIA: actividad, precios, dólar, empleo, comercio exterior, variables monetarias, mercados e internacional, con gráficos interactivos y series para descargar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 46'%3E%3Ccircle cx='23' cy='23' r='20.5' fill='%23fff' stroke='%231a2233' stroke-width='3'/%3E%3Cpath d='M14 27 L23 15 L32 27' fill='none' stroke='%23b8874a' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="datos.js?v=c7f40de6"></script>
+<style>
+/* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
+:root{
+  --bg:#f7f4ee; --paper:#fffdf9; --ink:#1a2233; --ink-2:#4b5466; --ink-3:#6a7382; --rule:#ddd6c9; --rule-2:#ebe5da;
+  --navy:#1a2233; --gold:#b8874a; --soft:#f2ece1; --bar-soft:#a9c9f0;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --pos:#2a78d6; --neg:#e34948;
+  --display:"Cormorant Garamond",Georgia,serif; --ui:Manrope,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--ui);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.top{position:sticky;top:0;z-index:20;background:rgba(247,244,238,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.top .fila{max-width:1160px;margin:0 auto;height:64px;padding:0 clamp(16px,3vw,32px);display:flex;align-items:center;gap:18px}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo b{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:.2em;color:var(--ink)}
+.logo small{display:block;font-size:8px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-3)}
+.top .sep{width:1px;height:26px;background:var(--rule)}
+.top .nombre{font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-decoration:none}
+.top .esp{flex:1}
+.top .act{font-size:12.5px;color:var(--ink-3)}
+.navb{display:flex;flex-wrap:wrap;gap:6px;max-width:1160px;margin:0 auto;padding:0 clamp(16px,3vw,32px) 10px;scrollbar-width:none}
+.navb::-webkit-scrollbar{display:none}
+.navb a{white-space:nowrap;text-decoration:none;font-size:13.5px;padding:6px 12px;border:1px solid var(--rule);border-radius:999px;color:var(--ink-2)}
+.navb a:hover{border-color:var(--gold);color:var(--gold)}
+.navb a.on{background:var(--navy);border-color:var(--navy);color:#fff}
+
+main{max-width:1060px;margin:0 auto;padding:clamp(24px,4vw,44px) clamp(16px,3vw,32px) 64px}
+
+/* portada */
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+h1{font-family:var(--display);font-weight:500;font-size:clamp(34px,4.6vw,54px);line-height:1.05;letter-spacing:-.01em;margin-top:10px;text-wrap:balance}
+.bajada{color:var(--ink-2);max-width:62ch;margin-top:12px;font-size:16px}
+.bloque{margin-top:clamp(30px,4vw,46px)}
+.bloque-tit{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:16px}
+.bloque-tit h2{font-family:var(--display);font-weight:500;font-size:27px}
+.bloque-tit span{font-size:13px;color:var(--ink-3)}
+.grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,235px),1fr));gap:14px}
+.tarjeta{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:18px 18px 16px;text-decoration:none;transition:border-color .15s,transform .15s}
+.tarjeta:hover{border-color:var(--gold);transform:translateY(-1px)}
+.tarjeta svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.tarjeta h3{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.15;margin-top:6px}
+.tarjeta p{font-size:13.5px;color:var(--ink-2);line-height:1.45}
+.tarjeta .dato{margin-top:auto;padding-top:10px;border-top:1px solid var(--rule-2);display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12.5px;color:var(--ink-3)}
+.tarjeta .dato b{font-size:17px;font-weight:600;color:var(--ink);white-space:nowrap}
+.grilla.secs{grid-template-columns:repeat(4,minmax(0,1fr))}
+.mini{margin:6px 0 0}
+.tarjeta .mini svg{display:block;width:100%;height:64px;stroke:none}
+.mini figcaption{font-size:11px;color:var(--ink-3);margin-top:4px}
+.tarjeta.pedido{background:linear-gradient(180deg,#fffdf9,#f8f3ea)}
+.chip{position:absolute;top:14px;right:14px;font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--soft);color:#8f6531}
+
+/* sección */
+.migas{font-size:12.5px;color:var(--ink-3)}
+.migas a{text-decoration:none;border-bottom:1px solid var(--rule)}
+.cab{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--navy);padding-bottom:14px;margin-top:6px}
+.cab h1{font-size:clamp(32px,4vw,46px);margin-top:4px}
+.cab .sub{color:var(--ink-2);margin-top:4px}
+.pill{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);background:var(--soft);border:1px solid var(--rule);border-radius:999px;padding:5px 12px;white-space:nowrap}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--rule)}
+.kpi{padding:18px 16px 16px;min-width:0}
+.kpi+.kpi{border-left:1px solid var(--rule)}
+.kpi .e{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.kpi .v{font-weight:600;font-size:30px;letter-spacing:-.02em;line-height:1.15;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi .d{font-size:12.5px;color:var(--ink-3)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none;margin-top:22px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{background:none;border:0;padding:12px 12px 10px;font-size:14px;font-weight:600;color:var(--ink-3);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tabs button:first-child{padding-left:0}
+.tabs button.on{color:var(--ink);border-color:var(--gold)}
+.herr{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding-top:16px}
+.herr .tit{font-weight:600;font-size:16px;margin-right:auto}
+.herr .tit small{display:block;font-weight:400;font-size:12.5px;color:var(--ink-3)}
+.rangos{display:inline-flex;border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.rangos button{background:none;border:0;padding:5px 10px;font-size:12.5px;color:var(--ink-2)}
+.rangos button+button{border-left:1px solid var(--rule)}
+.rangos button.on{background:var(--navy);color:#fff}
+.btn{background:none;border:1px solid var(--rule);border-radius:4px;padding:5px 11px;font-size:12.5px;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn:hover{border-color:var(--gold);color:var(--gold)}
+/* G20 */
+.g20ctl{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+.g20ctl .fila{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.g20ctl label{font-size:12.5px;color:var(--ink-3);display:inline-flex;align-items:center;gap:8px}
+.g20ctl select{font:inherit;font-size:13px;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:5px 8px;max-width:100%}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.seg button{background:none;border:0;padding:6px 12px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button.on{background:var(--navy);color:#fff}
+.tabla-g20{margin-top:14px;overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--paper)}
+.tabla-g20 table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.tabla-g20 th,.tabla-g20 td{padding:7px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--rule-2)}
+.tabla-g20 thead th{position:sticky;top:0;background:var(--bg);font-size:12px;font-weight:600;color:var(--ink-2);cursor:pointer;vertical-align:bottom;user-select:none}
+.tabla-g20 thead th:hover{color:var(--gold)}
+.tabla-g20 thead th small{display:block;font-weight:400;color:var(--ink-3);font-size:11px}
+.tabla-g20 th:first-child{text-align:left;position:sticky;left:0;background:inherit;z-index:1}
+.tabla-g20 tbody th{font-weight:500;background:var(--paper)}
+.tabla-g20 td.neg{color:var(--neg)}
+.tabla-g20 tr.arg th,.tabla-g20 tr.arg td{background:#f6ecdc;font-weight:600}
+/* columna fija (país / componente): fondo opaco para que no se vea lo que pasa por debajo al desplazar */
+.tabla-g20 tbody th:first-child{background:var(--paper)}
+.tabla-g20 thead th:first-child{background:var(--bg);z-index:2}
+.tabla-g20 tbody tr.arg th:first-child{background:#f6ecdc}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.cats{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.cat{font-size:10px;font-weight:600;font-style:normal;letter-spacing:.02em;padding:1px 7px;border-radius:999px;color:#fff;border:1px solid transparent;line-height:1.5}
+.cat.nuc{background:#1a2233}.cat.reg{background:#b8874a}.cat.est{background:#3d6fa8}
+.cat.sec{background:transparent}.cat.nuc.sec{color:#1a2233;border-color:#1a2233}.cat.reg.sec{color:#8f6531;border-color:#b8874a}.cat.est.sec{color:#3d6fa8;border-color:#3d6fa8}
+.pills button{font-size:12.5px;padding:5px 12px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);color:var(--ink-2)}
+.pills button:hover{border-color:var(--gold);color:var(--gold)}
+.pills button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.tabla-g20 table.calor{width:100%;font-size:12.5px}
+.tabla-g20 table.calor td{text-align:center;padding:7px 8px;min-width:78px;border-bottom:1px solid rgba(255,255,255,.6);border-right:1px solid rgba(255,255,255,.6)}
+.tabla-g20 table.calor thead th{text-align:center;font-weight:600;font-size:12px;padding:7px 6px;white-space:normal}
+.tabla-g20 table.calor thead th:first-child,.tabla-g20 table.calor tbody th{text-align:left;min-width:170px}
+.tabla-g20 table.calor tr.gen td{color:var(--ink-3);font-style:italic;background:var(--bg)}
+.tabla-g20 .per{display:block;font-size:10.5px;font-weight:400;color:var(--ink-3);margin-top:1px}
+.tabla-g20 .per.anual{font-style:italic;opacity:.8}
+.tabla-g20 tr.agr th,.tabla-g20 tr.agr td{color:var(--ink-3);font-style:italic}
+.lienzo{position:relative;height:400px;padding-top:10px}
+.fuente{font-size:12px;color:var(--ink-3);margin-top:6px}
+.nota{background:var(--soft);border-left:3px solid var(--gold);padding:12px 16px;margin-top:20px;font-size:14px;color:var(--ink-2);border-radius:2px}
+
+/* a pedido */
+.pedido-box{background:var(--navy);color:#fff;border-radius:4px;padding:clamp(24px,4vw,40px);margin-top:24px}
+.pedido-box h2{font-family:var(--display);font-weight:500;font-size:30px;line-height:1.15}
+.pedido-box p{color:rgba(255,255,255,.82);margin-top:10px;max-width:60ch}
+.pedido-box ul{margin:16px 0 0 18px;color:rgba(255,255,255,.88)}
+.pedido-box li{margin-top:4px}
+.contacto{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.contacto a{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:2px;text-decoration:none;font-size:14px;font-weight:600}
+.contacto .c1{background:var(--gold);color:#fff}
+.contacto .c2{border:1px solid rgba(255,255,255,.4);color:#fff}
+.contacto a:hover{filter:brightness(1.08)}
+
+.pie{max-width:1060px;margin:0 auto;padding:22px clamp(16px,3vw,32px) 40px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+.pie a{color:var(--ink-2)}
+
+@media (max-width:1000px){ .grilla.secs{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .grilla.secs{grid-template-columns:1fr} }
+@media (max-width:760px){
+  /* en celular las pastillas no entran en dos líneas: vuelven a desplazarse */
+  .navb{flex-wrap:nowrap;overflow-x:auto}
+  .g20ctl label{width:100%}
+  .tabla-g20 table.calor thead th:first-child,.tabla-g20 table.calor tbody th{min-width:118px;max-width:118px;white-space:normal;line-height:1.25}
+  .g20ctl select{flex:1;min-width:0}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpi:nth-child(3){border-left:0}
+  .kpi:nth-child(n+3){border-top:1px solid var(--rule)}
+  .kpi .v{font-size:clamp(17px,5.4vw,22px)}
+  .top .sep,.top .nombre,.top .act{display:none}
+  .lienzo{height:300px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="fila">
+    <a class="logo" href="/" aria-label="AXIA, ir al sitio">
+      <svg width="32" height="32" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.6"/><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>AXIA</b><small>Consultora Económica</small></span>
+    </a>
+    <span class="sep" aria-hidden="true"></span><a class="nombre" href="#inicio">Tablero macro</a>
+    <span class="esp"></span><span class="act" id="act"></span>
+  </div>
+  <nav class="navb" id="navb" aria-label="Secciones del tablero"></nav>
+</header>
+
+<main id="vista"></main>
+<footer class="pie"><span>AXIA · Consultora Económica · <a href="https://axiaeconomia.ar">axiaeconomia.ar</a></span><span>Datos públicos oficiales y de mercado; pueden ser revisados por los organismos productores.</span></footer>
+
+<script>
+const D = window.DATOS, S = D.secciones;
+const MES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const MESL = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const ROM = ["I","II","III","IV"];
+const CSSV = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fnum = (v, dec=1) => (v < 0 ? "−" : "") + Math.abs(v).toLocaleString("es-AR", {minimumFractionDigits:dec, maximumFractionDigits:dec});
+const fsig = (v, dec=1) => (v > 0 ? "+" : "") + fnum(v, dec);
+const fecha = s => { const [a,m,d] = s.split("-"); return `${+d} de ${MESL[+m-1]} de ${a}`; };
+const mesAnio = s => { const [a,m] = s.split("-"); return `${MESL[+m-1]} ${a}`; };
+const corto = s => { const [a,m] = s.split("-"); return `${MES[+m-1]}-${a.slice(2)}`; };
+const trim = s => { const [a,m] = s.split("-"); return `${ROM[Math.floor((+m-1)/3)]}-${a.slice(2)}`; };
+const trimLargo = s => { const [a,m] = s.split("-"); return `${["primer","segundo","tercer","cuarto"][Math.floor((+m-1)/3)]} trimestre ${a}`; };
+const sem = s => { const [a,m] = s.split("-"); return `${+m<7?"1S":"2S"}-${a.slice(2)}`; };
+const semLargo = s => { const [a,m] = s.split("-"); return `${+m<7?"primer":"segundo"} semestre ${a}`; };
+const MAIL = "info@axiaeconomia.ar";
+const WA = "https://wa.me/5491137602415?text=" + encodeURIComponent("Hola, me comunico desde el Tablero macro de AXIA");
+
+const ICON = {
+  actividad:'<path d="M3 12h4l3-7 4 14 3-7h4"/>', empleo:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c.6-3.4 3-5.4 6-5.4s5.4 2 6 5.4"/><path d="M16 5.5a3 3 0 0 1 0 5.6M18 14.6c1.6.7 2.7 2.4 3 5.4"/>',
+  precios:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.4"/>', 'tipo-cambio':'<path d="M12 3v18M16.5 7.5c0-1.9-2-3-4.5-3s-4.5 1.2-4.5 3.2 2 2.8 4.5 3.3 4.5 1.4 4.5 3.4-2 3.1-4.5 3.1-4.5-1.1-4.5-3"/>',
+  comercio:'<path d="M4 8h13l-3-3M20 16H7l3 3"/>', monetarias:'<rect x="3" y="6" width="18" height="12" rx="1.5"/><circle cx="12" cy="12" r="2.6"/>',
+  mercados:'<path d="M4 20V10M10 20V5M16 20v-7M22 20H2"/>', internacional:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/>',
+  pib:'<path d="M3 20h18M5 16l4-5 4 3 6-8"/><circle cx="19" cy="6" r="1.3"/>', sectorial:'<rect x="3" y="3" width="7.5" height="7.5"/><rect x="13.5" y="3" width="7.5" height="7.5"/><rect x="3" y="13.5" width="7.5" height="7.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5"/>',
+  series:'<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'
+};
+const svg = k => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICON[k]||""}</svg>`;
+const K = id => S[id].kpis;
+
+// ---------- secciones ----------
+const SECCIONES = [
+  {id:"actividad", t:"Actividad", p:"EMAE, sectores, industria y construcción.", dato:()=>["EMAE mensual", fsig(K("actividad").emae_mm.valor)+"%"],
+   mini:{d:()=>S.actividad.emae["Desestacionalizado"], desde:36, et:"EMAE desestacionalizado, 3 años"}},
+  {id:"precios", t:"Precios", p:"Inflación mensual e interanual por categoría y expectativas del REM.", dato:()=>["IPC mensual", fnum(K("precios").mensual.valor)+"%"],
+   mini:{d:()=>S.precios.mensual["Nivel general"], desde:24, tipo:"bar", et:"Inflación mensual, 2 años"}},
+  {id:"tipo-cambio", t:"Tipo de cambio", p:"Mayorista, contado con liquidación, informal y brecha.", dato:()=>["Mayorista", "$ "+fnum(K("tipo-cambio").oficial.valor, 2)],
+   mini:{d:()=>S["tipo-cambio"].cotizaciones["Mayorista (A3500)"], desde:250, et:"Mayorista diario, 1 año"}},
+  {id:"empleo", t:"Empleo y salarios", p:"Desocupación, empleo registrado, salario real y pobreza.", dato:()=>["Desocupación", fnum(K("empleo").desoc.valor)+"%"],
+   mini:{d:()=>S.empleo.eph["Tasa de desocupación"], desde:20, et:"Desocupación trimestral, 5 años"}},
+  {id:"comercio", t:"Comercio exterior", p:"Exportaciones, importaciones, saldo comercial y rubros.", dato:()=>["Saldo "+K("comercio").saldo_acum.fecha.slice(0,4), "US$ "+fnum(K("comercio").saldo_acum.valor/1e3,1)+" mil M"],
+   mini:{d:()=>S.comercio.saldo["Saldo comercial"], desde:24, tipo:"bar", signo:true, et:"Saldo comercial mensual, 2 años"}},
+  {id:"monetarias", t:"Monetarias", p:"Reservas, compras del BCRA, tasas, crédito y depósitos.", dato:()=>["Reservas", "US$ "+fnum(K("monetarias").reservas.valor,0)+" M"],
+   mini:{d:()=>S.monetarias.reservas["Reservas brutas"], desde:250, et:"Reservas diarias, 1 año"}},
+  {id:"mercados", t:"Mercados", p:"Riesgo país, Merval en dólares y acciones líderes.", dato:()=>["Riesgo país", fnum(K("mercados").riesgo.valor,0)+" pb"],
+   mini:{d:()=>S.mercados.riesgo["Riesgo país"], desde:250, et:"Riesgo país diario, 1 año"}},
+  {id:"internacional", t:"Internacional", p:"Tasas de EE.UU., commodities, monedas y bolsas.", dato:()=>["Brent", "US$ "+fnum(K("internacional").brent.valor,1)],
+   mini:{d:()=>S.internacional.commodities["Petróleo Brent"], desde:250, et:"Brent diario, 1 año"}},
+];
+const PEDIDO = [
+  {id:"pib", t:"Pronóstico del PIB", p:"Modelo propio de AXIA: nowcast trimestral, escenarios y comparación con el REM.",
+   detalle:["Pronóstico del PIB trimestral y anual, con banda de error","Comparación con el consenso del mercado (REM)","Escenarios alternativos y supuestos explícitos"]},
+  {id:"sectorial", t:"Modelo sectorial", p:"Proyección por sector de oferta con supuestos editables.",
+   detalle:["Diez bloques sectoriales que suman el PIB","Simulador de escenarios en Excel","Sensibilidad a Brasil, M2 real, importaciones y precios"]},
+  {id:"series", t:"Series largas", p:"Base histórica del Boletín Estadístico en Excel, actualizada cada mes.",
+   detalle:["Nueve libros temáticos: actividad, precios, monetario, fiscal, externo, laboral, internacional, mercados y proyecciones","Series desde los años noventa, empalmadas","Actualización mensual con fuentes oficiales"]},
+];
+
+// Cada solapa: d = datos; tipo line|bar|hbar; u = unidad ($, %, pb, US$ M...); dec; rango inicial; signo (barras por signo); rebase (índice 100)
+const DEF = {
+  "actividad": {sub:"Estimador Mensual de Actividad Económica (EMAE) e indicadores sectoriales", fuente:"INDEC", mensual:true,
+    ultimo:k=>k.emae_mm.fecha,
+    kpis:k=>[["EMAE mensual",fsig(k.emae_mm.valor)+"%","desestacionalizado · "+mesAnio(k.emae_mm.fecha)],["EMAE interanual",fsig(k.emae_ia.valor)+"%",mesAnio(k.emae_ia.fecha)],
+             ["Industria (IPI)",fsig(k.ipi_ia.valor)+"%","interanual · "+mesAnio(k.ipi_ia.fecha)],["Construcción (ISAC)",fsig(k.isac_ia.valor)+"%","interanual · "+mesAnio(k.isac_ia.fecha)]],
+    tabs:[{n:"EMAE", t:"Estimador Mensual de Actividad Económica", st:"Índice 2004=100", d:x=>x.emae, tipo:"line", u:"", dec:1, rango:"5A"},
+          {n:"Sectores", t:"EMAE por sector", st:x=>"Variación % interanual, "+mesAnio(x.mes_sectores), d:x=>x.sectores, tipo:"hbar", u:"%", dec:1,
+           pie:x=>Object.entries(x.sectores_fuera||{}).map(([n,v])=>`${n}: ${fsig(v,0)}% (fuera de escala por efecto base)`).join(" · ")},
+          {n:"Indicadores", t:"Indicadores de actividad", st:"Variación % interanual", d:x=>x.indicadores, tipo:"line", u:"%", dec:1, rango:"2A"}],
+    nota:"La serie desestacionalizada permite comparar un mes con el anterior; la tendencia-ciclo filtra la volatilidad y muestra la dirección de fondo."},
+  "precios": {sub:"Índice de precios al consumidor del INDEC y expectativas del REM", fuente:"INDEC y BCRA (REM)", mensual:true,
+    ultimo:k=>k.mensual.fecha,
+    kpis:k=>[["Inflación mensual",fnum(k.mensual.valor)+"%",mesAnio(k.mensual.fecha)],["Interanual",fnum(k.interanual.valor)+"%",mesAnio(k.interanual.fecha)],
+             ["Núcleo mensual",fnum(k.nucleo.valor)+"%","sin regulados ni estacionales"],["Esperada 12 meses",fnum(k.rem12.valor)+"%","mediana del REM"]],
+    tabs:[{n:"Mensual", t:"Inflación mensual", st:"IPC nacional, variación % mensual", d:x=>x.mensual, tipo:"bar", u:"%", dec:1, rango:"5A"},
+          {n:"Por categoría", t:"Inflación por categoría", st:()=>`IPC ${regionCat==="Nacional" ? "total nacional" : "región " + regionCat}, variación % interanual`,
+           d:x=>catPorRegion(x.brechas, regionCat), regiones:true, tipo:"line", u:"%", dec:1, rango:"5A", barras:["Nivel general"]},
+          {n:"Brechas", t:"Brechas con el nivel general", tipo:"brechas"}],
+    nota:"La núcleo excluye regulados (tarifas, combustibles) y estacionales (frutas, verduras, ropa): es la mejor medida de la tendencia."},
+  "tipo-cambio": {sub:"Mayorista (A3500), contado con liquidación, informal y brecha", fuente:"BCRA y ArgentinaDatos",
+    ultimo:k=>k.oficial.fecha,
+    kpis:k=>[["Mayorista A3500","$ "+fnum(k.oficial.valor,2),`${fsig(k.oficial_30d)}% en 30 días`],["Contado con liqui","$ "+fnum(k.ccl.valor,0),fecha(k.ccl.fecha)],
+             ["Informal","$ "+fnum(k.blue.valor,0),fecha(k.blue.fecha)],["Brecha CCL",fnum(k.brecha.valor)+"%","CCL / mayorista"]],
+    tabs:[{n:"Cotizaciones", t:"Tipo de cambio", st:"Pesos por dólar, datos diarios", d:x=>x.cotizaciones, tipo:"line", u:"$", dec:0, rango:"2A"},
+          {n:"Brecha", t:"Brecha cambiaria", st:"Contado con liquidación sobre mayorista, %", d:x=>x.brecha, tipo:"line", u:"%", dec:1, rango:"2A"}],
+    nota:"El mayorista es la referencia oficial del BCRA (Comunicación A3500). La brecha mide cuánto más caro está el dólar financiero."},
+  "empleo": {sub:"Mercado de trabajo (EPH), empleo registrado (SIPA), salarios y pobreza", fuente:"INDEC y SIPA",
+    ultimo:k=>k.sal_real.fecha, mensual:true,
+    kpis:k=>[["Desocupación",fnum(k.desoc.valor)+"%",`${trimLargo(k.desoc.fecha)} · un año antes ${fnum(k.desoc_ant)}%`],
+             ["Salario real",fsig(k.sal_real.valor)+"%","registrado privado, interanual · "+mesAnio(k.sal_real.fecha)],
+             ["Empleo privado",fnum(k.sipa.valor,0)+" mil",`${fsig(k.sipa_var,0)} mil en 12 meses · ${mesAnio(k.sipa.fecha)}`],
+             ["Pobreza",fnum(k.pobreza.valor)+"%","personas · "+semLargo(k.pobreza.fecha)]],
+    tabs:[{n:"Desocupación", t:"Principales tasas del mercado de trabajo", st:"% de la población, 31 aglomerados urbanos (EPH)", d:x=>x.eph, tipo:"line", u:"%", dec:1, rango:"5A"},
+          {n:"Salario real", t:"Salario real registrado", st:"Índice diciembre 2023 = 100, deflactado por el IPC", d:x=>x.salario, tipo:"line", u:"", dec:1, rango:"Todo"},
+          {n:"Empleo registrado", t:"Asalariados registrados del sector privado", st:"Miles de personas, serie sin estacionalidad (SIPA)", d:x=>x.sipa, tipo:"line", u:"mil", dec:0, rango:"5A"},
+          {n:"Pobreza", t:"Pobreza", st:"% de personas bajo la línea de pobreza, por semestre", d:x=>x.pobreza, tipo:"bar", u:"%", dec:1, rango:"Todo"}],
+    nota:"El salario real compara los salarios registrados con la inflación. El índice de salarios no registrados no se incluye porque el INDEC lo publica con cinco meses de rezago."},
+  "comercio": {sub:"Intercambio comercial argentino: exportaciones, importaciones y saldo", fuente:"INDEC", mensual:true,
+    ultimo:k=>k.expo.fecha,
+    kpis:k=>[["Exportaciones","US$ "+fnum(k.expo.valor,0)+" M",`${fsig(k.expo_ia)}% interanual · ${mesAnio(k.expo.fecha)}`],
+             ["Importaciones","US$ "+fnum(k.impo.valor,0)+" M",`${fsig(k.impo_ia)}% interanual · ${mesAnio(k.impo.fecha)}`],
+             ["Saldo del mes","US$ "+fnum(k.saldo.valor,0)+" M",mesAnio(k.saldo.fecha)],
+             ["Saldo del año","US$ "+fnum(k.saldo_acum.valor/1e3,1)+" mil M","acumulado enero–"+MESL[+k.saldo_acum.fecha.slice(5,7)-1]]],
+    tabs:[{n:"Exportaciones e importaciones", t:"Exportaciones e importaciones de bienes", st:"Acumulado 12 meses, miles de millones de dólares", d:x=>x.doce, tipo:"line", u:"US$ mil M", dec:1, rango:"5A"},
+          {n:"Saldo comercial", t:"Saldo comercial mensual", st:"Millones de dólares", d:x=>x.saldo, tipo:"bar", u:"US$ M", dec:0, rango:"2A", signo:true},
+          {n:"Exportaciones por rubro", t:"Exportaciones por rubro", st:"Acumulado 12 meses, miles de millones de dólares", d:x=>x.rubros, tipo:"line", u:"US$ mil M", dec:1, rango:"5A"},
+          {n:"Importaciones por uso", t:"Importaciones por uso económico", st:"Acumulado 12 meses, miles de millones de dólares", d:x=>x.usos, tipo:"line", u:"US$ mil M", dec:1, rango:"5A"}],
+    nota:"El acumulado de 12 meses suaviza la estacionalidad de la cosecha y permite ver la tendencia del comercio."},
+  "monetarias": {sub:"Reservas, mercado de cambios, tasas de interés, crédito y depósitos", fuente:"BCRA e INDEC",
+    ultimo:k=>k.reservas.fecha,
+    kpis:k=>[["Reservas","US$ "+fnum(k.reservas.valor,0)+" M",fecha(k.reservas.fecha)],
+             ["Compras del BCRA","US$ "+fnum(k.compras_mes.valor,0)+" M",`${mesAnio(k.compras_mes.fecha)} · año: US$ ${fnum(k.compras_anio,0)} M`],
+             ["TAMAR",fnum(k.tamar.valor)+"%","% TNA · "+fecha(k.tamar.fecha)],
+             ["M2 privado real",fsig(k.m2_real.valor)+"%","interanual · "+mesAnio(k.m2_real.fecha)]],
+    tabs:[{n:"Reservas", t:"Reservas internacionales del BCRA", st:"Millones de dólares, datos diarios", d:x=>x.reservas, tipo:"line", u:"US$ M", dec:0, rango:"2A"},
+          {n:"Compras del BCRA", t:"Compras netas de divisas del BCRA", st:"Millones de dólares por mes", d:x=>x.compras, tipo:"bar", u:"US$ M", dec:0, rango:"Todo", signo:true},
+          {n:"Tasas", t:"Tasas de interés e inflación", st:"%, promedios mensuales (tasas en TNA) · inflación esperada a 12 meses (REM) e interanual observada (INDEC)", d:x=>x.tasas, tipo:"line", u:"%", dec:1, rango:"Todo"},
+          {n:"Crédito y depósitos", t:"Crédito, depósitos y dinero en términos reales", st:"Variación % real interanual, promedios mensuales", d:x=>x.credito, tipo:"line", u:"%", dec:1, rango:"5A"},
+          {n:"Dólares", t:"Préstamos y depósitos en dólares", st:"Millones de dólares, fin de mes", d:x=>x.dolares, tipo:"line", u:"US$ M", dec:0, rango:"5A"}],
+    nota:"Las variaciones reales del último mes se calculan con la inflación esperada por el REM cuando el INDEC todavía no publicó el IPC."},
+  "mercados": {sub:"Riesgo país, acciones argentinas y rendimientos en dólares", fuente:"JP Morgan, BYMA, Yahoo Finance y ArgentinaDatos",
+    ultimo:k=>k.riesgo.fecha,
+    kpis:k=>[["Riesgo país",fnum(k.riesgo.valor,0)+" pb",`${fsig(k.riesgo_30d,0)} pb en 30 días`],
+             ["Merval en dólares","US$ "+fnum(k.merval_usd.valor,0),`${fsig(k.merval_usd_ytd)}% en el año`],
+             ["Merval en pesos",fnum(k.merval.valor/1e6,2)+" M","puntos · "+fecha(k.merval.fecha)],
+             ["Mejor acción del año",Object.keys(S.mercados.acciones_anio)[0],fsig(Object.values(S.mercados.acciones_anio)[0])+"% en dólares"]],
+    tabs:[{n:"Riesgo país", t:"Riesgo país", st:"Puntos básicos (EMBI Argentina), datos diarios", d:x=>x.riesgo, tipo:"line", u:"pb", dec:0, rango:"2A"},
+          {n:"Merval en dólares", t:"S&P Merval en dólares", st:"Índice convertido al dólar contado con liquidación", d:x=>x.merval, tipo:"line", u:"US$", dec:0, rango:"5A"},
+          {n:"Acciones en el año", t:"Acciones líderes: rendimiento en el año", st:"Variación % en dólares CCL desde fin del año pasado", d:x=>x.acciones_anio, tipo:"hbar", u:"%", dec:1},
+          {n:"Acciones 12 meses", t:"Acciones líderes: rendimiento a 12 meses", st:"Variación % en dólares CCL", d:x=>x.acciones_doce, tipo:"hbar", u:"%", dec:1}],
+    nota:"Los rendimientos se miden en dólares contado con liquidación, con precios ajustados por dividendos y splits."},
+  "internacional": {sub:"Tasas de Estados Unidos, materias primas, monedas y bolsas", fuente:"Reserva Federal (FRED) y Yahoo Finance",
+    ultimo:k=>k.brent.fecha,
+    kpis:k=>[["Fondos federales",fnum(k.fed.valor,2)+"%","tasa efectiva de la Fed"],["Tesoro 10 años",fnum(k.ust10.valor,2)+"%","rendimiento · "+fecha(k.ust10.fecha)],
+             ["Petróleo Brent","US$ "+fnum(k.brent.valor,1),`${fsig(k.brent_ytd)}% en el año`],["Soja","USc "+fnum(k.soja.valor,0),`por bushel · ${fsig(k.soja_ytd)}% en el año`]],
+    tabs:[{n:"Tasas de EE.UU.", t:"Tasas de interés de Estados Unidos", st:"%, datos diarios", d:x=>x.tasas, tipo:"line", u:"%", dec:2, rango:"2A"},
+          {n:"Commodities", t:"Precios de commodities", st:"Índice base 100 = inicio del período elegido", d:x=>x.commodities, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
+          {n:"Monedas", t:"Dólar global y monedas", st:"Índice base 100 = inicio del período elegido", d:x=>x.monedas, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
+          {n:"Bolsas", t:"Bolsas de EE.UU. y Brasil", st:"Índice base 100 = inicio del período elegido", d:x=>x.bolsas, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
+          {n:"Países G20", t:"Países del G20", tipo:"g20", fuente:"FMI (World Economic Outlook)"}],
+    nota:"En commodities, monedas y bolsas cada serie arranca en 100 al inicio del período elegido, para comparar variaciones. En G20, los datos anuales son del FMI y desde el año en curso son proyecciones."},
+};
+
+// ---------- navegación ----------
+function nav(actual){
+  document.getElementById("navb").innerHTML = `<a href="#inicio" class="${actual==="inicio"?"on":""}">Inicio</a>` +
+    SECCIONES.map(s=>`<a href="#${s.id}" class="${actual===s.id?"on":""}">${s.t}</a>`).join("") +
+    PEDIDO.map(s=>`<a href="#${s.id}" class="${actual===s.id?"on":""}">${s.t}</a>`).join("");
+}
+
+// Gráfico chico de cada tarjeta: SVG inline, sin Chart.js.
+function mini(m){
+  const s = m.d(); if (!s) return "";
+  const pts = s.x.map((x,i)=>[x,s.y[i]]).filter(p=>p[1]!=null).slice(-m.desde);
+  if (pts.length < 2) return "";
+  const W = 240, H = 64, ys = pts.map(p=>p[1]);
+  const lo = Math.min(...ys, m.tipo==="bar" ? 0 : Infinity), hi = Math.max(...ys, m.tipo==="bar" ? 0 : -Infinity);
+  const Y = v => H - 3 - (v - lo) / ((hi - lo) || 1) * (H - 6);
+  let cuerpo;
+  if (m.tipo === "bar") {
+    const w = W / pts.length, y0 = Y(0);
+    cuerpo = pts.map(([,v],i)=>{ const y = Y(v); return `<rect x="${(i*w+w*.15).toFixed(1)}" y="${Math.min(y,y0).toFixed(1)}" width="${(w*.7).toFixed(1)}" height="${Math.max(Math.abs(y0-y),1).toFixed(1)}" fill="${m.signo&&v<0?"var(--neg)":"var(--navy)"}" opacity="${i===pts.length-1?1:.55}"/>`; }).join("");
+  } else {
+    const X = i => i / (pts.length - 1) * W;
+    const d = pts.map(([,v],i)=>`${i?"L":"M"}${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join("");
+    cuerpo = `<path d="${d}L${W} ${H}L0 ${H}Z" fill="var(--gold)" opacity=".10"/><path d="${d}" fill="none" stroke="var(--navy)" stroke-width="1.6" vector-effect="non-scaling-stroke"/>`;
+  }
+  return `<figure class="mini" aria-label="${m.et}"><svg viewBox="-3 0 ${W+6} ${H}" preserveAspectRatio="none">${cuerpo}</svg><figcaption>${m.et}</figcaption></figure>`;
+}
+
+function portada(){
+  const tarj = s => { const d = s.dato(); return `<a class="tarjeta" href="#${s.id}">${svg(s.id)}<h3>${s.t}</h3><p>${s.p}</p>${s.mini?mini(s.mini):""}<div class="dato"><span>${d[0]}</span><b>${d[1]}</b></div></a>`; };
+  const ped = s => `<a class="tarjeta pedido" href="#${s.id}"><span class="chip">A pedido</span>${svg(s.id)}<h3>${s.t}</h3><p>${s.p}</p></a>`;
+  return `<span class="eyebrow">AXIA · Tablero macro</span>
+    <h1>Los datos de la economía argentina, al día</h1>
+    <p class="bajada">Indicadores oficiales actualizados desde el INDEC, el BCRA y los mercados, con gráficos interactivos y series para descargar.</p>
+    <div class="bloque"><div class="bloque-tit"><h2>Secciones</h2><span>Libres, sin registro</span></div><div class="grilla secs">${SECCIONES.map(tarj).join("")}</div></div>
+    <div class="bloque"><div class="bloque-tit"><h2>Análisis a pedido</h2><span>Modelos y bases propios de AXIA</span></div><div class="grilla">${PEDIDO.map(ped).join("")}</div></div>`;
+}
+
+function pedido(s){
+  return `<div class="migas"><a href="#inicio">Tablero</a> · Análisis a pedido</div>
+    <div class="cab"><div><h1>${s.t}</h1><p class="sub">${s.p}</p></div><span class="pill">A pedido</span></div>
+    <div class="pedido-box"><h2>Disponible para clientes de AXIA</h2>
+      <p>Lo preparamos a medida de cada empresa u organización, con informes y reuniones de presentación.</p>
+      <ul>${s.detalle.map(x=>`<li>${x}</li>`).join("")}</ul>
+      <div class="contacto"><a class="c1" href="mailto:${MAIL}?subject=${encodeURIComponent("Consulta: "+s.t)}">Escribinos a ${MAIL}</a>
+        <a class="c2" href="${WA}" target="_blank" rel="noopener">WhatsApp +54 9 11 3760-2415</a></div></div>`;
+}
+
+let grafico = null, estado = {};
+function seccion(id){
+  const s = SECCIONES.find(x=>x.id===id), def = DEF[id], k = K(id);
+  estado = {id, tab:0, rango:null};
+  regionCat = "Nacional";   // Precios: siempre arranca en el total nacional
+  return `<div class="migas"><a href="#inicio">Tablero</a> · ${s.t}</div>
+    <div class="cab"><div><h1>${s.t}</h1><p class="sub">${def.sub}</p></div><span class="pill">Último dato: ${def.mensual?mesAnio(def.ultimo(k)):fecha(def.ultimo(k))}</span></div>
+    <div class="kpis">${def.kpis(k).map(([e,v,d])=>`<div class="kpi"><div class="e">${e}</div><div class="v" title="${v}">${v}</div><div class="d">${d}</div></div>`).join("")}</div>
+    <div class="tabs" role="tablist">${def.tabs.map((t,i)=>`<button type="button" role="tab" data-tab="${i}" class="${i===0?"on":""}">${t.n}</button>`).join("")}</div>
+    <div class="herr"><div class="tit" id="g-tit"></div>
+      <div class="rangos" id="rangos">${["1A","2A","5A","Todo"].map(r=>`<button type="button" data-r="${r}">${r}</button>`).join("")}</div>
+      <button class="btn" type="button" id="csv"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Descargar CSV</button></div>
+    <div class="g20ctl" id="g20ctl" hidden></div>
+    <div class="lienzo"><canvas id="g" aria-label="Gráfico"></canvas></div>
+    <div class="tabla-g20" id="tabla" hidden></div>
+    <p class="fuente"><span id="g-pie"></span>Fuente: Axia en base a datos de <span id="g-fuente">${def.fuente}</span>.</p>
+    <div class="nota">${def.nota}</div>`;
+}
+
+function etiquetador(xs){
+  if (xs.length < 3) return {cor:corto, lar:mesAnio};
+  const paso = (new Date(xs[xs.length-1]) - new Date(xs[0])) / 864e5 / (xs.length-1);
+  if (paso < 20) return {cor:corto, lar:fecha};
+  if (paso < 40) return {cor:corto, lar:mesAnio};
+  if (paso < 120) return {cor:trim, lar:trimLargo};
+  return {cor:sem, lar:semLargo};
+}
+const fval = (tab, v) => v==null ? "s.d." : (tab.u==="$"?"$ ":tab.u.startsWith("US$")?"US$ ":"") + fnum(v, tab.dec) +
+  (tab.u==="%"?"%":tab.u==="pb"?" pb":tab.u==="mil"?" mil":tab.u==="US$ M"?" M":tab.u==="US$ mil M"?" mil M":"");
+
+// Por categoría: región elegida (se recuerda al cambiar de solapa) e interanuales calculados de los índices del INDEC
+let regionCat = "Nacional";
+function catPorRegion(B, reg){
+  const R = B.reg[reg], xs = B.x.slice(12);
+  const ia = s => ({x:xs, y:xs.map((_,i)=>s[i+12]==null || s[i]==null ? null : (s[i+12]/s[i]-1)*100)});
+  return {"Nivel general":ia(R.general), ...Object.fromEntries(["Núcleo","Regulados","Estacionales"].filter(c=>R.comp[c]).map(c=>[c, ia(R.comp[c])]))};
+}
+
+function dibujar(){
+  const def = DEF[estado.id], tab = def.tabs[estado.tab], x = S[estado.id], datos = tab.d ? tab.d(x) : null;
+  document.getElementById("g-tit").innerHTML = `${tab.t}<small>${typeof tab.st==="function"?tab.st(x):tab.st}</small>`;
+  const pie = tab.pie ? tab.pie(x) : ""; document.getElementById("g-pie").textContent = pie ? pie + ". " : "";
+  document.querySelectorAll(".tabs button").forEach((b,i)=>b.classList.toggle("on", i===estado.tab));
+  const rangos = document.getElementById("rangos");
+  rangos.style.display = tab.tipo==="hbar" ? "none" : "";
+  estado.rango = estado.rango || tab.rango;
+  rangos.querySelectorAll("button").forEach(b=>b.classList.toggle("on", b.dataset.r===estado.rango));
+  if (grafico) { grafico.destroy(); grafico = null; }
+  document.getElementById("g-fuente").textContent = tab.fuente || def.fuente;
+  const esG20 = tab.tipo === "g20";
+  const ctlG = document.getElementById("g20ctl");
+  ctlG.hidden = !(esG20 || tab.tipo === "brechas" || tab.regiones);
+  if (tab.regiones){
+    ctlG.innerHTML = `<div class="pills">${Object.keys(x.brechas.reg).map(r=>`<button type="button" data-k="${r}" class="${r===regionCat?"on":""}">${r}</button>`).join("")}</div>`;
+    ctlG.querySelectorAll("button").forEach(b=>b.onclick=()=>{ regionCat = b.dataset.k; dibujar(); });
+  }
+  document.getElementById("tabla").hidden = true;
+  document.querySelector(".lienzo").hidden = false;
+  if (esG20){ rangos.style.display = "none"; dibujarG20(tab, x.g20, x.g20_ult); return; }
+  if (tab.tipo === "brechas"){ rangos.style.display = "none"; dibujarBrechas(x.brechas); return; }
+  const ink3 = CSSV("--ink-3"), grid = CSSV("--rule-2"), cols = [CSSV("--s1"), CSSV("--s2"), CSSV("--s3"), CSSV("--s4"), "#6b5b95", "#4a8f8f"];
+  const tip = {backgroundColor:"#1a2233", titleFont:{family:"Manrope",weight:"600"}, bodyFont:{family:"Manrope"}, padding:10, boxPadding:4,
+    callbacks:{label:c=>` ${c.dataset.label}: ${tab.rebase ? fnum(c.parsed.y,1) : fval(tab, c.parsed[tab.tipo==="hbar"?"x":"y"])}`}};
+  const ticksY = {color:ink3, font:{family:"Manrope",size:11}, callback:v=>fnum(v, Math.abs(v)>=100 || tab.dec===0 ? 0 : (Math.abs(v)<10 ? Math.min(tab.dec,2) : 1))};
+  const base = {responsive:true, maintainAspectRatio:false, animation:{duration:250},
+    plugins:{legend:{position:"top", align:"start", labels:{font:{family:"Manrope",size:12}, color:CSSV("--ink-2"), boxWidth:12, boxHeight:12, usePointStyle:true, pointStyle:"rectRounded"}}, tooltip:tip},
+    scales:{x:{grid:{display:false}, ticks:{color:ink3, font:{family:"Manrope",size:11}, maxRotation:0, autoSkipPadding:18}},
+            y:{grid:{color:grid}, border:{display:false}, ticks:ticksY}}};
+  const ctx = document.getElementById("g");
+  if (tab.tipo==="hbar"){
+    const nombres = Object.keys(datos), vals = Object.values(datos);
+    ctx.parentElement.style.height = Math.max(300, 34*nombres.length + 60) + "px";
+    grafico = new Chart(ctx, {type:"bar", data:{labels:nombres, datasets:[{label:tab.t, data:vals, borderRadius:3, maxBarThickness:22,
+      backgroundColor:vals.map(v=>v>=0?CSSV("--pos"):CSSV("--neg"))}]},
+      options:{...base, indexAxis:"y", plugins:{...base.plugins, legend:{display:false}},
+        scales:{x:{grid:{color:grid}, border:{display:false}, ticks:ticksY}, y:{grid:{display:false}, ticks:{color:CSSV("--ink-2"), font:{family:"Manrope",size:11.5}, autoSkip:false}}}}});
+    estado.visible = {cats:nombres, series:{[tab.t]:vals}};
+    return;
+  }
+  ctx.parentElement.style.height = "";
+  const nombres = Object.keys(datos), ref = datos[nombres[0]];
+  const fin = new Date(ref.x[ref.x.length-1]);
+  const desde = new Date(fin); desde.setFullYear(fin.getFullYear() - {"1A":1,"2A":2,"5A":5,"Todo":100}[estado.rango]);
+  let xs = ref.x;
+  for (const n of nombres.slice(1)) xs = [...new Set([...xs, ...datos[n].x])];
+  xs.sort();
+  const i0 = Math.max(0, xs.findIndex(f=>new Date(f)>=desde));
+  const etiquetas = xs.slice(i0), E = etiquetador(ref.x);
+  const sets = nombres.map((n,j)=>{
+    const s = datos[n], m = new Map(s.x.map((f,i)=>[f,s.y[i]]));
+    let ys = etiquetas.map(f=>m.has(f)?m.get(f):null);
+    if (tab.rebase){ const b = ys.find(v=>v!=null); ys = ys.map(v=>v==null?null:v/b*100); }
+    const barCol = tab.signo ? ys.map(v=>v>=0?CSSV("--pos"):CSSV("--neg")) : etiquetas.map((_,i)=>i===etiquetas.length-1?cols[0]:CSSV("--bar-soft"));
+    // tab.barras: series que van en barras dentro de un gráfico de líneas (detrás de las líneas)
+    if (tab.barras && tab.barras.includes(n))
+      return {type:"bar", label:n, data:ys, backgroundColor:CSSV("--bar-soft"), borderWidth:0, borderRadius:3, order:2};
+    return {label:n, data:ys, borderColor:cols[j], backgroundColor:tab.tipo==="bar"?barCol:cols[j],
+            borderWidth:tab.tipo==="bar"?0:2, pointRadius:0, pointHoverRadius:4, tension:0, spanGaps:true, borderRadius:tab.tipo==="bar"?3:0, order:1};
+  });
+  grafico = new Chart(ctx, {type:tab.tipo, data:{labels:etiquetas, datasets:sets},
+    options:{...base, interaction:{mode:"index", intersect:false},
+      plugins:{...base.plugins, legend:{...base.plugins.legend, display:nombres.length>1}, tooltip:{...tip, callbacks:{...tip.callbacks, title:it=>E.lar(etiquetas[it[0].dataIndex])}}},
+      scales:{...base.scales, x:{...base.scales.x, ticks:{...base.scales.x.ticks, callback:v=>E.cor(etiquetas[v])}}}}});
+  estado.visible = {cats:etiquetas, series:Object.fromEntries(sets.map(s=>[s.label, s.data]))};
+}
+
+// ---------- G20: ranking por año, evolución por país y tabla comparativa ----------
+const G_AGR = ["EU","WEOWORLD"];                      // agregados: van en gris, como referencia
+const gfmt = (I, v) => v==null ? "s.d." :
+  I.u==="%" ? fnum(v, I.dec)+"%" : I.u==="% PIB" ? fnum(v, I.dec)+"% del PIB" :
+  I.u==="US$ miles de M" ? "US$ "+fnum(v,0)+" mil M" : I.u==="US$ PPA" ? "US$ "+fnum(v,0)+" PPA" : "US$ "+fnum(v,0);
+
+function dibujarG20(tab, G, U){
+  const g = estado.g = estado.g || {ind:"crec", vista:"ranking", anio:G.proy_desde-1, anioP:G.proy_desde, orden:"crec", dir:-1};
+  const ctl = document.getElementById("g20ctl"), I = G.ind[g.ind], ia = G.anios.indexOf(g.anio);
+  const proy = a => a >= G.proy_desde, tagP = a => proy(a) ? " (proyección)" : "";
+  const opAnios = (as, sel) => as.map(a=>`<option value="${a}"${a===sel?" selected":""}>${a}${proy(a)?" (proy.)":""}</option>`).join("");
+  ctl.innerHTML = `
+    <div class="fila">
+      <div class="seg" role="group" aria-label="Vista">${[["ranking","Ranking"],["ultimo","Último dato"],["proy","Proyectado"]].map(([k,n])=>`<button type="button" data-v="${k}" class="${g.vista===k?"on":""}">${n}</button>`).join("")}</div>
+      ${g.vista==="ranking" ? `<label>Indicador <select id="g-ind">${Object.entries(G.ind).map(([k,v])=>`<option value="${k}"${k===g.ind?" selected":""}>${v.n}</option>`).join("")}</select></label>
+        <label>Año <select id="g-anio">${opAnios(G.anios.filter(a=>a>=G.proy_desde-1), g.anio)}</select></label>` : ""}
+      ${g.vista==="proy" ? `<label>Año <select id="g-anio">${opAnios(G.anios.filter(proy), g.anioP)}</select></label>` : ""}
+    </div>`;
+  ctl.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{g.vista=b.dataset.v; dibujar();});
+  const si = ctl.querySelector("#g-ind"); if (si) si.onchange = ()=>{g.ind=si.value; dibujar();};
+  const sa = ctl.querySelector("#g-anio"); if (sa) sa.onchange = ()=>{ if (g.vista==="proy") g.anioP=+sa.value; else g.anio=+sa.value; dibujar();};
+  document.getElementById("g-fuente").textContent = g.vista==="ultimo" ? "OCDE, BIS, Eurostat, OIT, INDEC y FMI" : tab.fuente;
+  if (g.vista === "ultimo"){ dibujarG20ult(U, G); return; }
+
+  const tit = document.getElementById("g-tit"), lienzo = document.querySelector(".lienzo"), ctx = document.getElementById("g");
+  const ink3 = CSSV("--ink-3"), grid = CSSV("--rule-2");
+  const tick = {color:ink3, font:{family:"Manrope",size:11}};
+  const tip = {backgroundColor:"#1a2233", titleFont:{family:"Manrope",weight:"600"}, bodyFont:{family:"Manrope"}, padding:10, boxPadding:4};
+
+  if (g.vista === "proy"){
+    // todos los indicadores de un año proyectado por el FMI
+    lienzo.hidden = true;
+    const t = document.getElementById("tabla"); t.hidden = false;
+    const ip = G.anios.indexOf(g.anioP);
+    tit.innerHTML = `Proyecciones del FMI para ${g.anioP}<small>World Economic Outlook · tocá un encabezado para ordenar</small>`;
+    const ps = Object.keys(G.paises), ks = Object.keys(G.ind);
+    const val = (k,p) => G.ind[k].v[p][ip];
+    const filas = ps.slice();
+    if (g.orden==="pais") filas.sort((a,b)=>G.paises[a].localeCompare(G.paises[b])*g.dir);
+    else filas.sort((a,b)=>{ const x = val(g.orden,a), y = val(g.orden,b); if (x==null) return 1; if (y==null) return -1; return (x-y)*g.dir; });
+    const flecha = k => g.orden===k ? (g.dir<0?" ↓":" ↑") : "";
+    const uni = {"%":"%","% PIB":"% PIB","US$":"US$","US$ PPA":"US$ PPA","US$ miles de M":"US$ mil M"};
+    const corto = {...G_CORTO, infl:"Inflación dic/dic"};
+    t.innerHTML = `<table><thead><tr><th data-o="pais">País${flecha("pais")}</th>${ks.map(k=>`<th data-o="${k}">${corto[k]}${flecha(k)}<small>${uni[G.ind[k].u]}</small></th>`).join("")}</tr></thead>
+      <tbody>${filas.map(p=>`<tr class="${p==="ARG"?"arg":G_AGR.includes(p)?"agr":""}"><th>${G.paises[p]}</th>${ks.map(k=>{const v=val(k,p);
+        return `<td class="${v!=null&&v<0?"neg":""}">${v==null?"–":fnum(v, G.ind[k].dec)}</td>`;}).join("")}</tr>`).join("")}</tbody></table>`;
+    t.querySelectorAll("thead th").forEach(th=>th.onclick=()=>{ const o = th.dataset.o;
+      g.dir = g.orden===o ? -g.dir : (o==="pais"?1:-1); g.orden = o; dibujar(); });
+    estado.visible = {h:"País", cats:filas.map(p=>G.paises[p]), series:Object.fromEntries(ks.map(k=>[`${G.ind[k].n} ${g.anioP} (${G.ind[k].u})`, filas.map(p=>val(k,p))]))};
+    return;
+  }
+
+  // ranking
+  tit.innerHTML = `${I.n} en ${g.anio}<small>${I.u==="%"?"%":I.u}${proy(g.anio)?" · proyección del FMI":""} · Argentina resaltada, agregados en gris</small>`;
+  const ps = Object.keys(G.paises).filter(p=>!(g.ind==="pib" && p==="WEOWORLD") && I.v[p][ia]!=null)
+    .sort((a,b)=>I.v[b][ia]-I.v[a][ia]);
+  const vals = ps.map(p=>I.v[p][ia]);
+  lienzo.style.height = Math.max(300, 26*ps.length + 60) + "px";
+  grafico = new Chart(ctx, {type:"bar", data:{labels:ps.map(p=>G.paises[p]), datasets:[{label:I.n, data:vals, borderRadius:3, maxBarThickness:20,
+    backgroundColor:ps.map(p=>p==="ARG"?CSSV("--gold"):G_AGR.includes(p)?CSSV("--bar-soft"):CSSV("--navy"))}]},
+    options:{responsive:true, maintainAspectRatio:false, animation:{duration:250}, indexAxis:"y",
+      plugins:{legend:{display:false}, tooltip:{...tip, callbacks:{label:c=>" "+gfmt(I, c.parsed.x)+tagP(g.anio)}}},
+      scales:{x:{grid:{color:grid}, border:{display:false}, ticks:{...tick, callback:v=>fnum(v, Math.abs(v)>=100?0:1)}},
+              y:{grid:{display:false}, ticks:{color:CSSV("--ink-2"), font:{family:"Manrope",size:11.5}, autoSkip:false}}}}});
+  estado.visible = {h:"País", cats:ps.map(p=>G.paises[p]), series:{[`${I.n} ${g.anio} (${I.u})`]:vals}};
+}
+
+// ---------- Precios: brechas de cada componente del IPC con el nivel general ----------
+const B_COL = ["#1a2233","#b8874a","#3d6fa8","#7a9a5a","#a8524b","#6b5b95","#4a8f8f","#c27c2c","#8a8f98","#d06f8e","#2f8f5b","#6a4a2a","#5b7fc4","#b3a13a","#943b6b"];
+const MES3 = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const mesC = f => MES3[+f.slice(5,7)-1] + "-" + f.slice(2,4);
+const BASES = {"2019-10-01":"octubre 2019", "2023-10-01":"octubre 2023"};
+// Categoría de cada división según qué bienes y servicios agrupa (clasificación del INDEC: regulados = combustibles,
+// tarifas, transporte público, prepagas, educación formal, cigarrillos, telefonía; estacionales = frutas, verduras,
+// ropa exterior y turismo). La primera es la predominante; la segunda, si existe, pesa menos dentro de la división.
+const CAT_DIV = {"Alimentos y bebidas":["Núcleo","Estacionales"], "Bebidas alcohólicas y tabaco":["Núcleo","Regulados"],
+  "Prendas y calzado":["Estacionales","Núcleo"], "Vivienda, agua, luz y gas":["Regulados","Núcleo"], "Equipamiento del hogar":["Núcleo"],
+  "Salud":["Núcleo","Regulados"], "Transporte":["Regulados","Núcleo"], "Comunicación":["Regulados"], "Recreación y cultura":["Núcleo","Estacionales"],
+  "Educación":["Regulados"], "Restaurantes y hoteles":["Núcleo","Estacionales"], "Bienes y servicios varios":["Núcleo"],
+  // grupos
+  "Alimentos":["Núcleo","Estacionales"], "Bebidas no alcohólicas":["Núcleo"], "Bebidas alcohólicas":["Núcleo"], "Tabaco":["Regulados"],
+  "Prendas de vestir":["Estacionales","Núcleo"], "Calzado":["Núcleo"], "Alquiler y gastos conexos":["Núcleo"], "Mantenimiento de la vivienda":["Núcleo"],
+  "Electricidad, gas y combustibles":["Regulados"], "Conservación del hogar":["Núcleo"], "Medicamentos y artefactos de salud":["Núcleo"],
+  "Adquisición de vehículos":["Núcleo"], "Funcionamiento de vehículos":["Regulados","Núcleo"], "Transporte público":["Regulados","Estacionales"],
+  "Telefonía e internet":["Regulados"], "Equipos audiovisuales e informática":["Núcleo"], "Servicios recreativos y culturales":["Núcleo","Estacionales"],
+  "Diarios, libros y papelería":["Núcleo"], "Comidas fuera del hogar":["Núcleo"], "Cuidado personal":["Núcleo"],
+  // clases
+  "Pan y cereales":["Núcleo"], "Carnes y derivados":["Núcleo"], "Lácteos y huevos":["Núcleo"], "Aceites, grasas y manteca":["Núcleo"],
+  "Frutas":["Estacionales"], "Verduras y legumbres":["Estacionales"], "Azúcar, dulces y golosinas":["Núcleo"], "Café, té, yerba y cacao":["Núcleo"],
+  "Aguas, gaseosas y jugos":["Núcleo"], "Alquiler de la vivienda":["Núcleo"], "Prepagas":["Regulados"], "Combustibles y lubricantes":["Regulados"]};
+const CAT_CLS = {"Núcleo":"nuc", "Regulados":"reg", "Estacionales":"est"};
+const catPill = (c, i) => `<span class="cat ${CAT_CLS[c]}${i?" sec":""}">${c}</span>`;
+
+function dibujarBrechas(B){
+  const g = estado.b = estado.b || {vista:"mes", medida:"mes", reg:"Nacional", grupo:"Todos", base:"2023-10-01"};
+  const R = B.reg[g.reg], nac = g.reg==="Nacional";
+  // el INDEC publica grupos y clases solo por región; "Todos" = categorías + divisiones
+  const GRUPOS_OK = [["Todos","Todos"],["Categorías","Categorías"],["Divisiones","Divisiones"], ...(nac ? [] : [["Grupos","Grupos"],["Clases","Clases"]])];
+  if (!GRUPOS_OK.some(([k])=>k===g.grupo)) g.grupo = "Todos";
+  const ctl = document.getElementById("g20ctl"), n = B.x.length - 1, ult = B.x[n];
+  const at = f => B.x.indexOf(f);
+  const nombres = grupo => Object.keys(R.comp).filter(c => grupo==="Todos" ? ["Categorías","Divisiones"].includes(B.grupo[c]) : B.grupo[c]===grupo);
+  const lugar = nac ? "Total nacional" : "Región " + g.reg;
+  // períodos punta a punta: índice del mes de partida de cada uno
+  const PER = [["mes","Mensual"],["ia","Interanual"],["anio","Acumulada en el año"],["2023-10-01","Desde oct-2023"],["2019-10-01","Desde oct-2019"]];
+  const desde = m => m==="mes" ? n-1 : m==="ia" ? n-12 : m==="anio" ? at(`${+ult.slice(0,4)-1}-12-01`) : at(m);
+  const pills = (id, ops, v) => `<div class="pills" data-id="${id}">${ops.map(([k,t])=>`<button type="button" data-k="${k}" class="${k===v?"on":""}">${t}</button>`).join("")}</div>`;
+  ctl.innerHTML = `<div class="fila">
+      <div class="seg" role="group" aria-label="Vista">${[["mes","Último mes"],["rel","Precios relativos"],["calor","Mapa de calor"]].map(([k,t])=>`<button type="button" data-v="${k}" class="${g.vista===k?"on":""}">${t}</button>`).join("")}</div>
+    </div>
+    ${g.vista==="mes" ? pills("medida", PER, g.medida) : ""}
+    ${g.vista==="rel" ? pills("base", [["2019-10-01","Base oct-2019 = 100"],["2023-10-01","Base oct-2023 = 100"]], g.base) : ""}
+    ${pills("reg", Object.keys(B.reg).map(r=>[r, r]), g.reg)}
+    ${g.vista==="rel" ? "" : pills("grupo", GRUPOS_OK, g.grupo)}`;
+  ctl.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{g.vista=b.dataset.v; dibujar();});
+  ctl.querySelectorAll(".pills").forEach(p=>p.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    const id = p.dataset.id, k = b.dataset.k;
+    g[id] = k;
+    dibujar(); }));
+  document.getElementById("g-fuente").textContent = "INDEC";
+
+  const tit = document.getElementById("g-tit"), lienzo = document.querySelector(".lienzo"), ctx = document.getElementById("g");
+  const ink3 = CSSV("--ink-3"), grid = CSSV("--rule-2"), tick = {color:ink3, font:{family:"Manrope",size:11}};
+  const tip = {backgroundColor:"#1a2233", titleFont:{family:"Manrope",weight:"600"}, bodyFont:{family:"Manrope"}, padding:10, boxPadding:4};
+  const vr = (s, i, j) => s[i]==null || s[j]==null ? null : (s[i]/s[j] - 1) * 100;
+  const rel = (v, gen) => ((1+v/100)/(1+gen/100) - 1)*100;   // cambio % del precio relativo
+
+  if (g.vista === "mes"){
+    // brecha del último dato: p.p. para mensual/interanual/año; para "desde" se mide el cambio del precio relativo
+    const j = desde(g.medida);
+    const relativo = g.medida.includes("-");
+    const gen = vr(R.general, n, j);
+    const filas = nombres(g.grupo).map(c=>{ const v = vr(R.comp[c], n, j);
+      return {c, v, b: relativo ? ((1+v/100)/(1+gen/100) - 1)*100 : v - gen}; }).sort((a,b)=>b.b-a.b);
+    const etiq = {mes:"variación mensual", ia:"variación interanual", anio:"acumulada en el año"}[g.medida] || "desde " + BASES[g.medida];
+    tit.innerHTML = `Brecha con el nivel general · ${etiq}<small>${relativo ? "Cambio % del precio relativo (componente / nivel general)" : "Puntos porcentuales: inflación del componente menos la del nivel general"} · ${lugar} · ${mesAnio(ult)} · nivel general: ${fnum(gen,1)}%${filas.some(f=>CAT_CLS[f.c]) ? " · en pastilla, las categorías" : ""}</small>`;
+    lienzo.style.height = Math.max(300, 28*filas.length + 60) + "px";
+    grafico = new Chart(ctx, {type:"bar", data:{labels:filas.map(f=>f.c), datasets:[{label:"Brecha", data:filas.map(f=>f.b), borderRadius:3, maxBarThickness:20,
+      backgroundColor:filas.map(f=>f.b>=0?"#a8524b":"#3d6fa8")}]},
+      options:{responsive:true, maintainAspectRatio:false, animation:{duration:250}, indexAxis:"y",
+        plugins:{legend:{display:false}, tooltip:{...tip, callbacks:{label:c=>{ const f = filas[c.dataIndex];
+          return [` Brecha: ${fsig(f.b,1)}${relativo?"%":" p.p."}`, ` ${f.c}: ${fnum(f.v,1)}%`, ` Nivel general: ${fnum(gen,1)}%`]; }}}},
+        scales:{x:{grid:{color:grid}, border:{display:false}, ticks:{...tick, callback:v=>fsig(v, Math.abs(v)>=10?0:1)}},
+                // las categorías se dibujan como pastilla (plugin de abajo): su texto normal queda transparente
+                y:{grid:{display:false}, ticks:{color:c=>CAT_CLS[filas[c.index]?.c] ? "transparent" : CSSV("--ink-2"), font:{family:"Manrope",size:11.5}, autoSkip:false, padding:12}}}},
+      plugins:[{id:"pastillasCategoria", afterDraw(ch){
+        const y = ch.scales.y, cx = ch.ctx, colPill = {"Núcleo":"#1a2233", "Regulados":"#b8874a", "Estacionales":"#3d6fa8"};
+        cx.save(); cx.font = "600 11px Manrope"; cx.textBaseline = "middle"; cx.textAlign = "right";
+        filas.forEach((f,i)=>{ if (!colPill[f.c]) return;
+          const yy = y.getPixelForTick(i), der = y.right - 8, w = cx.measureText(f.c).width + 14, h = 18;
+          cx.fillStyle = colPill[f.c]; cx.beginPath(); cx.roundRect(der - w, yy - h/2, w, h, 9); cx.fill();
+          cx.fillStyle = "#fff"; cx.fillText(f.c, der - 7, yy + 0.5); });
+        cx.restore(); }}]});
+    estado.visible = {h:"Componente", cats:filas.map(f=>f.c), series:{"Variación del componente (%)":filas.map(f=>f.v),
+      "Variación del nivel general (%)":filas.map(()=>gen), [relativo?"Cambio del precio relativo (%)":"Brecha (p.p.)"]:filas.map(f=>f.b)}};
+    return;
+  }
+
+  if (g.vista === "rel"){
+    // precio relativo = índice del componente / índice general, base 100 en el mes elegido
+    const b = at(g.base), xs = B.x.slice(b), cs = nombres("Categorías");   // solo núcleo, regulados y estacionales
+    tit.innerHTML = `Precios relativos: componente / nivel general<small>${lugar} · base ${BASES[g.base]} = 100 · por encima de 100, el componente se encareció más que el promedio · tocá la leyenda para ocultar series</small>`;
+    lienzo.style.height = "";
+    const sets = cs.map((c,k)=>({label:c, data:xs.map((_,i)=>R.comp[c][b+i]==null || R.comp[c][b]==null ? null : R.comp[c][b+i]/R.comp[c][b] / (R.general[b+i]/R.general[b]) * 100), spanGaps:true,
+      borderColor:B_COL[k%B_COL.length], backgroundColor:B_COL[k%B_COL.length], borderWidth:2, pointRadius:0, pointHoverRadius:4, tension:0}));
+    sets.push({label:"Nivel general", data:xs.map(()=>100), borderColor:"#9aa0a8", borderDash:[5,4], borderWidth:1.5, pointRadius:0, pointHoverRadius:0});
+    grafico = new Chart(ctx, {type:"line", data:{labels:xs, datasets:sets},
+      options:{responsive:true, maintainAspectRatio:false, animation:{duration:250}, interaction:{mode:"index", intersect:false},
+        plugins:{legend:{position:"top", align:"start", labels:{font:{family:"Manrope",size:12}, color:CSSV("--ink-2"), boxWidth:12, boxHeight:12, usePointStyle:true, pointStyle:"rectRounded"}},
+          tooltip:{...tip, itemSort:(a,b)=>b.parsed.y-a.parsed.y, filter:it=>it.dataset.label!=="Nivel general",
+            callbacks:{title:it=>mesAnio(xs[it[0].dataIndex]), label:c=>` ${c.dataset.label}: ${fnum(c.parsed.y,1)}`}}},
+        scales:{x:{grid:{display:false}, ticks:{...tick, maxRotation:0, autoSkipPadding:18, callback:v=>mesC(xs[v])}},
+                y:{grid:{color:grid}, border:{display:false}, ticks:{...tick, callback:v=>fnum(v,0)}}}}});
+    estado.visible = {h:"Mes", cats:xs, series:Object.fromEntries(sets.slice(0,-1).map(s=>[s.label, s.data]))};
+    return;
+  }
+
+  // mapa de calor: variación punta a punta de cada período; el color mide la brecha con el nivel general
+  lienzo.hidden = true;
+  const t = document.getElementById("tabla"); t.hidden = false;
+  const cs = nombres(g.grupo);
+  const cols = PER.map(([m,et])=>{ const j = desde(m), gen = vr(R.general, n, j);
+    const vals = cs.map(c=>{ const v = vr(R.comp[c], n, j); return {v, b:rel(v, gen)}; });
+    const tope = Math.max(...vals.map(x=>Math.abs(x.b)), 0.1);   // cada columna satura en su brecha máxima
+    return {et, gen, vals, tope, sub:`${m==="anio" ? "dic-"+B.x[j].slice(2,4) : mesC(B.x[j])} a ${mesC(ult)}`}; });
+  const celda = (b, tope) => { const a = Math.min(Math.abs(b)/tope, 1)*.8, col = b>=0 ? `rgba(168,82,75,${a})` : `rgba(61,111,168,${a})`;
+    return `background:${col};color:${a>.5?"#fff":"inherit"}`; };
+  const fv = v => { const d = Math.abs(v)>=1000 ? 0 : 1, r = Math.round(v*10**d)/10**d || 0; return fnum(r, d); };   // sin "-0,0"
+  tit.innerHTML = `Mapa de calor: variación punta a punta por período<small>${lugar} · % de variación de cada componente · rojo: subió más que el nivel general; azul: menos · la intensidad se compara dentro de cada columna · pastillas: categoría predominante de cada división (en contorno, la de menor peso)</small>`;
+  t.innerHTML = `<table class="calor"><thead><tr><th>Componente</th>${cols.map(c=>`<th>${c.et}<small>${c.sub}</small></th>`).join("")}</tr></thead><tbody>
+    <tr class="gen"><th>Nivel general</th>${cols.map(c=>`<td>${fv(c.gen)}</td>`).join("")}</tr>
+    ${cs.map((c,i)=>`<tr><th>${c}${CAT_DIV[c] ? `<span class="cats">${CAT_DIV[c].map(catPill).join("")}</span>` : CAT_CLS[c] ? `<span class="cats">${catPill(c,0)}</span>` : ""}</th>${cols.map(col=>{ const x = col.vals[i];
+      return `<td style="${celda(x.b, col.tope)}" title="${c} · ${col.et}: ${fv(x.v)}% (nivel general ${fv(col.gen)}%) · precio relativo ${fsig(x.b,1)}%">${fv(x.v)}</td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
+  estado.visible = {h:"Componente", cats:["Nivel general", ...cs],
+    series:Object.fromEntries(cols.flatMap(c=>[[`${c.et} ${c.sub} (%)`, [c.gen, ...c.vals.map(x=>x.v)]], [`${c.et}: cambio del precio relativo (%)`, [0, ...c.vals.map(x=>x.b)]]]))};
+}
+
+// ---------- G20: último dato publicado de cada variable, con su período ----------
+const G_CORTO = {crec:"Crecimiento PIB",infl:"Inflación",desemp:"Desempleo",fiscal:"Resultado fiscal",deuda:"Deuda pública",cc:"Cuenta corriente",pibpc:"PIB per cápita",pibppa:"PIB p/c PPA",pib:"PIB"};
+const G_UNI = {crec:"% interanual, trimestre", infl:"% interanual, mes", desemp:"%, mes o trimestre", fiscal:"% PIB, año", deuda:"% PIB, año",
+               cc:"% PIB, trimestre", pibpc:"US$, año", pibppa:"US$ PPA, año", pib:"US$ mil M, año"};
+function dibujarG20ult(U, G){
+  const g = estado.gu = estado.gu || {orden:"crec", dir:-1};
+  document.querySelector(".lienzo").hidden = true;
+  const t = document.getElementById("tabla"); t.hidden = false;
+  document.getElementById("g-tit").innerHTML = `Últimos datos publicados<small>Cada celda muestra el dato más reciente y su período · consultado el ${fecha(U.consulta)} · tocá un encabezado para ordenar</small>`;
+  const ks = Object.keys(U.v), ps = Object.keys(G.paises).filter(p=>p!=="WEOWORLD");
+  const cel = (k,p) => U.v[k][p];
+  const filas = ps.slice();
+  if (g.orden==="pais") filas.sort((a,b)=>G.paises[a].localeCompare(G.paises[b])*g.dir);
+  else filas.sort((a,b)=>{ const x = cel(g.orden,a), y = cel(g.orden,b); if (!x) return 1; if (!y) return -1; return (x.v-y.v)*g.dir; });
+  const flecha = k => g.orden===k ? (g.dir<0?" ↓":" ↑") : "";
+  t.innerHTML = `<table class="ult"><thead><tr><th data-o="pais">País${flecha("pais")}</th>${ks.map(k=>`<th data-o="${k}">${G_CORTO[k]}${flecha(k)}<small>${G_UNI[k]}</small></th>`).join("")}</tr></thead>
+    <tbody>${filas.map(p=>`<tr class="${p==="ARG"?"arg":p==="EU"?"agr":""}"><th>${G.paises[p]}</th>${ks.map(k=>{ const c = cel(k,p);
+      if (!c) return `<td>–</td>`;
+      return `<td class="${c.v<0?"neg":""}" title="Fuente: ${c.f}">${fnum(c.v, G.ind[k].dec)}<span class="per${c.f==="FMI"?" anual":""}">${c.p} · ${c.f}</span></td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
+  t.querySelectorAll("thead th").forEach(th=>th.onclick=()=>{ const o = th.dataset.o;
+    g.dir = g.orden===o ? -g.dir : (o==="pais"?1:-1); g.orden = o; dibujar(); });
+  document.getElementById("g-pie").textContent = "Crecimiento y cuenta corriente: OCDE. Inflación: BIS (UE: Eurostat). Desempleo: OCDE y OIT. Argentina: INDEC. " +
+    "Fiscal, deuda y PIB son anuales (FMI, último año observado); también se usa el FMI cuando un país no tiene dato de alta frecuencia. ";
+  const series = {};
+  ks.forEach(k=>{ series[`${G_CORTO[k]} (${G_UNI[k]})`] = filas.map(p=>cel(k,p)?cel(k,p).v:null);
+                  series[`${G_CORTO[k]}: período y fuente`] = filas.map(p=>cel(k,p)?`${cel(k,p).p} ${cel(k,p).f}`:null); });
+  estado.visible = {h:"País", cats:filas.map(p=>G.paises[p]), series};
+}
+
+function csv(){
+  const v = estado.visible, nombres = Object.keys(v.series);
+  const filas = [[v.h || "Período", ...nombres].join(";")].concat(v.cats.map((c,i)=>[c, ...nombres.map(n=>v.series[n][i]==null?"":typeof v.series[n][i]==="number"?String(+v.series[n][i].toFixed(4)).replace(".",","):v.series[n][i])].join(";")));
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["﻿"+filas.join("\n")], {type:"text/csv;charset=utf-8"}));
+  a.download = `axia_${estado.id}_${DEF[estado.id].tabs[estado.tab].n.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-")}.csv`;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+function ruta(){
+  let id = (location.hash||"#inicio").slice(1);
+  if (!DEF[id] && !PEDIDO.find(p=>p.id===id)) id = "inicio";
+  nav(id);
+  const v = document.getElementById("vista");
+  if (grafico){ grafico.destroy(); grafico = null; }
+  v.innerHTML = id==="inicio" ? portada() : DEF[id] ? seccion(id) : pedido(PEDIDO.find(p=>p.id===id));
+  document.title = (id==="inicio" ? "Tablero macro" : (SECCIONES.find(s=>s.id===id)||PEDIDO.find(s=>s.id===id)).t + " · Tablero macro") + " · AXIA";
+  window.scrollTo(0,0);
+  const activo = document.querySelector(".navb a.on"); if (activo) activo.scrollIntoView({block:"nearest", inline:"center"});
+  if (DEF[id]){
+    dibujar();
+    v.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{estado.tab=+b.dataset.tab; estado.rango=null; regionCat="Nacional"; if (estado.b) estado.b.reg="Nacional"; dibujar();});
+    v.querySelectorAll("#rangos button").forEach(b=>b.onclick=()=>{estado.rango=b.dataset.r; dibujar();});
+    document.getElementById("csv").onclick = csv;
+  }
+}
+document.getElementById("act").textContent = "Actualizado al " + fecha(D.actualizado);
+window.addEventListener("hashchange", ruta);
+// Chart.js mide las etiquetas al dibujar: esperar a Manrope evita ejes recortados.
+(document.fonts ? document.fonts.load('11px "Manrope"').catch(()=>{}) : Promise.resolve()).then(ruta);
+</script>
+</body>
+</html>

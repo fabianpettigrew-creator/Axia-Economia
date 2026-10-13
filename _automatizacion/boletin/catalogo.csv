@@ -1,0 +1,106 @@
+clave,fuente,frec,id,nombre,unidad,seccion,organismo
+emae,series,M,143.3_NO_PR_2004_A_21,EMAE serie original,índice 2004=100,actividad,INDEC
+emae_de,series,M,143.3_NO_PR_2004_A_31,EMAE desestacionalizado,índice 2004=100,actividad,INDEC
+emae_tc,series,M,143.3_NO_PR_2004_A_28,EMAE tendencia-ciclo,índice 2004=100,actividad,INDEC
+ipi,series,M,453.1_SERIE_ORIGNAL_0_0_14_46,IPI manufacturero serie original,índice 2016=100,actividad,INDEC
+ipi_de,series,M,453.1_SERIE_DESEADA_0_0_24_58,IPI manufacturero desestacionalizado,índice 2016=100,actividad,INDEC
+isac,series,M,33.2_ISAC_NIVELRAL_0_M_18_63,ISAC serie original,índice 2004=100,actividad,INDEC
+super,series,M,455.1_VENTAS_PRENAL_0_M_34_10,Ventas en supermercados a precios constantes,millones de $ constantes,actividad,INDEC
+s_agro,series,M,11.3_ISOM_2004_M_39,"Agro, ganadería y silvicultura",índice 2004=100,sectores,INDEC
+s_pesca,series,M,11.3_VIPAA_2004_M_5,Pesca,índice 2004=100,sectores,INDEC
+s_minas,series,M,11.3_ISD_2004_M_26,Minas y canteras,índice 2004=100,sectores,INDEC
+s_ind,series,M,11.3_VMASD_2004_M_23,Industria manufacturera,índice 2004=100,sectores,INDEC
+s_egas,series,M,11.3_ITC_2004_M_21,"Electricidad, gas y agua",índice 2004=100,sectores,INDEC
+s_const,series,M,11.3_VMATC_2004_M_12,Construcción,índice 2004=100,sectores,INDEC
+s_com,series,M,11.3_AGCS_2004_M_41,Comercio,índice 2004=100,sectores,INDEC
+s_hot,series,M,11.3_P_2004_M_20,Hoteles y restaurantes,índice 2004=100,sectores,INDEC
+s_trans,series,M,11.3_EMC_2004_M_25,Transporte y comunicaciones,índice 2004=100,sectores,INDEC
+s_fin,series,M,11.3_IM_2004_M_25,Intermediación financiera,índice 2004=100,sectores,INDEC
+s_inmo,series,M,11.3_SEGA_2004_M_48,"Inmobiliarias, empresariales y alquiler",índice 2004=100,sectores,INDEC
+s_adm,series,M,11.3_C_2004_M_60,Administración pública,índice 2004=100,sectores,INDEC
+s_ens,series,M,11.3_CMMR_2004_M_10,Enseñanza,índice 2004=100,sectores,INDEC
+s_salud,series,M,11.3_HR_2004_M_24,Servicios sociales y salud,índice 2004=100,sectores,INDEC
+s_otros,series,M,11.3_TAC_2004_M_60,Otros servicios comunitarios,índice 2004=100,sectores,INDEC
+ipc,series,M,148.3_INIVELNAL_DICI_M_26,IPC nivel general nacional,índice dic-16=100,precios,INDEC
+ipc_nucleo,series,M,148.3_INUCLEONAL_DICI_M_19,IPC núcleo,índice dic-16=100,precios,INDEC
+ipc_reg,series,M,148.3_IREGULANAL_DICI_M_22,IPC regulados,índice dic-16=100,precios,INDEC
+ipc_est,series,M,148.3_IESTACINAL_DICI_M_25,IPC estacionales,índice dic-16=100,precios,INDEC
+rem_ipc12,bcra,D,29,REM: inflación esperada próximos 12 meses (mediana),%,precios,BCRA (REM)
+tc_may,bcra,D,5,Tipo de cambio mayorista (Com. A3500),$ por USD,monetario,BCRA
+tc_min,bcra,D,4,Tipo de cambio minorista,$ por USD,monetario,BCRA
+ccl,argdatos,D,cotizaciones/dolares/contadoconliqui,Dólar contado con liquidación,$ por USD,monetario,ArgentinaDatos
+blue,argdatos,D,cotizaciones/dolares/blue,Dólar informal,$ por USD,monetario,ArgentinaDatos
+reservas,bcra,D,1,Reservas internacionales,millones de USD,monetario,BCRA
+compras,bcra,D,78,Compras de divisas del BCRA,millones de USD,monetario,BCRA
+base,bcra,D,15,Base monetaria,millones de $,monetario,BCRA
+m2,bcra,D,197,M2 transaccional del sector privado,millones de $,monetario,BCRA
+dep_priv,bcra,D,102,Depósitos del sector privado en pesos,millones de $,monetario,BCRA
+dep_usd,bcra,D,107,Depósitos en dólares,millones de USD,monetario,BCRA
+prest_priv,bcra,D,117,Préstamos al sector privado en pesos,millones de $,monetario,BCRA
+prest_usd,bcra,D,125,Préstamos al sector privado en dólares,millones de USD,monetario,BCRA
+badlar,bcra,D,7,Tasa BADLAR bancos privados,% TNA,monetario,BCRA
+tamar,bcra,D,44,Tasa TAMAR bancos privados,% TNA,monetario,BCRA
+tasa_pf,bcra,D,12,Tasa de plazo fijo a 30 días,% TNA,monetario,BCRA
+tasa_pers,bcra,D,14,Tasa de préstamos personales,% TNA,monetario,BCRA
+recaudacion,series,M,172.3_TL_RECA_IA_M_0_0_24,Recaudación tributaria (var. i.a.),%,fiscal,ARCA
+rec_total,series,M,142.3_TOTAL_2001_M_26,Recaudación total,millones de $,fiscal,ARCA
+rec_iva,series,M,142.3_IVA_2001_M_3,IVA,millones de $,fiscal,ARCA
+rec_gan,series,M,142.3_GANAN_2001_M_9,Ganancias,millones de $,fiscal,ARCA
+rec_aport,series,M,142.3_APORT_2001_M_18,Aportes personales,millones de $,fiscal,ARCA
+rec_contr,series,M,142.3_CONTR_2001_M_25,Contribuciones patronales,millones de $,fiscal,ARCA
+rec_cheq,series,M,142.3_CREDI_2001_M_24,Débitos y créditos,millones de $,fiscal,ARCA
+rec_dexp,series,M,142.3_DEREC_2001_M_20,Derechos de exportación,millones de $,fiscal,ARCA
+rec_comb,series,M,142.3_TOTAL_COMBLES_0_M_18_80,Combustibles,millones de $,fiscal,ARCA
+rec_bp,series,M,142.3_BIENE_2001_M_17,Bienes personales,millones de $,fiscal,ARCA
+primario,series,M,452.3_RESULTADO_RIO_0_M_18_54,Resultado primario del SPN,millones de $,fiscal,Secretaría de Hacienda
+intereses,series,M,452.3_INTERESES_TOS_0_M_15_62,Intereses netos,millones de $,fiscal,Secretaría de Hacienda
+financiero,series,M,452.3_RESULTADO_ERO_0_M_20_25,Resultado financiero del SPN,millones de $,fiscal,Secretaría de Hacienda
+expo,series,M,74.3_IET_0_M_16,Exportaciones,millones de USD,externo,INDEC
+impo,series,M,74.3_IIT_0_M_25,Importaciones,millones de USD,externo,INDEC
+x_pp,series,M,74.3_IEPP_0_M_35,Productos primarios,millones de USD,externo,INDEC
+x_moa,series,M,74.3_IEMOA_0_M_48,Manufacturas de origen agropecuario,millones de USD,externo,INDEC
+x_moi,series,M,74.3_IEMOI_0_M_46,Manufacturas de origen industrial,millones de USD,externo,INDEC
+x_cye,series,M,74.3_IECE_0_M_35,Combustibles y energía,millones de USD,externo,INDEC
+m_bk,series,M,74.3_IIBCA_0_M_32,Bienes de capital,millones de USD,externo,INDEC
+m_bi,series,M,74.3_IIBI_0_M_36,Bienes intermedios,millones de USD,externo,INDEC
+m_cyl,series,M,74.3_IICL_0_M_42,Combustibles y lubricantes,millones de USD,externo,INDEC
+m_pzas,series,M,74.3_IIPABC_0_M_50,Piezas y accesorios para bienes de capital,millones de USD,externo,INDEC
+m_bc,series,M,74.3_IIBCO_0_M_32,Bienes de consumo,millones de USD,externo,INDEC
+m_auto,series,M,74.3_IIVAP_0_M_49,Vehículos automotores de pasajeros,millones de USD,externo,INDEC
+salarios,series,M,149.1_TL_INDIIOS_OCTU_0_21,Índice de salarios,índice oct-16=100,laboral,INDEC
+sal_priv,series,M,149.1_SOR_PRIADO_OCTU_0_25,Salarios registrados privados,índice oct-16=100,laboral,INDEC
+sal_pub,series,M,149.1_SOR_PUBICO_OCTU_0_14,Salarios registrados públicos,índice oct-16=100,laboral,INDEC
+sal_nreg,series,M,149.1_SOR_PRIADO_OCTU_0_28,Salarios no registrados,índice oct-16=100,laboral,INDEC
+sipa_priv,series,M,151.1_AARIADOTAC_2012_M_26,Asalariados registrados privados (s.e.),miles,laboral,SIPA
+sipa_tot,series,M,151.1_TL_SIN_TAC_2012_M_15,Trabajadores registrados (s.e.),miles,laboral,SIPA
+eph_desoc,series,T,42.3_EPH_PUNTUATAL_0_M_30,Tasa de desocupación,proporción,laboral,INDEC (EPH)
+eph_empleo,series,T,42.3_EPH_PUNTUATAL_0_M_24,Tasa de empleo,proporción,laboral,INDEC (EPH)
+eph_activ,series,T,42.3_EPH_PUNTUATAL_0_M_27,Tasa de actividad,proporción,laboral,INDEC (EPH)
+fed,fred,D,DFF,Tasa de fondos federales (EE.UU.),%,internacional,Reserva Federal
+ust2,fred,D,DGS2,Bono del Tesoro EE.UU. a 2 años,%,internacional,Reserva Federal
+ust10,fred,D,DGS10,Bono del Tesoro EE.UU. a 10 años,%,internacional,Reserva Federal
+dxy,yahoo,D,DX-Y.NYB,Índice dólar (DXY),índice,internacional,Yahoo Finance
+eurusd,yahoo,D,EURUSD=X,Euro,USD por EUR,internacional,Yahoo Finance
+brl,yahoo,D,BRL=X,Real brasileño,BRL por USD,internacional,Yahoo Finance
+spx,yahoo,D,^GSPC,S&P 500,puntos,internacional,Yahoo Finance
+bvsp,yahoo,D,^BVSP,Bovespa,puntos,internacional,Yahoo Finance
+soja,yahoo,D,ZS=F,Soja (Chicago),USc por bushel,internacional,Yahoo Finance
+maiz,yahoo,D,ZC=F,Maíz (Chicago),USc por bushel,internacional,Yahoo Finance
+trigo,yahoo,D,ZW=F,Trigo (Chicago),USc por bushel,internacional,Yahoo Finance
+brent,yahoo,D,BZ=F,Petróleo Brent,USD por barril,internacional,Yahoo Finance
+oro,yahoo,D,GC=F,Oro,USD por onza,internacional,Yahoo Finance
+merval,yahoo,D,^MERV,S&P Merval,puntos,mercados,BYMA
+riesgo,argdatos,D,finanzas/indices/riesgo-pais,Riesgo país (EMBI Argentina),puntos básicos,mercados,JP Morgan
+a_ggal,yahoo,D,GGAL.BA,Grupo Financiero Galicia,$,acciones,BYMA
+a_ypf,yahoo,D,YPFD.BA,YPF,$,acciones,BYMA
+a_pamp,yahoo,D,PAMP.BA,Pampa Energía,$,acciones,BYMA
+a_bma,yahoo,D,BMA.BA,Banco Macro,$,acciones,BYMA
+a_txar,yahoo,D,TXAR.BA,Ternium Argentina,$,acciones,BYMA
+a_alua,yahoo,D,ALUA.BA,Aluar,$,acciones,BYMA
+a_cepu,yahoo,D,CEPU.BA,Central Puerto,$,acciones,BYMA
+a_tgs,yahoo,D,TGSU2.BA,Transportadora de Gas del Sur,$,acciones,BYMA
+a_loma,yahoo,D,LOMA.BA,Loma Negra,$,acciones,BYMA
+a_bbar,yahoo,D,BBAR.BA,BBVA Argentina,$,acciones,BYMA
+a_teco,yahoo,D,TECO2.BA,Telecom Argentina,$,acciones,BYMA
+a_supv,yahoo,D,SUPV.BA,Grupo Supervielle,$,acciones,BYMA
+pobreza,libro,S,laboral-social.xlsx,Pobreza (personas),% de personas,laboral,INDEC (EPH)

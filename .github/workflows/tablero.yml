@@ -1,0 +1,71 @@
+# Actualización diaria del tablero (axiaeconomia.ar/tablero/).
+# El código vive en _automatizacion/ (lo copia tablero/sincronizar_ci.py desde la carpeta del Boletín).
+name: Tablero diario
+
+on:
+  schedule:
+    - cron: "0 22 * * *"      # 19:00 de Argentina (UTC-3), después de las publicaciones del INDEC
+  workflow_dispatch:           # botón "Run workflow" para correrlo a mano
+  push:                        # y cada vez que cambia el código de la automatización
+    branches: [main]
+    paths: ["_automatizacion/**", ".github/workflows/tablero.yml"]
+
+permissions:
+  contents: write              # commit y push del tablero
+  pages: write                 # pedir la publicación de GitHub Pages
+
+concurrency:
+  group: tablero
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: _automatizacion
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: _automatizacion/requirements.txt
+
+      - run: pip install -r requirements.txt
+
+      # Vintages de días anteriores y cachés (FMI, INDEC): sirven para rellenar lo que una API no devuelva
+      - uses: actions/cache@v4
+        with:
+          path: |
+            _automatizacion/boletin/datos
+            _automatizacion/tablero/cache
+          key: datos-${{ github.run_id }}
+          restore-keys: datos-
+
+      - name: Bajar datos y regenerar el tablero
+        env:
+          TZ: America/Argentina/Buenos_Aires
+        run: python tablero/actualizar_diario.py --sitio .. --sin-git
+
+      - name: Publicar
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "AXIA tablero (automático)"
+          git config user.email "info@axiaeconomia.ar"
+          git add tablero/index.html tablero/datos.js
+          if git diff --cached --quiet; then
+            echo "Sin cambios en el tablero"; exit 0
+          fi
+          git commit -q -m "Tablero: datos al $(TZ=America/Argentina/Buenos_Aires date +%F) (GitHub Actions)"
+          for i in 1 2 3; do
+            git push -q origin HEAD:main && break
+            git pull -q --rebase -X theirs origin main   # si chocó con otro push del tablero, gana el dato recién bajado
+          done
+          curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/builds" > /dev/null || true
+          echo "Publicado"
