@@ -62,10 +62,15 @@ jobs:
             echo "Sin cambios en el tablero"; exit 0
           fi
           git commit -q -m "Tablero: datos al $(TZ=America/Argentina/Buenos_Aires date +%F) (GitHub Actions)"
-          for i in 1 2 3; do
-            git push -q origin HEAD:main && break
-            git pull -q --rebase -X theirs origin main   # si chocó con otro push del tablero, gana el dato recién bajado
-          done
+          if ! git push -q origin HEAD:main; then
+            # otra actualización (la de la computadora) publicó mientras tanto: se deja la publicada
+            git fetch -q origin main
+            if ! git rebase -q origin/main; then
+              git rebase --abort
+              echo "Otra actualización publicó al mismo tiempo; se deja la ya publicada"; exit 0
+            fi
+            git push -q origin HEAD:main || { echo "No se pudo publicar; queda la versión anterior"; exit 0; }
+          fi
           curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${{ github.repository }}/pages/builds" > /dev/null || true
           echo "Publicado"
