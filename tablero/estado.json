@@ -1,9 +1,10 @@
 {
- "actualizado": "2026-10-13 19:23",
- "origen": "GitHub Actions",
+ "actualizado": "2026-10-13 19:30",
+ "origen": "computadora de AXIA",
  "series_rellenas_con_el_dia_anterior": [
   "eurusd",
   "financiero",
+  "ipc",
   "m_cyl",
   "m_pzas",
   "rec_comb",
@@ -13,5 +14,6 @@
   "x_cye",
   "x_moi"
  ],
+ "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": []
 }
