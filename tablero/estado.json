@@ -1,6 +1,6 @@
 {
- "actualizado": "2026-10-13 19:40",
- "origen": "computadora de AXIA",
+ "actualizado": "2026-10-13 19:45",
+ "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "emae",
   "emae_de",
@@ -36,10 +36,10 @@
   "x_cye",
   "x_moi"
  ],
- "series_con_dato_nuevo_del_indec": [
-  "ipc_nucleo con dato a 2026-09 (la API llegaba a 2026-08)",
-  "ipc_reg con dato a 2026-09 (la API llegaba a 2026-08)",
-  "ipc_est con dato a 2026-09 (la API llegaba a 2026-08)"
- ],
- "otros_avisos": []
+ "series_con_dato_nuevo_del_indec": [],
+ "otros_avisos": [
+  "AVISO: INDEC IPC: no se pudo leer el archivo (ConnectionError: HTTPSConnectionPool(host='www.indec.gob.ar', port=443): Max retries exceeded with url: /ftp/cuadros/economia/serie_ipc_divisiones.csv (Caused by NameResolutionError(\"HTTPSConnection(host='www.indec.gob.ar', port=443): Failed to resolve 'www.indec.gob.ar' ([Errno -3] Temporary failure in name resolution)\"))); se usa la API",
+  "AVISO: INDEC EMAE: no se pudo leer el archivo (ConnectionError: HTTPSConnectionPool(host='www.indec.gob.ar', port=443): Max retries exceeded with url: /ftp/cuadros/economia/sh_emae_mensual_base2004.xls (Caused by NameResolutionError(\"HTTPSConnection(host='www.indec.gob.ar', port=443): Failed to resolve 'www.indec.gob.ar' ([Errno -3] Temporary failure in name resolution)\"))); se usa la API",
+  "AVISO: INDEC IPI, ISAC y supermercados: no se pudo leer el archivo (ConnectionError: HTTPSConnectionPool(host='www.indec.gob.ar', port=443): Max retries exceeded with url: /ftp/cuadros/economia/sh_ipi_manufacturero_2026.xls (Caused by NameResolutionError(\"HTTPSConnection(host='www.indec.gob.ar', port=443): Failed to resolve 'www.indec.gob.ar' ([Errno -3] Temporary failure in name resolution)\"))); se usa la API"
+ ]
 }
