@@ -1,8 +1,10 @@
 {
- "actualizado": "2026-10-12 21:09",
+ "actualizado": "2026-10-12 21:11",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
+  "brent",
   "brl",
+  "dxy",
   "eph_desoc",
   "eph_empleo",
   "eurusd",
@@ -10,11 +12,15 @@
   "m_bk",
   "m_cyl",
   "m_pzas",
+  "maiz",
+  "oro",
   "pobreza",
   "rec_comb",
   "rec_iva",
   "s_const",
   "s_otros",
+  "soja",
+  "trigo",
   "x_cye",
   "x_moi",
   "x_pp"
