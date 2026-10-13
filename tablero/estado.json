@@ -1,10 +1,9 @@
 {
- "actualizado": "2026-10-12 21:11",
+ "actualizado": "2026-10-12 21:41",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
   "brl",
-  "dxy",
   "eph_desoc",
   "eph_empleo",
   "eurusd",
@@ -14,7 +13,6 @@
   "m_pzas",
   "maiz",
   "oro",
-  "pobreza",
   "rec_comb",
   "rec_iva",
   "s_const",
@@ -25,7 +23,5 @@
   "x_moi",
   "x_pp"
  ],
- "otros_avisos": [
-  "AVISO: no se pudo bajar pobreza (libro laboral-social.xlsx): [Errno 2] No such file or directory: '/home/runner/work/Axia-Economia/Axia-Economia/_automatizacion/salida/laboral-social.xlsx'"
- ]
+ "otros_avisos": []
 }
