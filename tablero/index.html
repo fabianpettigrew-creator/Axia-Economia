@@ -10,7 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="datos.js?v=d69ddffb"></script>
+<script src="i18n_en.js?v=44dad178"></script>
+<script src="datos.js?v=c7f40de6"></script>
 <style>
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
 :root{
@@ -34,6 +35,8 @@ button{font:inherit;cursor:pointer}
 .top .nombre{font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-decoration:none}
 .top .esp{flex:1}
 .top .act{font-size:12.5px;color:var(--ink-3)}
+.idioma{background:none;border:1px solid var(--rule);border-radius:2px;padding:5px 10px;font:inherit;font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--ink-2);cursor:pointer}
+.idioma:hover{border-color:var(--gold);color:var(--gold)}
 .navb{display:flex;flex-wrap:wrap;gap:6px;max-width:1160px;margin:0 auto;padding:0 clamp(16px,3vw,32px) 10px;scrollbar-width:none}
 .navb::-webkit-scrollbar{display:none}
 .navb a{white-space:nowrap;text-decoration:none;font-size:13.5px;padding:6px 12px;border:1px solid var(--rule);border-radius:999px;color:var(--ink-2)}
@@ -175,7 +178,7 @@ h1{font-family:var(--display);font-weight:500;font-size:clamp(34px,4.6vw,54px);l
       <span><b>AXIA</b><small>Consultora Económica</small></span>
     </a>
     <span class="sep" aria-hidden="true"></span><a class="nombre" href="#inicio">Tablero macro</a>
-    <span class="esp"></span><span class="act" id="act"></span>
+    <span class="esp"></span><span class="act" id="act"></span><button type="button" class="idioma" id="idioma" aria-label="Español / English">EN</button>
   </div>
   <nav class="navb" id="navb" aria-label="Secciones del tablero"></nav>
 </header>
@@ -185,21 +188,56 @@ h1{font-family:var(--display);font-weight:500;font-size:clamp(34px,4.6vw,54px);l
 
 <script>
 const D = window.DATOS, S = D.secciones;
-const MES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
-const MESL = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+// ---------- idioma: ?lang=en, o lo elegido en axiaeconomia.ar (misma clave "axia-lang"), o español
+const LANG = (()=>{ const q = new URLSearchParams(location.search).get("lang");
+  if (q === "en" || q === "es") { try { localStorage.setItem("axia-lang", q); } catch(e){} return q; }
+  try { return localStorage.getItem("axia-lang") === "en" ? "en" : "es"; } catch(e){ return "es"; } })();
+const EN_ = LANG === "en";
+document.documentElement.lang = LANG;
+const MES = EN_ ? ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"] : ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const MESL = EN_ ? ["January","February","March","April","May","June","July","August","September","October","November","December"]
+                 : ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
 const ROM = ["I","II","III","IV"];
 const CSSV = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const fnum = (v, dec=1) => (v < 0 ? "−" : "") + Math.abs(v).toLocaleString("es-AR", {minimumFractionDigits:dec, maximumFractionDigits:dec});
+const fnum = (v, dec=1) => (v < 0 ? "−" : "") + Math.abs(v).toLocaleString(EN_ ? "en-US" : "es-AR", {minimumFractionDigits:dec, maximumFractionDigits:dec});
 const fsig = (v, dec=1) => (v > 0 ? "+" : "") + fnum(v, dec);
-const fecha = s => { const [a,m,d] = s.split("-"); return `${+d} de ${MESL[+m-1]} de ${a}`; };
+const PESO = () => EN_ ? "AR$ " : "$ ";
+const fecha = s => { const [a,m,d] = s.split("-"); return EN_ ? `${MESL[+m-1]} ${+d}, ${a}` : `${+d} de ${MESL[+m-1]} de ${a}`; };
 const mesAnio = s => { const [a,m] = s.split("-"); return `${MESL[+m-1]} ${a}`; };
 const corto = s => { const [a,m] = s.split("-"); return `${MES[+m-1]}-${a.slice(2)}`; };
-const trim = s => { const [a,m] = s.split("-"); return `${ROM[Math.floor((+m-1)/3)]}-${a.slice(2)}`; };
-const trimLargo = s => { const [a,m] = s.split("-"); return `${["primer","segundo","tercer","cuarto"][Math.floor((+m-1)/3)]} trimestre ${a}`; };
-const sem = s => { const [a,m] = s.split("-"); return `${+m<7?"1S":"2S"}-${a.slice(2)}`; };
-const semLargo = s => { const [a,m] = s.split("-"); return `${+m<7?"primer":"segundo"} semestre ${a}`; };
+const trim = s => { const [a,m] = s.split("-"); const q = Math.floor((+m-1)/3); return EN_ ? `Q${q+1}-${a.slice(2)}` : `${ROM[q]}-${a.slice(2)}`; };
+const trimLargo = s => { const [a,m] = s.split("-"); const q = Math.floor((+m-1)/3);
+  return EN_ ? `Q${q+1} ${a}` : `${["primer","segundo","tercer","cuarto"][q]} trimestre ${a}`; };
+const sem = s => { const [a,m] = s.split("-"); return `${EN_ ? (+m<7?"H1":"H2") : (+m<7?"1S":"2S")}-${a.slice(2)}`; };
+const semLargo = s => { const [a,m] = s.split("-"); return EN_ ? `${+m<7?"first":"second"} half ${a}` : `${+m<7?"primer":"segundo"} semestre ${a}`; };
+
+// Traducción: una sola pasada sobre el texto ya armado (frases más largas primero, palabras completas).
+const DIC = EN_ ? {...(window.EN||{}), "mil":"k", "pb":"bp", "ene":"Jan", "abr":"Apr", "ago":"Aug", "dic":"Dec",
+  "feb":"Feb", "mar":"Mar", "may":"May", "jun":"Jun", "jul":"Jul", "sep":"Sep", "oct":"Oct", "nov":"Nov",
+  "T1":"Q1", "T2":"Q2", "T3":"Q3", "T4":"Q4"} : {};
+const RX = EN_ ? new RegExp("(?<![\\p{L}\\p{N}])(" + Object.keys(DIC).sort((a,b)=>b.length-a.length)
+  .map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|") + ")(?![\\p{L}\\p{N}])", "gu") : null;
+const T = s => (!EN_ || typeof s !== "string") ? s : (DIC[s] ?? s.replace(RX, m=>DIC[m]));
+function traducir(raiz){
+  if (!EN_ || !raiz) return;
+  const w = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT);
+  for (let n; (n = w.nextNode());) if (/\p{L}/u.test(n.nodeValue)) n.nodeValue = T(n.nodeValue);
+  raiz.querySelectorAll("[title],[aria-label]").forEach(e=>{
+    for (const a of ["title","aria-label"]) if (e.hasAttribute(a)) e.setAttribute(a, T(e.getAttribute(a))); });
+}
+// Gráficos: nombres de series, categorías y textos de los tooltips pasan por T.
+if (EN_ && window.Chart){
+  const Base = window.Chart;
+  window.Chart = class extends Base { constructor(ctx, cfg){
+    const d = cfg.data || {};
+    if (Array.isArray(d.labels)) d.labels = d.labels.map(T);
+    (d.datasets||[]).forEach(ds=>{ ds.label = T(ds.label); });
+    const cb = cfg.options?.plugins?.tooltip?.callbacks;
+    if (cb) for (const k of ["title","label"]) if (cb[k]) { const f = cb[k]; cb[k] = (...a)=>{ const r = f(...a); return Array.isArray(r) ? r.map(T) : T(r); }; }
+    super(ctx, cfg); } };
+}
 const MAIL = "info@axiaeconomia.ar";
-const WA = "https://wa.me/5491137602415?text=" + encodeURIComponent("Hola, me comunico desde el Tablero macro de AXIA");
+const WA = "https://wa.me/5491137602415?text=" + encodeURIComponent(EN_ ? "Hello, I am contacting you from the AXIA macro dashboard" : "Hola, me comunico desde el Tablero macro de AXIA");
 
 const ICON = {
   actividad:'<path d="M3 12h4l3-7 4 14 3-7h4"/>', empleo:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c.6-3.4 3-5.4 6-5.4s5.4 2 6 5.4"/><path d="M16 5.5a3 3 0 0 1 0 5.6M18 14.6c1.6.7 2.7 2.4 3 5.4"/>',
@@ -218,7 +256,7 @@ const SECCIONES = [
    mini:{d:()=>S.actividad.emae["Desestacionalizado"], desde:36, et:"EMAE desestacionalizado, 3 años"}},
   {id:"precios", t:"Precios", p:"Inflación mensual e interanual por categoría y expectativas del REM.", dato:()=>["IPC mensual", fnum(K("precios").mensual.valor)+"%"],
    mini:{d:()=>S.precios.mensual["Nivel general"], desde:24, tipo:"bar", et:"Inflación mensual, 2 años"}},
-  {id:"tipo-cambio", t:"Tipo de cambio", p:"Mayorista, contado con liquidación, informal y brecha.", dato:()=>["Mayorista", "$ "+fnum(K("tipo-cambio").oficial.valor, 2)],
+  {id:"tipo-cambio", t:"Tipo de cambio", p:"Mayorista, contado con liquidación, informal y brecha.", dato:()=>["Mayorista", PESO()+fnum(K("tipo-cambio").oficial.valor, 2)],
    mini:{d:()=>S["tipo-cambio"].cotizaciones["Mayorista (A3500)"], desde:250, et:"Mayorista diario, 1 año"}},
   {id:"empleo", t:"Empleo y salarios", p:"Desocupación, empleo registrado, salario real y pobreza.", dato:()=>["Desocupación", fnum(K("empleo").desoc.valor)+"%"],
    mini:{d:()=>S.empleo.eph["Tasa de desocupación"], desde:20, et:"Desocupación trimestral, 5 años"}},
@@ -262,8 +300,8 @@ const DEF = {
     nota:"La núcleo excluye regulados (tarifas, combustibles) y estacionales (frutas, verduras, ropa): es la mejor medida de la tendencia."},
   "tipo-cambio": {sub:"Mayorista (A3500), contado con liquidación, informal y brecha", fuente:"BCRA y ArgentinaDatos",
     ultimo:k=>k.oficial.fecha,
-    kpis:k=>[["Mayorista A3500","$ "+fnum(k.oficial.valor,2),`${fsig(k.oficial_30d)}% en 30 días`],["Contado con liqui","$ "+fnum(k.ccl.valor,0),fecha(k.ccl.fecha)],
-             ["Informal","$ "+fnum(k.blue.valor,0),fecha(k.blue.fecha)],["Brecha CCL",fnum(k.brecha.valor)+"%","CCL / mayorista"]],
+    kpis:k=>[["Mayorista A3500",PESO()+fnum(k.oficial.valor,2),`${fsig(k.oficial_30d)}% en 30 días`],["Contado con liqui",PESO()+fnum(k.ccl.valor,0),fecha(k.ccl.fecha)],
+             ["Informal",PESO()+fnum(k.blue.valor,0),fecha(k.blue.fecha)],["Brecha CCL",fnum(k.brecha.valor)+"%","CCL / mayorista"]],
     tabs:[{n:"Cotizaciones", t:"Tipo de cambio", st:"Pesos por dólar, datos diarios", d:x=>x.cotizaciones, tipo:"line", u:"$", dec:0, rango:"2A"},
           {n:"Brecha", t:"Brecha cambiaria", st:"Contado con liquidación sobre mayorista, %", d:x=>x.brecha, tipo:"line", u:"%", dec:1, rango:"2A"}],
     nota:"El mayorista es la referencia oficial del BCRA (Comunicación A3500). La brecha mide cuánto más caro está el dólar financiero."},
@@ -367,7 +405,7 @@ function pedido(s){
     <div class="pedido-box"><h2>Disponible para clientes de AXIA</h2>
       <p>Lo preparamos a medida de cada empresa u organización, con informes y reuniones de presentación.</p>
       <ul>${s.detalle.map(x=>`<li>${x}</li>`).join("")}</ul>
-      <div class="contacto"><a class="c1" href="mailto:${MAIL}?subject=${encodeURIComponent("Consulta: "+s.t)}">Escribinos a ${MAIL}</a>
+      <div class="contacto"><a class="c1" href="mailto:${MAIL}?subject=${encodeURIComponent((EN_ ? "Inquiry: " : "Consulta: ")+T(s.t))}">Escribinos a ${MAIL}</a>
         <a class="c2" href="${WA}" target="_blank" rel="noopener">WhatsApp +54 9 11 3760-2415</a></div></div>`;
 }
 
@@ -398,8 +436,8 @@ function etiquetador(xs){
   if (paso < 120) return {cor:trim, lar:trimLargo};
   return {cor:sem, lar:semLargo};
 }
-const fval = (tab, v) => v==null ? "s.d." : (tab.u==="$"?"$ ":tab.u.startsWith("US$")?"US$ ":"") + fnum(v, tab.dec) +
-  (tab.u==="%"?"%":tab.u==="pb"?" pb":tab.u==="mil"?" mil":tab.u==="US$ M"?" M":tab.u==="US$ mil M"?" mil M":"");
+const fval = (tab, v) => v==null ? T("s.d.") : (tab.u==="$"?PESO():tab.u.startsWith("US$")?"US$ ":"") + fnum(v, tab.dec) +
+  (tab.u==="%"?"%":tab.u==="pb"?T(" pb"):tab.u==="mil"?T(" mil"):tab.u==="US$ M"?" M":tab.u==="US$ mil M"?T(" mil M"):"");
 
 // Por categoría: región elegida (se recuerda al cambiar de solapa) e interanuales calculados de los índices del INDEC
 let regionCat = "Nacional";
@@ -409,7 +447,8 @@ function catPorRegion(B, reg){
   return {"Nivel general":ia(R.general), ...Object.fromEntries(["Núcleo","Regulados","Estacionales"].filter(c=>R.comp[c]).map(c=>[c, ia(R.comp[c])]))};
 }
 
-function dibujar(){
+function dibujar(){ dibujarSolapa(); traducir(document.getElementById("vista")); }
+function dibujarSolapa(){
   const def = DEF[estado.id], tab = def.tabs[estado.tab], x = S[estado.id], datos = tab.d ? tab.d(x) : null;
   document.getElementById("g-tit").innerHTML = `${tab.t}<small>${typeof tab.st==="function"?tab.st(x):tab.st}</small>`;
   const pie = tab.pie ? tab.pie(x) : ""; document.getElementById("g-pie").textContent = pie ? pie + ". " : "";
@@ -626,9 +665,9 @@ function dibujarBrechas(B){
         const y = ch.scales.y, cx = ch.ctx, colPill = {"Núcleo":"#1a2233", "Regulados":"#b8874a", "Estacionales":"#3d6fa8"};
         cx.save(); cx.font = "600 11px Manrope"; cx.textBaseline = "middle"; cx.textAlign = "right";
         filas.forEach((f,i)=>{ if (!colPill[f.c]) return;
-          const yy = y.getPixelForTick(i), der = y.right - 8, w = cx.measureText(f.c).width + 14, h = 18;
+          const yy = y.getPixelForTick(i), der = y.right - 8, w = cx.measureText(T(f.c)).width + 14, h = 18;
           cx.fillStyle = colPill[f.c]; cx.beginPath(); cx.roundRect(der - w, yy - h/2, w, h, 9); cx.fill();
-          cx.fillStyle = "#fff"; cx.fillText(f.c, der - 7, yy + 0.5); });
+          cx.fillStyle = "#fff"; cx.fillText(T(f.c), der - 7, yy + 0.5); });
         cx.restore(); }}]});
     estado.visible = {h:"Componente", cats:filas.map(f=>f.c), series:{"Variación del componente (%)":filas.map(f=>f.v),
       "Variación del nivel general (%)":filas.map(()=>gen), [relativo?"Cambio del precio relativo (%)":"Brecha (p.p.)"]:filas.map(f=>f.b)}};
@@ -705,7 +744,9 @@ function dibujarG20ult(U, G){
 
 function csv(){
   const v = estado.visible, nombres = Object.keys(v.series);
-  const filas = [[v.h || "Período", ...nombres].join(";")].concat(v.cats.map((c,i)=>[c, ...nombres.map(n=>v.series[n][i]==null?"":typeof v.series[n][i]==="number"?String(+v.series[n][i].toFixed(4)).replace(".",","):v.series[n][i])].join(";")));
+  const sep = EN_ ? "," : ";", q = x => { const t = String(T(x)); return /[",;\n]/.test(t) ? '"' + t.replace(/"/g,'""') + '"' : t; };
+  const num = x => EN_ ? String(+x.toFixed(4)) : String(+x.toFixed(4)).replace(".",",");
+  const filas = [[v.h || "Período", ...nombres].map(q).join(sep)].concat(v.cats.map((c,i)=>[q(c), ...nombres.map(n=>v.series[n][i]==null?"":typeof v.series[n][i]==="number"?num(v.series[n][i]):q(v.series[n][i]))].join(sep)));
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob(["﻿"+filas.join("\n")], {type:"text/csv;charset=utf-8"}));
   a.download = `axia_${estado.id}_${DEF[estado.id].tabs[estado.tab].n.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-")}.csv`;
@@ -719,7 +760,8 @@ function ruta(){
   const v = document.getElementById("vista");
   if (grafico){ grafico.destroy(); grafico = null; }
   v.innerHTML = id==="inicio" ? portada() : DEF[id] ? seccion(id) : pedido(PEDIDO.find(p=>p.id===id));
-  document.title = (id==="inicio" ? "Tablero macro" : (SECCIONES.find(s=>s.id===id)||PEDIDO.find(s=>s.id===id)).t + " · Tablero macro") + " · AXIA";
+  document.title = (id==="inicio" ? T("Tablero macro") : T((SECCIONES.find(s=>s.id===id)||PEDIDO.find(s=>s.id===id)).t) + " · " + T("Tablero macro")) + " · AXIA";
+  traducir(document.getElementById("navb")); traducir(v);
   window.scrollTo(0,0);
   const activo = document.querySelector(".navb a.on"); if (activo) activo.scrollIntoView({block:"nearest", inline:"center"});
   if (DEF[id]){
@@ -729,7 +771,11 @@ function ruta(){
     document.getElementById("csv").onclick = csv;
   }
 }
-document.getElementById("act").textContent = "Actualizado al " + fecha(D.actualizado);
+document.getElementById("act").textContent = T("Actualizado al") + " " + fecha(D.actualizado);
+traducir(document.querySelector("header.top")); traducir(document.querySelector("footer.pie"));
+const bIdioma = document.getElementById("idioma");
+bIdioma.textContent = EN_ ? "ES" : "EN";
+bIdioma.onclick = () => { const u = new URL(location.href); u.searchParams.set("lang", EN_ ? "es" : "en"); location.href = u.toString(); };
 window.addEventListener("hashchange", ruta);
 // Chart.js mide las etiquetas al dibujar: esperar a Manrope evita ejes recortados.
 (document.fonts ? document.fonts.load('11px "Manrope"').catch(()=>{}) : Promise.resolve()).then(ruta);

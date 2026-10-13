@@ -353,7 +353,10 @@ def main():
     h = hashlib.md5(destino.read_bytes()).hexdigest()[:8]
     pagina = destino.parent / "index.html"
     html = pagina.read_text(encoding="utf-8")
-    pagina.write_text(re.sub(r'src="datos\.js(\?v=\w+)?"', f'src="datos.js?v={h}"', html), encoding="utf-8")
+    h_en = hashlib.md5((destino.parent / "i18n_en.js").read_bytes()).hexdigest()[:8]
+    html = re.sub(r'src="datos\.js(\?v=\w+)?"', f'src="datos.js?v={h}"', html)
+    html = re.sub(r'src="i18n_en\.js(\?v=\w+)?"', f'src="i18n_en.js?v={h_en}"', html)
+    pagina.write_text(html, encoding="utf-8")
 
 
 def publicar(sitio: Path):
@@ -361,7 +364,7 @@ def publicar(sitio: Path):
     import shutil
     dest = sitio / "tablero"
     dest.mkdir(exist_ok=True)
-    for f in ("index.html", "datos.js"):
+    for f in ("index.html", "datos.js", "i18n_en.js"):
         shutil.copy2(AQUI / "demo" / f, dest / f)
     print("Copiado a", dest)
 

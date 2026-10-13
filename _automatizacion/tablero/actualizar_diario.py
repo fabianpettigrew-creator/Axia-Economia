@@ -120,7 +120,7 @@ def main(push: bool, usar_git: bool, nube: bool):
         podar(datos.VINTAGES)
     if not usar_git:
         return
-    git("add", "tablero/index.html", "tablero/datos.js", "tablero/estado.json")
+    git("add", "tablero/")
     if not git("diff", "--cached", "--name-only"):
         print("Sin cambios en el tablero: no hay nada que publicar")
     else:
