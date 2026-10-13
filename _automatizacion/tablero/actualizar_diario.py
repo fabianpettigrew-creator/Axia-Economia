@@ -82,7 +82,7 @@ class Avisos:
         self.destino.write(t)
         self._buf += t
         *completas, self._buf = self._buf.split("\n")
-        self.lineas += [x.strip() for x in completas if x.upper().startswith("AVISO")]   # "AVISO" (descargas) y "Aviso" (INDEC, FMI, OCDE)
+        self.lineas += [x.strip() for x in completas if x.upper().startswith(("AVISO", "INDEC:"))]   # avisos y series adelantadas con los archivos del INDEC
     def flush(self):
         self.destino.flush()
 
@@ -93,7 +93,8 @@ def escribir_estado(avisos: list[str], origen: str):
     rellenas = sorted({m.group(1) for a in avisos if (m := re.match(r"AVISO: (\w+): \d+ dato", a))})
     estado = {"actualizado": dt.datetime.now().strftime("%Y-%m-%d %H:%M"), "origen": origen,
               "series_rellenas_con_el_dia_anterior": rellenas,
-              "otros_avisos": [a for a in avisos if not re.match(r"AVISO: \w+: \d+ dato", a)]}
+              "series_con_dato_nuevo_del_indec": [a.removeprefix("INDEC: ") for a in avisos if a.startswith("INDEC:")],
+              "otros_avisos": [a for a in avisos if not re.match(r"AVISO: \w+: \d+ dato", a) and not a.startswith("INDEC:")]}
     (SITIO / "tablero" / "estado.json").write_text(json.dumps(estado, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
