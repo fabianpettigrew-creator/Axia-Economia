@@ -4,7 +4,10 @@ name: Tablero diario
 
 on:
   schedule:
-    - cron: "0 22 * * *"      # 19:00 de Argentina (UTC-3), después de las publicaciones del INDEC
+    # GitHub no garantiza el horario (atrasa o saltea corridas, sobre todo en hora en punto): dos intentos.
+    # Si la primera ya publicó, la segunda no cambia nada.
+    - cron: "17 22 * * *"     # 19:17 de Argentina (UTC-3), después de las publicaciones del INDEC
+    - cron: "47 23 * * *"     # 20:47 de Argentina, respaldo
   workflow_dispatch:           # botón "Run workflow" para correrlo a mano
   push:                        # y cada vez que cambia el código de la automatización
     branches: [main]
