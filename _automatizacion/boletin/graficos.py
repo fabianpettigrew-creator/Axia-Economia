@@ -166,6 +166,7 @@ def columnas(s: pd.Series, unidad="%", alto=220, ancho=640, dec=1, titulo_aria="
         y = Y(v)
         out.append(f'<line class="{"zero" if abs(v) < 1e-9 else "grid"}" x1="{ml:.0f}" x2="{ml + w:.0f}" y1="{y:.1f}" y2="{y:.1f}"/>')
         out.append(f'<text class="tick" x="{ml - 6:.0f}" y="{y + 4:.1f}" text-anchor="end">{num(v, d)}</text>')
+    rotulos = []
     for i, (t, v) in enumerate(s.items()):
         x = ml + i * paso + 1
         ya, yb = sorted([Y(v), Y(0)])
@@ -180,7 +181,14 @@ def columnas(s: pd.Series, unidad="%", alto=220, ancho=640, dec=1, titulo_aria="
         out.append(f'<path class="{cls}" d="{p}"/>')
         lbl = etiqueta_x(t)
         if lbl:
-            out.append(f'<text class="tick" x="{x + bw / 2:.1f}" y="{mt + h + 17}" text-anchor="middle">{lbl}</text>')
+            rotulos.append((x + bw / 2, lbl))
+    # rótulos del eje: si dos se pisan, se descarta el anterior (el del último dato siempre queda)
+    libre = float("inf")
+    for cx, lbl in reversed(rotulos):
+        mitad = len(lbl) * 3.6 + 3          # ancho aproximado del texto a 11 px, más un margen
+        if cx + mitad <= libre:
+            out.append(f'<text class="tick" x="{cx:.1f}" y="{mt + h + 17}" text-anchor="middle">{lbl}</text>')
+            libre = cx - mitad
     xv = ml + (len(s) - 1) * paso + 1 + bw / 2
     yv = Y(max(s.iloc[-1], 0)) - 5 if s.iloc[-1] >= 0 else Y(s.iloc[-1]) + 14
     out.append(f'<text class="lbl-val" x="{xv:.1f}" y="{yv:.1f}" text-anchor="middle">{num(s.iloc[-1], dec)}</text>')

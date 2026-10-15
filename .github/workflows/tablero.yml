@@ -8,6 +8,10 @@ on:
     # Si la primera ya publicó, la segunda no cambia nada.
     - cron: "17 22 * * *"     # 19:17 de Argentina (UTC-3), después de las publicaciones del INDEC
     - cron: "47 23 * * *"     # 20:47 de Argentina, respaldo
+    # Series diarias (dólar, riesgo país, reservas, tasas, Merval, commodities): corridas en días hábiles
+    # para tomar el último dato apenas lo publica cada fuente. Si nada cambió, no hay commit.
+    - cron: "17 14,16,18,20 * * 1-5"   # 11:17, 13:17, 15:17 y 17:17 de Argentina
+    - cron: "17 2 * * 2-6"             # 23:17 de Argentina (lunes a viernes): riesgo país y cierres tardíos
   workflow_dispatch:           # botón "Run workflow" para correrlo a mano
   push:                        # y cada vez que cambia el código de la automatización
     branches: [main]

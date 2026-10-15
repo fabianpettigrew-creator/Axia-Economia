@@ -72,6 +72,20 @@ def no_retrocede():
     return [f"{k}: {nuevo[k]} < {publicado[k]}" for k in publicado if k in nuevo and nuevo[k] < publicado[k]]
 
 
+def sin_novedades() -> bool:
+    """True si el datos.js nuevo tiene los mismos datos que el publicado (solo cambiaría la hora). Pasa en las
+    corridas de durante el día cuando ninguna fuente publicó nada desde la anterior."""
+    def leer(ruta: Path):
+        if not ruta.exists():
+            return None
+        t = ruta.read_text(encoding="utf-8")
+        d = json.loads(t[len("window.DATOS = "):].rstrip().rstrip(";"))
+        d.pop("hora", None)
+        return d
+    nuevo, publicado = leer(AQUI / "demo" / "datos.js"), leer(SITIO / "tablero" / "datos.js")
+    return publicado is not None and nuevo == publicado
+
+
 def sembrar(vintages: Path):
     """Sin vintages previos (primer uso en GitHub o caché vencida): parte del último vintage conocido,
     para poder rellenar lo que la API no devuelva y las series que solo existen en la computadora (pobreza)."""
@@ -132,6 +146,9 @@ def main(push: bool, usar_git: bool, nube: bool):
         sys.stdout = avisos.destino
     preparar_datos.main()
     controlar(hoy)
+    if sin_novedades():
+        print("Sin datos nuevos respecto de lo publicado: no se publica (se mantiene la hora de la última novedad)")
+        return
     atras = no_retrocede()
     if atras:
         print("AVISO: no se publica: esta corrida tiene datos más viejos que los publicados -> " + "; ".join(atras))

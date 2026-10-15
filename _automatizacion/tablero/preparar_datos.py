@@ -214,7 +214,10 @@ def main():
     R = datos.cargar_rem(vint)
     ipc_e = SB.ipc_extendido(d["ipc"], R)
     mens, fin, suma = SB.mens, SB.fin, SB.suma
-    out = {"actualizado": vint.stem, "secciones": {}}
+    import datetime as _dt
+    # hora de la corrida (hora de Argentina): el tablero se actualiza varias veces por día con las series diarias
+    hora = (_dt.datetime.now(_dt.timezone.utc) - _dt.timedelta(hours=3)).strftime("%H:%M")
+    out = {"actualizado": vint.stem, "hora": hora, "secciones": {}}
     sec = out["secciones"]
 
     # ================= tipo de cambio

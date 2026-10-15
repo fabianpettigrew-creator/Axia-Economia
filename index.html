@@ -137,6 +137,15 @@
 </script>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@AxiaEconomica">
+<style>
+.ax-monitor{display:inline-flex;align-items:center;gap:8px}
+.ax-vivo{width:7px;height:7px;border-radius:50%;background:#5fae7e;position:relative;flex:none}
+.ax-vivo::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #5fae7e;animation:axVivo 1.8s ease-out infinite}
+.ax-brillo{background:linear-gradient(100deg,#f2ede4 40%,#d9a964 50%,#f2ede4 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:axBrillo 6s ease-in-out infinite}
+@keyframes axVivo{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.6);opacity:0}}
+@keyframes axBrillo{0%{background-position:100% 0}35%,100%{background-position:0 0}}
+@media (prefers-reduced-motion:reduce){.ax-vivo::after,.ax-brillo{animation:none}.ax-brillo{color:#f2ede4;background:none}}
+</style>
 </head>
 <body>
 <div style="background: rgb(247, 244, 238); color: rgb(35, 43, 59); font-family: Manrope, system-ui, sans-serif; line-height: 1.6;">
@@ -153,7 +162,7 @@
       <nav style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px);">
         <a href="#servicios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Servicios</span><span data-en>Services</span></a>
         <a href="#boletin" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Boletín</span><span data-en>Bulletin</span></a>
-        <a href="tablero/" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Tablero</span><span data-en>Dashboard</span></a>
+        <a href="tablero/" class="scp0 ax-monitor" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span class="ax-vivo" aria-hidden="true"></span><span class="ax-brillo"><span data-es>Monitor Macro</span><span data-en>Macro Monitor</span></span></a>
         <a href="#estudios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Estudios</span><span data-en>Studies</span></a>
         <a href="#trayectoria" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Equipo</span><span data-en>Team</span></a>
         <a href="#contacto" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Contacto</span><span data-en>Contact</span></a>
@@ -271,7 +280,7 @@
             <div style="margin-top: clamp(22px, 3vw, 32px); display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center;">
               <a id="bol-leer" href="boletin/" class="scp2" style="display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border-radius: 2px;"><span data-es>Leer el boletín</span><span data-en>Read the bulletin</span><span aria-hidden="true">→</span></a>
               <a id="bol-pdf" href="#" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↓</span><span style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Descargar PDF</span><span data-en>Download PDF</span></span></a>
-              <a href="tablero/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↗</span><span style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Ver el tablero interactivo</span><span data-en>Interactive dashboard</span></span></a>
+              <a href="tablero/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↗</span><span style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span></span></a>
             </div>
           </div>
           <ul id="bol-indicadores" style="display: grid; grid-template-columns: repeat(3, minmax(0px, 1fr)); gap: 0px;"></ul>
