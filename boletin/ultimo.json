@@ -1,41 +1,41 @@
 {
- "edicion": "Octubre 2026",
- "numero": "10",
- "corte": "4 de octubre de 2026",
- "titular": "La actividad tuvo en julio su peor mes desde 2020 y el riesgo país volvió a subir",
- "bajada": "El EMAE cayó 2,9% mensual, con industria, comercio y construcción en baja. La inflación bajó a 1,7% en agosto, pero el riesgo país subió 165 pb en un mes y el BCRA casi dejó de comprar dólares.",
+ "edicion": "Septiembre 2026",
+ "numero": "9",
+ "corte": "4 de septiembre de 2026",
+ "titular": "La actividad repuntó en junio, pero el riesgo país volvió a subir y el BCRA compra menos dólares",
+ "bajada": "El EMAE creció 0,3% en junio y 13 de los 15 sectores mejoraron frente a un año atrás. La inflación de julio subió a 2,1%, el riesgo país aumentó 72 pb en un mes y las compras de dólares del BCRA se redujeron a US$ 724 M en agosto.",
  "url": "boletin/",
- "pdf": "boletin/boletin_2026-10.pdf?v=fe29677e",
+ "pdf": "boletin/boletin_2026-09.pdf?v=1aba99c0",
  "indicadores": [
   {
    "etiqueta": "Actividad (EMAE)",
-   "valor": "−2,9%",
-   "detalle": "mensual s.e. · jul-26"
+   "valor": "+0,3%",
+   "detalle": "mensual s.e. · jun-26"
   },
   {
    "etiqueta": "Inflación (IPC)",
-   "valor": "1,7%",
-   "detalle": "mensual · ago-26"
+   "valor": "2,1%",
+   "detalle": "mensual · jul-26"
   },
   {
    "etiqueta": "Dólar mayorista",
-   "valor": "$ 1.523,09",
-   "detalle": "2-oct-26"
+   "valor": "$ 1.511,63",
+   "detalle": "2-sep-26"
   },
   {
    "etiqueta": "Reservas BCRA",
-   "valor": "US$ 46.092 M",
-   "detalle": "30-sep-26"
+   "valor": "US$ 48.259 M",
+   "detalle": "31-ago-26"
   },
   {
    "etiqueta": "Desocupación",
-   "valor": "7,9%",
-   "detalle": "II-26"
+   "valor": "7,8%",
+   "detalle": "I-26"
   },
   {
    "etiqueta": "Riesgo país",
-   "valor": "655 pb",
-   "detalle": "2-oct-26"
+   "valor": "500 pb",
+   "detalle": "2-sep-26"
   }
  ]
 }
