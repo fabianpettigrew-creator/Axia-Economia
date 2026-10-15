@@ -28,6 +28,8 @@ ipc_est,series,M,148.3_IESTACINAL_DICI_M_25,IPC estacionales,índice dic-16=100,
 rem_ipc12,bcra,D,29,REM: inflación esperada próximos 12 meses (mediana),%,precios,BCRA (REM)
 tc_may,bcra,D,5,Tipo de cambio mayorista (Com. A3500),$ por USD,monetario,BCRA
 tc_min,bcra,D,4,Tipo de cambio minorista,$ por USD,monetario,BCRA
+banda_inf,bcra,D,1187,Bandas cambiarias: límite inferior,$ por USD,monetario,BCRA
+banda_sup,bcra,D,1188,Bandas cambiarias: límite superior,$ por USD,monetario,BCRA
 ccl,argdatos,D,cotizaciones/dolares/contadoconliqui,Dólar contado con liquidación,$ por USD,monetario,ArgentinaDatos
 blue,argdatos,D,cotizaciones/dolares/blue,Dólar informal,$ por USD,monetario,ArgentinaDatos
 reservas,bcra,D,1,Reservas internacionales,millones de USD,monetario,BCRA

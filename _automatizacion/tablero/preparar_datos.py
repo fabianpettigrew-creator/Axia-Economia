@@ -223,11 +223,18 @@ def main():
     # ================= tipo de cambio
     tcs = alinear({"Mayorista (A3500)": d["tc_may"], "Contado con liqui": d["ccl"], "Informal": d["blue"]}, "2023")
     tc, ccl, blue = tcs.values()
+    # bandas de flotación del BCRA (desde el 14-abr-2025), llevadas al calendario del mayorista
+    bandas = {n: d[k] for n, k in (("Banda superior", "banda_sup"), ("Banda inferior", "banda_inf")) if k in d}
+    if bandas:
+        bandas = {n: s_.dropna() for n, s_ in alinear({"Mayorista (A3500)": d["tc_may"], **bandas}, "2023").items()
+                  if n != "Mayorista (A3500)"}
     brecha = (ccl / tc - 1) * 100
     sec["tipo-cambio"] = {
         "kpis": {"oficial": ult(tc), "ccl": ult(ccl, 0), "blue": ult(blue, 0), "brecha": ult(brecha, 1),
+                 **({"techo": ult(bandas["Banda superior"]),
+                     "techo_dist": round(float(bandas["Banda superior"].iloc[-1] / tc.iloc[-1] - 1) * 100, 1)} if bandas else {}),
                  "oficial_30d": round(float(tc.iloc[-1] / tc[: tc.index[-1] - pd.Timedelta(days=30)].iloc[-1] - 1) * 100, 2)},
-        "cotizaciones": {n: serie(s) for n, s in tcs.items()},
+        "cotizaciones": {**{n: serie(s) for n, s in tcs.items()}, **{n: serie(s) for n, s in bandas.items()}},
         "brecha": {"Brecha CCL / mayorista": serie(brecha, 1)},
     }
 
