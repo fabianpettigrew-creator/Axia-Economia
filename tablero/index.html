@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="i18n_en.js?v=276c643a"></script>
-<script src="datos.js?v=c1df93eb"></script>
+<script src="i18n_en.js?v=6e3b36a1"></script>
+<script src="datos.js?v=0ea6da2e"></script>
 <style>
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
 :root{
@@ -305,13 +305,14 @@ const DEF = {
            d:x=>catPorRegion(x.brechas, regionCat), regiones:true, tipo:"line", u:"%", dec:1, rango:"5A", barras:["Nivel general"]},
           {n:"Brechas", t:"Brechas con el nivel general", tipo:"brechas"}],
     nota:"La núcleo excluye regulados (tarifas, combustibles) y estacionales (frutas, verduras, ropa): es la mejor medida de la tendencia."},
-  "tipo-cambio": {sub:"Mayorista (A3500), contado con liquidación, informal y brecha", fuente:"BCRA y ArgentinaDatos",
+  "tipo-cambio": {sub:"Mayorista (A3500) y bandas de flotación, contado con liquidación, informal y brecha", fuente:"BCRA y ArgentinaDatos",
     ultimo:k=>k.oficial.fecha,
-    kpis:k=>[["Mayorista A3500",PESO()+fnum(k.oficial.valor,2),`${fsig(k.oficial_30d)}% en 30 días`],["Contado con liqui",PESO()+fnum(k.ccl.valor,0),fecha(k.ccl.fecha)],
+    kpis:k=>[["Mayorista A3500",PESO()+fnum(k.oficial.valor,2),`${fsig(k.oficial_30d)}% en 30 días`+(k.techo_dist!=null ? ` · ${fnum(k.techo_dist)}% por debajo del techo de la banda` : "")],["Contado con liqui",PESO()+fnum(k.ccl.valor,0),fecha(k.ccl.fecha)],
              ["Informal",PESO()+fnum(k.blue.valor,0),fecha(k.blue.fecha)],["Brecha CCL",fnum(k.brecha.valor)+"%","CCL / mayorista"]],
-    tabs:[{n:"Cotizaciones", t:"Tipo de cambio", st:"Pesos por dólar, datos diarios", d:x=>x.cotizaciones, tipo:"line", u:"$", dec:0, rango:"2A"},
+    tabs:[{n:"Cotizaciones", t:"Tipo de cambio y bandas de flotación", st:"Pesos por dólar, datos diarios · en dorado, la banda de flotación del BCRA", d:x=>x.cotizaciones, tipo:"line", u:"$", dec:0, rango:"2A",
+           bandas:["Banda superior","Banda inferior"]},
           {n:"Brecha", t:"Brecha cambiaria", st:"Contado con liquidación sobre mayorista, %", d:x=>x.brecha, tipo:"line", u:"%", dec:1, rango:"2A"}],
-    nota:"El mayorista es la referencia oficial del BCRA (Comunicación A3500). La brecha mide cuánto más caro está el dólar financiero."},
+    nota:"El mayorista es la referencia oficial del BCRA (Comunicación A3500). Desde el 14 de abril de 2025 flota dentro de una banda cuyos límites fija el BCRA; si toca un límite, el BCRA interviene. La brecha mide cuánto más caro está el dólar financiero."},
   "empleo": {sub:"Mercado de trabajo (EPH), empleo registrado (SIPA), salarios y pobreza", fuente:"INDEC y SIPA",
     ultimo:k=>k.sal_real.fecha, mensual:true,
     kpis:k=>[["Desocupación",fnum(k.desoc.valor)+"%",`${trimLargo(k.desoc.fecha)} · un año antes ${fnum(k.desoc_ant)}%`],
@@ -510,6 +511,10 @@ function dibujarSolapa(){
     let ys = etiquetas.map(f=>m.has(f)?m.get(f):null);
     if (tab.rebase){ const b = ys.find(v=>v!=null); ys = ys.map(v=>v==null?null:v/b*100); }
     const barCol = tab.signo ? ys.map(v=>v>=0?CSSV("--pos"):CSSV("--neg")) : etiquetas.map((_,i)=>i===etiquetas.length-1?cols[0]:CSSV("--bar-soft"));
+    // tab.bandas: límites de una banda (superior, inferior): líneas punteadas doradas y el área entre ellas sombreada
+    if (tab.bandas && tab.bandas.includes(n))
+      return {label:n, data:ys, borderColor:"#b8874a", borderDash:[5,4], borderWidth:1.4, pointRadius:0, pointHoverRadius:3,
+              backgroundColor:"rgba(184,135,74,.09)", fill:n===tab.bandas[0] ? "+1" : false, tension:0, spanGaps:false, order:3};
     // tab.barras: series que van en barras dentro de un gráfico de líneas (detrás de las líneas)
     if (tab.barras && tab.barras.includes(n))
       return {type:"bar", label:n, data:ys, backgroundColor:CSSV("--bar-soft"), borderWidth:0, borderRadius:3, order:2};
