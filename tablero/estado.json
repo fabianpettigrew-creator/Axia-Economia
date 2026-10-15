@@ -1,9 +1,7 @@
 {
- "actualizado": "2026-10-14 21:55",
- "origen": "computadora de AXIA",
+ "actualizado": "2026-10-14 21:56",
+ "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
-  "brent",
-  "brl",
   "emae",
   "emae_de",
   "emae_tc",
@@ -18,8 +16,6 @@
   "isac",
   "m_cyl",
   "m_pzas",
-  "maiz",
-  "oro",
   "rec_comb",
   "rec_iva",
   "s_adm",
@@ -37,8 +33,6 @@
   "s_pesca",
   "s_salud",
   "s_trans",
-  "soja",
-  "trigo",
   "x_cye",
   "x_moi"
  ],
