@@ -144,7 +144,10 @@
 .ax-brillo{background:linear-gradient(100deg,#f2ede4 40%,#d9a964 50%,#f2ede4 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:axBrillo 6s ease-in-out infinite}
 @keyframes axVivo{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.6);opacity:0}}
 @keyframes axBrillo{0%{background-position:100% 0}35%,100%{background-position:0 0}}
-@media (prefers-reduced-motion:reduce){.ax-vivo::after,.ax-brillo{animation:none}.ax-brillo{color:#f2ede4;background:none}}
+.ax-brillo-osc{background:linear-gradient(100deg,#1a2233 40%,#d9a964 50%,#1a2233 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:axBrillo 6s ease-in-out infinite}
+.ax-flecha{animation:axFlecha 2.4s ease-in-out infinite}
+@keyframes axFlecha{0%,60%,100%{transform:translate(0,0)}75%{transform:translate(2px,-2px)}}
+@media (prefers-reduced-motion:reduce){.ax-vivo::after,.ax-brillo,.ax-brillo-osc,.ax-flecha{animation:none}.ax-brillo{color:#f2ede4;background:none}.ax-brillo-osc{color:#1a2233;background:none}}
 </style>
 </head>
 <body>
@@ -280,7 +283,7 @@
             <div style="margin-top: clamp(22px, 3vw, 32px); display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center;">
               <a id="bol-leer" href="boletin/" class="scp2" style="display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border-radius: 2px;"><span data-es>Leer el boletín</span><span data-en>Read the bulletin</span><span aria-hidden="true">→</span></a>
               <a id="bol-pdf" href="#" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↓</span><span style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Descargar PDF</span><span data-en>Download PDF</span></span></a>
-              <a href="tablero/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↗</span><span style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span></span></a>
+              <a href="tablero/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" class="ax-flecha" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↗</span><span class="ax-brillo-osc" style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span></span></a>
             </div>
           </div>
           <ul id="bol-indicadores" style="display: grid; grid-template-columns: repeat(3, minmax(0px, 1fr)); gap: 0px;"></ul>
