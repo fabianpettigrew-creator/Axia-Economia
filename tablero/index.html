@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tablero macro · AXIA</title>
-<meta name="description" content="Tablero macroeconómico de AXIA: actividad, precios, dólar, empleo, comercio exterior, variables monetarias, mercados e internacional, con gráficos interactivos y series para descargar.">
+<title>Monitor Macro · AXIA</title>
+<meta name="description" content="Monitor Macro de AXIA: actividad, precios, dólar, empleo, comercio exterior, variables monetarias, mercados e internacional, con gráficos interactivos y series para descargar.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 46'%3E%3Ccircle cx='23' cy='23' r='20.5' fill='%23fff' stroke='%231a2233' stroke-width='3'/%3E%3Cpath d='M14 27 L23 15 L32 27' fill='none' stroke='%23b8874a' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="i18n_en.js?v=31a3fa4b"></script>
-<script src="datos.js?v=d8bdf8a7"></script>
+<script src="i18n_en.js?v=7813bec2"></script>
+<script src="datos.js?v=6f099891"></script>
 <style>
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
 :root{
@@ -33,6 +33,13 @@ button{font:inherit;cursor:pointer}
 .logo small{display:block;font-size:8px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-3)}
 .top .sep{width:1px;height:26px;background:var(--rule)}
 .top .nombre{font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-decoration:none}
+.top .nombre{display:inline-flex;align-items:center;gap:9px}
+.top .nombre .vivo{width:7px;height:7px;border-radius:50%;background:#3e7a55;position:relative;flex:none}
+.top .nombre .vivo::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #3e7a55;animation:axVivo 1.8s ease-out infinite}
+.top .nombre .brillo{background:linear-gradient(100deg,var(--gold) 40%,#f3dcb4 50%,var(--gold) 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:axBrillo 6s ease-in-out infinite}
+@keyframes axVivo{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.6);opacity:0}}
+@keyframes axBrillo{0%{background-position:100% 0}35%,100%{background-position:0 0}}
+@media (prefers-reduced-motion:reduce){.top .nombre .vivo::after,.top .nombre .brillo{animation:none}.top .nombre .brillo{color:var(--gold);background:none}}
 .top .esp{flex:1}
 .top .act{font-size:12.5px;color:var(--ink-3)}
 .idioma{background:none;border:1px solid var(--rule);border-radius:2px;padding:5px 10px;font:inherit;font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--ink-2);cursor:pointer}
@@ -177,7 +184,7 @@ h1{font-family:var(--display);font-weight:500;font-size:clamp(34px,4.6vw,54px);l
       <svg width="32" height="32" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.6"/><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span><b>AXIA</b><small>Consultora Económica</small></span>
     </a>
-    <span class="sep" aria-hidden="true"></span><a class="nombre" href="#inicio">Tablero macro</a>
+    <span class="sep" aria-hidden="true"></span><a class="nombre" href="#inicio"><span class="vivo" aria-hidden="true"></span><span class="brillo">Monitor Macro</span></a>
     <span class="esp"></span><span class="act" id="act"></span><button type="button" class="idioma" id="idioma" aria-label="Español / English">EN</button>
   </div>
   <nav class="navb" id="navb" aria-label="Secciones del tablero"></nav>
@@ -237,7 +244,7 @@ if (EN_ && window.Chart){
     super(ctx, cfg); } };
 }
 const MAIL = "info@axiaeconomia.ar";
-const WA = "https://wa.me/5491137602415?text=" + encodeURIComponent(EN_ ? "Hello, I am contacting you from the AXIA macro dashboard" : "Hola, me comunico desde el Tablero macro de AXIA");
+const WA = "https://wa.me/5491137602415?text=" + encodeURIComponent(EN_ ? "Hello, I am contacting you from the AXIA Macro Monitor" : "Hola, me comunico desde el Monitor Macro de AXIA");
 
 const ICON = {
   actividad:'<path d="M3 12h4l3-7 4 14 3-7h4"/>', empleo:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c.6-3.4 3-5.4 6-5.4s5.4 2 6 5.4"/><path d="M16 5.5a3 3 0 0 1 0 5.6M18 14.6c1.6.7 2.7 2.4 3 5.4"/>',
@@ -392,7 +399,7 @@ function mini(m){
 function portada(){
   const tarj = s => { const d = s.dato(); return `<a class="tarjeta" href="#${s.id}">${svg(s.id)}<h3>${s.t}</h3><p>${s.p}</p>${s.mini?mini(s.mini):""}<div class="dato"><span>${d[0]}</span><b>${d[1]}</b></div></a>`; };
   const ped = s => `<a class="tarjeta pedido" href="#${s.id}"><span class="chip">A pedido</span>${svg(s.id)}<h3>${s.t}</h3><p>${s.p}</p></a>`;
-  return `<span class="eyebrow">AXIA · Tablero macro</span>
+  return `<span class="eyebrow">AXIA · Monitor Macro</span>
     <h1>Los datos de la economía argentina, al día</h1>
     <p class="bajada">Indicadores oficiales actualizados desde el INDEC, el BCRA y los mercados, con gráficos interactivos y series para descargar.</p>
     <div class="bloque"><div class="bloque-tit"><h2>Secciones</h2><span>Libres, sin registro</span></div><div class="grilla secs">${SECCIONES.map(tarj).join("")}</div></div>
@@ -760,7 +767,7 @@ function ruta(){
   const v = document.getElementById("vista");
   if (grafico){ grafico.destroy(); grafico = null; }
   v.innerHTML = id==="inicio" ? portada() : DEF[id] ? seccion(id) : pedido(PEDIDO.find(p=>p.id===id));
-  document.title = (id==="inicio" ? T("Tablero macro") : T((SECCIONES.find(s=>s.id===id)||PEDIDO.find(s=>s.id===id)).t) + " · " + T("Tablero macro")) + " · AXIA";
+  document.title = (id==="inicio" ? T("Monitor Macro") : T((SECCIONES.find(s=>s.id===id)||PEDIDO.find(s=>s.id===id)).t) + " · " + T("Monitor Macro")) + " · AXIA";
   traducir(document.getElementById("navb")); traducir(v);
   window.scrollTo(0,0);
   const activo = document.querySelector(".navb a.on"); if (activo) activo.scrollIntoView({block:"nearest", inline:"center"});
@@ -771,7 +778,7 @@ function ruta(){
     document.getElementById("csv").onclick = csv;
   }
 }
-document.getElementById("act").textContent = T("Actualizado al") + " " + fecha(D.actualizado);
+document.getElementById("act").textContent = T("Actualizado al") + " " + fecha(D.actualizado) + (D.hora ? " · " + D.hora + " h" : "");
 traducir(document.querySelector("header.top")); traducir(document.querySelector("footer.pie"));
 const bIdioma = document.getElementById("idioma");
 bIdioma.textContent = EN_ ? "ES" : "EN";

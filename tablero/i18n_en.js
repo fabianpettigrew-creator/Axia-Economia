@@ -4,12 +4,12 @@
 window.EN = {
   // ---------- estructura, portada y navegación
   "Consultora Económica": "Economic Consulting",
-  "Tablero macro": "Macro dashboard",
+  "Monitor Macro": "Macro Monitor",
   "Tablero": "Dashboard",
   "Inicio": "Home",
   "Secciones del tablero": "Dashboard sections",
   "AXIA, ir al sitio": "AXIA, go to website",
-  "AXIA · Tablero macro": "AXIA · Macro dashboard",
+  "AXIA · Monitor Macro": "AXIA · Macro Monitor",
   "Los datos de la economía argentina, al día": "Argentina's economy, up to date",
   "Indicadores oficiales actualizados desde el INDEC, el BCRA y los mercados, con gráficos interactivos y series para descargar.": "Official indicators updated daily from INDEC, the Central Bank (BCRA) and the markets, with interactive charts and downloadable series.",
   "Secciones": "Sections",
