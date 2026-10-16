@@ -63,8 +63,8 @@
     <span class="vol"><span data-es>Suscripción confirmada</span><span data-en>Subscription confirmed</span></span>
     <h1><span data-es>Gracias, ya está suscripto</span><span data-en>Thank you, you are subscribed</span></h1>
     <p class="baja">
-      <span data-es>Confirmamos su dirección de correo. La descarga de la última edición empieza sola en unos segundos; si su navegador la bloquea, use el botón de abajo. Cada mes le vamos a enviar el Boletín Estadístico de AXIA apenas se publique.</span>
-      <span data-en>We have confirmed your email address. The latest issue starts downloading in a few seconds; if your browser blocks it, use the button below. Every month we will send you the AXIA Statistical Bulletin as soon as it is published.</span>
+      <span data-es>Confirmamos su dirección de correo. Abajo tiene la última edición para leer acá mismo, y el botón para descargarla. Cada mes le vamos a enviar el Boletín Estadístico de AXIA apenas se publique.</span>
+      <span data-en>We have confirmed your email address. The latest issue is below, ready to read here, with a button to download it. Every month we will send you the AXIA Statistical Bulletin as soon as it is published.</span>
     </p>
 
     <div class="ficha">
@@ -84,6 +84,10 @@
           <span style="border-bottom:1px solid #ddd6c9"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span></span>
         </a>
       </div>
+    </div>
+
+    <div id="visor" hidden style="margin-top:clamp(26px,3vw,36px);border:1px solid #ddd6c9;border-radius:2px;background:#efeae1;">
+      <iframe id="visor-pdf" title="Boletín Estadístico de AXIA" style="display:block;width:100%;height:min(78vh,900px);border:0;"></iframe>
     </div>
 
     <p class="nota">
@@ -118,10 +122,21 @@
   })();
 
   // La ultima edicion se lee del mismo archivo que usa la portada.
-  // Apenas se conoce el PDF, la descarga arranca sola; el boton queda de respaldo.
+  // El boletin se muestra en la pagina: los navegadores bloquean las descargas
+  // que empiezan solas, pero no impiden mostrar el PDF. El boton queda para bajarlo.
   (function(){
     var boton = document.getElementById('ed-pdf');
+    function mostrar(){
+      var caja = document.getElementById('visor');
+      var marco = document.getElementById('visor-pdf');
+      if (!caja || !marco) return;
+      // en pantallas chicas el PDF incrustado no se lee bien: ahi mejor el boton
+      if (window.innerWidth < 760) return;
+      marco.src = boton.href + (boton.href.indexOf('?') < 0 ? '?' : '&') + 'inline=1#view=FitH';
+      caja.hidden = false;
+    }
     function bajarSolo(){
+      mostrar();
       try {
         var a = document.createElement('a');
         a.href = boton.href;
