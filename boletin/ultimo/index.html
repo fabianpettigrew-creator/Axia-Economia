@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Última edición | Boletín Estadístico de AXIA</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 46'%3E%3Ccircle cx='23' cy='23' r='20.5' fill='%23fff' stroke='%231a2233' stroke-width='3'/%3E%3Cpath d='M14 27 L23 15 L32 27' fill='none' stroke='%23b8874a' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#f7f4ee}
+  body{color:#232b3b;font-family:Manrope,system-ui,sans-serif;line-height:1.6;
+       min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+  .caja{max-width:560px;text-align:center}
+  h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;color:#1a2233;
+     font-size:clamp(28px,4.4vw,40px);line-height:1.1;margin-top:22px}
+  p{margin-top:14px;font-size:16px;color:#5d6676}
+  a.btn{display:inline-flex;align-items:center;gap:10px;margin-top:26px;padding:14px 26px;
+        background:#1a2233;color:#f7f4ee;font-size:14px;font-weight:600;letter-spacing:.04em;
+        text-decoration:none;border-radius:2px}
+  a.btn:hover{background:#b8874a}
+  [data-en]{display:none}
+  html[data-lang="en"] [data-es]{display:none}
+  html[data-lang="en"] [data-en]{display:revert}
+</style>
+</head>
+<body>
+  <div class="caja">
+    <svg width="44" height="44" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.6"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <h1><span data-es>Abriendo la última edición</span><span data-en>Opening the latest issue</span></h1>
+    <p><span data-es>Si no se abre sola en unos segundos, use el botón.</span><span data-en>If it does not open in a few seconds, use the button.</span></p>
+    <a id="pdf" class="btn" href="/boletin/">
+      <span data-es>Abrir el boletín (PDF)</span><span data-en>Open the bulletin (PDF)</span>
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+
+<script>
+  // Direccion fija del boletin: lleva siempre a la edicion mas reciente,
+  // que se lee del mismo archivo que usa la portada. Asi los correos no quedan viejos.
+  (function(){
+    var l = null;
+    try { l = localStorage.getItem('axia-lang'); } catch(e){}
+    document.documentElement.setAttribute('data-lang', l || 'es');
+    document.documentElement.lang = l || 'es';
+
+    // quien llega hasta aca vino del correo: ya confirmo su suscripcion
+    try { localStorage.setItem('axia-boletin-ok', '1'); } catch(e){}
+
+    var boton = document.getElementById('pdf');
+    fetch('/boletin/ultimo.json', {cache:'no-cache'})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(b){
+        var destino = (b && b.pdf) ? '/' + b.pdf : '/boletin/';
+        boton.href = destino;
+        location.replace(destino);
+      })
+      .catch(function(){ location.replace('/boletin/'); });
+  })();
+</script>
+</body>
+</html>
