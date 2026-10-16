@@ -300,6 +300,39 @@
       </div>
     </section>
 
+    <section id="suscripcion" hidden style="background: rgb(239, 234, 225); border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
+      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 56px); display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.1fr); gap: clamp(28px, 5vw, 64px); align-items: start;">
+        <div>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Suscripción</span><span data-en>Subscribe</span></span>
+          <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(30px, 3.8vw, 46px); line-height: 1.08; letter-spacing: -0.01em; max-width: 20ch;"><span data-es>Reciba el boletín por correo</span><span data-en>Get the bulletin by email</span></h2>
+          <p style="margin-top: 18px; font-size: 16.5px; color: rgb(93, 102, 118); max-width: 48ch; text-wrap: pretty;">
+            <span data-es>Cada edición, con los principales indicadores de la economía argentina y análisis propio. Le enviamos un correo para confirmar su dirección: la suscripción queda activa recién cuando usted hace clic en ese enlace.</span>
+            <span data-en>Every issue, with the key indicators of the Argentine economy and our own analysis. We send a confirmation email: your subscription becomes active only after you click that link.</span>
+          </p>
+        </div>
+        <form id="form-boletin" novalidate style="display: grid; gap: 14px; background: rgb(247, 244, 238); border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: clamp(22px, 3vw, 32px);">
+          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
+            <span data-es>Nombre</span><span data-en>Name</span>
+            <input type="text" name="nombre" autocomplete="name" required style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
+          </label>
+          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
+            <span data-es>Correo</span><span data-en>Email</span>
+            <input type="email" name="email" autocomplete="email" required style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
+          </label>
+          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
+            <span data-es>Empresa o sector (opcional)</span><span data-en>Company or sector (optional)</span>
+            <input type="text" name="empresa" autocomplete="organization" style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
+          </label>
+          <input type="text" name="sitio-web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;">
+          <button type="submit" class="scp2" style="justify-self: start; margin-top: 4px; display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; border: 0px; border-radius: 2px; cursor: pointer;"><span data-es>Suscribirme</span><span data-en>Subscribe</span><span aria-hidden="true">&#8594;</span></button>
+          <p id="form-boletin-aviso" role="status" aria-live="polite" style="margin: 0px; min-height: 20px; font-size: 14px; color: rgb(93, 102, 118);"></p>
+          <p style="margin: 0px; font-size: 12.5px; color: rgb(106, 115, 130); text-wrap: pretty;">
+            <span data-es>Usamos sus datos solo para enviarle el boletín de AXIA. Puede darse de baja cuando quiera desde el pie de cualquier envío.</span>
+            <span data-en>We use your details only to send you the AXIA bulletin. You can unsubscribe at any time from the footer of any issue.</span>
+          </p>
+        </form>
+      </div>
+    </section>
     <section id="estudios" hidden style="background: rgb(239, 234, 225); border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
       <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
         <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
