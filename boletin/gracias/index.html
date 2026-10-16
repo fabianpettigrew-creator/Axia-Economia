@@ -104,6 +104,11 @@
 </footer>
 
 <script>
+  // Suscripcion confirmada: habilita el boletin en este navegador
+  (function(){
+    try { localStorage.setItem("axia-boletin-ok", "1"); } catch(e){}
+  })();
+
   // Idioma: respeta la eleccion hecha en el sitio
   (function(){
     var l = null;

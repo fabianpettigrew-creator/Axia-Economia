@@ -329,8 +329,8 @@
           <button type="submit" class="scp2" style="justify-self: start; margin-top: 4px; display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; border: 0px; border-radius: 2px; cursor: pointer;"><span data-es>Suscribirme</span><span data-en>Subscribe</span><span aria-hidden="true">&#8594;</span></button>
           <p id="form-boletin-aviso" role="status" aria-live="polite" style="margin: 0px; min-height: 20px; font-size: 14px; color: rgb(93, 102, 118);"></p>
           <p style="margin: 0px; font-size: 12.5px; color: rgb(106, 115, 130); text-wrap: pretty;">
-            <span data-es>Usamos sus datos solo para enviarle el boletín de AXIA. Puede darse de baja cuando quiera desde el pie de cualquier envío.</span>
-            <span data-en>We use your details only to send you the AXIA bulletin. You can unsubscribe at any time from the footer of any issue.</span>
+            <span data-es>Usamos sus datos solo para enviarle el boletín de AXIA. Puede darse de baja cuando quiera desde el pie de cualquier envío. Si usa bloqueador de publicidad, es posible que el enlace del correo le aparezca bloqueado: elija Continuar y la confirmación sigue igual.</span>
+            <span data-en>We use your details only to send you the AXIA bulletin. You can unsubscribe at any time from the footer of any issue. If you use an ad blocker, the link in the email may appear blocked: choose Continue and the confirmation works as usual.</span>
           </p>
         </form>
         <iframe name="ml-boletin" title="" aria-hidden="true" tabindex="-1" style="position: absolute; width: 0px; height: 0px; border: 0px; visibility: hidden;"></iframe>
@@ -806,6 +806,44 @@
           ? "Check your inbox: we sent you an email to confirm your subscription."
           : "Revise su correo: le enviamos un mensaje para confirmar la suscripción.";
       }, 1200);
+    });
+  })();
+</script>
+
+<script>
+  // Boletin con registro: leer o descargar exige suscripcion confirmada.
+  // La marca la deja la pagina boletin/gracias/, a la que solo se llega
+  // haciendo clic en el correo de confirmacion.
+  (function(){
+    var LLAVE = "axia-boletin-ok";
+    function suscripto(){
+      try { return localStorage.getItem(LLAVE) === "1"; } catch(e){ return false; }
+    }
+    var en = function(){ return document.documentElement.getAttribute("data-lang") === "en"; };
+    function pedirRegistro(){
+      var sec = document.getElementById("suscripcion");
+      var aviso = document.getElementById("form-boletin-aviso");
+      if (!sec) return;
+      sec.scrollIntoView({behavior:"smooth", block:"start"});
+      if (aviso){
+        aviso.style.color = "#b8874a";
+        aviso.textContent = en()
+          ? "Subscribe to read or download the bulletin. It is free."
+          : "Suscríbase para leer o descargar el boletín. Es gratuito.";
+      }
+      var campo = document.querySelector("#form-boletin input[type=email]");
+      if (campo) setTimeout(function(){ campo.focus(); }, 600);
+    }
+    document.addEventListener("click", function(e){
+      var a = e.target && e.target.closest ? e.target.closest("a") : null;
+      if (!a) return;
+      var destino = a.getAttribute("href") || "";
+      var esBoletin = a.id === "bol-leer" || a.id === "bol-pdf" ||
+                      /^boletin\//.test(destino) || /\/boletin\//.test(destino);
+      if (!esBoletin) return;
+      if (suscripto()) return;
+      e.preventDefault();
+      pedirRegistro();
     });
   })();
 </script>
