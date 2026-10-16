@@ -1,6 +1,6 @@
 {
- "actualizado": "2026-10-16 18:05",
- "origen": "GitHub Actions",
+ "actualizado": "2026-10-16 18:31",
+ "origen": "computadora de AXIA",
  "series_rellenas_con_el_dia_anterior": [
   "emae",
   "emae_de",
@@ -33,6 +33,19 @@
   "s_pesca",
   "s_salud",
   "s_trans",
+  "ucii",
+  "ucii_alim",
+  "ucii_automotriz",
+  "ucii_caucho",
+  "ucii_edicion",
+  "ucii_metales",
+  "ucii_metalmec",
+  "ucii_minerales",
+  "ucii_papel",
+  "ucii_quimicos",
+  "ucii_refinacion",
+  "ucii_tabaco",
+  "ucii_textil",
   "x_cye",
   "x_moi"
  ],
