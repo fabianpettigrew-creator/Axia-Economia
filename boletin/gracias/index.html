@@ -63,8 +63,8 @@
     <span class="vol"><span data-es>Suscripción confirmada</span><span data-en>Subscription confirmed</span></span>
     <h1><span data-es>Gracias, ya está suscripto</span><span data-en>Thank you, you are subscribed</span></h1>
     <p class="baja">
-      <span data-es>Confirmamos su dirección de correo. Cada mes le vamos a enviar el Boletín Estadístico de AXIA apenas se publique.</span>
-      <span data-en>We have confirmed your email address. Every month we will send you the AXIA Statistical Bulletin as soon as it is published.</span>
+      <span data-es>Confirmamos su dirección de correo. La descarga de la última edición empieza sola en unos segundos; si su navegador la bloquea, use el botón de abajo. Cada mes le vamos a enviar el Boletín Estadístico de AXIA apenas se publique.</span>
+      <span data-en>We have confirmed your email address. The latest issue starts downloading in a few seconds; if your browser blocks it, use the button below. Every month we will send you the AXIA Statistical Bulletin as soon as it is published.</span>
     </p>
 
     <div class="ficha">
@@ -117,17 +117,31 @@
     document.documentElement.lang = l || 'es';
   })();
 
-  // La ultima edicion se lee del mismo archivo que usa la portada
+  // La ultima edicion se lee del mismo archivo que usa la portada.
+  // Apenas se conoce el PDF, la descarga arranca sola; el boton queda de respaldo.
   (function(){
+    var boton = document.getElementById('ed-pdf');
+    function bajarSolo(){
+      try {
+        var a = document.createElement('a');
+        a.href = boton.href;
+        a.download = '';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      } catch(e){}
+    }
     fetch('/boletin/ultimo.json', {cache:'no-cache'})
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(b){
-        if (!b) return;
-        if (b.edicion) document.getElementById('ed-nombre').textContent = b.edicion;
-        if (b.titular) document.getElementById('ed-titular').textContent = b.titular;
-        if (b.pdf) document.getElementById('ed-pdf').href = '/' + b.pdf;
+        if (b){
+          if (b.edicion) document.getElementById('ed-nombre').textContent = b.edicion;
+          if (b.titular) document.getElementById('ed-titular').textContent = b.titular;
+          if (b.pdf) boton.href = '/' + b.pdf;
+        }
+        setTimeout(bajarSolo, 900);
       })
-      .catch(function(){});
+      .catch(function(){ setTimeout(bajarSolo, 900); });
   })();
 </script>
 </body>
