@@ -294,7 +294,7 @@
           <ul id="bol-indicadores" style="display: grid; grid-template-columns: repeat(3, minmax(0px, 1fr)); gap: 0px;"></ul>
         </div>
         <div id="bol-archivo" hidden style="margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(22px, 3vw, 30px);">
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-bottom: 14px;"><span data-es>Ediciones anteriores</span><span data-en>Past issues</span></span>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-bottom: 14px;"><span data-es>Ediciones de muestra</span><span data-en>Sample issues</span></span>
           <ul id="bol-ediciones" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 0px 40px;"></ul>
         </div>
       </div>
@@ -495,11 +495,12 @@
       document.getElementById('boletin').hidden = false;
       // ediciones anteriores (todas menos la última)
       fetch('boletin/ediciones.json', {cache:'no-cache'}).then(function(r){ return r.ok ? r.json() : []; }).then(function(eds){
-        var prev = (eds || []).filter(function(e){ return e.edicion !== b.edicion; });
+        // solo se publican las ediciones de muestra (las que conservan PDF)
+        var prev = (eds || []).filter(function(e){ return e.edicion !== b.edicion && e.pdf; });
         if (!prev.length) return;
         document.getElementById('bol-ediciones').innerHTML = prev.map(function(e){
           return '<li style="display:flex;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px solid #e6dfd2;min-width:0">' +
-            '<a href="' + esc(e.url) + '" style="flex:0 0 auto;min-width:9.5em;font-family:\'Cormorant Garamond\',Georgia,serif;font-size:20px;color:#1a2233;text-decoration:none;border-bottom:1px solid #b8874a">' + esc(e.edicion) + '</a>' +
+            '<a href="' + esc(e.url) + '" data-libre="1" style="flex:0 0 auto;min-width:9.5em;font-family:\'Cormorant Garamond\',Georgia,serif;font-size:20px;color:#1a2233;text-decoration:none;border-bottom:1px solid #b8874a">' + esc(e.edicion) + '</a>' +
             '<span class="bol-tit" style="flex:1 1 auto;min-width:0;font-size:13px;color:#6a7382;line-height:1.4">' + esc(e.titular) + '</span>' +
             (e.pdf ? '<a href="' + esc(e.pdf) + '" data-libre="1" aria-label="PDF ' + esc(e.edicion) + '" style="flex:0 0 auto;font-size:12px;font-weight:600;color:#b8874a;text-decoration:none">PDF ↓</a>' : '') + '</li>';
         }).join('');
