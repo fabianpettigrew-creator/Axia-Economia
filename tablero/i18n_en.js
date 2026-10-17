@@ -69,7 +69,6 @@ window.EN = {
   "Modelo sectorial": "Sector model",
   "Proyección por sector de oferta con supuestos editables.": "Projection by supply sector with editable assumptions.",
   "Diez bloques sectoriales que suman el PIB": "Ten sector blocks that add up to GDP",
-  "Simulador de escenarios en Excel": "Scenario simulator in Excel",
   "Sensibilidad a Brasil, M2 real, importaciones y precios": "Sensitivity to Brazil, real M2, imports and prices",
   "Series largas": "Long series",
   "Base histórica del Boletín Estadístico en Excel, actualizada cada mes.": "Historical database of the Statistical Bulletin in Excel, updated monthly.",
