@@ -1,9 +1,9 @@
 {
  "edicion": "Octubre 2026",
  "numero": "10",
- "corte": "14 de octubre de 2026",
+ "corte": "17 de octubre de 2026",
  "titular": "La actividad tuvo en julio su peor mes desde 2020 y el riesgo país volvió a subir",
- "bajada": "El EMAE cayó 2,9% mensual, con industria, comercio y construcción en baja. La inflación subió a 1,9% en septiembre por estacionales y regulados, el riesgo país subió 121 pb en un mes y el BCRA casi dejó de comprar dólares.",
+ "bajada": "El EMAE cayó 2,9% mensual, con industria, comercio y construcción en baja. La inflación subió a 1,9% en septiembre por estacionales y regulados, el riesgo país subió 133 pb en un mes y el BCRA casi dejó de comprar dólares.",
  "url": "boletin/",
  "indicadores": [
   {
@@ -19,12 +19,12 @@
   {
    "etiqueta": "Dólar mayorista",
    "valor": "$ 1.514,57",
-   "detalle": "14-oct-26"
+   "detalle": "16-oct-26"
   },
   {
    "etiqueta": "Reservas BCRA",
-   "valor": "US$ 49.709 M",
-   "detalle": "9-oct-26"
+   "valor": "US$ 49.723 M",
+   "detalle": "14-oct-26"
   },
   {
    "etiqueta": "Desocupación",
@@ -33,8 +33,8 @@
   },
   {
    "etiqueta": "Riesgo país",
-   "valor": "611 pb",
-   "detalle": "14-oct-26"
+   "valor": "648 pb",
+   "detalle": "16-oct-26"
   }
  ]
 }
