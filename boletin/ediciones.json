@@ -4,24 +4,21 @@
   "edicion": "Octubre 2026",
   "numero": "10",
   "titular": "La actividad tuvo en julio su peor mes desde 2020 y el riesgo país volvió a subir",
-  "url": "boletin/2026-10.html",
-  "pdf": "boletin/boletin_2026-10.pdf?v=fb39232f"
+  "url": "boletin/2026-10.html"
  },
  {
   "mes": "2026-09",
   "edicion": "Septiembre 2026",
   "numero": "9",
   "titular": "La actividad repuntó en junio, pero el riesgo país volvió a subir y el BCRA compra menos dólares",
-  "url": "boletin/2026-09.html",
-  "pdf": "boletin/boletin_2026-09.pdf?v=1aba99c0"
+  "url": "boletin/2026-09.html"
  },
  {
   "mes": "2026-08",
   "edicion": "Agosto 2026",
   "numero": "8",
   "titular": "La inflación bajó a 1,9% en junio, pero la industria sigue en retroceso",
-  "url": "boletin/2026-08.html",
-  "pdf": "boletin/boletin_2026-08.pdf?v=9c8ca86f"
+  "url": "boletin/2026-08.html"
  },
  {
   "mes": "2026-07",
@@ -29,39 +26,36 @@
   "numero": "7",
   "titular": "La inflación bajó a 2,1% y el riesgo país tocó su mínimo del año",
   "url": "boletin/2026-07.html",
-  "pdf": "boletin/boletin_2026-07.pdf?v=0f98bbf5"
+  "pdf": "boletin/boletin_2026-07.pdf",
+  "muestra": true
  },
  {
   "mes": "2026-06",
   "edicion": "Junio 2026",
   "numero": "6",
   "titular": "La actividad rebotó 2,7% en marzo y la inflación de abril bajó a 2,6%",
-  "url": "boletin/2026-06.html",
-  "pdf": "boletin/boletin_2026-06.pdf?v=9bb2a4f5"
+  "url": "boletin/2026-06.html"
  },
  {
   "mes": "2026-05",
   "edicion": "Mayo 2026",
   "numero": "5",
   "titular": "La actividad cayó 2,2% en febrero y la inflación de marzo fue la más alta en un año",
-  "url": "boletin/2026-05.html",
-  "pdf": "boletin/boletin_2026-05.pdf?v=d9ddfc3c"
+  "url": "boletin/2026-05.html"
  },
  {
   "mes": "2026-04",
   "edicion": "Abril 2026",
   "numero": "4",
   "titular": "La pobreza bajó a 28,2%, pero la inflación no cede y el petróleo superó los US$ 100",
-  "url": "boletin/2026-04.html",
-  "pdf": "boletin/boletin_2026-04.pdf?v=3ba99e24"
+  "url": "boletin/2026-04.html"
  },
  {
   "mes": "2026-03",
   "edicion": "Marzo 2026",
   "numero": "3",
   "titular": "La actividad cerró 2025 en su nivel más alto, pero la inflación sigue cerca de 3% mensual",
-  "url": "boletin/2026-03.html",
-  "pdf": "boletin/boletin_2026-03.pdf?v=cbe4ac71"
+  "url": "boletin/2026-03.html"
  },
  {
   "mes": "2026-02",
@@ -69,14 +63,14 @@
   "numero": "2",
   "titular": "La inflación cerró 2025 en 31,5% y la industria terminó el año en baja",
   "url": "boletin/2026-02.html",
-  "pdf": "boletin/boletin_2026-02.pdf?v=70e2a57c"
+  "pdf": "boletin/boletin_2026-02.pdf",
+  "muestra": true
  },
  {
   "mes": "2026-01",
   "edicion": "Enero 2026",
   "numero": "1",
   "titular": "La economía crece cerca de 5% en 2025, pero la inflación volvió a subir a 2,5%",
-  "url": "boletin/2026-01.html",
-  "pdf": "boletin/boletin_2026-01.pdf?v=3b8e3c31"
+  "url": "boletin/2026-01.html"
  }
 ]

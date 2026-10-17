@@ -124,6 +124,8 @@
   // La ultima edicion se lee del mismo archivo que usa la portada.
   // El boletin se muestra en la pagina: los navegadores bloquean las descargas
   // que empiezan solas, pero no impiden mostrar el PDF. El boton queda para bajarlo.
+  var ARCHIVO = 'https://storage.googleapis.com/mailerlite-uploads-prod/D2718598/M9eMhXniNZW83qaSDEYPrSaiydK4LxcWigzbugkz.pdf';
+
   (function(){
     var boton = document.getElementById('ed-pdf');
     function mostrar(){
@@ -132,7 +134,7 @@
       if (!caja || !marco) return;
       // en pantallas chicas el PDF incrustado no se lee bien: ahi mejor el boton
       if (window.innerWidth < 760) return;
-      marco.src = boton.href + (boton.href.indexOf('?') < 0 ? '?' : '&') + 'inline=1#view=FitH';
+      marco.src = boton.href + '#view=FitH';
       caja.hidden = false;
     }
     function bajarSolo(){
@@ -146,13 +148,13 @@
         a.remove();
       } catch(e){}
     }
+    boton.href = ARCHIVO;
     fetch('/boletin/ultimo.json', {cache:'no-cache'})
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(b){
         if (b){
           if (b.edicion) document.getElementById('ed-nombre').textContent = b.edicion;
           if (b.titular) document.getElementById('ed-titular').textContent = b.titular;
-          if (b.pdf) boton.href = '/' + b.pdf;
         }
         setTimeout(bajarSolo, 900);
       })

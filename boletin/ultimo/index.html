@@ -41,6 +41,8 @@
 <script>
   // Direccion fija del boletin: lleva siempre a la edicion mas reciente,
   // que se lee del mismo archivo que usa la portada. Asi los correos no quedan viejos.
+  var ARCHIVO = 'https://storage.googleapis.com/mailerlite-uploads-prod/D2718598/M9eMhXniNZW83qaSDEYPrSaiydK4LxcWigzbugkz.pdf';
+
   (function(){
     var l = null;
     try { l = localStorage.getItem('axia-lang'); } catch(e){}
@@ -50,15 +52,10 @@
     // quien llega hasta aca vino del correo: ya confirmo su suscripcion
     try { localStorage.setItem('axia-boletin-ok', '1'); } catch(e){}
 
+    // el PDF ya no vive en el sitio: se entrega desde el alojamiento del boletin
     var boton = document.getElementById('pdf');
-    fetch('/boletin/ultimo.json', {cache:'no-cache'})
-      .then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(b){
-        var destino = (b && b.pdf) ? '/' + b.pdf : '/boletin/';
-        boton.href = destino;
-        location.replace(destino);
-      })
-      .catch(function(){ location.replace('/boletin/'); });
+    boton.href = ARCHIVO;
+    location.replace(ARCHIVO);
   })();
 </script>
 </body>

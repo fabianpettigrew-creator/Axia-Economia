@@ -483,7 +483,9 @@
       document.getElementById('bol-corte').innerHTML = '<span data-es>Edición N.º ' + esc(b.numero) + ' · Datos al ' + esc(b.corte) + '</span>' +
         '<span data-en>Issue No. ' + esc(b.numero) + ' · Data as of ' + esc(b.corte) + ' (in Spanish)</span>';
       document.getElementById('bol-leer').href = b.url;
-      document.getElementById('bol-pdf').href = b.pdf;
+      // el PDF ya no se publica en el sitio: se entrega por correo
+      var botonPdf = document.getElementById('bol-pdf');
+      if (b.pdf) { botonPdf.href = b.pdf; } else { botonPdf.hidden = true; }
       document.getElementById('bol-indicadores').innerHTML = (b.indicadores || []).map(function(x, i){
         return '<li style="padding:18px 16px 18px 0;border-top:' + (i < 3 ? '0' : '1px solid #ddd6c9') + ';min-width:0">' +
           '<span style="display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#6a7382">' + esc(x.etiqueta) + '</span>' +
@@ -499,7 +501,7 @@
           return '<li style="display:flex;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px solid #e6dfd2;min-width:0">' +
             '<a href="' + esc(e.url) + '" style="flex:0 0 auto;min-width:9.5em;font-family:\'Cormorant Garamond\',Georgia,serif;font-size:20px;color:#1a2233;text-decoration:none;border-bottom:1px solid #b8874a">' + esc(e.edicion) + '</a>' +
             '<span class="bol-tit" style="flex:1 1 auto;min-width:0;font-size:13px;color:#6a7382;line-height:1.4">' + esc(e.titular) + '</span>' +
-            '<a href="' + esc(e.pdf) + '" aria-label="PDF ' + esc(e.edicion) + '" style="flex:0 0 auto;font-size:12px;font-weight:600;color:#b8874a;text-decoration:none">PDF ↓</a></li>';
+            (e.pdf ? '<a href="' + esc(e.pdf) + '" aria-label="PDF ' + esc(e.edicion) + '" style="flex:0 0 auto;font-size:12px;font-weight:600;color:#b8874a;text-decoration:none">PDF ↓</a>' : '') + '</li>';
         }).join('');
         document.getElementById('bol-archivo').hidden = false;
       }).catch(function(){});
