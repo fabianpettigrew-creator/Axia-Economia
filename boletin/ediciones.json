@@ -27,7 +27,8 @@
   "titular": "La inflación bajó a 2,1% y el riesgo país tocó su mínimo del año",
   "url": "boletin/2026-07.html",
   "pdf": "boletin/boletin_2026-07.pdf",
-  "muestra": true
+  "muestra": true,
+  "titular_en": "Inflation fell to 2.1% and country risk hit its low for the year"
  },
  {
   "mes": "2026-06",
@@ -64,7 +65,8 @@
   "titular": "La inflación cerró 2025 en 31,5% y la industria terminó el año en baja",
   "url": "boletin/2026-02.html",
   "pdf": "boletin/boletin_2026-02.pdf",
-  "muestra": true
+  "muestra": true,
+  "titular_en": "Inflation ended 2025 at 31.5% and industry closed the year down"
  },
  {
   "mes": "2026-01",

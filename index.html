@@ -532,7 +532,7 @@
         document.getElementById('bol-ediciones').innerHTML = prev.map(function(e){
           return '<li style="display:flex;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px solid #e6dfd2;min-width:0">' +
             '<a href="' + esc(e.url) + '" data-libre="1" style="flex:0 0 auto;min-width:9.5em;font-family:\'Cormorant Garamond\',Georgia,serif;font-size:20px;color:#1a2233;text-decoration:none;border-bottom:1px solid #b8874a">' + esc(e.edicion) + '</a>' +
-            '<span class="bol-tit" style="flex:1 1 auto;min-width:0;font-size:13px;color:#6a7382;line-height:1.4">' + esc(e.titular) + '</span>' +
+            '<span class="bol-tit" style="flex:1 1 auto;min-width:0;font-size:13px;color:#6a7382;line-height:1.4">' + dosIdiomas(e.titular, e.titular_en || e.titular) + '</span>' +
             (e.pdf ? '<a href="' + esc(e.pdf) + '" data-libre="1" aria-label="PDF ' + esc(e.edicion) + '" style="flex:0 0 auto;font-size:12px;font-weight:600;color:#b8874a;text-decoration:none">PDF ↓</a>' : '') + '</li>';
         }).join('');
         document.getElementById('bol-archivo').hidden = false;
