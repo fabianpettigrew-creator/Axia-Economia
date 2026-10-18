@@ -71,7 +71,7 @@ window.EN = {
   "Diez bloques sectoriales que suman el PIB": "Ten sector blocks that add up to GDP",
   "Sensibilidad a Brasil, M2 real, importaciones y precios": "Sensitivity to Brazil, real M2, imports and prices",
   "Series largas": "Long series",
-  "Base histórica del Boletín Estadístico en Excel, actualizada cada mes.": "Historical database of the Statistical Bulletin in Excel, updated monthly.",
+  "Base histórica de Panorama AXIA en Excel, actualizada cada mes.": "Historical database of Panorama AXIA in Excel, updated monthly.",
   "Nueve libros temáticos: actividad, precios, monetario, fiscal, externo, laboral, internacional, mercados y proyecciones": "Nine thematic workbooks: activity, prices, money, fiscal, external, labor, international, markets and forecasts",
   "Series desde los años noventa, empalmadas": "Spliced series from the 1990s onward",
   "Actualización mensual con fuentes oficiales": "Monthly update from official sources",
