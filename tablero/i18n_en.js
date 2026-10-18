@@ -61,8 +61,8 @@ window.EN = {
   "Brent diario, 1 año": "Daily Brent, 1 year",
 
   // ---------- análisis a pedido
-  "Pronóstico del PIB": "GDP forecast",
-  "Modelo propio de AXIA: nowcast trimestral, escenarios y comparación con el consenso del mercado.": "AXIA's own model: quarterly nowcast, scenarios and comparison with market consensus.",
+  "El Número AXIA": "The AXIA Number",
+  "Nuestro pronóstico del PIB, que combina modelos propios con el consenso del mercado, con escenarios alternativos.": "Our GDP forecast, combining our own models with market consensus, including alternative scenarios.",
   "Pronóstico del PIB trimestral y anual": "Quarterly and annual GDP forecast",
   "Comparación con el consenso del mercado": "Comparison with market consensus",
   "Escenarios alternativos y supuestos explícitos": "Alternative scenarios with explicit assumptions",
