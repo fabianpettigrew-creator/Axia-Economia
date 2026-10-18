@@ -729,6 +729,9 @@
     function cerrar(){
       raiz.classList.remove('vs-open');
       if (quienAbrio) { try { quienAbrio.focus(); } catch(e){} }
+      // si se entró con un enlace directo, se limpia para que recargar no lo reabra
+      if (/^#estudio=/.test(location.hash) && history.replaceState)
+        history.replaceState(null, '', location.pathname + location.search + '#estudios');
     }
 
     // abre el visor desde el boton de cada estudio
@@ -739,6 +742,24 @@
       abrir(b.getAttribute('data-visor'),
             b.getAttribute(en() ? 'data-vt-en' : 'data-vt-es'), b);
     });
+
+    // enlace directo: axiaeconomia.ar/#estudio=<carpeta> abre ese estudio.
+    // Los botones se arman después de leer estudios.txt, así que se espera un poco
+    // a que aparezcan para tomar el título; si no llegan, abre igual con el de info.json.
+    function desdeHash(){
+      var m = /^#estudio=([a-z0-9-]+)$/i.exec(location.hash);
+      if (!m) return;
+      var c = m[1], intentos = 0;
+      (function esperar(){
+        var b = document.querySelector('[data-visor="' + c + '"]');
+        if (!b && intentos++ < 20) { setTimeout(esperar, 150); return; }
+        var sec = document.getElementById('estudios');
+        if (sec && !sec.hidden) sec.scrollIntoView();
+        abrir(c, b ? b.getAttribute(en() ? 'data-vt-en' : 'data-vt-es') : '', b);
+      })();
+    }
+    window.addEventListener('hashchange', desdeHash);
+    desdeHash();
 
     document.getElementById('vs-cerrar').addEventListener('click', cerrar);
     bAnt.addEventListener('click', function(){ mostrar(n - 1); });
