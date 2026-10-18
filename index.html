@@ -468,20 +468,60 @@
     var esc = function(t){ return (t||'').replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
     fetch('boletin/ultimo.json', {cache:'no-cache'}).then(function(r){ return r.ok ? r.json() : null; }).then(function(b){
       if (!b || !b.titular) return;
-      document.getElementById('bol-edicion').textContent = b.edicion;
-      document.getElementById('bol-titular').textContent = b.titular;
-      document.getElementById('bol-bajada').textContent = b.bajada;
+      // El boletin se escribe en español; acá se arma también su versión en inglés.
+      // Lo mecánico (mes, fecha, etiquetas, períodos, formato de números) se traduce solo;
+      // el titular y la bajada salen de titular_en / bajada_en si el archivo los trae.
+      var MES_EN = {enero:'January', febrero:'February', marzo:'March', abril:'April', mayo:'May', junio:'June',
+                    julio:'July', agosto:'August', septiembre:'September', setiembre:'September',
+                    octubre:'October', noviembre:'November', diciembre:'December'};
+      var MES3_EN = {ene:'Jan', feb:'Feb', mar:'Mar', abr:'Apr', may:'May', jun:'Jun',
+                     jul:'Jul', ago:'Aug', sep:'Sep', oct:'Oct', nov:'Nov', dic:'Dec'};
+      var ETIQUETA_EN = {'Actividad (EMAE)':'Activity (EMAE)', 'Inflación (IPC)':'Inflation (CPI)',
+                         'Dólar mayorista':'Wholesale dollar', 'Reservas BCRA':'BCRA reserves',
+                         'Desocupación':'Unemployment', 'Riesgo país':'Country risk',
+                         'Riesgo País':'Country risk', 'Tipo de cambio':'Exchange rate'};
+      function edicionEN(t){
+        var m = String(t || '').trim().split(/\s+/);
+        return (MES_EN[(m[0] || '').toLowerCase()] || m[0] || '') + (m[1] ? ' ' + m[1] : '');
+      }
+      function fechaEN(t){
+        var m = String(t || '').match(/^(\d{1,2})\s+de\s+([^\s]+)\s+de\s+(\d{4})$/i);
+        return m ? m[1] + ' ' + (MES_EN[m[2].toLowerCase()] || m[2]) + ' ' + m[3] : t;
+      }
+      function periodoEN(t){
+        return String(t || '')
+          .replace(/mensual s\.e\./gi, 'monthly s.a.')
+          .replace(/\bmensual\b/gi, 'monthly')
+          .replace(/\binteranual\b/gi, 'year-on-year')
+          .replace(/\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)-(\d{2})\b/gi,
+                   function(_, a, b2){ return MES3_EN[a.toLowerCase()] + '-' + b2; })
+          .replace(/\b(IV|III|II|I)-(\d{2})\b/g,
+                   function(_, r, b2){ return {I:'Q1', II:'Q2', III:'Q3', IV:'Q4'}[r] + '-' + b2; });
+      }
+      function numeroEN(t){   // 1.514,57 -> 1,514.57   ·   pb -> bp
+        return String(t || '')
+          .replace(/\d[\d.]*,\d+|\d{1,3}(?:\.\d{3})+/g,
+                   function(n){ return n.replace(/\./g, '@').replace(/,/g, '.').replace(/@/g, ','); })
+          .replace(/\bpb\b/g, 'bp');
+      }
+      function dosIdiomas(es, en){
+        return '<span data-es>' + esc(es) + '</span><span data-en>' + esc(en) + '</span>';
+      }
+
+      document.getElementById('bol-edicion').innerHTML = dosIdiomas(b.edicion, edicionEN(b.edicion));
+      document.getElementById('bol-titular').innerHTML = dosIdiomas(b.titular, b.titular_en || b.titular);
+      document.getElementById('bol-bajada').innerHTML = dosIdiomas(b.bajada, b.bajada_en || b.bajada);
       document.getElementById('bol-corte').innerHTML = '<span data-es>Edición N.º ' + esc(b.numero) + ' · Datos al ' + esc(b.corte) + '</span>' +
-        '<span data-en>Issue No. ' + esc(b.numero) + ' · Data as of ' + esc(b.corte) + ' (in Spanish)</span>';
+        '<span data-en>Issue No. ' + esc(b.numero) + ' · Data as of ' + esc(fechaEN(b.corte)) + ' (in Spanish)</span>';
       document.getElementById('bol-leer').href = b.url;
       // el PDF ya no se publica en el sitio: se entrega por correo
       var botonPdf = document.getElementById('bol-pdf');
       if (b.pdf) { botonPdf.href = b.pdf; } else { botonPdf.hidden = true; }
       document.getElementById('bol-indicadores').innerHTML = (b.indicadores || []).map(function(x, i){
         return '<li style="padding:18px 16px 18px 0;border-top:' + (i < 3 ? '0' : '1px solid #ddd6c9') + ';min-width:0">' +
-          '<span style="display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#6a7382">' + esc(x.etiqueta) + '</span>' +
-          '<span style="display:block;margin-top:8px;font-family:\'Cormorant Garamond\',Georgia,serif;font-size:clamp(24px,2.3vw,31px);line-height:1.05;color:#1a2233;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap">' + esc(x.valor) + '</span>' +
-          '<span style="display:block;margin-top:6px;font-size:12.5px;color:#6a7382">' + esc(x.detalle) + '</span></li>';
+          '<span style="display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#6a7382">' + dosIdiomas(x.etiqueta, ETIQUETA_EN[x.etiqueta] || x.etiqueta) + '</span>' +
+          '<span style="display:block;margin-top:8px;font-family:\'Cormorant Garamond\',Georgia,serif;font-size:clamp(24px,2.3vw,31px);line-height:1.05;color:#1a2233;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap">' + dosIdiomas(x.valor, numeroEN(x.valor)) + '</span>' +
+          '<span style="display:block;margin-top:6px;font-size:12.5px;color:#6a7382">' + dosIdiomas(x.detalle, periodoEN(x.detalle)) + '</span></li>';
       }).join('');
       document.getElementById('boletin').hidden = false;
       // ediciones anteriores (todas menos la última)
