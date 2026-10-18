@@ -63,8 +63,8 @@ window.EN = {
   // ---------- análisis a pedido
   "Pronóstico del PIB": "GDP forecast",
   "Modelo propio de AXIA: nowcast trimestral, escenarios y comparación con el REM.": "AXIA's own model: quarterly nowcast, scenarios and comparison with market consensus (REM).",
-  "Pronóstico del PIB trimestral y anual, con banda de error": "Quarterly and annual GDP forecast, with error band",
-  "Comparación con el consenso del mercado (REM)": "Comparison with market consensus (REM)",
+  "Pronóstico del PIB trimestral y anual": "Quarterly and annual GDP forecast",
+  "Comparación con el consenso del mercado": "Comparison with market consensus",
   "Escenarios alternativos y supuestos explícitos": "Alternative scenarios with explicit assumptions",
   "Modelo sectorial": "Sector model",
   "Proyección por sector de oferta con supuestos editables.": "Projection by supply sector with editable assumptions.",
