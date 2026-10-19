@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-18 22:52",
+ "actualizado": "2026-10-19 16:55",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -8,7 +8,6 @@
   "emae",
   "emae_de",
   "emae_tc",
-  "eph_empleo",
   "eurusd",
   "expo",
   "financiero",
@@ -41,6 +40,13 @@
   "x_cye",
   "x_moi"
  ],
- "series_con_dato_nuevo_del_indec": [],
+ "series_con_dato_nuevo_del_indec": [
+  "expo con dato a 2026-09 (la API llegaba a 2026-08)",
+  "impo con dato a 2026-09 (la API llegaba a 2026-08)",
+  "x_pp con dato a 2026-09 (la API llegaba a 2026-08)",
+  "x_moa con dato a 2026-09 (la API llegaba a 2026-08)",
+  "x_moi con dato a 2026-09 (la API llegaba a 2026-08)",
+  "x_cye con dato a 2026-09 (la API llegaba a 2026-08)"
+ ],
  "otros_avisos": []
 }
