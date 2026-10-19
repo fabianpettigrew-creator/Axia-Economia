@@ -1,8 +1,10 @@
 {
- "actualizado": "2026-10-19 18:40",
- "origen": "computadora de AXIA",
+ "actualizado": "2026-10-19 20:38",
+ "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
+  "brent",
   "brl",
+  "dxy",
   "emae",
   "emae_de",
   "emae_tc",
@@ -17,6 +19,7 @@
   "isac",
   "m_cyl",
   "m_pzas",
+  "oro",
   "rec_comb",
   "rec_iva",
   "s_adm",
@@ -34,29 +37,11 @@
   "s_pesca",
   "s_salud",
   "s_trans",
-  "ucii",
-  "ucii_alim",
-  "ucii_automotriz",
-  "ucii_caucho",
-  "ucii_edicion",
-  "ucii_metales",
-  "ucii_metalmec",
-  "ucii_minerales",
-  "ucii_papel",
-  "ucii_quimicos",
-  "ucii_refinacion",
-  "ucii_tabaco",
-  "ucii_textil",
   "x_cye",
-  "x_moi"
+  "x_moa",
+  "x_moi",
+  "x_pp"
  ],
- "series_con_dato_nuevo_del_indec": [
-  "expo con dato a 2026-09 (la API llegaba a 2026-08)",
-  "impo con dato a 2026-09 (la API llegaba a 2026-08)",
-  "x_pp con dato a 2026-09 (la API llegaba a 2026-08)",
-  "x_moa con dato a 2026-09 (la API llegaba a 2026-08)",
-  "x_moi con dato a 2026-09 (la API llegaba a 2026-08)",
-  "x_cye con dato a 2026-09 (la API llegaba a 2026-08)"
- ],
+ "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": []
 }
