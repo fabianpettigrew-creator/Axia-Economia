@@ -1,0 +1,59 @@
+# AXIA EN LOS MEDIOS
+# Este archivo alimenta la sección "AXIA en los medios" de la página.
+#
+# CÓMO AGREGAR UNA PARTICIPACIÓN:
+# 1. Copiá uno de los bloques de abajo (desde "Medio:" hasta la línea "---").
+# 2. Pegalo en cualquier lugar del archivo: en la web se ordenan solos,
+#    de la participación más reciente a la más vieja.
+# 3. Cambiá los textos que están después de los dos puntos.
+#
+# LAS LÍNEAS DE CADA BLOQUE:
+# - Medio:      el nombre del diario, revista, radio, canal o portal. OBLIGATORIO.
+# - Título:     el título de la nota o el tema de la entrevista. OBLIGATORIO.
+# - Fecha:      escribila como 2026-09-14 (año-mes-día). Si no sabés el día,
+#               alcanza 2026-09. Es lo que usa la web para ordenar.
+# - Tipo:       Nota, Entrevista, Columna, Informe citado, lo que corresponda.
+# - Programa:   para radio, TV o streaming, el nombre del programa (opcional).
+# - Enlace:     la dirección web de la nota o del video. Si no hay, dejala vacía
+#               o borrá la línea: la tarjeta aparece igual, sin el enlace.
+# - Formato:    normalmente NO hace falta. La web separa sola los medios gráficos
+#               de radio/TV/streaming. Si se equivoca, forzalo con
+#               "Formato: audiovisual" o "Formato: gráfico".
+#
+# LÍNEAS EN INGLÉS (opcionales): Title, Tipo EN, Programa EN.
+# Si las dejás vacías, en la versión en inglés se muestra el texto en español.
+#
+# Las líneas que empiezan con # no se muestran en la web.
+# Si el archivo no tiene ningún bloque cargado, la sección no aparece en la web.
+
+# ----------------------------------------------------------------------
+# EJEMPLOS: estan anulados con el # del principio de cada linea.
+# Para publicar uno, borrale el "# " a todas sus lineas y cambia los datos.
+# ----------------------------------------------------------------------
+# Medio: EJEMPLO - Diario de ejemplo
+# Título: El consumo de los hogares y la recuperación del salario real
+# Title: Household consumption and the recovery of real wages
+# Fecha: 2026-09-14
+# Tipo: Nota
+# Enlace: https://www.ejemplo.com/economia/nota
+# ---
+# Medio: EJEMPLO - Revista de ejemplo
+# Título: Qué puede esperar una pyme exportadora en 2027
+# Fecha: 2026-08-02
+# Tipo: Columna de opinión
+# Tipo EN: Opinion column
+# Enlace: https://www.ejemplo.com/opinion/columna
+# ---
+# Medio: EJEMPLO - Radio de ejemplo
+# Título: Inflación, tipo de cambio y actividad: el escenario de los próximos meses
+# Fecha: 2026-07-21
+# Tipo: Entrevista
+# Programa: Mañanas de ejemplo
+# Enlace: https://www.youtube.com/watch?v=ejemplo
+# ---
+# Medio: EJEMPLO - Canal de ejemplo
+# Título: El dato de pobreza y su impacto en el consumo masivo
+# Fecha: 2026-06-30
+# Tipo: Entrevista
+# Programa: Ejemplo Económico
+# Formato: audiovisual

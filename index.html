@@ -167,6 +167,7 @@
         <a href="#boletin" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Panorama</span><span data-en>Panorama</span></a>
         <a href="tablero/" class="scp0 ax-monitor" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span class="ax-vivo" aria-hidden="true"></span><span class="ax-brillo"><span data-es>Monitor Macro</span><span data-en>Macro Monitor</span></span></a>
         <a href="#estudios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Estudios</span><span data-en>Studies</span></a>
+        <a href="#medios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Medios</span><span data-en>Media</span></a>
         <a href="#trayectoria" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Equipo</span><span data-en>Team</span></a>
         <a href="#contacto" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Contacto</span><span data-en>Contact</span></a>
         <button id="lang" type="button" class="scp1" style="border: 1px solid #273146; background: transparent; border-radius: 2px; padding: 6px 11px; font-style: inherit; font-variant: inherit; font-weight: 600; font-stretch: inherit; font-size: 11px; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; letter-spacing: 0.14em; color: #f2ede4; cursor: pointer;"><span data-es>EN</span><span data-en>ES</span></button>
@@ -340,6 +341,31 @@
           </p>
         </div>
         <div id="estudios-lista" style="margin-top: clamp(36px, 5vw, 64px);"></div>
+      </div>
+    </section>
+
+    <section id="medios" hidden style="border-top: 1px solid rgb(221, 214, 201);">
+      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
+        <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
+          <div>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Medios</span><span data-en>Media</span></span>
+            <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>AXIA en los medios</span><span data-en>AXIA in the media</span></h2>
+          </div>
+          <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
+            <span data-es>Notas, entrevistas y columnas de opinión en medios gráficos y audiovisuales.</span>
+            <span data-en>Articles, interviews and opinion columns in print and broadcast media.</span>
+          </p>
+        </div>
+
+        <div id="medios-graficos" hidden style="margin-top: clamp(36px, 5vw, 64px);">
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); padding-bottom: 14px; border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Medios gráficos y digitales</span><span data-en>Print and digital</span></span>
+          <div id="medios-graficos-lista" style="margin-top: clamp(18px, 2vw, 26px); display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: clamp(14px, 1.8vw, 22px);"></div>
+        </div>
+
+        <div id="medios-av" hidden style="margin-top: clamp(34px, 4.5vw, 58px);">
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); padding-bottom: 14px; border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Radio, televisión y streaming</span><span data-en>Radio, television and streaming</span></span>
+          <div id="medios-av-lista" style="margin-top: clamp(18px, 2vw, 26px); display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: clamp(14px, 1.8vw, 22px);"></div>
+        </div>
       </div>
     </section>
 
@@ -602,6 +628,79 @@
           '</article>';
       }).join('');
       document.getElementById('estudios').hidden = false;
+    }).catch(function(){});
+  })();
+
+  // Medios: se cargan desde el archivo medios.txt del repositorio
+  (function(){
+    var esc = function(t){ return (t||'').replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+    var norm = function(k){ return k.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); };
+    var MES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    var MES3 = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+    var MES3_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var AV = /(radio|tv|televis|stream|podcast|video|v[ií]deo|canal|aire|programa|fm|am)/;
+    var ICONO = {
+      grafico: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 5h11v14H4z"></path><path d="M15 9h5v8a2 2 0 0 1-2 2h-3"></path><path d="M7 8.5h5M7 12h5M7 15.5h3"></path></svg>',
+      audiovisual: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M10 8.5l6 3.5-6 3.5z"></path></svg>'
+    };
+    // fecha: 2026-09-14 -> "14 sep 2026" / "14 Sep 2026".  Si no es una fecha, se muestra tal cual.
+    function fecha(t){
+      var m = String(t || '').match(/^(\d{4})-(\d{2})(?:-(\d{2}))?$/);
+      if (!m) return [t || '', t || '', ''];
+      var i = parseInt(m[2], 10) - 1, d = m[3] ? String(parseInt(m[3], 10)) + ' ' : '';
+      return [d + MES3[i] + ' ' + m[1], d + MES3_EN[i] + ' ' + m[1], m[1] + m[2] + (m[3] || '00')];
+    }
+    fetch('medios.txt', {cache:'no-cache'}).then(function(r){ return r.ok ? r.text() : ''; }).then(function(txt){
+      var items = txt.split(/^\s*---\s*$/m).map(function(b){
+        var o = {};
+        b.split(/\r?\n/).forEach(function(l){
+          if (l.trim().charAt(0) === '#') return;
+          var i = l.indexOf(':'); if (i < 0) return;
+          o[norm(l.slice(0,i))] = l.slice(i+1).trim();
+        });
+        return o;
+      }).filter(function(o){ return o['titulo'] && o['medio']; });
+      if (!items.length) return;
+
+      items.forEach(function(o, i){
+        var f = fecha(o['fecha']);
+        o._fEs = f[0]; o._fEn = f[1]; o._orden = f[2] || '0'; o._i = i;
+        var fo = norm(o['formato'] || '');
+        o._av = fo ? /^(av|audiovisual|radio|tv)/.test(fo)
+                    : AV.test(norm(o['medio'] || '') + ' ' + norm(o['tipo'] || '') + ' ' + norm(o['programa'] || ''));
+      });
+      // más reciente primero; las que no tienen fecha quedan al final, en el orden del archivo
+      items.sort(function(a, b){ return b._orden.localeCompare(a._orden) || a._i - b._i; });
+
+      function tarjeta(o){
+        var clase = o._av ? 'audiovisual' : 'grafico';
+        var tipoEs = o['tipo'] || (o._av ? 'Entrevista' : 'Nota');
+        var tipoEn = o['tipo en'] || (o._av ? 'Interview' : 'Article');
+        var bajoEs = [tipoEs, o['programa'] || ''].filter(Boolean).join(' · ');
+        var bajoEn = [tipoEn, o['programa en'] || o['programa'] || ''].filter(Boolean).join(' · ');
+        var enlace = o['enlace'] || o['link'] || '';
+        return '<article style="display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid #ddd6c9;border-radius:2px;padding:clamp(18px,2vw,24px)">' +
+          '<div style="display:flex;align-items:center;gap:9px;min-width:0">' +
+            '<span aria-hidden="true" style="flex:0 0 auto;display:inline-flex;color:#b8874a">' + ICONO[clase] + '</span>' +
+            '<span style="flex:1 1 auto;min-width:0;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1a2233;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(o['medio']) + '</span>' +
+            '<span style="flex:0 0 auto;font-size:12px;color:#6a7382;font-variant-numeric:tabular-nums"><span data-es>' + esc(o._fEs) + '</span><span data-en>' + esc(o._fEn) + '</span></span>' +
+          '</div>' +
+          '<h3 style="font-family:\'Cormorant Garamond\',Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(19px,1.8vw,23px);line-height:1.2;text-wrap:pretty">' +
+            '<span data-es>' + esc(o['titulo']) + '</span><span data-en>' + esc(o['title'] || o['titulo']) + '</span></h3>' +
+          '<span style="font-size:13px;color:#6a7382"><span data-es>' + esc(bajoEs) + '</span><span data-en>' + esc(bajoEn) + '</span></span>' +
+          (enlace ? '<a href="' + esc(enlace) + '" target="_blank" rel="noopener" style="margin-top:auto;padding-top:4px;font-size:13.5px;font-weight:600;color:#b8874a;text-decoration:none">' +
+            (o._av ? '<span data-es>Ver o escuchar →</span><span data-en>Watch or listen →</span>'
+                   : '<span data-es>Leer la nota →</span><span data-en>Read the article →</span>') + '</a>' : '') +
+          '</article>';
+      }
+
+      [['medios-graficos', false], ['medios-av', true]].forEach(function(g){
+        var del = items.filter(function(o){ return o._av === g[1]; });
+        if (!del.length) return;
+        document.getElementById(g[0] + '-lista').innerHTML = del.map(tarjeta).join('');
+        document.getElementById(g[0]).hidden = false;
+      });
+      document.getElementById('medios').hidden = false;
     }).catch(function(){});
   })();
 </script>
