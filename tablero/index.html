@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="i18n_en.js?v=acb45d3b"></script>
-<script src="datos.js?v=1c4563a2"></script>
+<script src="i18n_en.js?v=24718df6"></script>
+<script src="datos.js?v=d0509455"></script>
 <style>
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
 :root{
@@ -261,7 +261,7 @@ const K = id => S[id].kpis;
 const SECCIONES = [
   {id:"actividad", t:"Actividad", p:"EMAE, sectores, industria y construcción.", dato:()=>["EMAE mensual", fsig(K("actividad").emae_mm.valor)+"%"],
    mini:{d:()=>S.actividad.emae["Desestacionalizado"], desde:36, et:"EMAE desestacionalizado, 3 años"}},
-  {id:"precios", t:"Precios", p:"Inflación mensual e interanual por categoría y expectativas del mercado.", dato:()=>["IPC mensual", fnum(K("precios").mensual.valor)+"%"],
+  {id:"precios", t:"Precios", p:"Inflación mensual e interanual por categoría y expectativas del REM.", dato:()=>["IPC mensual", fnum(K("precios").mensual.valor)+"%"],
    mini:{d:()=>S.precios.mensual["Nivel general"], desde:24, tipo:"bar", et:"Inflación mensual, 2 años"}},
   {id:"tipo-cambio", t:"Tipo de cambio", p:"Mayorista, contado con liquidación, informal y brecha.", dato:()=>["Mayorista", PESO()+fnum(K("tipo-cambio").oficial.valor, 2)],
    mini:{d:()=>S["tipo-cambio"].cotizaciones["Mayorista (A3500)"], desde:250, et:"Mayorista diario, 1 año"}},
@@ -277,9 +277,11 @@ const SECCIONES = [
    mini:{d:()=>S.internacional.commodities["Petróleo Brent"], desde:250, et:"Brent diario, 1 año"}},
 ];
 const PEDIDO = [
-  {id:"pib", t:"El Número AXIA", p:"Nuestro pronóstico del PIB, que combina modelos propios con el consenso del mercado, con escenarios alternativos.",
-   detalle:["Pronóstico del PIB trimestral y anual","Comparación con el consenso del mercado","Escenarios alternativos y supuestos explícitos"]},
-  {id:"series", t:"Series largas", p:"Base histórica de Panorama AXIA en Excel, actualizada cada mes.",
+  {id:"pib", t:"Pronóstico del PIB", p:"Modelo propio de AXIA: nowcast trimestral, escenarios y comparación con el REM.",
+   detalle:["Pronóstico del PIB trimestral y anual, con banda de error","Comparación con el consenso del mercado (REM)","Escenarios alternativos y supuestos explícitos"]},
+  {id:"sectorial", t:"Modelo sectorial", p:"Proyección por sector de oferta con supuestos editables.",
+   detalle:["Diez bloques sectoriales que suman el PIB","Sensibilidad a Brasil, M2 real, importaciones y precios"]},
+  {id:"series", t:"Series largas", p:"Base histórica del Boletín Estadístico en Excel, actualizada cada mes.",
    detalle:["Nueve libros temáticos: actividad, precios, monetario, fiscal, externo, laboral, internacional, mercados y proyecciones","Series desde los años noventa, empalmadas","Actualización mensual con fuentes oficiales"]},
 ];
 
@@ -294,10 +296,10 @@ const DEF = {
            pie:x=>Object.entries(x.sectores_fuera||{}).map(([n,v])=>`${n}: ${fsig(v,0)}% (fuera de escala por efecto base)`).join(" · ")},
           {n:"Indicadores", t:"Indicadores de actividad", st:"Variación % interanual", d:x=>x.indicadores, tipo:"line", u:"%", dec:1, rango:"2A"}],
     nota:"La serie desestacionalizada permite comparar un mes con el anterior; la tendencia-ciclo filtra la volatilidad y muestra la dirección de fondo."},
-  "precios": {sub:"Índice de precios al consumidor del INDEC y expectativas del mercado", fuente:"INDEC y BCRA", mensual:true,
+  "precios": {sub:"Índice de precios al consumidor del INDEC y expectativas del REM", fuente:"INDEC y BCRA (REM)", mensual:true,
     ultimo:k=>k.mensual.fecha,
     kpis:k=>[["Inflación mensual",fnum(k.mensual.valor)+"%",mesAnio(k.mensual.fecha)],["Interanual",fnum(k.interanual.valor)+"%",mesAnio(k.interanual.fecha)],
-             ["Núcleo mensual",fnum(k.nucleo.valor)+"%",mesAnio(k.nucleo.fecha)+" · sin regulados ni estacionales"],["Esperada 12 meses",fnum(k.rem12.valor)+"%","mediana del consenso del mercado"]],
+             ["Núcleo mensual",fnum(k.nucleo.valor)+"%",mesAnio(k.nucleo.fecha)+" · sin regulados ni estacionales"],["Esperada 12 meses",fnum(k.rem12.valor)+"%","mediana del REM"]],
     tabs:[{n:"Mensual", t:"Inflación mensual", st:"IPC nacional, variación % mensual", d:x=>x.mensual, tipo:"bar", u:"%", dec:1, rango:"5A"},
           {n:"Por categoría", t:"Inflación por categoría", st:()=>`IPC ${regionCat==="Nacional" ? "total nacional" : "región " + regionCat}, variación % interanual`,
            d:x=>catPorRegion(x.brechas, regionCat), regiones:true, tipo:"line", u:"%", dec:1, rango:"5A", barras:["Nivel general"]},
@@ -341,10 +343,10 @@ const DEF = {
              ["M2 privado real",fsig(k.m2_real.valor)+"%","interanual · "+mesAnio(k.m2_real.fecha)]],
     tabs:[{n:"Reservas", t:"Reservas internacionales del BCRA", st:"Millones de dólares, datos diarios", d:x=>x.reservas, tipo:"line", u:"US$ M", dec:0, rango:"2A"},
           {n:"Compras del BCRA", t:"Compras netas de divisas del BCRA", st:"Millones de dólares por mes", d:x=>x.compras, tipo:"bar", u:"US$ M", dec:0, rango:"Todo", signo:true},
-          {n:"Tasas", t:"Tasas de interés e inflación", st:"%, promedios mensuales (tasas en TNA) · inflación esperada a 12 meses e interanual observada (INDEC)", d:x=>x.tasas, tipo:"line", u:"%", dec:1, rango:"Todo"},
+          {n:"Tasas", t:"Tasas de interés e inflación", st:"%, promedios mensuales (tasas en TNA) · inflación esperada a 12 meses (REM) e interanual observada (INDEC)", d:x=>x.tasas, tipo:"line", u:"%", dec:1, rango:"Todo"},
           {n:"Crédito y depósitos", t:"Crédito, depósitos y dinero en términos reales", st:"Variación % real interanual, promedios mensuales", d:x=>x.credito, tipo:"line", u:"%", dec:1, rango:"5A"},
           {n:"Dólares", t:"Préstamos y depósitos en dólares", st:"Millones de dólares, fin de mes", d:x=>x.dolares, tipo:"line", u:"US$ M", dec:0, rango:"5A"}],
-    nota:"Las variaciones reales del último mes se calculan con la inflación esperada por el mercado cuando el INDEC todavía no publicó el IPC."},
+    nota:"Las variaciones reales del último mes se calculan con la inflación esperada por el REM cuando el INDEC todavía no publicó el IPC."},
   "mercados": {sub:"Riesgo país, acciones argentinas y rendimientos en dólares", fuente:"JP Morgan, BYMA, Yahoo Finance y ArgentinaDatos",
     ultimo:k=>k.riesgo.fecha,
     kpis:k=>[["Riesgo país",fnum(k.riesgo.valor,0)+" pb",`${fsig(k.riesgo_30d,0)} pb en 30 días`],
