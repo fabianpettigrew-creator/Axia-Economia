@@ -27,8 +27,8 @@
 # Si el archivo no tiene ningún bloque cargado, la sección no aparece en la web.
 
 Medio: Eco Medios AM 1220
-Título: Fabián Pettigrew, entrevistado en Desbordados
-Title: Fabián Pettigrew interviewed on Desbordados
+Título: El mercado mundial del langostino argentino: precio, comercio y posición competitiva
+Title: The world market for Argentine shrimp: price, trade and competitive position
 Fecha: 2026-09-24
 Tipo: Entrevista
 Programa: Desbordados
