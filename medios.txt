@@ -16,6 +16,12 @@
 # - Programa:   para radio, TV o streaming, el nombre del programa (opcional).
 # - Enlace:     la dirección web de la nota o del video. Si no hay, dejala vacía
 #               o borrá la línea: la tarjeta aparece igual, sin el enlace.
+# - Logo:      el logo del medio. Guardá el archivo en la carpeta "medios" del
+#              repositorio (PNG o JPG, de unos 120 píxeles de alto, con el fondo
+#              blanco o transparente) y escribí acá solo el nombre del archivo.
+#              Ejemplo:  Logo: eco-medios.png
+#              Si el medio no tiene logo cargado, la tarjeta muestra un ícono y el
+#              nombre del medio en letras. Las dos formas quedan bien.
 # - Formato:    normalmente NO hace falta. La web separa sola los medios gráficos
 #               de radio/TV/streaming. Si se equivoca, forzalo con
 #               "Formato: audiovisual" o "Formato: gráfico".
@@ -32,6 +38,7 @@ Title: The world market for Argentine shrimp: price, trade and competitive posit
 Fecha: 2026-09-24
 Tipo: Entrevista
 Programa: Desbordados
+Logo: eco-medios.png
 Enlace: https://www.youtube.com/watch?v=iNdH5Y1QMa0
 ---
 Medio: Infobae
