@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-19 22:07",
+ "actualizado": "2026-10-19 23:11",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -19,7 +19,6 @@
   "isac",
   "m_cyl",
   "m_pzas",
-  "maiz",
   "oro",
   "rec_comb",
   "rec_iva",
@@ -38,8 +37,6 @@
   "s_pesca",
   "s_salud",
   "s_trans",
-  "soja",
-  "trigo",
   "x_cye",
   "x_moa",
   "x_moi",
