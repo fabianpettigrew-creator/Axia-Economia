@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-21 04:44",
+ "actualizado": "2026-10-21 15:37",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -10,6 +10,7 @@
   "emae_tc",
   "eurusd",
   "expo",
+  "fed",
   "financiero",
   "impo",
   "ipc",
@@ -37,11 +38,17 @@
   "s_pesca",
   "s_salud",
   "s_trans",
+  "ust10",
+  "ust2",
   "x_cye",
   "x_moa",
   "x_moi",
   "x_pp"
  ],
  "series_con_dato_nuevo_del_indec": [],
- "otros_avisos": []
+ "otros_avisos": [
+  "AVISO: no se pudo bajar fed (fred DFF): Error tokenizing data. C error: Expected 1 fields in line 5, saw 3",
+  "AVISO: no se pudo bajar ust2 (fred DGS2): Error tokenizing data. C error: Expected 1 fields in line 5, saw 3",
+  "AVISO: no se pudo bajar ust10 (fred DGS10): Error tokenizing data. C error: Expected 1 fields in line 5, saw 3"
+ ]
 }
