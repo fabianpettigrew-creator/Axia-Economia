@@ -66,7 +66,7 @@ window.EN = {
   "Pronóstico del PIB trimestral y anual": "Quarterly and annual GDP forecast",
   "Comparación con el consenso del mercado": "Comparison with market consensus",
   "Escenarios alternativos y supuestos explícitos": "Alternative scenarios with explicit assumptions",
-  "Series largas": "Long series",
+  "Series históricas": "Historical series",
   "Base histórica de Panorama AXIA en Excel, actualizada cada mes.": "Historical database of Panorama AXIA in Excel, updated monthly.",
   "Nueve libros temáticos: actividad, precios, monetario, fiscal, externo, laboral, internacional, mercados y proyecciones": "Nine thematic workbooks: activity, prices, money, fiscal, external, labor, international, markets and forecasts",
   "Series desde los años noventa, empalmadas": "Spliced series from the 1990s onward",
