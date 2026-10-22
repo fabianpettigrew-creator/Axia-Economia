@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-21 20:18",
+ "actualizado": "2026-10-21 21:43",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -20,6 +20,7 @@
   "isac",
   "m_cyl",
   "m_pzas",
+  "maiz",
   "oro",
   "rec_comb",
   "rec_iva",
@@ -42,6 +43,8 @@
   "sal_priv",
   "sal_pub",
   "salarios",
+  "soja",
+  "trigo",
   "ust10",
   "ust2",
   "x_cye",
