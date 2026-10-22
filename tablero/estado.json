@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-22 15:32",
+ "actualizado": "2026-10-22 20:22",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -46,6 +46,8 @@
   "x_moi",
   "x_pp"
  ],
- "series_con_dato_nuevo_del_indec": [],
+ "series_con_dato_nuevo_del_indec": [
+  "super con dato a 2026-08 (la API llegaba a 2026-07)"
+ ],
  "otros_avisos": []
 }
