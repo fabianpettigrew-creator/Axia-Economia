@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-22 20:22",
+ "actualizado": "2026-10-22 21:42",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -19,6 +19,7 @@
   "isac",
   "m_cyl",
   "m_pzas",
+  "maiz",
   "oro",
   "rec_comb",
   "rec_iva",
@@ -41,13 +42,14 @@
   "sal_priv",
   "sal_pub",
   "salarios",
+  "soja",
+  "super",
+  "trigo",
   "x_cye",
   "x_moa",
   "x_moi",
   "x_pp"
  ],
- "series_con_dato_nuevo_del_indec": [
-  "super con dato a 2026-08 (la API llegaba a 2026-07)"
- ],
+ "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": []
 }
