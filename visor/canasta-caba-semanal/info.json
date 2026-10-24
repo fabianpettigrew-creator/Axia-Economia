@@ -1,10 +1,9 @@
 {
  "titulo": "Canasta del hogar porteño · monitor semanal de precios",
- "paginas": 3,
+ "paginas": 2,
  "archivos": [
   "p01.dat",
-  "p02.dat",
-  "p03.dat"
+  "p02.dat"
  ],
  "ancho": 1800,
  "alto": 2424,
