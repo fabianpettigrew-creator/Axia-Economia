@@ -93,14 +93,14 @@ window.EN = {
   "La serie desestacionalizada permite comparar un mes con el anterior; la tendencia-ciclo filtra la volatilidad y muestra la dirección de fondo.": "The seasonally adjusted series allows month-on-month comparisons; the trend-cycle filters out volatility and shows the underlying direction.",
 
   // ---------- Precios
-  "Índice de precios al consumidor del INDEC y expectativas del mercado": "INDEC consumer price index and market expectations",
-  "INDEC y BCRA": "INDEC and BCRA",
+  "Índice de precios al consumidor del INDEC: nivel general, núcleo y regulados": "INDEC consumer price index: headline, core and regulated prices",
+  "INDEC": "INDEC",
   "Inflación mensual": "Monthly inflation",
   "Interanual": "Year-on-year",
   "Núcleo mensual": "Core, monthly",
   "sin regulados ni estacionales": "excluding regulated and seasonal items",
-  "Esperada 12 meses": "Expected, next 12 months",
-  "mediana del consenso del mercado": "market consensus median",
+  "Regulados mensual": "Regulated, monthly",
+  "tarifas y precios regulados": "regulated prices and utility tariffs",
   "Mensual": "Monthly",
   "IPC nacional, variación % mensual": "National CPI, monthly % change",
   "Por categoría": "By category",

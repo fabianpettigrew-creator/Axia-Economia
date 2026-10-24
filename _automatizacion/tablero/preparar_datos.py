@@ -242,7 +242,7 @@ def main():
     ipc = d["ipc"]
     sec["precios"] = {
         "kpis": {"mensual": kv(ipc.index[-1], C.var(ipc).iloc[-1]), "interanual": kv(ipc.index[-1], C.ia(ipc).iloc[-1]),
-                 "nucleo": ult(C.var(d["ipc_nucleo"])), "rem12": ult(d["rem_ipc12"], 1)},
+                 "nucleo": ult(C.var(d["ipc_nucleo"])), "regulados": ult(C.var(d["ipc_reg"]))},
         "mensual": {"Nivel general": serie(C.var(ipc)["2017":], 1)},
         "brechas": brechas(d),
     }
@@ -310,7 +310,7 @@ def main():
         "reservas": {"Reservas brutas": serie(r["2022":], 0)},
         "compras": {"Compras netas del BCRA": serie(comp["2024":], 0)},
         "tasas": {"TAMAR": serie(mens(d["tamar"])["2025":], 1), "BADLAR": serie(mens(d["badlar"])["2025":], 1),
-                  "Plazo fijo 30 días": serie(mens(d["tasa_pf"])["2025":], 1), "Inflación esperada (REM)": serie(mens(d["rem_ipc12"])["2025":], 1),
+                  "Plazo fijo 30 días": serie(mens(d["tasa_pf"])["2025":], 1), "Inflación esperada": serie(mens(d["rem_ipc12"])["2025":], 1),
                   "Inflación interanual (INDEC)": serie(C.ia(d["ipc"])["2025":], 1)},
         "credito": {n: serie(SB.real_ia(mens(d[k]), ipc_e)["2019":], 1) for k, n in
                     [("prest_priv", "Préstamos en $"), ("dep_priv", "Depósitos privados en $"), ("m2", "M2 privado")]},
