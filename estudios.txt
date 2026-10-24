@@ -34,6 +34,16 @@
 # Las líneas que empiezan con # no se muestran en la web.
 # No nombres clientes sin su permiso.
 
+Título: Canasta del hogar porteño: monitor semanal de precios
+Title: Buenos Aires household basket: weekly price monitor
+Año: 2026
+Sector: Consumo y comercio minorista
+Sector EN: Consumer and retail
+Resumen: Qué cuesta por mes la canasta de consumo de un hogar porteño de nivel medio —alimentos, bebidas, limpieza y cuidado personal— con precios relevados por AXIA en supermercados de la Ciudad de Buenos Aires. Variación semanal por rubro y por producto, y la incidencia de cada rubro. Datos al 23 de octubre de 2026.
+Summary: What the monthly consumption basket of a middle-income Buenos Aires household costs —food, drinks, cleaning and personal care— with prices surveyed by AXIA in the city's supermarkets. Weekly change by category and product, and each category's contribution. Data as of 23 October 2026.
+Visor: canasta-caba-semanal
+---
+
 Título: Cuánto ganan y en qué gastan los hogares argentinos
 Title: How much Argentine households earn and what they spend it on
 Año: 2026
