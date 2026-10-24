@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="i18n_en.js?v=6527e617"></script>
-<script src="datos.js?v=96048f97"></script>
+<script src="i18n_en.js?v=6e5af525"></script>
+<script src="datos.js?v=2053af01"></script>
 <style>
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
 :root{
@@ -294,10 +294,10 @@ const DEF = {
            pie:x=>Object.entries(x.sectores_fuera||{}).map(([n,v])=>`${n}: ${fsig(v,0)}% (fuera de escala por efecto base)`).join(" · ")},
           {n:"Indicadores", t:"Indicadores de actividad", st:"Variación % interanual", d:x=>x.indicadores, tipo:"line", u:"%", dec:1, rango:"2A"}],
     nota:"La serie desestacionalizada permite comparar un mes con el anterior; la tendencia-ciclo filtra la volatilidad y muestra la dirección de fondo."},
-  "precios": {sub:"Índice de precios al consumidor del INDEC y expectativas del mercado", fuente:"INDEC y BCRA", mensual:true,
+  "precios": {sub:"Índice de precios al consumidor del INDEC: nivel general, núcleo y regulados", fuente:"INDEC", mensual:true,
     ultimo:k=>k.mensual.fecha,
     kpis:k=>[["Inflación mensual",fnum(k.mensual.valor)+"%",mesAnio(k.mensual.fecha)],["Interanual",fnum(k.interanual.valor)+"%",mesAnio(k.interanual.fecha)],
-             ["Núcleo mensual",fnum(k.nucleo.valor)+"%",mesAnio(k.nucleo.fecha)+" · sin regulados ni estacionales"],["Esperada 12 meses",fnum(k.rem12.valor)+"%","mediana del consenso del mercado"]],
+             ["Núcleo mensual",fnum(k.nucleo.valor)+"%",mesAnio(k.nucleo.fecha)+" · sin regulados ni estacionales"],["Regulados mensual",k.regulados?fnum(k.regulados.valor)+"%":"—",k.regulados?mesAnio(k.regulados.fecha)+" · tarifas y precios regulados":""]],
     tabs:[{n:"Mensual", t:"Inflación mensual", st:"IPC nacional, variación % mensual", d:x=>x.mensual, tipo:"bar", u:"%", dec:1, rango:"5A"},
           {n:"Por categoría", t:"Inflación por categoría", st:()=>`IPC ${regionCat==="Nacional" ? "total nacional" : "región " + regionCat}, variación % interanual`,
            d:x=>catPorRegion(x.brechas, regionCat), regiones:true, tipo:"line", u:"%", dec:1, rango:"5A", barras:["Nivel general"]},
