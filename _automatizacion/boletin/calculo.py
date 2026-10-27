@@ -124,6 +124,36 @@ def indicadores(d: dict[str, pd.Series], cat: pd.DataFrame) -> dict:
         v[f"{k}_mes"] = mes(ult(d[k]))
     v["ipi_mm"] = pct(var(d["ipi_de"]).iloc[-1])
 
+    # Capacidad instalada (UCII): nivel en % de uso; se compara con el mismo mes del año anterior (no viene s.e.).
+    # Solo si la serie está en el vintage (las ediciones anteriores a oct-26 no la tienen).
+    if "ucii" in d and d["ucii"].notna().any():
+        u = d["ucii"].dropna()
+        t = u.index[-1]
+        hace1 = t - pd.DateOffset(years=1)
+        v["ucii"] = num(u.iloc[-1], 1) + "%"
+        v["ucii_mes"] = mes(t)
+        v["ucii_ant"] = num(u.get(hace1, float("nan")), 1) + "%"
+        v["ucii_dif"] = num(u.iloc[-1] - u.get(hace1, float("nan")), 1, True) + " p.p."
+        anio = u[u.index.year == t.year]
+        previo = u[(u.index.year == t.year - 1) & (u.index.month <= t.month)]
+        v["ucii_prom_anio"] = num(anio.mean(), 1) + "%"
+        v["ucii_prom_anio_ant"] = num(previo.mean(), 1) + "%"
+        bl = [k for k in cat.index if cat.loc[k, "seccion"] == "capacidad" and k != "ucii" and k in d]
+        tab = pd.DataFrame({"actual": {k: d[k].get(t, float("nan")) for k in bl},
+                            "previo": {k: d[k].get(hace1, float("nan")) for k in bl}}).dropna(subset=["actual"])
+        tab["nombre"] = cat.loc[tab.index, "nombre"]
+        tab["dif"] = tab["actual"] - tab["previo"]
+        orden = tab.sort_values("actual")
+        fmt = lambda k: f"{tab.loc[k, 'nombre'].lower()} ({num(tab.loc[k, 'actual'], 1)}%)"
+        v["ucii_max1"], v["ucii_max2"] = fmt(orden.index[-1]), fmt(orden.index[-2])
+        v["ucii_min1"], v["ucii_min2"], v["ucii_min3"] = fmt(orden.index[0]), fmt(orden.index[1]), fmt(orden.index[2])
+        v["ucii_bloques_bajan"] = str(int((tab["dif"] < 0).sum()))
+        v["ucii_bloques"] = str(len(tab))
+        caida = tab["dif"].sort_values()
+        v["ucii_mas_cae"] = f"{tab.loc[caida.index[0], 'nombre'].lower()} ({num(caida.iloc[0], 1, True)} p.p.)"
+        v["ucii_mas_sube"] = f"{tab.loc[caida.index[-1], 'nombre'].lower()} ({num(caida.iloc[-1], 1, True)} p.p.)"
+        v["_ucii_bloques"] = tab
+
     # Precios
     p = d["ipc"]
     v["ipc_mes"] = mes(ult(p))

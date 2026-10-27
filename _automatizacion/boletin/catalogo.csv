@@ -107,3 +107,16 @@ a_bbar,yahoo,D,BBAR.BA,BBVA Argentina,$,acciones,BYMA
 a_teco,yahoo,D,TECO2.BA,Telecom Argentina,$,acciones,BYMA
 a_supv,yahoo,D,SUPV.BA,Grupo Supervielle,$,acciones,BYMA
 pobreza,libro,S,laboral-social.xlsx,Pobreza (personas),% de personas,laboral,INDEC (EPH)
+ucii,series,M,31.3_UNG_2004_M_18,Capacidad instalada en la industria,% de uso,capacidad,INDEC
+ucii_alim,series,M,31.3_UPAB_2004_M_35,Alimentos y bebidas,% de uso,capacidad,INDEC
+ucii_tabaco,series,M,31.3_UPT_2004_M_21,Productos del tabaco,% de uso,capacidad,INDEC
+ucii_textil,series,M,31.3_UPT_2004_M_23,Productos textiles,% de uso,capacidad,INDEC
+ucii_papel,series,M,31.3_UPC_2004_M_17,Papel y cartón,% de uso,capacidad,INDEC
+ucii_edicion,series,M,31.3_UEI_2004_M_22,Edición e impresión,% de uso,capacidad,INDEC
+ucii_refinacion,series,M,31.3_URP_2004_M_24,Refinación del petróleo,% de uso,capacidad,INDEC
+ucii_quimicos,series,M,31.3_USPQ_2004_M_34,Sustancias y productos químicos,% de uso,capacidad,INDEC
+ucii_caucho,series,M,31.3_UCP_2004_M_20,Caucho y plástico,% de uso,capacidad,INDEC
+ucii_minerales,series,M,31.3_UMNM_2004_M_27,Minerales no metálicos,% de uso,capacidad,INDEC
+ucii_metales,series,M,31.3_UIMB_2004_M_33,Metálicas básicas,% de uso,capacidad,INDEC
+ucii_automotriz,series,M,31.3_UV_2004_M_25,Automotriz,% de uso,capacidad,INDEC
+ucii_metalmec,series,M,31.3_UMNIA_2004_M_42,Metalmecánica sin automotriz,% de uso,capacidad,INDEC

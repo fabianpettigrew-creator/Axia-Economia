@@ -286,6 +286,52 @@ def barras_h(cats: list[str], vals: list[float], unidad="%", ancho=640, dec=1, t
     return "".join(out)
 
 
+def barras_nivel(cats: list[str], vals: list[float], previos: list[float], nombre_ref: str, ref: float,
+                 nombre_actual: str, nombre_previo: str, unidad="%", ancho=640, dec=1, titulo_aria="", ml=230,
+                 destacar: str | None = None) -> str:
+    """Barras horizontales de nivel (0 a 100), con una marca para el valor previo de cada categoría y una
+    línea vertical de referencia (por ejemplo, el nivel general). `destacar` pinta esa categoría distinta."""
+    fila = 22
+    mr, mt, mb = 40, 34, 22
+    alto = mt + mb + fila * len(cats)
+    w = ancho - ml - mr
+    x0, x1 = 0, 100
+    X = lambda v: ml + w * (v - x0) / (x1 - x0)
+    out = [f'<svg class="chart" viewBox="0 0 {ancho} {alto}" role="img" aria-label="{_esc(titulo_aria)}">']
+    out.append(f'<text class="lbl-nom" x="{ml}" y="14"><tspan style="fill:var(--s1)">■</tspan> {_esc(nombre_actual)}</text>')
+    lx = ml + 30 + 6.2 * len(nombre_actual)
+    out.append(f'<text class="lbl-nom" x="{lx:.0f}" y="14"><tspan style="fill:var(--ink)">┃</tspan> {_esc(nombre_previo)}</text>')
+    lx += 30 + 6.2 * len(nombre_previo)
+    out.append(f'<text class="lbl-nom" x="{lx:.0f}" y="14"><tspan style="fill:var(--s2)">┆</tspan> {_esc(nombre_ref)} ({num(ref, dec)})</text>')
+    for v in range(0, 101, 20):
+        out.append(f'<line class="{"zero" if v == 0 else "grid"}" x1="{X(v):.1f}" x2="{X(v):.1f}" y1="{mt}" y2="{alto - mb}"/>')
+        out.append(f'<text class="tick" x="{X(v):.1f}" y="{alto - mb + 15}" text-anchor="middle">{v}</text>')
+    out.append(f'<line x1="{X(ref):.1f}" x2="{X(ref):.1f}" y1="{mt - 4}" y2="{alto - mb}" '
+               f'style="stroke:var(--s2);stroke-width:1.5;stroke-dasharray:4 3"/>')
+    for i, (c, v, p) in enumerate(zip(cats, vals, previos)):
+        y = mt + i * fila + 3
+        bh = fila - 6
+        out.append(f'<text class="cat" x="{ml - 8}" y="{y + bh / 2 + 4:.1f}" text-anchor="end">{_esc(c)}</text>')
+        xa, xb = X(0), X(v)
+        r = min(3, (xb - xa) / 2, bh / 2)
+        d = (f"M{xa:.1f},{y:.1f} H{xb - r:.1f} Q{xb:.1f},{y:.1f} {xb:.1f},{y + r:.1f} "
+             f"V{y + bh - r:.1f} Q{xb:.1f},{y + bh:.1f} {xb - r:.1f},{y + bh:.1f} H{xa:.1f} Z")
+        color = "var(--s4)" if c == destacar else "var(--s1)"
+        tip = f"{_esc(c)}: {num(v, dec)}{unidad}" + (f" (un año antes: {num(p, dec)}{unidad})" if p is not None else "")
+        out.append(f'<path d="{d}" style="fill:{color}"><title>{tip}</title></path>')
+        if p is not None and not math.isnan(p):
+            out.append(f'<line x1="{X(p):.1f}" x2="{X(p):.1f}" y1="{y - 2:.1f}" y2="{y + bh + 2:.1f}" '
+                       f'style="stroke:var(--ink);stroke-width:2"/>')
+        lx = max(xb, X(p) if p is not None else xb) + 6
+        etiqueta = num(v, dec)
+        # fondo del color del papel: tapa la línea de referencia que pasa por detrás de la etiqueta
+        out.append(f'<rect x="{lx - 2:.1f}" y="{y:.1f}" width="{7.5 * len(etiqueta) + 4:.1f}" height="{bh:.1f}" '
+                   f'style="fill:var(--paper)"/>')
+        out.append(f'<text class="lbl-val" x="{lx:.1f}" y="{y + bh / 2 + 4:.1f}">{etiqueta}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
 def chispa(s: pd.Series, ancho=120, alto=30) -> str:
     """Sparkline para el tablero."""
     s = s.dropna()

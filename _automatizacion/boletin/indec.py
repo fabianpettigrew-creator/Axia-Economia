@@ -256,8 +256,51 @@ def pobreza() -> dict:
     return {"pobreza": [pd.Series(d).sort_index()]}
 
 
+# columnas del cuadro de capacidad instalada -> clave del catálogo (por palabra clave del encabezado)
+BLOQUES_UCII = [("nivel general", "ucii"), ("alimenticios", "ucii_alim"), ("tabaco", "ucii_tabaco"),
+                ("textiles", "ucii_textil"), ("papel", "ucii_papel"), ("edicion", "ucii_edicion"),
+                ("refinacion", "ucii_refinacion"), ("quimicos", "ucii_quimicos"), ("caucho", "ucii_caucho"),
+                ("minerales", "ucii_minerales"), ("metalicas basicas", "ucii_metales"), ("metalmecanica", "ucii_metalmec"),
+                ("automotriz", "ucii_automotriz")]
+
+
+def capacidad() -> dict:
+    """Utilización de la capacidad instalada (sh_capacidad_MM_AA.xls, con el mes de publicación en el nombre): nivel
+    general y bloques. La metalmecánica se busca antes que la automotriz porque su encabezado la nombra."""
+    hoy = pd.Timestamp.today()
+    x = None
+    for k in range(4):
+        f = hoy - pd.DateOffset(months=k)
+        try:
+            x = _excel(f"economia/sh_capacidad_{f:%m}_{f:%y}.xls", 0)
+            break
+        except FileNotFoundError:
+            continue
+    if x is None:
+        raise FileNotFoundError("sh_capacidad de los últimos 4 meses")
+    fila_enc = next(i for i in range(10) if _norm(x.iat[i, 0]).startswith("periodo"))
+    cols, usadas = {}, set()
+    for palabra, clave in BLOQUES_UCII:
+        for c in range(1, x.shape[1]):
+            if c not in usadas and palabra in _norm(x.iat[fila_enc, c]):
+                cols[clave] = c
+                usadas.add(c)
+                break
+    filas, anio = [], None
+    for i in range(fila_enc + 1, len(x)):
+        e = _norm(x.iat[i, 0]) if pd.notna(x.iat[i, 0]) else ""
+        m = re.match(r"ano (\d{4})", e)
+        if m:
+            anio = int(m.group(1))
+            continue
+        n = _mes(e) if e and len(e) <= 12 else None
+        if anio and n:
+            filas.append((pd.Timestamp(anio, n, 1), i))
+    return {clave: [_serie(x, filas, c)] for clave, c in cols.items()}
+
+
 LECTORES = {"IPC": ipc, "EMAE": emae, "IPI, ISAC y supermercados": ipi_isac_super, "comercio exterior": comercio,
-            "salarios": salarios, "EPH": eph, "pobreza": pobreza}
+            "salarios": salarios, "EPH": eph, "pobreza": pobreza, "capacidad instalada": capacidad}
 
 
 # ---------- integración con el vintage
