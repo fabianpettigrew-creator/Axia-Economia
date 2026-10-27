@@ -30,16 +30,24 @@ def catalogo() -> pd.DataFrame:
     return pd.read_csv(CATALOGO, dtype=str).set_index("clave")
 
 
-def _get(url, params, verify=True, intentos=4):
+# Cuanto se espera entre intentos de descarga. Las caidas de apis.datos.gob.ar y del BCRA
+# suelen durar unos minutos: con esperas de segundos, la corrida se perdia por nada.
+ESPERAS = (30, 120, 300)
+
+
+def _get(url, params, verify=True, headers=None, intentos=4):
     for i in range(intentos):
         try:
-            r = requests.get(url, params=params, timeout=90, verify=verify)
+            r = requests.get(url, params=params, timeout=90, verify=verify, headers=headers)
             r.raise_for_status()
             return r
-        except requests.RequestException:
+        except requests.RequestException as e:
             if i == intentos - 1:
                 raise
-            time.sleep(3 * (i + 1))
+            espera = ESPERAS[min(i, len(ESPERAS) - 1)]
+            print("   %s no responde (%s): reintento en %d s" % (url.split("/")[2], type(e).__name__, espera),
+                  flush=True)
+            time.sleep(espera)
 
 
 def api_series(ids: list[str], desde=DESDE) -> pd.DataFrame:
@@ -51,18 +59,40 @@ def api_series(ids: list[str], desde=DESDE) -> pd.DataFrame:
                  {"ids": ",".join(chunk), "format": "csv", "limit": 5000, "start_date": desde})
         df = pd.read_csv(io.StringIO(r.text), parse_dates=["indice_tiempo"]).set_index("indice_tiempo")
         df.columns = chunk
-        # La API a veces devuelve huecos internos cuando se piden varias series juntas (las mismas
-        # series pedidas de a una vienen completas): esas series se vuelven a pedir solas.
+        # La API a veces devuelve huecos internos (o la serie vacía), y guarda en su caché la respuesta de cada URL
+        # exacta aunque venga incompleta: esas series se vuelven a pedir solas, cambiando el parámetro limit en cada
+        # intento (5000, 4999...; más de 5000 da error) para forzar una respuesta nueva. Queda la más completa.
         for sid in chunk:
-            s = df[sid]
-            interior = s.loc[s.first_valid_index():s.last_valid_index()] if s.notna().any() else s
-            if len(chunk) > 1 and interior.isna().any():
-                r1 = _get("https://apis.datos.gob.ar/series/api/series/",
-                          {"ids": sid, "format": "csv", "limit": 5000, "start_date": desde})
-                s1 = pd.read_csv(io.StringIO(r1.text), parse_dates=["indice_tiempo"]).set_index("indice_tiempo").iloc[:, 0]
-                df[sid] = s1.reindex(df.index)
+            if _huecos(df[sid]):
+                s1 = _serie_sola(sid, desde)
+                if s1 is not None and _huecos(s1) < _huecos(df[sid]):
+                    df = df.reindex(df.index.union(s1.index))
+                    df[sid] = s1.reindex(df.index)
         frames.append(df)
     return pd.concat(frames, axis=1)
+
+
+def _huecos(s: pd.Series) -> int:
+    """Datos faltantes entre el primero y el último válido (la serie entera si está vacía)."""
+    if not s.notna().any():
+        return 10 ** 6
+    return int(s.loc[s.first_valid_index():s.last_valid_index()].isna().sum())
+
+
+def _serie_sola(sid: str, desde, intentos=5):
+    mejor = None
+    for i in range(intentos):
+        try:
+            r = _get("https://apis.datos.gob.ar/series/api/series/",
+                     {"ids": sid, "format": "csv", "limit": 5000 - i, "start_date": desde})
+            s = pd.read_csv(io.StringIO(r.text), parse_dates=["indice_tiempo"]).set_index("indice_tiempo").iloc[:, 0]
+        except Exception:  # noqa: BLE001
+            continue
+        if mejor is None or _huecos(s) < _huecos(mejor):
+            mejor = s
+        if _huecos(mejor) == 0:
+            break
+    return mejor
 
 
 def api_bcra(var_id: int, desde=DESDE) -> pd.Series:
@@ -94,10 +124,8 @@ def api_fred(serie: str, desde=DESDE) -> pd.Series:
 def api_yahoo(ticker: str, desde=DESDE) -> pd.Series:
     """Cierres diarios ajustados (splits y dividendos) de Yahoo Finance."""
     p1 = int(pd.Timestamp(desde).timestamp())
-    r = requests.get(f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}",
-                     params={"period1": p1, "period2": int(time.time()), "interval": "1d"},
-                     headers=H, timeout=90)
-    r.raise_for_status()
+    r = _get(f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}",
+             {"period1": p1, "period2": int(time.time()), "interval": "1d"}, headers=H)
     res = r.json()["chart"]["result"][0]
     ind = res["indicators"]
     vals = ind.get("adjclose", [{}])[0].get("adjclose") or ind["quote"][0]["close"]
