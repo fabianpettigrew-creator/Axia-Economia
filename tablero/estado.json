@@ -1,7 +1,8 @@
 {
- "actualizado": "2026-10-26 23:30",
+ "actualizado": "2026-10-27 04:59",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
+  "a_bbar",
   "brent",
   "brl",
   "dxy",
@@ -59,5 +60,7 @@
   "x_pp"
  ],
  "series_con_dato_nuevo_del_indec": [],
- "otros_avisos": []
+ "otros_avisos": [
+  "AVISO: no se pudo leer el indice de BYMA: 'date'"
+ ]
 }
