@@ -84,7 +84,7 @@ def _serie_sola(sid: str, desde, intentos=5):
     for i in range(intentos):
         try:
             r = _get("https://apis.datos.gob.ar/series/api/series/",
-                     {"ids": sid, "format": "csv", "limit": 5000 - i, "start_date": desde})
+                     {"ids": sid, "format": "csv", "limit": 5000 - i, "start_date": desde}, intentos=1)
             s = pd.read_csv(io.StringIO(r.text), parse_dates=["indice_tiempo"]).set_index("indice_tiempo").iloc[:, 0]
         except Exception:  # noqa: BLE001
             continue
