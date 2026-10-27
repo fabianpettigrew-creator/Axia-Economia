@@ -64,20 +64,47 @@ jobs:
         run: |
           git config user.name "AXIA tablero (automático)"
           git config user.email "info@axiaeconomia.ar"
-          git add tablero/ _automatizacion/datos_locales/
-          if git diff --cached --quiet; then
-            echo "Sin cambios en el tablero"; exit 0
-          fi
-          git commit -q -m "Tablero: datos al $(TZ=America/Argentina/Buenos_Aires date +%F) (GitHub Actions)"
-          if ! git push -q origin HEAD:main; then
-            # otra actualización (la de la computadora) publicó mientras tanto: se deja la publicada
+          # Lo que se va a publicar se guarda aparte. Asi se puede partir siempre de lo ultimo
+          # que haya en el repositorio, sin rebases: los archivos del tablero los genera esta
+          # corrida entera, de modo que pisarlos es lo correcto.
+          copia=$(mktemp -d)
+          mkdir -p "$copia/tablero" "$copia/datos_locales"
+          cp -r tablero/. "$copia/tablero/"
+          cp -r _automatizacion/datos_locales/. "$copia/datos_locales/" 2>/dev/null || true
+          hora_de() { python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['actualizado'])" "$1" 2>/dev/null || true; }
+          publicado=no
+          for intento in 1 2 3; do
             git fetch -q origin main
-            if ! git rebase -q origin/main; then
-              git rebase --abort
-              echo "Otra actualización publicó al mismo tiempo; se deja la ya publicada"; exit 0
+            git reset -q --hard origin/main
+            ya=$(hora_de tablero/estado.json)
+            nuestra=$(hora_de "$copia/tablero/estado.json")
+            if [[ -n "$ya" && -n "$nuestra" && "$ya" > "$nuestra" ]]; then
+              echo "Lo publicado ($ya) es mas nuevo que esta corrida ($nuestra): no se pisa"
+              publicado=sin-cambios
+              break
             fi
-            git push -q origin HEAD:main || { echo "No se pudo publicar; queda la versión anterior"; exit 0; }
+            cp -r "$copia/tablero/." tablero/
+            mkdir -p _automatizacion/datos_locales
+            cp -r "$copia/datos_locales/." _automatizacion/datos_locales/ 2>/dev/null || true
+            git add tablero/ _automatizacion/datos_locales/
+            if git diff --cached --quiet; then
+              echo "Sin cambios respecto de lo ya publicado"
+              publicado=sin-cambios
+              break
+            fi
+            git commit -q -m "Tablero: datos al $(TZ=America/Argentina/Buenos_Aires date +%F) (GitHub Actions)"
+            if git push -q origin HEAD:main; then
+              publicado=si
+              break
+            fi
+            echo "Otra corrida publico primero (intento $intento): se rehace sobre lo ultimo"
+            sleep 5
+          done
+          if [ "$publicado" = "no" ]; then
+            echo "No se pudo publicar despues de 3 intentos"
+            exit 1
           fi
-          curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/pages/builds" > /dev/null || true
-          echo "Publicado"
+          if [ "$publicado" = "si" ]; then
+            curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/pages/builds" > /dev/null || true
+            echo "Publicado"
+          fi
