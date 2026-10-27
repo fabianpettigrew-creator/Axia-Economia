@@ -247,7 +247,7 @@ window.EN = {
   "Mejor acción del año": "Best stock this year",
   "en dólares": "in dollars",
   "Puntos básicos (EMBI Argentina), datos diarios": "Basis points (EMBI Argentina), daily data",
-  "S&P Merval en dólares": "S&P Merval in dollars",
+  "Merval en dólares": "Merval in dollars",
   "Índice convertido al dólar contado con liquidación": "Index converted at the CCL dollar rate",
   "Acciones en el año": "Stocks this year",
   "Acciones líderes: rendimiento en el año": "Leading stocks: year-to-date return",

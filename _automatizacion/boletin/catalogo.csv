@@ -91,7 +91,8 @@ maiz,yahoo,D,ZC=F,Maíz (Chicago),USc por bushel,internacional,Yahoo Finance
 trigo,yahoo,D,ZW=F,Trigo (Chicago),USc por bushel,internacional,Yahoo Finance
 brent,yahoo,D,BZ=F,Petróleo Brent,USD por barril,internacional,Yahoo Finance
 oro,yahoo,D,GC=F,Oro,USD por onza,internacional,Yahoo Finance
-merval,yahoo,D,^MERV,S&P Merval,puntos,mercados,BYMA
+merval,yahoo,D,^MERV,Índice Merval (S&P hasta el 16/10/2026),puntos,mercados,BYMA
+merval_msci,byma,D,MMSCI,Índice Merval (MSCI desde el 16/10/2026),puntos,mercados,BYMA
 riesgo,argdatos,D,finanzas/indices/riesgo-pais,Riesgo país (EMBI Argentina),puntos básicos,mercados,JP Morgan
 a_ggal,yahoo,D,GGAL.BA,Grupo Financiero Galicia,$,acciones,BYMA
 a_ypf,yahoo,D,YPFD.BA,YPF,$,acciones,BYMA

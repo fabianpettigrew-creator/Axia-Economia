@@ -35,10 +35,13 @@ def catalogo() -> pd.DataFrame:
 ESPERAS = (30, 120, 300)
 
 
-def _get(url, params, verify=True, headers=None, intentos=4):
+def _get(url, params, verify=True, headers=None, intentos=4, cuerpo=None):
     for i in range(intentos):
         try:
-            r = requests.get(url, params=params, timeout=90, verify=verify, headers=headers)
+            if cuerpo is None:
+                r = requests.get(url, params=params, timeout=90, verify=verify, headers=headers)
+            else:   # algunas fuentes (BYMA) solo responden a POST
+                r = requests.post(url, json=cuerpo, timeout=90, verify=verify, headers=headers)
             r.raise_for_status()
             return r
         except requests.RequestException as e:
@@ -218,6 +221,52 @@ def pobreza() -> pd.Series:
     return pd.Series(out).sort_index()
 
 
+
+MERVAL_CSV = AQUI.parent / "datos_locales" / "merval_msci.csv"   # cierres del indice nuevo, que la fuente no da con historia
+
+
+def merval_msci() -> pd.Series:
+    """Indice Merval calculado por MSCI, de los datos abiertos de BYMA.
+
+    BYMA solo publica el cierre del dia y el anterior, asi que cada corrida los suma al
+    archivo datos_locales/merval_msci.csv, que es el que guarda la historia."""
+    hist = pd.Series(dtype=float)
+    if MERVAL_CSV.exists():
+        d = pd.read_csv(MERVAL_CSV, parse_dates=["fecha"])
+        hist = pd.Series(d.valor.values, index=d.fecha)
+    try:
+        js = _get("https://open.bymadata.com.ar/vanoms-be-core/rest/api/bymadata/free/index-price",
+                  {}, verify=False, cuerpo={}, headers={"Referer": "https://open.bymadata.com.ar/"}).json()
+        fila = [x for x in js.get("results", js.get("data", [])) if x.get("symbol") == "MMSCI"][0]
+        hist.loc[pd.Timestamp(fila["date"])] = float(fila["closingPrice"])
+    except Exception as e:  # noqa: BLE001
+        print("AVISO: no se pudo leer el indice de BYMA: %s" % e)
+    hist = hist[~hist.index.duplicated(keep="last")].sort_index()
+    if not hist.empty:
+        MERVAL_CSV.parent.mkdir(parents=True, exist_ok=True)
+        hist.rename("valor").rename_axis("fecha").to_csv(MERVAL_CSV)
+    return hist
+
+
+def _empalmar_merval(largo: pd.DataFrame) -> pd.DataFrame:
+    """El Merval cambio de administrador: lo calculaba S&P y desde el 16/10/2026 lo calcula MSCI,
+    que ese dia lo puso en base 100.000. Para no cortar la serie, la historia vieja se lleva a la
+    base nueva con el factor del dia del cambio (el unico que tienen en comun)."""
+    viejo = largo[largo.clave == "merval"].set_index("fecha").valor.sort_index()
+    nuevo = largo[largo.clave == "merval_msci"].set_index("fecha").valor.sort_index()
+    if viejo.empty or nuevo.empty:
+        return largo
+    union = viejo.index.intersection(nuevo.index)
+    if union.empty:
+        print("AVISO: el Merval viejo y el nuevo no tienen ningun dia en comun: no se empalma")
+        return largo
+    corte = union[-1]
+    factor = nuevo[corte] / viejo[corte]
+    empalmada = pd.concat([viejo[viejo.index < corte] * factor, nuevo])
+    resto = largo[largo.clave != "merval"]
+    fila = pd.DataFrame({"fecha": empalmada.index, "clave": "merval", "valor": empalmada.values})
+    return pd.concat([resto, fila], ignore_index=True)
+
 def descargar() -> pd.DataFrame:
     """Baja todo el catálogo y devuelve el formato largo (fecha, clave, valor)."""
     cat = catalogo()
@@ -232,13 +281,14 @@ def descargar() -> pd.DataFrame:
         for clave, sid in ser.id.items():
             agregar(clave, df[sid])
     fetch = {"bcra": lambda i: api_bcra(int(i)), "fred": api_fred, "yahoo": api_yahoo,
-             "argdatos": api_argdatos, "libro": lambda i: pobreza()}
+             "argdatos": api_argdatos, "libro": lambda i: pobreza(), "byma": lambda i: merval_msci()}
     for clave, fila in cat[cat.fuente != "series"].iterrows():
         try:
             agregar(clave, fetch[fila.fuente](fila.id))
         except Exception as e:  # una fuente caída no frena la edición
             print(f"AVISO: no se pudo bajar {clave} ({fila.fuente} {fila.id}): {e}")
     out = pd.concat(largo, ignore_index=True).dropna(subset=["valor"])
+    out = _empalmar_merval(out)
     return out.sort_values(["clave", "fecha"]).reset_index(drop=True)
 
 
