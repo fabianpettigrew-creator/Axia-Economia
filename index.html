@@ -35,7 +35,14 @@
 
   /* Celular */
   /* el enlace Experiencia se oculta en pantallas medias para que el menú no se desborde */
-  @media (max-width:960px){ .ax-nav-extra{display:none !important} }
+  /* el logo nunca se parte en dos lineas */
+  header a[aria-label="AXIA"] span{white-space:nowrap}
+  header .ax-monitor{white-space:nowrap}
+  /* antes de esconder nada, el menu se achica */
+  @media (max-width:1180px){ header nav{gap:15px !important} header nav a{font-size:13.5px !important} }
+  @media (max-width:1080px){ header nav{gap:12px !important} header nav a{font-size:12.5px !important} }
+  @media (max-width:1040px){ .ax-nav-extra{display:none !important} }
+  @media (max-width:900px){ header nav a{font-size:12px !important} header nav{gap:10px !important} }
   @media (max-width:760px){
     nav a{display:none !important}
     [style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr) !important}
