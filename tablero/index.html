@@ -16,8 +16,8 @@
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
 :root{
   --bg:#f7f4ee; --paper:#fffdf9; --ink:#1a2233; --ink-2:#4b5466; --ink-3:#6a7382; --rule:#ddd6c9; --rule-2:#ebe5da;
-  --navy:#1a2233; --gold:#b8874a; --soft:#f2ece1; --bar-soft:#a9c9f0;
-  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --pos:#2a78d6; --neg:#e34948;
+  --navy:#1a2233; --gold:#b8874a; --soft:#f2ede4; --bar-soft:#8d97a8;
+  --s1:#1a2233; --s2:#b8874a; --s3:#8d97a8; --s4:#ddb27a; --pos:#5fae7e; --neg:#b5533c;
   --display:"Cormorant Garamond",Georgia,serif; --ui:Manrope,system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -476,7 +476,7 @@ function dibujarSolapa(){
   document.querySelector(".lienzo").hidden = false;
   if (esG20){ rangos.style.display = "none"; dibujarG20(tab, x.g20, x.g20_ult); return; }
   if (tab.tipo === "brechas"){ rangos.style.display = "none"; dibujarBrechas(x.brechas); return; }
-  const ink3 = CSSV("--ink-3"), grid = CSSV("--rule-2"), cols = [CSSV("--s1"), CSSV("--s2"), CSSV("--s3"), CSSV("--s4"), "#6b5b95", "#4a8f8f"];
+  const ink3 = CSSV("--ink-3"), grid = CSSV("--rule-2"), cols = [CSSV("--s1"), CSSV("--s2"), CSSV("--s3"), CSSV("--s4"), "#ddd6c9", "#6a7382"];
   const tip = {backgroundColor:"#1a2233", titleFont:{family:"Manrope",weight:"600"}, bodyFont:{family:"Manrope"}, padding:10, boxPadding:4,
     callbacks:{label:c=>` ${c.dataset.label}: ${tab.rebase ? fnum(c.parsed.y,1) : fval(tab, c.parsed[tab.tipo==="hbar"?"x":"y"])}`}};
   const ticksY = {color:ink3, font:{family:"Manrope",size:11}, callback:v=>fnum(v, Math.abs(v)>=100 || tab.dec===0 ? 0 : (Math.abs(v)<10 ? Math.min(tab.dec,2) : 1))};
@@ -594,7 +594,7 @@ function dibujarG20(tab, G, U){
 }
 
 // ---------- Precios: brechas de cada componente del IPC con el nivel general ----------
-const B_COL = ["#1a2233","#b8874a","#3d6fa8","#7a9a5a","#a8524b","#6b5b95","#4a8f8f","#c27c2c","#8a8f98","#d06f8e","#2f8f5b","#6a4a2a","#5b7fc4","#b3a13a","#943b6b"];
+const B_COL = ["#1a2233","#b8874a","#8d97a8","#ddb27a","#ddd6c9","#6b5b95","#4a8f8f","#c27c2c","#8a8f98","#d06f8e","#2f8f5b","#6a4a2a","#5b7fc4","#b3a13a","#943b6b"];
 const MES3 = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
 const mesC = f => MES3[+f.slice(5,7)-1] + "-" + f.slice(2,4);
 const BASES = {"2019-10-01":"octubre 2019", "2023-10-01":"octubre 2023"};
