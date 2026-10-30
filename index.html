@@ -34,6 +34,8 @@
   [hidden]{display:none !important}
 
   /* Celular */
+  /* el enlace Experiencia se oculta en pantallas medias para que el menú no se desborde */
+  @media (max-width:960px){ .ax-nav-extra{display:none !important} }
   @media (max-width:760px){
     nav a{display:none !important}
     [style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr) !important}
@@ -165,11 +167,12 @@
         </span>
       </a>
       <nav style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px);">
-        <a href="#servicios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Servicios</span><span data-en>Services</span></a>
         <a href="#boletin" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Panorama</span><span data-en>Panorama</span></a>
         <a href="tablero/" class="scp0 ax-monitor" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span class="ax-vivo" aria-hidden="true"></span><span class="ax-brillo"><span data-es>Monitor Macro</span><span data-en>Macro Monitor</span></span></a>
         <a href="#estudios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Estudios</span><span data-en>Studies</span></a>
         <a href="#medios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Medios</span><span data-en>Media</span></a>
+        <a href="#servicios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Servicios</span><span data-en>Services</span></a>
+        <a href="#experiencia" class="scp0 ax-nav-extra" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Experiencia</span><span data-en>Experience</span></a>
         <a href="#trayectoria" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Equipo</span><span data-en>Team</span></a>
         <a href="#contacto" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Contacto</span><span data-en>Contact</span></a>
         <button id="lang" type="button" class="scp1" style="border: 1px solid #273146; background: transparent; border-radius: 2px; padding: 6px 11px; font-style: inherit; font-variant: inherit; font-weight: 600; font-stretch: inherit; font-size: 11px; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; letter-spacing: 0.14em; color: #f2ede4; cursor: pointer;"><span data-es>EN</span><span data-en>ES</span></button>
@@ -213,6 +216,118 @@
       </div>
     </section>
 
+    <section id="boletin" hidden style="border-top: 1px solid rgb(221, 214, 201);">
+      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
+        <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
+          <div>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Panorama AXIA</span><span data-en>Panorama AXIA</span></span>
+            <h2 id="bol-edicion" style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"></h2>
+          </div>
+          <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
+            <span data-es>Todos los meses, los principales indicadores de la economía argentina con análisis propio: actividad, precios, dólar, cuentas fiscales, comercio exterior, empleo, mercados y proyecciones.</span>
+            <span data-en>Every month, the key indicators of the Argentine economy with our own analysis: activity, prices, exchange rate, fiscal accounts, trade, employment, markets and forecasts. Published in Spanish.</span>
+          </p>
+        </div>
+        <div style="margin-top: clamp(36px, 5vw, 64px); display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(26px, 3vw, 38px); align-items: start;">
+          <div>
+            <h3 id="bol-titular" style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(24px, 2.4vw, 32px); line-height: 1.16; text-wrap: balance;"></h3>
+            <p id="bol-bajada" style="margin-top: 16px; font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"></p>
+            <span id="bol-corte" style="display: block; margin-top: 14px; font-size: 12.5px; color: rgb(106, 115, 130);"></span>
+            <div style="margin-top: clamp(22px, 3vw, 32px); display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center;">
+              <a id="bol-leer" href="boletin/" class="scp2" style="display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border-radius: 2px;"><span data-es>Leer Panorama AXIA</span><span data-en>Read Panorama AXIA</span><span aria-hidden="true">→</span></a>
+              <a id="bol-pdf" href="#" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↓</span><span style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Descargar PDF</span><span data-en>Download PDF</span></span></a>
+              <a href="tablero/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" class="ax-flecha" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↗</span><span class="ax-brillo-osc" style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span></span></a>
+            </div>
+          </div>
+          <ul id="bol-indicadores" style="display: grid; grid-template-columns: repeat(3, minmax(0px, 1fr)); gap: 0px;"></ul>
+        </div>
+        <div id="bol-archivo" hidden style="margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(22px, 3vw, 30px);">
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-bottom: 14px;"><span data-es>Ediciones de muestra</span><span data-en>Sample issues</span></span>
+          <ul id="bol-ediciones" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 0px 40px;"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="estudios" hidden style="background: rgb(239, 234, 225); border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
+      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
+        <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
+          <div>
+            <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="display: block; margin-bottom: 20px;"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.15"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Estudios</span><span data-en>Studies</span></span>
+            <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>Estudios realizados</span><span data-en>Selected work</span></h2>
+          </div>
+          <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
+            <span data-es>Una selección de estudios. Si le interesa alguno, escríbanos y le contamos más.</span>
+            <span data-en>A selection of our studies. If any of them interests you, write to us and we will tell you more.</span>
+          </p>
+        </div>
+        <div id="estudios-lista" style="margin-top: clamp(36px, 5vw, 64px);"></div>
+        <p id="estudios-todos" hidden style="margin-top: clamp(26px, 3vw, 36px); font-size: 15px;"><a href="publicaciones/" style="display:inline-flex;align-items:center;gap:9px;font-weight:600;color:#b8874a;text-decoration:none;border-bottom:1px solid #ddd6c9"><span data-es>Ver todos los estudios</span><span data-en>See all studies</span><span aria-hidden="true">→</span></a></p>
+      </div>
+    </section>
+
+    <section id="medios" hidden style="border-top: 1px solid rgb(221, 214, 201);">
+      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
+        <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
+          <div>
+            <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="display: block; margin-bottom: 20px;"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.15"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Medios</span><span data-en>Media</span></span>
+            <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>AXIA en los medios</span><span data-en>AXIA in the media</span></h2>
+          </div>
+          <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
+            <span data-es>Notas, entrevistas y columnas de opinión en medios gráficos y audiovisuales.</span>
+            <span data-en>Articles, interviews and opinion columns in print and broadcast media.</span>
+          </p>
+        </div>
+
+        <div id="medios-graficos" hidden style="margin-top: clamp(36px, 5vw, 64px);">
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); padding-bottom: 14px; border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Medios gráficos y digitales</span><span data-en>Print and digital</span></span>
+          <div id="medios-graficos-lista" style="margin-top: clamp(18px, 2vw, 26px); display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: clamp(14px, 1.8vw, 22px);"></div>
+        </div>
+
+        <div id="medios-av" hidden style="margin-top: clamp(34px, 4.5vw, 58px);">
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); padding-bottom: 14px; border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Radio, televisión y streaming</span><span data-en>Radio, television and streaming</span></span>
+          <div id="medios-av-lista" style="margin-top: clamp(18px, 2vw, 26px); display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: clamp(14px, 1.8vw, 22px);"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="suscripcion" style="background: rgb(239, 234, 225); border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
+      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 56px); display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.1fr); gap: clamp(28px, 5vw, 64px); align-items: start;">
+        <div>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Suscripción</span><span data-en>Subscribe</span></span>
+          <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(30px, 3.8vw, 46px); line-height: 1.08; letter-spacing: -0.01em; max-width: 20ch;"><span data-es>Reciba Panorama AXIA por correo</span><span data-en>Get Panorama AXIA by email</span></h2>
+          <p style="margin-top: 18px; font-size: 16.5px; color: rgb(93, 102, 118); max-width: 48ch; text-wrap: pretty;">
+            <span data-es>Cada edición, con los principales indicadores de la economía argentina y análisis propio. Le enviamos un correo para confirmar su dirección: la suscripción queda activa recién cuando usted hace clic en ese enlace.</span>
+            <span data-en>Every issue, with the key indicators of the Argentine economy and our own analysis. We send a confirmation email: your subscription becomes active only after you click that link.</span>
+          </p>
+        </div>
+        <form id="form-boletin" action="https://assets.mailerlite.com/jsonp/2718598/forms/201512522929407662/subscribe" method="post" target="ml-boletin" style="display: grid; gap: 14px; background: rgb(247, 244, 238); border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: clamp(22px, 3vw, 32px);">
+          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
+            <span data-es>Nombre</span><span data-en>Name</span>
+            <input type="text" name="fields[name]" autocomplete="name" required style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
+          </label>
+          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
+            <span data-es>Correo</span><span data-en>Email</span>
+            <input type="email" name="fields[email]" autocomplete="email" required style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
+          </label>
+          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
+            <span data-es>Empresa o sector (opcional)</span><span data-en>Company or sector (optional)</span>
+            <input type="text" name="fields[company]" autocomplete="organization" style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
+          </label>
+          <input type="hidden" name="ml-submit" value="1">
+          <input type="hidden" name="anticsrf" value="true">
+          <input type="text" name="sitio-web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;">
+          <button type="submit" class="scp2" style="justify-self: start; margin-top: 4px; display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; border: 0px; border-radius: 2px; cursor: pointer;"><span data-es>Suscribirme</span><span data-en>Subscribe</span><span aria-hidden="true">&#8594;</span></button>
+          <p id="form-boletin-aviso" role="status" aria-live="polite" style="margin: 0px; min-height: 20px; font-size: 14px; color: rgb(93, 102, 118);"></p>
+          <p style="margin: 0px; font-size: 12.5px; color: rgb(106, 115, 130); text-wrap: pretty;">
+            <span data-es>Usamos sus datos solo para enviarle Panorama AXIA. Puede darse de baja cuando quiera desde el pie de cualquier envío. Si usa bloqueador de publicidad, es posible que el enlace del correo le aparezca bloqueado: elija Continuar y la confirmación sigue igual.</span>
+            <span data-en>We use your details only to send you Panorama AXIA. You can unsubscribe at any time from the footer of any issue. If you use an ad blocker, the link in the email may appear blocked: choose Continue and the confirmation works as usual.</span>
+          </p>
+        </form>
+        <iframe name="ml-boletin" title="" aria-hidden="true" tabindex="-1" style="position: absolute; width: 0px; height: 0px; border: 0px; visibility: hidden;"></iframe>
+      </div>
+    </section>
     <section id="servicios" style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 120px) clamp(20px, 5vw, 56px);">
       <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
         <div>
@@ -262,114 +377,63 @@
       
     </section>
 
-    <section id="boletin" hidden style="border-top: 1px solid rgb(221, 214, 201);">
-      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
-        <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
-          <div>
-            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Panorama AXIA</span><span data-en>Panorama AXIA</span></span>
-            <h2 id="bol-edicion" style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"></h2>
-          </div>
-          <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
-            <span data-es>Todos los meses, los principales indicadores de la economía argentina con análisis propio: actividad, precios, dólar, cuentas fiscales, comercio exterior, empleo, mercados y proyecciones.</span>
-            <span data-en>Every month, the key indicators of the Argentine economy with our own analysis: activity, prices, exchange rate, fiscal accounts, trade, employment, markets and forecasts. Published in Spanish.</span>
-          </p>
-        </div>
-        <div style="margin-top: clamp(36px, 5vw, 64px); display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(26px, 3vw, 38px); align-items: start;">
-          <div>
-            <h3 id="bol-titular" style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(24px, 2.4vw, 32px); line-height: 1.16; text-wrap: balance;"></h3>
-            <p id="bol-bajada" style="margin-top: 16px; font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"></p>
-            <span id="bol-corte" style="display: block; margin-top: 14px; font-size: 12.5px; color: rgb(106, 115, 130);"></span>
-            <div style="margin-top: clamp(22px, 3vw, 32px); display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center;">
-              <a id="bol-leer" href="boletin/" class="scp2" style="display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border-radius: 2px;"><span data-es>Leer Panorama AXIA</span><span data-en>Read Panorama AXIA</span><span aria-hidden="true">→</span></a>
-              <a id="bol-pdf" href="#" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↓</span><span style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Descargar PDF</span><span data-en>Download PDF</span></span></a>
-              <a href="tablero/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" class="ax-flecha" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↗</span><span class="ax-brillo-osc" style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span></span></a>
-            </div>
-          </div>
-          <ul id="bol-indicadores" style="display: grid; grid-template-columns: repeat(3, minmax(0px, 1fr)); gap: 0px;"></ul>
-        </div>
-        <div id="bol-archivo" hidden style="margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(22px, 3vw, 30px);">
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-bottom: 14px;"><span data-es>Ediciones de muestra</span><span data-en>Sample issues</span></span>
-          <ul id="bol-ediciones" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 0px 40px;"></ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="suscripcion" style="background: rgb(239, 234, 225); border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
-      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 56px); display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.1fr); gap: clamp(28px, 5vw, 64px); align-items: start;">
+    <section id="experiencia" style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 120px) clamp(20px, 5vw, 56px);">
+      <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
         <div>
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Suscripción</span><span data-en>Subscribe</span></span>
-          <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(30px, 3.8vw, 46px); line-height: 1.08; letter-spacing: -0.01em; max-width: 20ch;"><span data-es>Reciba Panorama AXIA por correo</span><span data-en>Get Panorama AXIA by email</span></h2>
-          <p style="margin-top: 18px; font-size: 16.5px; color: rgb(93, 102, 118); max-width: 48ch; text-wrap: pretty;">
-            <span data-es>Cada edición, con los principales indicadores de la economía argentina y análisis propio. Le enviamos un correo para confirmar su dirección: la suscripción queda activa recién cuando usted hace clic en ese enlace.</span>
-            <span data-en>Every issue, with the key indicators of the Argentine economy and our own analysis. We send a confirmation email: your subscription becomes active only after you click that link.</span>
-          </p>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Experiencia</span><span data-en>Experience</span></span>
+          <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>Trabajos representativos</span><span data-en>Representative work</span></h2>
         </div>
-        <form id="form-boletin" action="https://assets.mailerlite.com/jsonp/2718598/forms/201512522929407662/subscribe" method="post" target="ml-boletin" style="display: grid; gap: 14px; background: rgb(247, 244, 238); border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: clamp(22px, 3vw, 32px);">
-          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
-            <span data-es>Nombre</span><span data-en>Name</span>
-            <input type="text" name="fields[name]" autocomplete="name" required style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
-          </label>
-          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
-            <span data-es>Correo</span><span data-en>Email</span>
-            <input type="email" name="fields[email]" autocomplete="email" required style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
-          </label>
-          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
-            <span data-es>Empresa o sector (opcional)</span><span data-en>Company or sector (optional)</span>
-            <input type="text" name="fields[company]" autocomplete="organization" style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
-          </label>
-          <input type="hidden" name="ml-submit" value="1">
-          <input type="hidden" name="anticsrf" value="true">
-          <input type="text" name="sitio-web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;">
-          <button type="submit" class="scp2" style="justify-self: start; margin-top: 4px; display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; border: 0px; border-radius: 2px; cursor: pointer;"><span data-es>Suscribirme</span><span data-en>Subscribe</span><span aria-hidden="true">&#8594;</span></button>
-          <p id="form-boletin-aviso" role="status" aria-live="polite" style="margin: 0px; min-height: 20px; font-size: 14px; color: rgb(93, 102, 118);"></p>
-          <p style="margin: 0px; font-size: 12.5px; color: rgb(106, 115, 130); text-wrap: pretty;">
-            <span data-es>Usamos sus datos solo para enviarle Panorama AXIA. Puede darse de baja cuando quiera desde el pie de cualquier envío. Si usa bloqueador de publicidad, es posible que el enlace del correo le aparezca bloqueado: elija Continuar y la confirmación sigue igual.</span>
-            <span data-en>We use your details only to send you Panorama AXIA. You can unsubscribe at any time from the footer of any issue. If you use an ad blocker, the link in the email may appear blocked: choose Continue and the confirmation works as usual.</span>
-          </p>
-        </form>
-        <iframe name="ml-boletin" title="" aria-hidden="true" tabindex="-1" style="position: absolute; width: 0px; height: 0px; border: 0px; visibility: hidden;"></iframe>
+        <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
+          <span data-es>Una selección de trabajos realizados por el equipo, descriptos sin identificar a los clientes. Las referencias se amplían a pedido.</span>
+          <span data-en>A selection of engagements carried out by the team, described without identifying clients. References available on request.</span>
+        </p>
       </div>
-    </section>
-    <section id="estudios" hidden style="background: rgb(239, 234, 225); border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
-      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
-        <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
-          <div>
-            <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="display: block; margin-bottom: 20px;"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.15"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Estudios</span><span data-en>Studies</span></span>
-            <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>Estudios realizados</span><span data-en>Selected work</span></h2>
-          </div>
-          <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
-            <span data-es>Una selección de estudios. Si le interesa alguno, escríbanos y le contamos más.</span>
-            <span data-en>A selection of our studies. If any of them interests you, write to us and we will tell you more.</span>
-          </p>
-        </div>
-        <div id="estudios-lista" style="margin-top: clamp(36px, 5vw, 64px);"></div>
-      </div>
-    </section>
-
-    <section id="medios" hidden style="border-top: 1px solid rgb(221, 214, 201);">
-      <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
-        <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
-          <div>
-            <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="display: block; margin-bottom: 20px;"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.15"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Medios</span><span data-en>Media</span></span>
-            <h2 style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>AXIA en los medios</span><span data-en>AXIA in the media</span></h2>
-          </div>
-          <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
-            <span data-es>Notas, entrevistas y columnas de opinión en medios gráficos y audiovisuales.</span>
-            <span data-en>Articles, interviews and opinion columns in print and broadcast media.</span>
-          </p>
-        </div>
-
-        <div id="medios-graficos" hidden style="margin-top: clamp(36px, 5vw, 64px);">
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); padding-bottom: 14px; border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Medios gráficos y digitales</span><span data-en>Print and digital</span></span>
-          <div id="medios-graficos-lista" style="margin-top: clamp(18px, 2vw, 26px); display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: clamp(14px, 1.8vw, 22px);"></div>
-        </div>
-
-        <div id="medios-av" hidden style="margin-top: clamp(34px, 4.5vw, 58px);">
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); padding-bottom: 14px; border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Radio, televisión y streaming</span><span data-en>Radio, television and streaming</span></span>
-          <div id="medios-av-lista" style="margin-top: clamp(18px, 2vw, 26px); display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: clamp(14px, 1.8vw, 22px);"></div>
-        </div>
+      <div style="margin-top: clamp(32px, 4vw, 52px); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0px clamp(32px, 5vw, 64px);">
+          <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Pesca y agroindustria</span><span data-en>Fisheries and agribusiness</span></span>
+            <h3 style="margin-top: 10px; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2;"><span data-es>Perjuicio económico de una zona de exclusión</span><span data-en>Economic damage from an exclusion zone</span></h3>
+            <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Cuantificación del impacto de una restricción a la operación sobre la flota centollera y su cadena de valor: lucro cesante, pérdida de ingresos y efectos sobre la industria en tierra.</span><span data-en>Quantification of the impact of an operating restriction on the king crab fleet and its value chain: lost profits, revenue losses and onshore processing effects.</span></p>
+          </article>
+          <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Consumo y comercio minorista</span><span data-en>Consumer and retail</span></span>
+            <h3 style="margin-top: 10px; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2;"><span data-es>Ingresos y gastos de los hogares</span><span data-en>Household income and expenditure</span></h3>
+            <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Análisis nacional y regional de la estructura de gasto de los hogares sobre la Encuesta Permanente de Hogares y la Encuesta Nacional de Gastos de los Hogares del INDEC, para dimensionar mercado y poder de compra por región.</span><span data-en>National and regional analysis of household spending structure based on INDEC's Permanent Household Survey and National Household Expenditure Survey, to size the market and purchasing power by region.</span></p>
+          </article>
+          <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Infraestructura y construcción</span><span data-en>Infrastructure and construction</span></span>
+            <h3 style="margin-top: 10px; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2;"><span data-es>Impacto económico de la inversión pública</span><span data-en>Economic impact of public investment</span></h3>
+            <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Evaluación de cuatro casos de inversión en infraestructura y desarrollo urbano, con estimación de efectos sobre actividad, empleo y valor del suelo.</span><span data-en>Assessment of four infrastructure and urban development cases, estimating effects on activity, employment and land value.</span></p>
+          </article>
+          <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Infraestructura y transporte</span><span data-en>Infrastructure and transport</span></span>
+            <h3 style="margin-top: 10px; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2;"><span data-es>Ecuación económica de un contrato internacional</span><span data-en>Economic balance of an international contract</span></h3>
+            <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Recálculo del valor actual neto y la tasa interna de retorno de un paso fronterizo internacional, y apoyo técnico a la negociación para restablecer el equilibrio del contrato según un laudo arbitral.</span><span data-en>Recalculation of the net present value and internal rate of return of an international border crossing, and technical support to the negotiation that restored the contract's economic balance under an arbitral award.</span></p>
+          </article>
+          <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Turismo</span><span data-en>Tourism</span></span>
+            <h3 style="margin-top: 10px; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2;"><span data-es>Plan de desarrollo territorial y turístico</span><span data-en>Territorial and tourism development plan</span></h3>
+            <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Relevamiento de actores, análisis de flujos y movilidad, escenarios de demanda, segmentación de públicos e indicadores de gestión para un corredor turístico.</span><span data-en>Stakeholder fieldwork, flow and mobility analysis, demand scenarios, audience segmentation and management indicators for a tourism corridor.</span></p>
+          </article>
+          <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Industria</span><span data-en>Industry</span></span>
+            <h3 style="margin-top: 10px; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2;"><span data-es>Mercado internacional y factibilidad exportadora</span><span data-en>International market and export feasibility</span></h3>
+            <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Análisis de los principales mercados productores y consumidores de cemento portland, sus perspectivas de evolución y la factibilidad de exportar cemento argentino.</span><span data-en>Analysis of the main producing and consuming markets for portland cement, their outlook and the feasibility of exporting Argentine cement.</span></p>
+          </article>
+          <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Defensa de la competencia</span><span data-en>Competition</span></span>
+            <h3 style="margin-top: 10px; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2;"><span data-es>Monitoreo de una desinversión de activos</span><span data-en>Monitoring of an asset divestiture</span></h3>
+            <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Integrante del equipo que controló el cumplimiento de una desinversión ordenada por la autoridad de competencia tras una adquisición internacional.</span><span data-en>Member of the team that monitored compliance with a divestiture ordered by the competition authority following an international acquisition.</span></p>
+          </article>
+          <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Mercado de trabajo</span><span data-en>Labor market</span></span>
+            <h3 style="margin-top: 10px; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2;"><span data-es>Oferta laboral del AMBA</span><span data-en>Labor supply in Greater Buenos Aires</span></h3>
+            <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Estudio de la oferta de trabajo y del impacto de la pandemia en el Área Metropolitana de Buenos Aires, con financiamiento de un organismo multilateral.</span><span data-en>Study of labor supply and the impact of the pandemic in the Buenos Aires metropolitan area, funded by a multilateral organization.</span></p>
+          </article>
+          <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Comercio exterior</span><span data-en>Foreign trade</span></span>
+            <h3 style="margin-top: 10px; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 500; color: rgb(26, 34, 51); font-size: clamp(21px, 1.9vw, 25px); line-height: 1.2;"><span data-es>Apoyo a negociaciones agrícolas</span><span data-en>Support to agricultural negotiations</span></h3>
+            <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Análisis de subsidios y políticas agrícolas de socios comerciales y su impacto en el sector exportador argentino, en apoyo de negociaciones multilaterales.</span><span data-en>Analysis of trading partners' agricultural subsidies and policies and their impact on Argentine exporters, in support of multilateral negotiations.</span></p>
+          </article>
       </div>
     </section>
 
@@ -612,6 +676,9 @@
                '<span data-en>' + enlaces(en, 'Download results') + '</span></div>';
       };
       var row = 'display:grid;grid-template-columns:clamp(48px,6vw,86px) minmax(0,1fr) minmax(0,1.35fr);gap:clamp(16px,3vw,44px);padding:clamp(26px,3vw,38px) 0;border-top:1px solid #ddd6c9;align-items:start';
+      var TOPE = 3;                       // cuantos estudios se muestran en la portada
+      var total = items.length;
+      items = items.slice(0, TOPE);
       document.getElementById('estudios-lista').innerHTML = items.map(function(o, idx){
         var tEs = esc(o['titulo']), tEn = esc(o['title'] || o['titulo']);
         var sEs = esc(o['sector']), sEn = esc(o['sector en'] || o['sector']);
@@ -631,6 +698,10 @@
             '<span data-es>Consultar por este estudio →</span><span data-en>Ask about this study →</span></a></div>' +
           '</article>';
       }).join('');
+      if (total > TOPE) {
+        var pie = document.getElementById('estudios-todos');
+        if (pie) pie.hidden = false;
+      }
       document.getElementById('estudios').hidden = false;
     }).catch(function(){});
   })();

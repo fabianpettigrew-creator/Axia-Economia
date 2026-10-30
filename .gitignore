@@ -14,3 +14,6 @@ _automatizacion/tablero/cache/
 _automatizacion/tablero/logs/
 _automatizacion/tablero/demo/datos.js
 __pycache__/
+
+# Vista previa local: no se publica
+demo-axia.html

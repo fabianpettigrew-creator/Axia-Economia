@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<title>Canasta del hogar porteño: monitor semanal de precios | AXIA</title>
+<meta name="description" content="Qué cuesta por mes la canasta de consumo de un hogar porteño de nivel medio —alimentos, bebidas, limpieza y cuidado personal— con precios relevados por AXIA en supermercados de la">
+<meta property="og:title" content="Canasta del hogar porteño: monitor semanal de precios | AXIA">
+<meta property="og:description" content="Qué cuesta por mes la canasta de consumo de un hogar porteño de nivel medio —alimentos, bebidas, limpieza y cuidado personal— con precios relevados por AXIA en supermercados de la">
+<meta property="og:url" content="https://axiaeconomia.ar/publicaciones/canasta-caba-semanal.html">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AXIA, consultora económica: coyuntura macroeconómica y escenarios, estudios de mercado y comercio exterior, proyectos de inversión y valuación, planificación financiera y mercado de capitales, y defensa de la competencia.">
+<meta property="og:image" content="https://axiaeconomia.ar/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 46'%3E%3Ccircle cx='23' cy='23' r='20.5' fill='%23fff' stroke='%231a2233' stroke-width='3'/%3E%3Cpath d='M14 27 L23 15 L32 27' fill='none' stroke='%23b8874a' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;background:#f7f4ee}
+  body{background:#f7f4ee;color:#232b3b;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ul{list-style:none}
+  a{color:#b8874a;text-decoration:none}
+  a:hover{color:#8f6531}
+  .scp0:hover{color:#b8874a !important}
+  .scp1:hover{border-color:#b8874a !important;color:#b8874a !important}
+  .scp2:hover{background:#b8874a !important;color:#fff !important}
+  [data-en]{display:none}
+  html[data-lang="en"] [data-es]{display:none}
+  html[data-lang="en"] [data-en]{display:revert}
+  [hidden]{display:none !important}
+
+  /* Celular */
+  /* el enlace Experiencia se oculta en pantallas medias para que el menú no se desborde */
+  @media (max-width:960px){ .ax-nav-extra{display:none !important} }
+  @media (max-width:760px){
+    nav a{display:none !important}
+    [style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr) !important}
+    [style*="clamp(48px, 6vw, 86px)"],[style*="clamp(48px,6vw,86px)"]{grid-template-columns:40px minmax(0,1fr) !important;row-gap:10px !important}
+    [style*="clamp(48px, 6vw, 86px)"] > :last-child,[style*="clamp(48px,6vw,86px)"] > :last-child{grid-column:2}
+    #inicio > svg{width:90vw !important;right:-30% !important}
+    #bol-indicadores{grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important}
+    #bol-indicadores li{border-top:1px solid #ddd6c9 !important}
+    #bol-ediciones .bol-tit{display:none}
+    #bol-ediciones a:first-child{flex:1 1 auto !important}
+  }
+
+  /* Visor de estudios: contenido protegido, no descargable */
+  #vs{position:fixed;inset:0;z-index:100;display:none;background:#12192a;
+      -webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none}
+  html.vs-open{overflow:hidden}
+  html.vs-open #vs{display:flex;flex-direction:column}
+  #vs-bar{flex:0 0 auto;display:flex;align-items:center;gap:clamp(10px,2vw,20px);
+          padding:0 clamp(12px,3vw,26px);height:62px;color:#dfe4ec;
+          border-bottom:1px solid rgba(255,255,255,.12)}
+  #vs-tit{flex:1 1 auto;min-width:0;font-family:"Cormorant Garamond",Georgia,serif;
+          font-size:clamp(15px,2vw,22px);line-height:1.2;color:#fff;
+          white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #vs-num{flex:0 0 auto;font-size:13px;letter-spacing:.06em;color:#9aa4b6;font-variant-numeric:tabular-nums}
+  .vs-b{flex:0 0 auto;width:38px;height:38px;background:none;border:1px solid rgba(255,255,255,.22);
+        border-radius:2px;color:#dfe4ec;font:inherit;font-size:18px;line-height:1;cursor:pointer}
+  .vs-b:hover{border-color:#b8874a;color:#b8874a}
+  .vs-b[disabled]{opacity:.28;cursor:default;border-color:rgba(255,255,255,.14);color:#dfe4ec}
+  #vs-esc{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;
+          gap:clamp(6px,2vw,18px);padding:clamp(10px,2vw,22px);background:#2c3446}
+  #vs-pag{flex:1 1 auto;min-width:0;height:100%;position:relative;
+          background-repeat:no-repeat;background-position:center;background-size:contain;
+          filter:drop-shadow(0 10px 28px rgba(0,0,0,.42))}
+  #vs-pag::after{content:"";position:absolute;inset:0}
+  #vs-carga{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+            color:#7c8699;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+  #vs-pie{flex:0 0 auto;padding:0 clamp(12px,3vw,26px) 14px;text-align:center;
+          font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#6c7688}
+  #vs-tip{position:fixed;left:50%;bottom:74px;z-index:101;transform:translateX(-50%);
+          max-width:88vw;background:rgba(18,25,42,.96);border:1px solid rgba(184,135,74,.55);
+          color:#efeae1;font-size:13.5px;line-height:1.4;padding:11px 18px;border-radius:2px;
+          opacity:0;transition:opacity .25s;pointer-events:none;text-align:center}
+  #vs-tip.on{opacity:1}
+  #vs-print{display:none}
+  @media (max-width:760px){
+    #vs-bar{height:54px} .vs-b{width:34px;height:34px;font-size:16px}
+    #vs-esc{padding:6px;gap:4px} #vs-pie{font-size:10px;padding-bottom:10px}
+  }
+  @media (max-height:480px){
+    #vs-pie{display:none} #vs-bar{height:46px} #vs-esc{padding:4px}
+  }
+  @media (max-width:760px) and (orientation:portrait){
+    #vs-esc{padding:0;gap:0} .vs-nav{display:none}
+    #vs-tip{bottom:58px}
+  }
+  @media print{
+    html.vs-open body>*:not(#vs-print){display:none !important}
+    html.vs-open #vs-print{display:block;padding:48px;font-family:Georgia,serif;font-size:15px;color:#1a2233}
+  }
+  header .scp0:hover,footer .scp0:hover{color:#ddb27a !important}
+  #inicio .scp2:hover{background:#ddb27a !important;color:#080c14 !important}
+
+  /* WhatsApp flotante */
+  #wa-flotante{position:fixed;right:20px;bottom:20px;z-index:50;width:56px;height:56px;border-radius:50%;
+    background:#25d366;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.28);transition:transform .2s ease,box-shadow .2s ease}
+  #wa-flotante:hover{transform:scale(1.07);box-shadow:0 8px 26px rgba(0,0,0,.34)}
+  @media (max-width:760px){#wa-flotante{right:16px;bottom:16px;width:52px;height:52px}}
+  .ft-red:hover{border-color:#c99a5f !important}
+  .ft-red:hover path{fill:#c99a5f}
+
+  /* Redes flotantes: aparecen al bajar y acompañan la lectura */
+  #redes-flotante{position:fixed;left:18px;top:50%;transform:translateY(-50%);z-index:49;
+    display:flex;flex-direction:column;gap:10px;padding:12px 10px;border-radius:40px;
+    background:rgba(247,244,238,.94);border:1px solid #ddd6c9;backdrop-filter:blur(6px);
+    box-shadow:0 6px 20px rgba(0,0,0,.14);
+    opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
+  #redes-flotante.on{opacity:1;visibility:visible}
+  #redes-flotante a{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;
+    border:1px solid #ddd6c9;border-radius:50%;background:#fff;transition:border-color .2s ease}
+  #redes-flotante a:hover{border-color:#b8874a}
+  #redes-flotante a:hover path{fill:#b8874a}
+  @media (max-width:980px){#redes-flotante{display:none}}
+  @media (prefers-reduced-motion:reduce){#redes-flotante{transition:none}}
+</style>
+<link rel="canonical" href="https://axiaeconomia.ar/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "AXIA Consultora Económica",
+  "alternateName": "AXIA",
+  "description": "Consultora económica: coyuntura macroeconómica y escenarios, estudios de mercado y comercio exterior, proyectos de inversión y valuación, planificación financiera y mercado de capitales, y defensa de la competencia.",
+  "url": "https://axiaeconomia.ar/",
+  "image": "https://axiaeconomia.ar/og-image.png",
+  "email": "info@axiaeconomia.ar",
+  "telephone": "+54 9 11 3760-2415",
+  "address": {"@type": "PostalAddress", "addressLocality": "Buenos Aires", "addressCountry": "AR"},
+  "areaServed": ["AR", "Internacional"],
+  "knowsAbout": ["Coyuntura macroeconómica", "Escenarios económicos", "Comercio exterior", "Estudios de mercado", "Proyectos de inversión", "Valuación de empresas", "Planificación financiera", "Mercado de capitales", "Defensa de la competencia"],
+  "sameAs": ["https://www.linkedin.com/company/axia-consultora-econ%C3%B3mica/", "https://www.instagram.com/consultoraaxia/", "https://x.com/AxiaEconomica"]
+}
+</script>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@AxiaEconomica">
+<style>
+.ax-monitor{display:inline-flex;align-items:center;gap:8px}
+.ax-vivo{width:7px;height:7px;border-radius:50%;background:#5fae7e;position:relative;flex:none}
+.ax-vivo::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #5fae7e;animation:axVivo 1.8s ease-out infinite}
+.ax-brillo{background:linear-gradient(100deg,#f2ede4 40%,#d9a964 50%,#f2ede4 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:axBrillo 6s ease-in-out infinite}
+@keyframes axVivo{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.6);opacity:0}}
+@keyframes axBrillo{0%{background-position:100% 0}35%,100%{background-position:0 0}}
+.ax-brillo-osc{background:linear-gradient(100deg,#1a2233 40%,#d9a964 50%,#1a2233 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:axBrillo 6s ease-in-out infinite}
+.ax-flecha{animation:axFlecha 2.4s ease-in-out infinite}
+@keyframes axFlecha{0%,60%,100%{transform:translate(0,0)}75%{transform:translate(2px,-2px)}}
+@media (prefers-reduced-motion:reduce){.ax-vivo::after,.ax-brillo,.ax-brillo-osc,.ax-flecha{animation:none}.ax-brillo{color:#f2ede4;background:none}.ax-brillo-osc{color:#1a2233;background:none}}
+</style>
+
+  <style>
+    .pub-envoltorio{max-width:860px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,5vw,56px)}
+    .pub-volver{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#b8874a;text-decoration:none}
+    .pub-sector{display:block;margin-top:clamp(28px,4vw,44px);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#b8874a}
+    .pub-titulo{margin-top:14px;font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(30px,4.4vw,50px);line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
+    .pub-fecha{display:block;margin-top:14px;font-size:13px;color:#6a7382;letter-spacing:.04em}
+    .pub-resumen{margin-top:clamp(24px,3vw,34px);font-size:clamp(17px,1.4vw,19px);color:#49536a;line-height:1.75;text-wrap:pretty}
+    .pub-acciones{margin-top:clamp(28px,3.4vw,40px);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+    .pub-boton{display:inline-flex;align-items:center;gap:9px;border:1px solid #b8874a;border-radius:2px;color:#b8874a;font-size:14px;font-weight:600;padding:11px 18px;text-decoration:none;background:none}
+    .pub-boton:hover{background:#b8874a;color:#fff}
+    .pub-nota{margin-top:clamp(36px,4vw,52px);padding-top:22px;border-top:1px solid #ddd6c9;font-size:14px;color:#6a7382;text-wrap:pretty}
+    .pub-lista{max-width:1160px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,5vw,56px)}
+    .pub-fila{display:grid;grid-template-columns:clamp(48px,6vw,86px) minmax(0,1fr) minmax(0,1.35fr);gap:clamp(16px,3vw,44px);padding:clamp(26px,3vw,38px) 0;border-top:1px solid #ddd6c9;align-items:start}
+    .pub-fila:last-child{border-bottom:1px solid #ddd6c9}
+    .pub-anio{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;color:#b8874a;line-height:1.3}
+    .pub-fila h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(22px,2vw,27px);line-height:1.18}
+    .pub-fila h2 a{color:inherit;text-decoration:none;border-bottom:1px solid #ddd6c9}
+    .pub-fila h2 a:hover{border-bottom-color:#b8874a}
+    .pub-fila .sec{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6a7382}
+    .pub-fila p{font-size:16px;color:#5d6676;text-wrap:pretty}
+    @media (max-width:760px){
+      .pub-fila{grid-template-columns:40px minmax(0,1fr);row-gap:10px}
+      .pub-fila > :last-child{grid-column:2}
+    }
+  </style>
+
+</head>
+<body>
+<div style="background:#f7f4ee;color:#232b3b;font-family:Manrope,system-ui,sans-serif;line-height:1.6">
+<header style="position: sticky; top: 0px; z-index: 20; background: rgba(14,20,32,0.98); backdrop-filter: blur(8px); border-bottom: 1px solid #273146;">
+    <div style="max-width: 1160px; margin: 0px auto; padding: 0px clamp(20px, 5vw, 56px); height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a href="../" aria-label="AXIA" style="display: flex; align-items: center; gap: 13px; text-decoration: none;">
+        <svg width="38" height="38" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="21" fill="none" stroke="#f2ede4" stroke-width="1.15"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#c99a5f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="display: block;">
+          <span style="display: block; font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-weight: 600; font-size: 25px; letter-spacing: 0.2em; color: #f2ede4; line-height: 1;">AXIA</span>
+          <span style="display: block; margin-top: 3px; font-size: 8px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #c3cad6;"><span data-es>Consultora Económica</span><span data-en>Economic Consulting</span></span>
+        </span>
+      </a>
+      <nav style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px);">
+        <a href="../#boletin" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Panorama</span><span data-en>Panorama</span></a>
+        <a href="../tablero/" class="scp0 ax-monitor" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span class="ax-vivo" aria-hidden="true"></span><span class="ax-brillo"><span data-es>Monitor Macro</span><span data-en>Macro Monitor</span></span></a>
+        <a href="../#estudios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Estudios</span><span data-en>Studies</span></a>
+        <a href="../#medios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Medios</span><span data-en>Media</span></a>
+        <a href="../#servicios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Servicios</span><span data-en>Services</span></a>
+        <a href="../#experiencia" class="scp0 ax-nav-extra" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Experiencia</span><span data-en>Experience</span></a>
+        <a href="../#trayectoria" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Equipo</span><span data-en>Team</span></a>
+        <a href="../#contacto" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Contacto</span><span data-en>Contact</span></a>
+        <button id="lang" type="button" class="scp1" style="border: 1px solid #273146; background: transparent; border-radius: 2px; padding: 6px 11px; font-style: inherit; font-variant: inherit; font-weight: 600; font-stretch: inherit; font-size: 11px; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; letter-spacing: 0.14em; color: #f2ede4; cursor: pointer;"><span data-es>EN</span><span data-en>ES</span></button>
+      </nav>
+    </div>
+  </header>
+<main>
+  <article class="pub-envoltorio">
+    <a class="pub-volver" href="./">← <span data-es>Todos los estudios</span><span data-en>All studies</span></a>
+    <span class="pub-sector"><span data-es>Consumo y comercio minorista</span><span data-en>Consumer and retail</span></span>
+    <h1 class="pub-titulo"><span data-es>Canasta del hogar porteño: monitor semanal de precios</span><span data-en>Buenos Aires household basket: weekly price monitor</span></h1>
+    <span class="pub-fecha">2026</span>
+    <p class="pub-resumen"><span data-es>Qué cuesta por mes la canasta de consumo de un hogar porteño de nivel medio —alimentos, bebidas, limpieza y cuidado personal— con precios relevados por AXIA en supermercados de la Ciudad de Buenos Aires. Variación semanal por rubro y por producto, y la incidencia de cada rubro. Datos al 23 de octubre de 2026.</span><span data-en>What the monthly consumption basket of a middle-income Buenos Aires household costs —food, drinks, cleaning and personal care— with prices surveyed by AXIA in the city&#x27;s supermarkets. Weekly change by category and product, and each category&#x27;s contribution. Data as of 23 October 2026.</span></p>
+    <div class="pub-acciones"><a class="pub-boton" href="../#estudio=canasta-caba-semanal"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13.5" rx="1"></rect><path d="M9 21h6"></path><path d="M12 17.5V21"></path></svg><span data-es>Ver el estudio online</span><span data-en>View the study online</span></a>
+      <a class="pub-boton" href="../#contacto"><span data-es>Consultar por este estudio</span><span data-en>Ask about this study</span></a></div>
+    <p class="pub-nota"><span data-es>AXIA publica el resumen de cada estudio. El informe completo se entrega a los clientes del trabajo.</span><span data-en>AXIA publishes a summary of each study. The full report is delivered to the client of the engagement.</span></p>
+  </article>
+
+</main>
+<footer style="background: #080c14; border-top: 1px solid #273146;">
+    <div style="max-width: 1160px; margin: 0px auto; padding: 30px clamp(20px, 5vw, 56px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+      <span style="display: flex; align-items: center; gap: 11px;">
+        <svg width="28" height="28" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="21" fill="none" stroke="#f2ede4" stroke-width="1.15"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#c99a5f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 20px; letter-spacing: 0.2em; color: #f2ede4;">AXIA</span>
+      </span>
+      <span style="display:flex;gap:10px;"><a href="https://www.instagram.com/consultoraaxia/" target="_blank" rel="noopener" aria-label="Instagram" class="ft-red" style="display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border:1px solid #273146;border-radius:50%;"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="#c3cad6" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path></svg></a><a href="https://x.com/AxiaEconomica" target="_blank" rel="noopener" aria-label="X (Twitter)" class="ft-red" style="display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border:1px solid #273146;border-radius:50%;"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="#c3cad6" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zm-1.291 19.491h2.039L6.486 3.24H4.298l13.312 17.404z"></path></svg></a><a href="https://www.linkedin.com/company/axia-consultora-econ%C3%B3mica/" target="_blank" rel="noopener" aria-label="LinkedIn" class="ft-red" style="display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border:1px solid #273146;border-radius:50%;"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="#c3cad6" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg></a></span>
+      <span style="font-size: 13px; color: #c3cad6;">© 2026 AXIA · axiaeconomia.ar · Buenos Aires, Argentina</span>
+    </div>
+  </footer>
+</div>
+
+  <script>
+  /* Alterna espanol / ingles, igual que la portada, y recuerda la eleccion. */
+  (function(){
+    function poner(l){
+      document.documentElement.setAttribute('data-lang', l);
+      document.documentElement.lang = l;
+      try { localStorage.setItem('axia-lang', l); } catch(e){}
+    }
+    var guardado = null;
+    try { guardado = localStorage.getItem('axia-lang'); } catch(e){}
+    poner(guardado === 'en' ? 'en' : 'es');
+    var b = document.getElementById('lang');
+    if (b) b.addEventListener('click', function(){
+      poner(document.documentElement.getAttribute('data-lang') === 'en' ? 'es' : 'en');
+    });
+  })();
+  </script>
+
+<!-- Medicion de visitas: Cloudflare Web Analytics (sin cookies) --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c58d5d2b14c147cebd409da8f1533168"}'></script>
+</body>
+</html>

@@ -32,6 +32,17 @@
 # Las líneas que empiezan con # no se muestran en la web.
 # Si el archivo no tiene ningún bloque cargado, la sección no aparece en la web.
 
+Medio: CAMPO total
+Título: Créditos: ¿un buen momento para financiarse?
+Title: Credit: is this a good time to borrow?
+Fecha: 2026-10-29
+Tipo: Columna de José Tonelli
+Tipo EN: Column by José Tonelli
+Programa: CAMPO total radio
+Formato: gráfico
+Enlace: https://campototalweb.com.ar/47773/
+---
+
 Medio: Eco Medios AM 1220
 Título: El mercado mundial del langostino argentino: precio, comercio y posición competitiva
 Title: The world market for Argentine shrimp: price, trade and competitive position
