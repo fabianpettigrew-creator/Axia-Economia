@@ -392,12 +392,15 @@ def escribir_inicio(out, carpeta):
         return "%d de %s" % (int(d), MES[int(m) - 1]), "%d %s" % (int(d), MES_EN[int(m) - 1])
 
     k = out["secciones"]
-    tc, mk = k["tipo-cambio"]["kpis"], k["mercados"]["kpis"]
+    tc, mk, mo = k["tipo-cambio"]["kpis"], k["mercados"]["kpis"], k["monetarias"]["kpis"]
     ytd = mk["merval_usd_ytd"]
     menos = chr(8722)   # signo menos, no guion
 
-    def fila(es, en, valor, valor_en, f):
+    def fila(es, en, valor, valor_en, f, unidad=None, unidad_en=None):
         pes, pen = dia(f)
+        if unidad:                       # la unidad va con la fecha, no en la cifra:
+            pes += " · " + unidad       # en la franja la cifra se lee de un vistazo
+            pen += " · " + unidad_en
         return {"es": es, "en": en, "v": valor, "ven": valor_en, "pes": pes, "pen": pen}
 
     def signo(v, dec=1, en=False):
@@ -407,9 +410,9 @@ def escribir_inicio(out, carpeta):
         fila("Dólar oficial", "Official FX rate",
              "$ " + num(tc["oficial"]["valor"], 0), "$ " + num(tc["oficial"]["valor"], 0, True),
              tc["oficial"]["fecha"]),
-        fila("Brecha con el CCL", "Gap with the CCL rate",
-             num(tc["brecha"]["valor"]) + "%", num(tc["brecha"]["valor"], 1, True) + "%",
-             tc["brecha"]["fecha"]),
+        fila("Tasa TAMAR", "TAMAR rate",
+             num(mo["tamar"]["valor"]) + "%", num(mo["tamar"]["valor"], 1, True) + "%",
+             mo["tamar"]["fecha"], "TNA", "nominal annual"),
         fila("Riesgo país", "Country risk",
              num(mk["riesgo"]["valor"], 0) + " pb", num(mk["riesgo"]["valor"], 0, True) + " pb",
              mk["riesgo"]["fecha"]),

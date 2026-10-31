@@ -276,7 +276,7 @@ body{hanging-punctuation:first last}
               <a href="tablero/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" class="ax-flecha" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↗</span><span class="ax-brillo-osc" style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span></span></a>
             </div>
           </div>
-          <ul id="bol-indicadores" style="display: grid; grid-template-columns: repeat(3, minmax(0px, 1fr)); gap: 0px;"></ul>
+          <ul id="bol-indicadores" style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 0px 28px;"></ul>
         </div>
         <div id="bol-archivo" hidden style="margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(22px, 3vw, 30px);">
           <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-bottom: 14px;"><span data-es>Ediciones de muestra</span><span data-en>Sample issues</span></span>
@@ -619,7 +619,7 @@ body{hanging-punctuation:first last}
                      jul:'Jul', ago:'Aug', sep:'Sep', oct:'Oct', nov:'Nov', dic:'Dec'};
       var ETIQUETA_EN = {'Actividad (EMAE)':'Activity (EMAE)', 'Inflación (IPC)':'Inflation (CPI)',
                          'Dólar mayorista':'Wholesale dollar', 'Reservas BCRA':'BCRA reserves',
-                         'Desocupación':'Unemployment', 'Riesgo país':'Country risk',
+                         'Desocupación':'Unemployment', 'Saldo comercial':'Trade balance', 'Riesgo país':'Country risk',
                          'Riesgo País':'Country risk', 'Tipo de cambio':'Exchange rate'};
       function edicionEN(t){
         var m = String(t || '').trim().split(/\s+/);
@@ -634,6 +634,7 @@ body{hanging-punctuation:first last}
           .replace(/mensual s\.e\./gi, 'monthly s.a.')
           .replace(/\bmensual\b/gi, 'monthly')
           .replace(/\binteranual\b/gi, 'year-on-year')
+        .replace(/\bacumulado\b/gi, 'cumulative')
           .replace(/\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)-(\d{2})\b/gi,
                    function(_, a, b2){ return MES3_EN[a.toLowerCase()] + '-' + b2; })
           .replace(/\b(IV|III|II|I)-(\d{2})\b/g,
@@ -659,7 +660,7 @@ body{hanging-punctuation:first last}
       var botonPdf = document.getElementById('bol-pdf');
       if (b.pdf) { botonPdf.href = b.pdf; } else { botonPdf.hidden = true; }
       document.getElementById('bol-indicadores').innerHTML = (b.indicadores || []).map(function(x, i){
-        return '<li style="padding:18px 16px 18px 0;border-top:' + (i < 3 ? '0' : '1px solid #ddd6c9') + ';min-width:0">' +
+        return '<li style="padding:18px 16px 18px 0;border-top:' + (i < 2 ? '0' : '1px solid #ddd6c9') + ';min-width:0">' +
           '<span style="display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#6a7382">' + dosIdiomas(x.etiqueta, ETIQUETA_EN[x.etiqueta] || x.etiqueta) + '</span>' +
           '<span style="display:block;margin-top:8px;font-family:\'Cormorant Garamond\',Georgia,serif;font-size:clamp(24px,2.3vw,31px);line-height:1.05;color:#1a2233;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap">' + dosIdiomas(x.valor, numeroEN(x.valor)) + '</span>' +
           '<span style="display:block;margin-top:6px;font-size:12.5px;color:#6a7382">' + dosIdiomas(x.detalle, periodoEN(x.detalle)) + '</span></li>';
