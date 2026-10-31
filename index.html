@@ -835,6 +835,16 @@ body{hanging-punctuation:first last}
   (function(){
     var esc = function(t){ return (t||'').replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
     var norm = function(k){ return k.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); };
+    var MES_L = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    var MES_L_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    // 2026-10-23 -> "23 de octubre de 2026" / "23 October 2026". Si no es una fecha, se muestra tal cual.
+    var fechaLarga = function(v){
+      var p = String(v || '').split('-');
+      if (p.length !== 3 || p[0].length !== 4 || p[1].length !== 2 || p[2].length !== 2) return [v || '', v || ''];
+      var i = parseInt(p[1], 10) - 1, d = parseInt(p[2], 10);
+      if (!(i >= 0 && i < 12) || !(d >= 1 && d <= 31)) return [v || '', v || ''];
+      return [d + ' de ' + MES_L[i] + ' de ' + p[0], d + ' ' + MES_L_EN[i] + ' ' + p[0]];
+    };
     fetch('estudios.txt', {cache:'no-cache'}).then(function(r){ return r.ok ? r.text() : ''; }).then(function(txt){
       var items = txt.split(/^\s*---\s*$/m).map(function(b){
         var o = {};
@@ -855,6 +865,15 @@ body{hanging-punctuation:first last}
             '<span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid #b8874a;border-radius:2px;color:#b8874a;font-size:12px">↓</span>' +
             '<span style="border-bottom:1px solid #ddd6c9">' + esc(etiqueta) + esc(tipo(n)) + '</span></a>';
         }).join('');
+      };
+      // Fecha del ultimo relevamiento. La piden los estudios que se actualizan seguido,
+      // como la canasta semanal: sin ella no se sabe de que semana son los precios.
+      var releva = function(o){
+        if (!o['relevamiento']) return '';
+        var f = fechaLarga(o['relevamiento']), d = 'font-weight:600;color:#1a2233';
+        return '<span style="display:block;margin-top:9px;font-size:13px;color:#6a7382">' +
+          '<span data-es>&Uacute;ltimo relevamiento: <span style="' + d + '">' + esc(f[0]) + '</span></span>' +
+          '<span data-en>Latest survey: <span style="' + d + '">' + esc(f[1]) + '</span></span></span>';
       };
       var visor = function(o){
         if (!o['visor']) return '';
@@ -888,7 +907,7 @@ body{hanging-punctuation:first last}
           '<div><h3 style="font-family:\'Cormorant Garamond\',Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(22px,2vw,27px);line-height:1.18">' +
             '<span data-es>' + tEs + '</span><span data-en>' + tEn + '</span></h3>' +
             '<span style="display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6a7382">' +
-            '<span data-es>' + sEs + '</span><span data-en>' + sEn + '</span></span></div>' +
+            '<span data-es>' + sEs + '</span><span data-en>' + sEn + '</span></span>' + releva(o) + '</div>' +
           '<div><p style="font-size:16px;color:#5d6676;text-wrap:pretty"><span data-es>' + rEs + '</span><span data-en>' + rEn + '</span></p>' +
             visor(o) + archivos(o) +
             '<a href="mailto:info@axiaeconomia.ar?subject=' + asunto + '" style="display:inline-block;margin-top:14px;font-size:14px;font-weight:600;color:#b8874a;text-decoration:none">' +

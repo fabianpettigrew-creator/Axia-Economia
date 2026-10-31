@@ -8,6 +8,17 @@
 # 4. Las líneas en inglés (Title, Sector EN, Summary) son opcionales:
 #    si las dejás vacías, en inglés se muestra el texto en español.
 #
+# ESTUDIOS QUE SE ACTUALIZAN SEGUIDO (la canasta semanal, por ejemplo):
+# - Agregale una línea "Relevamiento:" con la fecha del último relevamiento,
+#   en año-mes-día.  Ejemplo:  Relevamiento: 2026-10-23
+# - En la web aparece "Último relevamiento: 23 de octubre de 2026", debajo del
+#   rubro, y en inglés "Latest survey: 23 October 2026": la fecha se escribe
+#   una sola vez acá y el sitio la traduce sola.
+# - Si no es una fecha exacta, escribí el texto que quieras: sale tal cual.
+# - Cambiá esta fecha cada vez que subas un informe nuevo, y volvé a correr
+#   _automatizacion/publicaciones/generar.py para que la página del estudio
+#   quede con la misma fecha que la portada.
+#
 # VISOR PROTEGIDO (recomendado para publicar un estudio completo):
 # - Dejá el PDF en la carpeta "Estudios" de tu computadora y agregalo a la
 #   lista ESTUDIOS de Estudios/build-visor.py. Después corré:  py build-visor.py
@@ -39,8 +50,9 @@ Title: Buenos Aires household basket: weekly price monitor
 Año: 2026
 Sector: Consumo y comercio minorista
 Sector EN: Consumer and retail
-Resumen: Qué cuesta por mes la canasta de consumo de un hogar porteño de nivel medio —alimentos, bebidas, limpieza y cuidado personal— con precios relevados por AXIA en supermercados de la Ciudad de Buenos Aires. Variación semanal por rubro y por producto, y la incidencia de cada rubro. Datos al 23 de octubre de 2026.
-Summary: What the monthly consumption basket of a middle-income Buenos Aires household costs —food, drinks, cleaning and personal care— with prices surveyed by AXIA in the city's supermarkets. Weekly change by category and product, and each category's contribution. Data as of 23 October 2026.
+Resumen: Qué cuesta por mes la canasta de consumo de un hogar porteño de nivel medio —alimentos, bebidas, limpieza y cuidado personal— con precios relevados por AXIA en supermercados de la Ciudad de Buenos Aires. Variación semanal por rubro y por producto, y la incidencia de cada rubro.
+Summary: What the monthly consumption basket of a middle-income Buenos Aires household costs —food, drinks, cleaning and personal care— with prices surveyed by AXIA in the city's supermarkets. Weekly change by category and product, and each category's contribution.
+Relevamiento: 2026-10-23
 Visor: canasta-caba-semanal
 ---
 

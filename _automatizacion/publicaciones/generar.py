@@ -57,6 +57,35 @@ def dos_idiomas(es, en, etiqueta="span"):
             .format(t=etiqueta, a=esc(es), b=esc(en)))
 
 
+MES_L = ["enero", "febrero", "marzo", "abril", "mayo", "junio",
+         "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+MES_L_EN = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"]
+
+
+def fecha_larga(v):
+    """2026-10-23 -> (23 de octubre de 2026, 23 October 2026). Si no es fecha, va tal cual."""
+    partes = (v or "").split("-")
+    if len(partes) != 3 or len(partes[0]) != 4 or len(partes[1]) != 2 or len(partes[2]) != 2:
+        return (v or "", v or "")
+    try:
+        i, d = int(partes[1]) - 1, int(partes[2])
+    except ValueError:
+        return (v or "", v or "")
+    if not (0 <= i < 12 and 1 <= d <= 31):
+        return (v or "", v or "")
+    return ("%d de %s de %s" % (d, MES_L[i], partes[0]),
+            "%d %s %s" % (d, MES_L_EN[i], partes[0]))
+
+
+def relevamiento(e):
+    """La linea del ultimo relevamiento, para los estudios que se actualizan seguido."""
+    if not e.get("relevamiento"):
+        return ""
+    es, en = fecha_larga(e["relevamiento"])
+    return dos_idiomas("Último relevamiento: " + es, "Latest survey: " + en)
+
+
 # ------------------------------------------------------------ leer estudios
 
 def leer_estudios(ruta):
@@ -143,6 +172,7 @@ ESTILO_PAGINA = """
     .pub-fila h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(22px,2vw,27px);line-height:1.18}
     .pub-fila h2 a{color:inherit;text-decoration:none;border-bottom:1px solid #ddd6c9}
     .pub-fila h2 a:hover{border-bottom-color:#b8874a}
+    .pub-rel{display:block;margin-top:9px;font-size:13px;color:#6a7382}
     .pub-fila .sec{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6a7382}
     .pub-fila p{font-size:16px;color:#5d6676;text-wrap:pretty}
     @media (max-width:760px){
@@ -208,7 +238,7 @@ def cuerpo_estudio(e):
     <a class="pub-volver" href="./">← {volver}</a>
     <span class="pub-sector">{sector}</span>
     <h1 class="pub-titulo">{titulo}</h1>
-    <span class="pub-fecha">{anio}</span>
+    <span class="pub-fecha">{fecha}</span>
     <p class="pub-resumen">{resumen}</p>
     <div class="pub-acciones">{acciones}</div>
     <p class="pub-nota">{nota}</p>
@@ -217,7 +247,7 @@ def cuerpo_estudio(e):
         volver=dos_idiomas("Todos los estudios", "All studies"),
         sector=dos_idiomas(e.get("sector", ""), e.get("sector en", "")),
         titulo=dos_idiomas(e.get("titulo", ""), e.get("title", ""), "span"),
-        anio=esc(e.get("ano") or e.get("anio") or ""),
+        fecha=relevamiento(e) or esc(e.get("ano") or e.get("anio") or ""),
         resumen=dos_idiomas(e.get("resumen", ""), e.get("summary", "")),
         acciones="\n      ".join(acciones),
         nota=dos_idiomas(
@@ -232,7 +262,7 @@ def cuerpo_indice(estudios):
         <span class="pub-anio">{anio}</span>
         <div>
           <h2><a href="{slug}.html">{titulo}</a></h2>
-          <span class="sec">{sector}</span>
+          <span class="sec">{sector}</span>{rel}
         </div>
         <p>{resumen}</p>
       </article>""".format(
@@ -240,6 +270,7 @@ def cuerpo_indice(estudios):
             slug=esc(e["slug"]),
             titulo=dos_idiomas(e.get("titulo", ""), e.get("title", "")),
             sector=dos_idiomas(e.get("sector", ""), e.get("sector en", "")),
+            rel=('\n          <span class="pub-rel">%s</span>' % relevamiento(e)) if e.get("relevamiento") else "",
             resumen=dos_idiomas(e.get("resumen", ""), e.get("summary", ""))))
 
     return """  <div class="pub-lista">
