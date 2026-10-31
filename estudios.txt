@@ -52,7 +52,7 @@ Sector: Consumo y comercio minorista
 Sector EN: Consumer and retail
 Resumen: Qué cuesta por mes la canasta de consumo de un hogar porteño de nivel medio —alimentos, bebidas, limpieza y cuidado personal— con precios relevados por AXIA en supermercados de la Ciudad de Buenos Aires. Variación semanal por rubro y por producto, y la incidencia de cada rubro.
 Summary: What the monthly consumption basket of a middle-income Buenos Aires household costs —food, drinks, cleaning and personal care— with prices surveyed by AXIA in the city's supermarkets. Weekly change by category and product, and each category's contribution.
-Relevamiento: 2026-10-23
+Relevamiento: 2026-10-30
 Visor: canasta-caba-semanal
 ---
 
