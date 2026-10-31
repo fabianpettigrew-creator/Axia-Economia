@@ -357,6 +357,7 @@ def main():
     destino.parent.mkdir(exist_ok=True)
     destino.write_text("window.DATOS = " + json.dumps(out, ensure_ascii=False) + ";\n", encoding="utf-8")
     print("Escrito:", destino, f"({destino.stat().st_size / 1024:.0f} KB)")
+    escribir_inicio(out, destino.parent)
     # index.html carga datos.js?v=<hash>: así el navegador no muestra datos viejos de su caché
     import hashlib
     import re
@@ -369,12 +370,66 @@ def main():
     pagina.write_text(html, encoding="utf-8")
 
 
+def escribir_inicio(out, carpeta):
+    """inicio.json: las cifras que muestra la franja de la portada del sitio.
+
+    Van solo series diarias. Las mensuales (actividad, precios, empleo) las lleva
+    el bloque de Panorama, mas abajo en la misma pagina: repetirlas seria decir
+    dos veces lo mismo. El archivo pesa menos de 1 KB; la portada no puede cargar
+    datos.js, que pasa el mega.
+    """
+    MES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
+           "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+    MES_EN = ["January", "February", "March", "April", "May", "June", "July",
+              "August", "September", "October", "November", "December"]
+
+    def num(v, dec=1, en=False):
+        t = ("{:,.%df}" % dec).format(v)
+        return t if en else t.replace(",", "X").replace(".", ",").replace("X", ".")
+
+    def dia(f):
+        a, m, d = f.split("-")
+        return "%d de %s" % (int(d), MES[int(m) - 1]), "%d %s" % (int(d), MES_EN[int(m) - 1])
+
+    k = out["secciones"]
+    tc, mk = k["tipo-cambio"]["kpis"], k["mercados"]["kpis"]
+    ytd = mk["merval_usd_ytd"]
+    menos = chr(8722)   # signo menos, no guion
+
+    def fila(es, en, valor, valor_en, f):
+        pes, pen = dia(f)
+        return {"es": es, "en": en, "v": valor, "ven": valor_en, "pes": pes, "pen": pen}
+
+    def signo(v, dec=1, en=False):
+        return (menos if v < 0 else "+") + num(abs(v), dec, en) + "%"
+
+    datos = [
+        fila("Dólar oficial", "Official FX rate",
+             "$ " + num(tc["oficial"]["valor"], 0), "$ " + num(tc["oficial"]["valor"], 0, True),
+             tc["oficial"]["fecha"]),
+        fila("Brecha con el CCL", "Gap with the CCL rate",
+             num(tc["brecha"]["valor"]) + "%", num(tc["brecha"]["valor"], 1, True) + "%",
+             tc["brecha"]["fecha"]),
+        fila("Riesgo país", "Country risk",
+             num(mk["riesgo"]["valor"], 0) + " pb", num(mk["riesgo"]["valor"], 0, True) + " pb",
+             mk["riesgo"]["fecha"]),
+        {"es": "Merval en dólares", "en": "Merval in dollars",
+         "v": signo(ytd), "ven": signo(ytd, 1, True),
+         "pes": "en lo que va del año", "pen": "year to date"},
+    ]
+    destino = carpeta / "inicio.json"
+    destino.write_text(json.dumps(
+        {"actualizado": out["actualizado"], "hora": out["hora"], "datos": datos},
+        ensure_ascii=False), encoding="utf-8")
+    print("Escrito:", destino)
+
+
 def publicar(sitio: Path):
     """Copia la página y los datos a <sitio>/tablero/ (el commit y el push se hacen aparte)."""
     import shutil
     dest = sitio / "tablero"
     dest.mkdir(exist_ok=True)
-    for f in ("index.html", "datos.js", "i18n_en.js"):
+    for f in ("index.html", "datos.js", "i18n_en.js", "inicio.json"):
         shutil.copy2(AQUI / "demo" / f, dest / f)
     print("Copiado a", dest)
 

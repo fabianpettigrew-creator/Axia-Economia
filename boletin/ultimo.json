@@ -17,14 +17,9 @@
    "detalle": "mensual · sep-26"
   },
   {
-   "etiqueta": "Dólar mayorista",
-   "valor": "$ 1.514,57",
-   "detalle": "16-oct-26"
-  },
-  {
-   "etiqueta": "Reservas BCRA",
-   "valor": "US$ 49.723 M",
-   "detalle": "14-oct-26"
+   "etiqueta": "Salario real",
+   "valor": "−2,3%",
+   "detalle": "interanual · ago-26"
   },
   {
    "etiqueta": "Desocupación",
@@ -32,9 +27,14 @@
    "detalle": "II-26"
   },
   {
-   "etiqueta": "Riesgo país",
-   "valor": "648 pb",
-   "detalle": "16-oct-26"
+   "etiqueta": "Saldo comercial",
+   "valor": "US$ 21.198 M",
+   "detalle": "acumulado · sep-26"
+  },
+  {
+   "etiqueta": "Empleo privado registrado",
+   "valor": "−2,0%",
+   "detalle": "interanual · jun-26"
   }
  ],
  "titular_en": "Activity had its worst month since 2020 in July and country risk rose again",
