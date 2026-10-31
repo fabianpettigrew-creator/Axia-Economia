@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&family=Spectral:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="i18n_en.js?v=b8b9f197"></script>
+<script src="i18n_en.js?v=155cfb97"></script>
 <script src="datos.js?v=86638ec4"></script>
 <style>
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
@@ -119,7 +119,7 @@ h1{font-family:var(--display);font-weight:500;font-size:clamp(34px,4.6vw,54px);l
 .tabla-g20 thead th small{display:block;font-weight:400;color:var(--ink-3);font-size:11px}
 .tabla-g20 th:first-child{text-align:left;position:sticky;left:0;background:inherit;z-index:1}
 .tabla-g20 tbody th{font-weight:500;background:var(--paper)}
-.tabla-g20 td.neg{color:var(--neg)}
+.tabla-g20 td .desf{border-bottom:2px solid var(--neg);padding-bottom:2px}
 .tabla-g20 tr.arg th,.tabla-g20 tr.arg td{background:#f6ecdc;font-weight:600}
 /* columna fija (país / componente): fondo opaco para que no se vea lo que pasa por debajo al desplazar */
 .tabla-g20 tbody th:first-child{background:var(--paper)}
@@ -571,9 +571,10 @@ function dibujarG20(tab, G, U){
     const corto = {...G_CORTO, infl:"Inflación dic/dic"};
     t.innerHTML = `<table><thead><tr><th data-o="pais">País${flecha("pais")}</th>${ks.map(k=>`<th data-o="${k}">${corto[k]}${flecha(k)}<small>${uni[G.ind[k].u]}</small></th>`).join("")}</tr></thead>
       <tbody>${filas.map(p=>`<tr class="${p==="ARG"?"arg":G_AGR.includes(p)?"agr":""}"><th>${G.paises[p]}</th>${ks.map(k=>{const v=val(k,p);
-        return `<td class="${v!=null&&v<0?"neg":""}">${v==null?"–":fnum(v, G.ind[k].dec)}</td>`;}).join("")}</tr>`).join("")}</tbody></table>`;
+        return `<td>${v==null?"–":marcaG(k, v, fnum(v, G.ind[k].dec))}</td>`;}).join("")}</tr>`).join("")}</tbody></table>`;
     t.querySelectorAll("thead th").forEach(th=>th.onclick=()=>{ const o = th.dataset.o;
       g.dir = g.orden===o ? -g.dir : (o==="pais"?1:-1); g.orden = o; dibujar(); });
+    document.getElementById("g-pie").textContent = NOTA_DESF;
     estado.visible = {h:"País", cats:filas.map(p=>G.paises[p]), series:Object.fromEntries(ks.map(k=>[`${G.ind[k].n} ${g.anioP} (${G.ind[k].u})`, filas.map(p=>val(k,p))]))};
     return;
   }
@@ -724,6 +725,12 @@ function dibujarBrechas(B){
 }
 
 // ---------- G20: último dato publicado de cada variable, con su período ----------
+// El semaforo marca lo desfavorable para quien lee, no el signo: solo en las variables
+// donde el cero separa una cosa de la otra (caida del PIB, deficit fiscal). En inflacion,
+// desempleo o deuda un numero negativo no es malo, y uno alto no es menos malo por positivo.
+const G_DESF = {crec:true, fiscal:true};
+const NOTA_DESF = "El filete teja marca lo desfavorable: caída del PIB y déficit fiscal. ";
+const marcaG = (k, v, txt) => G_DESF[k] && v < 0 ? `<span class="desf">${txt}</span>` : txt;
 const G_CORTO = {crec:"Crecimiento PIB",infl:"Inflación",desemp:"Desempleo",fiscal:"Resultado fiscal",deuda:"Deuda pública",cc:"Cuenta corriente",pibpc:"PIB per cápita",pibppa:"PIB p/c PPA",pib:"PIB"};
 const G_UNI = {crec:"% interanual, trimestre", infl:"% interanual, mes", desemp:"%, mes o trimestre", fiscal:"% PIB, año", deuda:"% PIB, año",
                cc:"% PIB, trimestre", pibpc:"US$, año", pibppa:"US$ PPA, año", pib:"US$ mil M, año"};
@@ -741,11 +748,11 @@ function dibujarG20ult(U, G){
   t.innerHTML = `<table class="ult"><thead><tr><th data-o="pais">País${flecha("pais")}</th>${ks.map(k=>`<th data-o="${k}">${G_CORTO[k]}${flecha(k)}<small>${G_UNI[k]}</small></th>`).join("")}</tr></thead>
     <tbody>${filas.map(p=>`<tr class="${p==="ARG"?"arg":p==="EU"?"agr":""}"><th>${G.paises[p]}</th>${ks.map(k=>{ const c = cel(k,p);
       if (!c) return `<td>–</td>`;
-      return `<td class="${c.v<0?"neg":""}" title="Fuente: ${c.f}">${fnum(c.v, G.ind[k].dec)}<span class="per${c.f==="FMI"?" anual":""}">${c.p} · ${c.f}</span></td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
+      return `<td title="Fuente: ${c.f}">${marcaG(k, c.v, fnum(c.v, G.ind[k].dec))}<span class="per${c.f==="FMI"?" anual":""}">${c.p} · ${c.f}</span></td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
   t.querySelectorAll("thead th").forEach(th=>th.onclick=()=>{ const o = th.dataset.o;
     g.dir = g.orden===o ? -g.dir : (o==="pais"?1:-1); g.orden = o; dibujar(); });
   document.getElementById("g-pie").textContent = "Crecimiento y cuenta corriente: OCDE. Inflación: BIS (UE: Eurostat). Desempleo: OCDE y OIT. Argentina: INDEC. " +
-    "Fiscal, deuda y PIB son anuales (FMI, último año observado); también se usa el FMI cuando un país no tiene dato de alta frecuencia. ";
+    "Fiscal, deuda y PIB son anuales (FMI, último año observado); también se usa el FMI cuando un país no tiene dato de alta frecuencia. " + NOTA_DESF;
   const series = {};
   ks.forEach(k=>{ series[`${G_CORTO[k]} (${G_UNI[k]})`] = filas.map(p=>cel(k,p)?cel(k,p).v:null);
                   series[`${G_CORTO[k]}: período y fuente`] = filas.map(p=>cel(k,p)?`${cel(k,p).p} ${cel(k,p).f}`:null); });

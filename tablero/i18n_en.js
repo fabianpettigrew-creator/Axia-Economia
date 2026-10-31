@@ -320,6 +320,7 @@ window.EN = {
   "período y fuente": "period and source",
   "Crecimiento y cuenta corriente: OCDE. Inflación: BIS (UE: Eurostat). Desempleo: OCDE y OIT. Argentina: INDEC.": "Growth and current account: OECD. Inflation: BIS (EU: Eurostat). Unemployment: OECD and ILO. Argentina: INDEC.",
   "Fiscal, deuda y PIB son anuales (FMI, último año observado); también se usa el FMI cuando un país no tiene dato de alta frecuencia.": "Fiscal balance, debt and GDP are annual (IMF, latest observed year); the IMF is also used when a country has no high-frequency data.",
+  "El filete teja marca lo desfavorable: caída del PIB y déficit fiscal.": "The terracotta underline marks the unfavourable side: GDP contraction and fiscal deficit.",
   "Período": "Period",
   "Mes": "Month",
 
