@@ -17,3 +17,6 @@ __pycache__/
 
 # Vista previa local: no se publica
 demo-axia.html
+
+# Vista previa local con el navegador: no se publica
+.claude/
