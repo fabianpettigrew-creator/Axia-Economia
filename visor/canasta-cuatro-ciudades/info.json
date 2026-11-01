@@ -1,16 +1,13 @@
 {
  "titulo": "Canasta de consumo hogareña en cuatro ciudades",
- "paginas": 9,
+ "paginas": 6,
  "archivos": [
   "p01.dat",
   "p02.dat",
   "p03.dat",
   "p04.dat",
   "p05.dat",
-  "p06.dat",
-  "p07.dat",
-  "p08.dat",
-  "p09.dat"
+  "p06.dat"
  ],
  "ancho": 1800,
  "alto": 1054,

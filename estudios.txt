@@ -81,7 +81,8 @@ Title: What the same basket of goods costs in four cities
 Año: 2026
 Sector: Consumo y comercio minorista
 Sector EN: Consumer and retail
-Resumen: Índice de canasta de consumo hogareña: 61 ítems de alimentos, limpieza y cuidado personal, con cantidades físicas constantes y precios relevados en CABA, Madrid, São Paulo y Miami.
-Summary: Household consumption basket index: 61 food, cleaning and personal care items, with constant physical quantities and prices surveyed in Buenos Aires, Madrid, São Paulo and Miami.
+Resumen: Índice de canasta de consumo hogareña: 61 ítems de alimentos, limpieza y cuidado personal, con cantidades físicas constantes y precios relevados en CABA, Madrid, São Paulo y Miami. Se actualiza todos los meses.
+Summary: Household consumption basket index: 61 food, cleaning and personal care items, with constant physical quantities and prices surveyed in Buenos Aires, Madrid, São Paulo and Miami. Updated every month.
+Relevamiento: 2026-10-31
 Visor: canasta-cuatro-ciudades
 ---
