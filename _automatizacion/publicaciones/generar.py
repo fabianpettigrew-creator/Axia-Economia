@@ -161,6 +161,14 @@ ESTILO_PAGINA = """
     .pub-titulo{margin-top:14px;font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(30px,4.4vw,50px);line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
     .pub-fecha{display:block;margin-top:14px;font-size:13px;color:#6a7382;letter-spacing:.04em}
     .pub-resumen{margin-top:clamp(24px,3vw,34px);font-size:clamp(17px,1.4vw,19px);color:#49536a;line-height:1.75;text-wrap:pretty}
+    .pub-cuerpo{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(22px,3vw,40px);align-items:start;margin-top:clamp(24px,3vw,34px)}
+    .pub-cuerpo.con-portada{grid-template-columns:minmax(0,1fr) minmax(0,.62fr)}
+    .pub-cuerpo .pub-resumen{margin-top:0}
+    .pub-portada{display:block;width:100%;height:auto;border:1px solid #ddd6c9;border-radius:2px}
+    @media (max-width:760px){
+      .pub-cuerpo.con-portada{grid-template-columns:minmax(0,1fr)}
+      .pub-portada{max-width:420px;order:-1}
+    }
     .pub-acciones{margin-top:clamp(28px,3.4vw,40px);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
     .pub-boton{display:inline-flex;align-items:center;gap:9px;border:1px solid #b8874a;border-radius:2px;color:#b8874a;font-size:14px;font-weight:600;padding:11px 18px;text-decoration:none;background:none}
     .pub-boton:hover{background:#b8874a;color:#fff}
@@ -186,7 +194,15 @@ ESTILO_PAGINA = """
 MEDICION = """<!-- Medicion de visitas: Cloudflare Web Analytics (sin cookies) --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c58d5d2b14c147cebd409da8f1533168"}'></script>"""
 
 
-def pagina(titulo_pestana, descripcion, url, cuerpo, cabeza, encabezado, pie):
+def pagina(titulo_pestana, descripcion, url, cuerpo, cabeza, encabezado, pie, imagen=None):
+    # Con portada propia, la del estudio reemplaza a la del sitio en los enlaces
+    # compartidos: la del encabezado de la portada se saca, o quedan las dos.
+    if imagen:
+        cabeza = chr(10).join(l for l in cabeza.splitlines() if "og:image" not in l)
+        cabeza += (chr(10) + '<meta property="og:image" content="{}/portadas/{}">'
+                   .format(SITIO, esc(imagen))
+                   + chr(10) + '<meta property="og:image:width" content="900">'
+                   + chr(10) + '<meta property="og:image:height" content="900">')
     return """<!DOCTYPE html>
 <html lang="es" data-lang="es">
 <head>
@@ -217,6 +233,14 @@ def pagina(titulo_pestana, descripcion, url, cuerpo, cabeza, encabezado, pie):
 
 # ------------------------------------------------------------ armar paginas
 
+def portada(e):
+    """La imagen del estudio, al lado del resumen. Es opcional: sin ella no hay hueco."""
+    if not e.get("imagen"):
+        return ""
+    return ('\n      <img class="pub-portada" src="../portadas/{a}" width="900" height="900"'
+            ' decoding="async" alt="{t}">').format(a=esc(e["imagen"]), t=esc(e.get("titulo", "")))
+
+
 def cuerpo_estudio(e):
     acciones = []
     if e.get("visor"):
@@ -239,8 +263,12 @@ def cuerpo_estudio(e):
     <span class="pub-sector">{sector}</span>
     <h1 class="pub-titulo">{titulo}</h1>
     <span class="pub-fecha">{fecha}</span>
-    <p class="pub-resumen">{resumen}</p>
-    <div class="pub-acciones">{acciones}</div>
+    <div class="pub-cuerpo{clase}">
+      <div>
+        <p class="pub-resumen">{resumen}</p>
+        <div class="pub-acciones">{acciones}</div>
+      </div>{portada}
+    </div>
     <p class="pub-nota">{nota}</p>
   </article>
 """.format(
@@ -250,6 +278,8 @@ def cuerpo_estudio(e):
         fecha=relevamiento(e) or esc(e.get("ano") or e.get("anio") or ""),
         resumen=dos_idiomas(e.get("resumen", ""), e.get("summary", "")),
         acciones="\n      ".join(acciones),
+        clase=" con-portada" if e.get("imagen") else "",
+        portada=portada(e),
         nota=dos_idiomas(
             "AXIA publica el resumen de cada estudio. El informe completo se entrega a los clientes del trabajo.",
             "AXIA publishes a summary of each study. The full report is delivered to the client of the engagement."))
@@ -329,7 +359,7 @@ def main():
                 "{} | AXIA".format(e["titulo"]),
                 (e.get("resumen", "")[:180]).strip(),
                 "{}/publicaciones/{}.html".format(SITIO, e["slug"]),
-                cuerpo_estudio(e), cabeza, encabezado, pie))
+                cuerpo_estudio(e), cabeza, encabezado, pie, e.get("imagen")))
         escritos.append(os.path.basename(destino))
 
     with open(os.path.join(SALIDA, "index.html"), "w", encoding="utf-8") as f:

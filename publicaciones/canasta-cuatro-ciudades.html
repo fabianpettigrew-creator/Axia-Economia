@@ -9,9 +9,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="AXIA, consultora económica: coyuntura macroeconómica y escenarios, estudios de mercado y comercio exterior, proyectos de inversión y valuación, planificación financiera y mercado de capitales, y defensa de la competencia.">
-<meta property="og:image" content="https://axiaeconomia.ar/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -181,6 +178,9 @@ body{hanging-punctuation:first last}
 }
 @media (prefers-reduced-motion:reduce){.ax-vivo::after,.ax-brillo,.ax-brillo-osc,.ax-flecha{animation:none}.ax-brillo{color:#f2ede4;background:none}.ax-brillo-osc{color:#1a2233;background:none}}
 </style>
+<meta property="og:image" content="https://axiaeconomia.ar/portadas/canasta-cuatro-ciudades.webp">
+<meta property="og:image:width" content="900">
+<meta property="og:image:height" content="900">
 
   <style>
     .pub-envoltorio{max-width:860px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,5vw,56px)}
@@ -189,6 +189,14 @@ body{hanging-punctuation:first last}
     .pub-titulo{margin-top:14px;font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(30px,4.4vw,50px);line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
     .pub-fecha{display:block;margin-top:14px;font-size:13px;color:#6a7382;letter-spacing:.04em}
     .pub-resumen{margin-top:clamp(24px,3vw,34px);font-size:clamp(17px,1.4vw,19px);color:#49536a;line-height:1.75;text-wrap:pretty}
+    .pub-cuerpo{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(22px,3vw,40px);align-items:start;margin-top:clamp(24px,3vw,34px)}
+    .pub-cuerpo.con-portada{grid-template-columns:minmax(0,1fr) minmax(0,.62fr)}
+    .pub-cuerpo .pub-resumen{margin-top:0}
+    .pub-portada{display:block;width:100%;height:auto;border:1px solid #ddd6c9;border-radius:2px}
+    @media (max-width:760px){
+      .pub-cuerpo.con-portada{grid-template-columns:minmax(0,1fr)}
+      .pub-portada{max-width:420px;order:-1}
+    }
     .pub-acciones{margin-top:clamp(28px,3.4vw,40px);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
     .pub-boton{display:inline-flex;align-items:center;gap:9px;border:1px solid #b8874a;border-radius:2px;color:#b8874a;font-size:14px;font-weight:600;padding:11px 18px;text-decoration:none;background:none}
     .pub-boton:hover{background:#b8874a;color:#fff}
@@ -240,9 +248,14 @@ body{hanging-punctuation:first last}
     <span class="pub-sector"><span data-es>Consumo y comercio minorista</span><span data-en>Consumer and retail</span></span>
     <h1 class="pub-titulo"><span data-es>Cuánto cuesta llenar el mismo changuito en cuatro ciudades</span><span data-en>What the same basket of goods costs in four cities</span></h1>
     <span class="pub-fecha"><span data-es>Último relevamiento: 31 de octubre de 2026</span><span data-en>Latest survey: 31 October 2026</span></span>
-    <p class="pub-resumen"><span data-es>Índice de canasta de consumo hogareña: 61 ítems de alimentos, limpieza y cuidado personal, con cantidades físicas constantes y precios relevados en CABA, Madrid, São Paulo y Miami. Se actualiza todos los meses.</span><span data-en>Household consumption basket index: 61 food, cleaning and personal care items, with constant physical quantities and prices surveyed in Buenos Aires, Madrid, São Paulo and Miami. Updated every month.</span></p>
-    <div class="pub-acciones"><a class="pub-boton" href="../#estudio=canasta-cuatro-ciudades"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13.5" rx="1"></rect><path d="M9 21h6"></path><path d="M12 17.5V21"></path></svg><span data-es>Ver el estudio online</span><span data-en>View the study online</span></a>
+    <div class="pub-cuerpo con-portada">
+      <div>
+        <p class="pub-resumen"><span data-es>Índice de canasta de consumo hogareña: 61 ítems de alimentos, limpieza y cuidado personal, con cantidades físicas constantes y precios relevados en CABA, Madrid, São Paulo y Miami. Se actualiza todos los meses.</span><span data-en>Household consumption basket index: 61 food, cleaning and personal care items, with constant physical quantities and prices surveyed in Buenos Aires, Madrid, São Paulo and Miami. Updated every month.</span></p>
+        <div class="pub-acciones"><a class="pub-boton" href="../#estudio=canasta-cuatro-ciudades"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13.5" rx="1"></rect><path d="M9 21h6"></path><path d="M12 17.5V21"></path></svg><span data-es>Ver el estudio online</span><span data-en>View the study online</span></a>
       <a class="pub-boton" href="../#contacto"><span data-es>Consultar por este estudio</span><span data-en>Ask about this study</span></a></div>
+      </div>
+      <img class="pub-portada" src="../portadas/canasta-cuatro-ciudades.webp" width="900" height="900" decoding="async" alt="Cuánto cuesta llenar el mismo changuito en cuatro ciudades">
+    </div>
     <p class="pub-nota"><span data-es>AXIA publica el resumen de cada estudio. El informe completo se entrega a los clientes del trabajo.</span><span data-en>AXIA publishes a summary of each study. The full report is delivered to the client of the engagement.</span></p>
   </article>
 
