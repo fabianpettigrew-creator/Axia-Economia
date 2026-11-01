@@ -127,7 +127,11 @@
     border:1px solid #ddd6c9;border-radius:50%;background:#fff;transition:border-color .2s ease}
   #redes-flotante a:hover{border-color:#b8874a}
   #redes-flotante a:hover path{fill:#b8874a}
-  @media (max-width:980px){#redes-flotante{display:none}}
+  /* La barra ocupa de 18 a 78 px del borde. El contenido mide 1160 px como mucho, con
+     56 px de margen: recien desde unos 1250 px de ventana queda aire entre los dos.
+     Mas angosto, la barra tapaba el anio de los estudios y los rotulos del grafico.
+     Las mismas redes estan en Contacto y en el pie. */
+  @media (max-width:1259px){#redes-flotante{display:none}}
   @media (prefers-reduced-motion:reduce){#redes-flotante{transition:none}}
 </style>
 <link rel="canonical" href="https://axiaeconomia.ar/">
