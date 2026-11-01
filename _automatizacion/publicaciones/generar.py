@@ -174,9 +174,10 @@ ESTILO_PAGINA = """
     .pub-boton:hover{background:#b8874a;color:#fff}
     .pub-nota{margin-top:clamp(36px,4vw,52px);padding-top:22px;border-top:1px solid #ddd6c9;font-size:14px;color:#6a7382;text-wrap:pretty}
     .pub-lista{max-width:1160px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,5vw,56px)}
-    .pub-fila{display:grid;grid-template-columns:clamp(48px,6vw,86px) minmax(0,1fr) minmax(0,1.35fr);gap:clamp(16px,3vw,44px);padding:clamp(26px,3vw,38px) 0;border-top:1px solid #ddd6c9;align-items:start}
+    .pub-fila{display:grid;grid-template-columns:clamp(64px,11vw,140px) minmax(0,1fr) minmax(0,1.35fr);gap:clamp(16px,3vw,44px);padding:clamp(26px,3vw,38px) 0;border-top:1px solid #ddd6c9;align-items:start}
     .pub-fila:last-child{border-bottom:1px solid #ddd6c9}
-    .pub-anio{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;color:#b8874a;line-height:1.3}
+    .pub-anio{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;color:#b8874a;line-height:1.3}
+    .pub-mini{display:block;width:100%;height:auto;margin-top:12px;border:1px solid #ddd6c9;border-radius:2px}
     .pub-fila h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(22px,2vw,27px);line-height:1.18}
     .pub-fila h2 a{color:inherit;text-decoration:none;border-bottom:1px solid #ddd6c9}
     .pub-fila h2 a:hover{border-bottom-color:#b8874a}
@@ -184,7 +185,7 @@ ESTILO_PAGINA = """
     .pub-fila .sec{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6a7382}
     .pub-fila p{font-size:16px;color:#5d6676;text-wrap:pretty}
     @media (max-width:760px){
-      .pub-fila{grid-template-columns:40px minmax(0,1fr);row-gap:10px}
+      .pub-fila{grid-template-columns:76px minmax(0,1fr);row-gap:10px}
       .pub-fila > :last-child{grid-column:2}
     }
   </style>
@@ -285,11 +286,21 @@ def cuerpo_estudio(e):
             "AXIA publishes a summary of each study. The full report is delivered to the client of the engagement."))
 
 
+def miniatura(e):
+    """La imagen chica del listado, enlazada a la pagina del estudio. Va fuera del
+    orden de tabulacion y sin alt: el titulo, al lado, ya es el enlace."""
+    if not e.get("imagen"):
+        return ""
+    return ('<a href="{s}.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" '
+            'src="../portadas/{a}" width="900" height="900" loading="lazy" decoding="async" alt=""></a>'
+            ).format(s=esc(e["slug"]), a=esc(e["imagen"]))
+
+
 def cuerpo_indice(estudios):
     filas = []
     for e in estudios:
         filas.append("""      <article class="pub-fila">
-        <span class="pub-anio">{anio}</span>
+        <div><span class="pub-anio">{anio}</span>{mini}</div>
         <div>
           <h2><a href="{slug}.html">{titulo}</a></h2>
           <span class="sec">{sector}</span>{rel}
@@ -298,6 +309,7 @@ def cuerpo_indice(estudios):
       </article>""".format(
             anio=esc(e.get("ano") or e.get("anio") or "—"),
             slug=esc(e["slug"]),
+            mini=miniatura(e),
             titulo=dos_idiomas(e.get("titulo", ""), e.get("title", "")),
             sector=dos_idiomas(e.get("sector", ""), e.get("sector en", "")),
             rel=('\n          <span class="pub-rel">%s</span>' % relevamiento(e)) if e.get("relevamiento") else "",
