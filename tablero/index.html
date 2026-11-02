@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 46'%3E%3Ccircle cx='23' cy='23' r='20.5' fill='%23fff' stroke='%231a2233' stroke-width='3'/%3E%3Cpath d='M14 27 L23 15 L32 27' fill='none' stroke='%23b8874a' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&family=Spectral:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Spectral:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="i18n_en.js?v=155cfb97"></script>
 <script src="datos.js?v=726ad07a"></script>
@@ -18,7 +18,7 @@
   --bg:#f7f4ee; --paper:#fffdf9; --ink:#1a2233; --ink-2:#4b5466; --ink-3:#6a7382; --rule:#ddd6c9; --rule-2:#ebe5da;
   --navy:#1a2233; --gold:#b8874a; --soft:#f2ede4; --bar-soft:#8d97a8;
   --s1:#1a2233; --s2:#b8874a; --s3:#8d97a8; --s4:#ddb27a; --pos:#5fae7e; --neg:#b5533c;
-  --display:"Cormorant Garamond",Georgia,serif; --ui:Manrope,system-ui,sans-serif;
+  --display:"Sora", Arial, sans-serif; --ui:Manrope,system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--ui);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
@@ -54,17 +54,17 @@ main{max-width:1060px;margin:0 auto;padding:clamp(24px,4vw,44px) clamp(16px,3vw,
 
 /* portada */
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
-h1{font-family:var(--display);font-weight:500;font-size:clamp(34px,4.6vw,54px);line-height:1.05;letter-spacing:-.01em;margin-top:10px;text-wrap:balance}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(27px,3.59vw,42px);line-height:1.05;letter-spacing:-.01em;margin-top:10px;text-wrap:balance}
 .bajada{color:var(--ink-2);max-width:62ch;margin-top:12px;font-size:16px}
 .bloque{margin-top:clamp(30px,4vw,46px)}
 .bloque-tit{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:16px}
-.bloque-tit h2{font-family:var(--display);font-weight:500;font-size:27px}
+.bloque-tit h2{font-family:var(--display);font-weight:600;font-size:21px}
 .bloque-tit span{font-size:13px;color:var(--ink-3)}
 .grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,235px),1fr));gap:14px}
 .tarjeta{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:18px 18px 16px;text-decoration:none;transition:border-color .15s,transform .15s}
 .tarjeta:hover{border-color:var(--gold);transform:translateY(-1px)}
 .tarjeta svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:1.5}
-.tarjeta h3{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.15;margin-top:6px}
+.tarjeta h3{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.15;margin-top:6px}
 .tarjeta p{font-size:13.5px;color:var(--ink-2);line-height:1.45}
 .tarjeta .dato{margin-top:auto;padding-top:10px;border-top:1px solid var(--rule-2);display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12.5px;color:var(--ink-3)}
 .tarjeta .dato b{font-size:17px;font-weight:600;color:var(--ink);white-space:nowrap}
@@ -147,7 +147,7 @@ h1{font-family:var(--display);font-weight:500;font-size:clamp(34px,4.6vw,54px);l
 
 /* a pedido */
 .pedido-box{background:var(--navy);color:#fff;border-radius:4px;padding:clamp(24px,4vw,40px);margin-top:24px}
-.pedido-box h2{font-family:var(--display);font-weight:500;font-size:30px;line-height:1.15}
+.pedido-box h2{font-family:var(--display);font-weight:600;font-size:23px;line-height:1.15;letter-spacing:-0.015em}
 .pedido-box p{color:rgba(255,255,255,.82);margin-top:10px;max-width:60ch}
 .pedido-box ul{margin:16px 0 0 18px;color:rgba(255,255,255,.88)}
 .pedido-box li{margin-top:4px}

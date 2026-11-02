@@ -158,7 +158,7 @@ ESTILO_PAGINA = """
     .pub-envoltorio{max-width:860px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,5vw,56px)}
     .pub-volver{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#b8874a;text-decoration:none}
     .pub-sector{display:block;margin-top:clamp(28px,4vw,44px);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#b8874a}
-    .pub-titulo{margin-top:14px;font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(30px,4.4vw,50px);line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
+    .pub-titulo{margin-top:14px;font-family:"Sora", Arial, sans-serif;font-weight:600;color:#1a2233;font-size:clamp(23px,3.43vw,39px);line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
     .pub-fecha{display:block;margin-top:14px;font-size:13px;color:#6a7382;letter-spacing:.04em}
     .pub-resumen{margin-top:clamp(24px,3vw,34px);font-size:clamp(17px,1.4vw,19px);color:#49536a;line-height:1.75;text-wrap:pretty}
     .pub-cuerpo{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(22px,3vw,40px);align-items:start;margin-top:clamp(24px,3vw,34px)}
@@ -176,9 +176,9 @@ ESTILO_PAGINA = """
     .pub-lista{max-width:1160px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,5vw,56px)}
     .pub-fila{display:grid;grid-template-columns:clamp(64px,11vw,140px) minmax(0,1fr) minmax(0,1.35fr);gap:clamp(16px,3vw,44px);padding:clamp(26px,3vw,38px) 0;border-top:1px solid #ddd6c9;align-items:start}
     .pub-fila:last-child{border-bottom:1px solid #ddd6c9}
-    .pub-anio{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;color:#b8874a;line-height:1.3}
+    .pub-anio{display:block;font-family:"Sora", Arial, sans-serif;font-size:17px;color:#b8874a;line-height:1.3;font-weight:600}
     .pub-mini{display:block;width:100%;height:auto;margin-top:12px;border:1px solid #ddd6c9;border-radius:2px}
-    .pub-fila h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;color:#1a2233;font-size:clamp(22px,2vw,27px);line-height:1.18}
+    .pub-fila h2{font-family:"Sora", Arial, sans-serif;font-weight:600;color:#1a2233;font-size:clamp(17px,1.56vw,21px);line-height:1.18}
     .pub-fila h2 a{color:inherit;text-decoration:none;border-bottom:1px solid #ddd6c9}
     .pub-fila h2 a:hover{border-bottom-color:#b8874a}
     .pub-rel{display:block;margin-top:9px;font-size:13px;color:#6a7382}
