@@ -124,6 +124,7 @@ def piezas_de_la_portada():
         t = t.replace('href="#', 'href="../#')
         t = t.replace('href="tablero/', 'href="../tablero/')
         t = t.replace('href="boletin/', 'href="../boletin/')
+        t = t.replace('src="marca/', 'src="../marca/')        # el logo oficial
         t = t.replace('href="../#inicio"', 'href="../"')
         return t
 
