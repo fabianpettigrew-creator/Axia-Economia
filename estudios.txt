@@ -70,8 +70,8 @@ Title: How much Argentine households earn and what they spend it on
 Año: 2026
 Sector: Consumo y comercio minorista
 Sector EN: Consumer and retail
-Resumen: Ingreso de los hogares corregido por subdeclaración, cinco estratos socioeconómicos y estructura del gasto por rubro y por región, sobre la Encuesta Permanente de Hogares y la Encuesta Nacional de Gastos del INDEC. Datos al tercer trimestre de 2025.
-Summary: Household income adjusted for under-reporting, five socioeconomic strata and the structure of spending by category and region, based on INDEC's household income and expenditure surveys. Data up to the third quarter of 2025.
+Resumen: Ingreso de los hogares corregido por subdeclaración, cinco estratos socioeconómicos, estructura del gasto por rubro y por región, y mercado de trabajo, sobre la Encuesta Permanente de Hogares y la Encuesta Nacional de Gastos del INDEC. Datos al segundo trimestre de 2026.
+Summary: Household income adjusted for under-reporting, five socioeconomic strata, the structure of spending by category and region, and the labour market, based on INDEC's household income and expenditure surveys. Data up to the second quarter of 2026.
 Imagen: hogares-ingresos-consumo.webp
 Visor: hogares-ingresos-consumo
 ---
