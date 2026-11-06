@@ -1,19 +1,7 @@
 {
- "actualizado": "2026-11-06 00:44",
+ "actualizado": "2026-11-06 06:30",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
-  "a_alua",
-  "a_bbar",
-  "a_bma",
-  "a_cepu",
-  "a_ggal",
-  "a_loma",
-  "a_pamp",
-  "a_supv",
-  "a_teco",
-  "a_tgs",
-  "a_txar",
-  "a_ypf",
   "brent",
   "brl",
   "dxy",
@@ -71,5 +59,7 @@
   "x_pp"
  ],
  "series_con_dato_nuevo_del_indec": [],
- "otros_avisos": []
+ "otros_avisos": [
+  "AVISO: no se pudo leer el indice de BYMA: 'date'"
+ ]
 }
