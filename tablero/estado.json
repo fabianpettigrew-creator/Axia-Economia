@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-06 17:28",
+ "actualizado": "2026-11-06 22:59",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -16,6 +16,8 @@
   "ipc_est",
   "ipc_nucleo",
   "ipc_reg",
+  "ipi",
+  "ipi_de",
   "isac",
   "m_cyl",
   "m_pzas",
@@ -58,10 +60,6 @@
   "x_moi",
   "x_pp"
  ],
- "series_con_dato_nuevo_del_indec": [
-  "ipi con dato a 2026-09 (la API llegaba a 2026-08)",
-  "ipi_de con dato a 2026-09 (la API llegaba a 2026-08)",
-  "isac con dato a 2026-09 (la API llegaba a 2026-08)"
- ],
+ "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": []
 }
