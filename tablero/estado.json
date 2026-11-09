@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-09 00:04",
+ "actualizado": "2026-11-09 20:28",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -63,6 +63,6 @@
  ],
  "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": [
-  "AVISO: no se pudo leer el indice de BYMA: 'date'"
+  "AVISO: no se pudo leer el indice de BYMA: list index out of range"
  ]
 }
