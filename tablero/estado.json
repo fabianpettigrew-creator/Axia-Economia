@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-07 05:53",
+ "actualizado": "2026-11-08 22:46",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -21,6 +21,7 @@
   "isac",
   "m_cyl",
   "m_pzas",
+  "merval",
   "oro",
   "rec_comb",
   "rec_iva",
