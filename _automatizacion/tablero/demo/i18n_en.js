@@ -347,7 +347,7 @@ window.EN = {
   "Riesgo país": "Country risk", "Merval en dólares (CCL)": "Merval in dollars (CCL)",
   "Fondos federales": "Federal funds", "Tesoro 2 años": "2-year Treasury", "Tesoro 10 años": "10-year Treasury",
   "Soja": "Soybeans", "Maíz": "Corn", "Trigo": "Wheat", "Petróleo Brent": "Brent crude",
-  "Índice dólar (DXY)": "Dollar index (DXY)", "Real (BRL por USD)": "Real (BRL per USD)", "Euro (USD por EUR)": "Euro (USD per EUR)",
+  "Índice dólar (DXY)": "Dollar index (DXY)", "Real (BRL por USD)": "Real (BRL per USD)", "Euro (USD por EUR)": "Euro (USD per EUR)", "Yuan (CNY por USD)": "Yuan (CNY per USD)",
   // G20
   "Alemania": "Germany", "Arabia Saudita": "Saudi Arabia", "Brasil": "Brazil", "Canadá": "Canada", "Corea del Sur": "South Korea",
   "Estados Unidos": "United States", "Francia": "France", "Italia": "Italy", "Japón": "Japan", "México": "Mexico", "Mundo": "World",
@@ -472,4 +472,6 @@ window.EN = {
   "Petróleo WTI": "WTI crude oil",
   "El acumulado de 12 meses suaviza la estacionalidad de la cosecha y permite ver la tendencia del comercio. El saldo energético es la exportación de combustibles y energía menos la importación de combustibles y lubricantes. La liquidación de divisas son los cobros de exportaciones que informa el BCRA, con uno o dos meses de demora.": "The 12-month total smooths out harvest seasonality and shows the trade trend. The energy trade balance is fuel and energy exports minus fuel and lubricant imports. FX sales are the export receipts reported by the BCRA, published with a one- to two-month lag.",
   "En commodities, metales, petróleo y gas, monedas y bolsas cada serie arranca en 100 al inicio del período elegido, para comparar variaciones. En G20, los datos anuales son del FMI y desde el año en curso son proyecciones.": "For commodities, metals, oil and gas, currencies and stock markets each series starts at 100 at the beginning of the selected period, to compare changes. In G20, annual data are from the IMF and figures from the current year onward are projections.",
+  // ---------- Yuan en Monedas (11/11/2026)
+  "Índice base 100 = inicio del período elegido · real y yuan en unidades por dólar": "Index, start of selected period = 100 · real and yuan in units per dollar",
 };

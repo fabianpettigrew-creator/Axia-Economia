@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Spectral:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="i18n_en.js?v=063f453a"></script>
-<script src="datos.js?v=841106ca"></script>
+<script src="i18n_en.js?v=c39fda88"></script>
+<script src="datos.js?v=c04ff8ec"></script>
 <style>
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
 :root{
@@ -365,7 +365,7 @@ const DEF = {
           {n:"Commodities agrícolas", t:"Granos y derivados de la soja", st:"Bolsa de Chicago · índice base 100 = inicio del período elegido", d:x=>x.commodities, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
           {n:"Metales", t:"Oro, plata y cobre", st:"Índice base 100 = inicio del período elegido", d:x=>x.metales, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
           {n:"Petróleo y gas", t:"Petróleo y gas natural", st:"Índice base 100 = inicio del período elegido", d:x=>x.energia, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
-          {n:"Monedas", t:"Dólar global y monedas", st:"Índice base 100 = inicio del período elegido", d:x=>x.monedas, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
+          {n:"Monedas", t:"Dólar global y monedas", st:"Índice base 100 = inicio del período elegido · real y yuan en unidades por dólar", d:x=>x.monedas, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
           {n:"Bolsas", t:"Bolsas de EE.UU. y Brasil", st:"Índice base 100 = inicio del período elegido", d:x=>x.bolsas, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
           {n:"Países G20", t:"Países del G20", tipo:"g20", fuente:"FMI (World Economic Outlook)"}],
     nota:"En commodities, metales, petróleo y gas, monedas y bolsas cada serie arranca en 100 al inicio del período elegido, para comparar variaciones. En G20, los datos anuales son del FMI y desde el año en curso son proyecciones."},

@@ -351,7 +351,8 @@ def main():
                                              ("harina_soja", "Harina de soja")] if hay(k)}, "2022")
     com_met = alinear({n: d[k] for k, n in [("oro", "Oro"), ("plata", "Plata"), ("cobre", "Cobre")] if hay(k)}, "2022")
     com_en = alinear({n: d[k] for k, n in [("brent", "Petróleo Brent"), ("wti", "Petróleo WTI"), ("gas_hh", "Gas natural (Henry Hub)")] if hay(k)}, "2022")
-    mon = alinear({"Índice dólar (DXY)": d["dxy"], "Real (BRL por USD)": d["brl"], "Euro (USD por EUR)": d["eurusd"]}, "2022")
+    mon = alinear({"Índice dólar (DXY)": d["dxy"], "Real (BRL por USD)": d["brl"], "Euro (USD por EUR)": d["eurusd"],
+                **({"Yuan (CNY por USD)": d["cny"]} if "cny" in d and len(d["cny"].dropna()) else {})}, "2022")
     bol = alinear({"S&P 500": d["spx"], "Bovespa": d["bvsp"]}, "2022")
     sec["internacional"] = {
         "kpis": {"fed": ult(d["fed"]), "ust10": ult(d["ust10"]), "brent": ult(d["brent"], 1), "soja": ult(d["soja"], 1),

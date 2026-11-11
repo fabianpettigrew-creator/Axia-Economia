@@ -84,6 +84,7 @@ ust10,fred,D,DGS10,Bono del Tesoro EE.UU. a 10 años,%,internacional,Reserva Fed
 dxy,yahoo,D,DX-Y.NYB,Índice dólar (DXY),índice,internacional,Yahoo Finance
 eurusd,yahoo,D,EURUSD=X,Euro,USD por EUR,internacional,Yahoo Finance
 brl,yahoo,D,BRL=X,Real brasileño,BRL por USD,internacional,Yahoo Finance
+cny,yahoo,D,CNY=X,Yuan chino,CNY por USD,internacional,Yahoo Finance
 spx,yahoo,D,^GSPC,S&P 500,puntos,internacional,Yahoo Finance
 bvsp,yahoo,D,^BVSP,Bovespa,puntos,internacional,Yahoo Finance
 soja,yahoo,D,ZS=F,Soja (Chicago),USc por bushel,internacional,Yahoo Finance
