@@ -160,11 +160,29 @@ _ENERGIA: dict[str, pd.DataFrame] = {}   # cada planilla se baja una sola vez po
 
 
 def api_energia(ident: str) -> pd.Series:
-    """Una columna de las planillas de producción de la Secretaría de Energía (mensual)."""
+    """Una columna de las planillas de producción de la Secretaría de Energía (mensual).
+
+    datos.energia.gob.ar puede no responder desde los servidores de GitHub (en el exterior): con los
+    reintentos de _get, las cuatro series sumaban 40 minutos y GitHub cortaba la corrida (11/11/2026).
+    Ahora se prueba una sola vez por planilla, con espera corta; si responde, se guarda una copia en
+    datos_locales/energia_<archivo>.csv, y si no, se usa esa copia. El resultado queda en memoria para
+    las demás columnas de la misma planilla."""
     archivo, col = ident.split(":")
     if archivo not in _ENERGIA:
-        r = _get(ENERGIA[archivo], {}, headers=H)
-        df = pd.read_csv(io.BytesIO(r.content), encoding="utf-8-sig")
+        copia = DATOS_LOCALES / f"energia_{archivo}.csv"
+        try:
+            r = requests.get(ENERGIA[archivo], headers=H, timeout=40)
+            r.raise_for_status()
+            contenido = r.content
+            pd.read_csv(io.BytesIO(contenido), encoding="utf-8-sig", nrows=5)     # que sea la planilla, no un error
+            DATOS_LOCALES.mkdir(exist_ok=True)
+            copia.write_bytes(contenido)
+        except Exception as e:
+            if not copia.exists():
+                raise
+            print(f"AVISO: la Secretaría de Energía no respondió ({type(e).__name__}); se usa la copia {copia.name}")
+            contenido = copia.read_bytes()
+        df = pd.read_csv(io.BytesIO(contenido), encoding="utf-8-sig")
         df.index = pd.to_datetime(df["indice_tiempo"].astype(str) + "-01")
         _ENERGIA[archivo] = df
     return pd.to_numeric(_ENERGIA[archivo][col], errors="coerce").dropna()[DESDE:]
