@@ -293,7 +293,14 @@ def main():
         "kpis": {"expo": kv(t, x.iloc[-1], 0), "expo_ia": round(float(C.ia(x).iloc[-1]), 1), "impo": kv(t, m.iloc[-1], 0),
                  "impo_ia": round(float(C.ia(m).iloc[-1]), 1), "saldo": kv(t, saldo.iloc[-1], 0), "saldo_acum": kv(t, acum(saldo), 0)},
         "doce": {"Exportaciones": serie(x.rolling(12).sum()["2016":] / 1e3, 1), "Importaciones": serie(m.rolling(12).sum()["2016":] / 1e3, 1)},
-        "saldo": {"Saldo comercial": serie(saldo["2019":], 0)},
+        # Saldo energético: exportaciones de combustibles y energía menos importaciones de combustibles y lubricantes
+        "saldo": {"Saldo comercial": serie(saldo["2019":], 0),
+                  **({"Saldo energético": serie((d["x_cye"] - d["m_cyl"]).dropna()["2019":], 0)} if "x_cye" in d and "m_cyl" in d else {})},
+        # Liquidación de divisas (BCRA, cobros de exportaciones de bienes por sector), desde el 11/11/2026
+        "divisas": {n: serie(s.dropna()["2019":], 0) for n, s in
+                    [("Agro (oleaginosas y cereales)", d.get("cob_agro")), ("Minería", d.get("cob_mineria")),
+                     ("Petróleo y gas", d["cob_petroleo"] + d["cob_gas"] if "cob_petroleo" in d and "cob_gas" in d else None)]
+                    if s is not None and len(s.dropna())},
         "rubros": {n: serie(d[k].dropna().rolling(12).sum()["2016":] / 1e3, 2) for k, n in
                    [("x_pp", "Productos primarios"), ("x_moa", "Manuf. agropecuarias"), ("x_moi", "Manuf. industriales"), ("x_cye", "Combustibles y energía")]},
         "usos": {n: serie(d[k].dropna().rolling(12).sum()["2016":] / 1e3, 2) for k, n in
@@ -339,90 +346,25 @@ def main():
 
     # ================= internacional
     tasas = alinear({"Fondos federales": d["fed"], "Tesoro 2 años": d["ust2"], "Tesoro 10 años": d["ust10"]}, "2022")
-    com = alinear({"Soja": d["soja"], "Maíz": d["maiz"], "Trigo": d["trigo"], "Petróleo Brent": d["brent"]}, "2022")
+    hay = lambda k: k in d and len(d[k].dropna()) > 0
+    com_agro = alinear({n: d[k] for k, n in [("soja", "Soja"), ("maiz", "Maíz"), ("trigo", "Trigo"), ("aceite_soja", "Aceite de soja"),
+                                             ("harina_soja", "Harina de soja")] if hay(k)}, "2022")
+    com_met = alinear({n: d[k] for k, n in [("oro", "Oro"), ("plata", "Plata"), ("cobre", "Cobre")] if hay(k)}, "2022")
+    com_en = alinear({n: d[k] for k, n in [("brent", "Petróleo Brent"), ("wti", "Petróleo WTI"), ("gas_hh", "Gas natural (Henry Hub)")] if hay(k)}, "2022")
     mon = alinear({"Índice dólar (DXY)": d["dxy"], "Real (BRL por USD)": d["brl"], "Euro (USD por EUR)": d["eurusd"]}, "2022")
     bol = alinear({"S&P 500": d["spx"], "Bovespa": d["bvsp"]}, "2022")
     sec["internacional"] = {
         "kpis": {"fed": ult(d["fed"]), "ust10": ult(d["ust10"]), "brent": ult(d["brent"], 1), "soja": ult(d["soja"], 1),
                  "brent_ytd": round(SB.var_periodos(d["brent"].dropna(), hoy)[1], 1), "soja_ytd": round(SB.var_periodos(d["soja"].dropna(), hoy)[1], 1)},
         "tasas": {n: serie(s) for n, s in tasas.items()},
-        "commodities": {n: serie(s) for n, s in com.items()},
+        "commodities": {n: serie(s) for n, s in com_agro.items()},
+        "metales": {n: serie(s) for n, s in com_met.items()},
+        "energia": {n: serie(s) for n, s in com_en.items()},
         "monedas": {n: serie(s, 3) for n, s in mon.items()},
         "bolsas": {n: serie(s, 0) for n, s in bol.items()},
         "g20": g20(pd.Timestamp(hoy)),
     }
     sec["internacional"]["g20_ult"] = g20_ultimos(sec["internacional"]["g20"], d["eph_desoc"] * 100, sec["precios"]["kpis"]["interanual"])
-
-    # ================= agro, minería y energía (desde el 10/11/2026)
-    # Precios internacionales diarios (Yahoo Finance) y, para la Argentina, exportaciones (INDEC), divisas que
-    # liquida cada sector (BCRA) y producción (MAGyP, CAEM y Secretaría de Energía). Si una serie falta en el
-    # vintage, la solapa sale sin ella: una fuente caída no frena el tablero.
-    hay = lambda k: k in d and len(d[k].dropna()) > 0
-    doce = lambda k: d[k].dropna().rolling(12).sum().dropna()          # acumulado de 12 meses
-    def ytd(s):
-        return round(SB.var_periodos(s.dropna(), hoy)[1], 1)
-    def ia12(s):                                                       # variación interanual del acumulado 12 meses
-        s = s.dropna()
-        return round(float(s.iloc[-1] / s.iloc[-13] - 1) * 100, 1) if len(s) > 12 else None
-    def anual(k, div=1, dec=1):
-        return serie(d[k].dropna() / div, dec)
-
-    # --- agro
-    # Exportaciones por rubro en anual: la serie mensual y la trimestral de cereales están rotas en la API de
-    # datos.gob.ar (sin datos desde 2015). El dato al día del sector es la liquidación de divisas del BCRA.
-    rub_agro = [(k, n) for k, n in [("xa_cereales", "Cereales"), ("xa_harinas", "Harinas y pellets"), ("xa_aceites", "Aceites"),
-                                    ("xa_oleag", "Porotos y semillas"), ("xa_carnes", "Carnes")] if hay(k)]
-    agro_an = sum(d[k].dropna() for k, _ in rub_agro).dropna() if len(rub_agro) == 5 else pd.Series(dtype=float)
-    cob = d["cob_agro"].dropna() if hay("cob_agro") else pd.Series(dtype=float)
-    pre_agro = alinear({n: d[k] for k, n in [("soja", "Soja"), ("aceite_soja", "Aceite de soja"), ("harina_soja", "Harina de soja"),
-                                             ("maiz", "Maíz"), ("trigo", "Trigo")] if hay(k)}, "2022")
-    sec["agro"] = {
-        "kpis": {"soja": ult(d["soja"], 1), "soja_ytd": ytd(d["soja"]), "maiz": ult(d["maiz"], 1), "maiz_ytd": ytd(d["maiz"]),
-                 **({"expo_anio": kv(agro_an.index[-1], agro_an.iloc[-1] / 1e3, 1),
-                     "expo_anio_ia": round(float(agro_an.iloc[-1] / agro_an.iloc[-2] - 1) * 100, 1)} if len(agro_an) > 1 else {}),
-                 **({"divisas": kv(cob.index[-1], cob.iloc[-1], 0), "divisas_ia": round(float(C.ia(cob).iloc[-1]), 1)} if len(cob) > 12 else {})},
-        "precios": {n: serie(s) for n, s in pre_agro.items()},
-        "exportaciones": {n: serie(d[k].dropna() / 1e3, 2) for k, n in rub_agro},
-        "divisas": {"Oleaginosas y cereales": serie(cob["2019":], 0)} if len(cob) else {},
-        "produccion": {n: anual(k, 1e6, 1) for k, n in [("prod_soja", "Soja"), ("prod_maiz", "Maíz"), ("prod_trigo", "Trigo"),
-                                                         ("prod_girasol", "Girasol")] if hay(k)},
-    }
-
-    # --- minería
-    pre_min = alinear({n: d[k] for k, n in [("oro", "Oro"), ("plata", "Plata"), ("cobre", "Cobre"), ("aluminio", "Aluminio")] if hay(k)}, "2022")
-    metprec12 = doce("x_metprec") if hay("x_metprec") else pd.Series(dtype=float)
-    lit = d["min_litio_prod"].dropna() if hay("min_litio_prod") else pd.Series(dtype=float)
-    sec["mineria"] = {
-        "kpis": {"oro": ult(d["oro"], 0), "oro_ytd": ytd(d["oro"]), "cobre": ult(d["cobre"], 2), "cobre_ytd": ytd(d["cobre"]),
-                 **({"expo12": kv(metprec12.index[-1], metprec12.iloc[-1] / 1e3, 2), "expo12_ia": ia12(metprec12)} if len(metprec12) else {}),
-                 **({"litio": kv(lit.index[-1], lit.iloc[-1], 1), "litio_ia": round(float(lit.iloc[-1] / lit.iloc[-2] - 1) * 100, 0)}
-                    if len(lit) > 1 else {})},
-        "precios": {n: serie(s) for n, s in pre_min.items()},
-        "exportaciones": {"Piedras y metales preciosos (oro y plata)": serie(metprec12["2016":] / 1e3, 2)} if len(metprec12) else {},
-        "por_mineral": {n: anual(k, 1, 0) for k, n in [("min_oro_expo", "Oro"), ("min_litio_expo", "Litio"), ("min_plata_expo", "Plata")] if hay(k)},
-        "litio": {"Producción de litio": anual("min_litio_prod")} if hay("min_litio_prod") else {},
-        "oro": {"Producción de oro": anual("min_oro_prod", 1, 0)} if hay("min_oro_prod") else {},
-        "divisas": {"Minería": serie(d["cob_mineria"].dropna()["2019":], 0)} if hay("cob_mineria") else {},
-    }
-
-    # --- energía
-    pre_en = alinear({n: d[k] for k, n in [("brent", "Brent"), ("wti", "WTI"), ("gas_hh", "Gas natural (Henry Hub)")] if hay(k)}, "2022")
-    pet, gas = d["pet_kbbl"].dropna(), d["gas_diario"].dropna()
-    pet_nc = (pet * d["pet_noconv"] / 100).dropna()                    # no convencional: shale y tight
-    gas_nc = (gas * d["gas_noconv"] / 100).dropna()
-    saldo_en = (d["x_cye"] - d["m_cyl"]).dropna() if hay("x_cye") and hay("m_cyl") else pd.Series(dtype=float)
-    divisas_en = (d["cob_petroleo"].dropna() + d["cob_gas"].dropna()).dropna() if hay("cob_petroleo") and hay("cob_gas") else pd.Series(dtype=float)
-    sec["energia"] = {
-        "kpis": {"brent": ult(d["brent"], 1), "brent_ytd": ytd(d["brent"]),
-                 "petroleo": ult(pet, 0), "petroleo_ia": round(float(C.ia(pet).iloc[-1]), 1), "petroleo_nc": round(float(d["pet_noconv"].dropna().iloc[-1]), 0),
-                 "gas": ult(gas, 1), "gas_ia": round(float(C.ia(gas).iloc[-1]), 1),
-                 **({"saldo12": kv(saldo_en.index[-1], saldo_en.rolling(12).sum().iloc[-1] / 1e3, 1)} if len(saldo_en) > 11 else {})},
-        "precios": {n: serie(s) for n, s in pre_en.items()},
-        "petroleo": {"Total": serie(pet["2015":], 0), "No convencional": serie(pet_nc["2015":], 0)},
-        "gas": {"Total": serie(gas["2015":], 1), "No convencional": serie(gas_nc["2015":], 1)},
-        "balanza": {"Saldo comercial energético": serie(saldo_en["2019":], 0)} if len(saldo_en) else {},
-        "divisas": {"Petróleo y gas": serie(divisas_en["2019":], 0)} if len(divisas_en) else {},
-    }
 
     destino = AQUI / "demo" / "datos.js"
     destino.parent.mkdir(exist_ok=True)

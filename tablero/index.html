@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Spectral:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="i18n_en.js?v=063f453a"></script>
-<script src="datos.js?v=beaffbf2"></script>
+<script src="datos.js?v=841106ca"></script>
 <style>
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
 :root{
@@ -251,9 +251,6 @@ const ICON = {
   precios:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.4"/>', 'tipo-cambio':'<path d="M12 3v18M16.5 7.5c0-1.9-2-3-4.5-3s-4.5 1.2-4.5 3.2 2 2.8 4.5 3.3 4.5 1.4 4.5 3.4-2 3.1-4.5 3.1-4.5-1.1-4.5-3"/>',
   comercio:'<path d="M4 8h13l-3-3M20 16H7l3 3"/>', monetarias:'<rect x="3" y="6" width="18" height="12" rx="1.5"/><circle cx="12" cy="12" r="2.6"/>',
   mercados:'<path d="M4 20V10M10 20V5M16 20v-7M22 20H2"/>',
-  agro:'<path d="M12 21V10"/><path d="M12 10c0-4 3-7 8-7 0 5-3 8-8 7z"/><path d="M12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 6 7 5.5z"/>',
-  mineria:'<path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6"/>',
-  energia:'<path d="M12 3s7 7.5 7 12a7 7 0 0 1-14 0c0-4.5 7-12 7-12z"/>', internacional:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/>',
   pib:'<path d="M3 20h18M5 16l4-5 4 3 6-8"/><circle cx="19" cy="6" r="1.3"/>', sectorial:'<rect x="3" y="3" width="7.5" height="7.5"/><rect x="13.5" y="3" width="7.5" height="7.5"/><rect x="3" y="13.5" width="7.5" height="7.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5"/>',
   series:'<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'
 };
@@ -272,12 +269,6 @@ const SECCIONES = [
    mini:{d:()=>S.empleo.eph["Tasa de desocupación"], desde:20, et:"Desocupación trimestral, 5 años"}},
   {id:"comercio", t:"Comercio exterior", p:"Exportaciones, importaciones, saldo comercial y rubros.", dato:()=>["Saldo "+K("comercio").saldo_acum.fecha.slice(0,4), "US$ "+fnum(K("comercio").saldo_acum.valor/1e3,1)+" mil M"],
    mini:{d:()=>S.comercio.saldo["Saldo comercial"], desde:24, tipo:"bar", signo:true, et:"Saldo comercial mensual, 2 años"}},
-  {id:"agro", t:"Agro", p:"Granos en Chicago, liquidación de divisas, exportaciones y producción por campaña.", dato:()=>["Soja", "USc "+fnum(K("agro").soja.valor,0)],
-   mini:{d:()=>S.agro.precios["Soja"], desde:250, et:"Soja diaria, 1 año"}},
-  {id:"mineria", t:"Minería", p:"Oro, plata y cobre, exportaciones mineras y producción de oro y litio.", dato:()=>["Oro", "US$ "+fnum(K("mineria").oro.valor,0)],
-   mini:{d:()=>S.mineria.precios["Oro"], desde:250, et:"Oro diario, 1 año"}},
-  {id:"energia", t:"Energía", p:"Petróleo y gas: precios, producción, Vaca Muerta y balanza energética.", dato:()=>["Petróleo", fnum(K("energia").petroleo.valor,0)+" mil b/d"],
-   mini:{d:()=>S.energia.petroleo["Total"], desde:36, et:"Producción de petróleo, 3 años"}},
   {id:"monetarias", t:"Monetarias", p:"Reservas, compras del BCRA, tasas, crédito y depósitos.", dato:()=>["Reservas", "US$ "+fnum(K("monetarias").reservas.valor,0)+" M"],
    mini:{d:()=>S.monetarias.reservas["Reservas brutas"], desde:250, et:"Reservas diarias, 1 año"}},
   {id:"mercados", t:"Mercados", p:"Riesgo país, Merval en dólares y acciones líderes.", dato:()=>["Riesgo país", fnum(K("mercados").riesgo.valor,0)+" pb"],
@@ -331,53 +322,18 @@ const DEF = {
           {n:"Empleo registrado", t:"Asalariados registrados del sector privado", st:"Miles de personas, serie sin estacionalidad (SIPA)", d:x=>x.sipa, tipo:"line", u:"mil", dec:0, rango:"5A"},
           {n:"Pobreza", t:"Pobreza", st:"% de personas bajo la línea de pobreza, por semestre", d:x=>x.pobreza, tipo:"bar", u:"%", dec:1, rango:"Todo"}],
     nota:"El salario real compara los salarios registrados con la inflación. El índice de salarios no registrados no se incluye porque el INDEC lo publica con cinco meses de rezago."},
-  "comercio": {sub:"Intercambio comercial argentino: exportaciones, importaciones y saldo", fuente:"INDEC", mensual:true,
+  "comercio": {sub:"Intercambio comercial argentino: exportaciones, importaciones, saldo y liquidación de divisas", fuente:"INDEC y BCRA", mensual:true,
     ultimo:k=>k.expo.fecha,
     kpis:k=>[["Exportaciones","US$ "+fnum(k.expo.valor,0)+" M",`${fsig(k.expo_ia)}% interanual · ${mesAnio(k.expo.fecha)}`],
              ["Importaciones","US$ "+fnum(k.impo.valor,0)+" M",`${fsig(k.impo_ia)}% interanual · ${mesAnio(k.impo.fecha)}`],
              ["Saldo del mes","US$ "+fnum(k.saldo.valor,0)+" M",mesAnio(k.saldo.fecha)],
              ["Saldo del año","US$ "+fnum(k.saldo_acum.valor/1e3,1)+" mil M","acumulado enero–"+MESL[+k.saldo_acum.fecha.slice(5,7)-1]]],
     tabs:[{n:"Exportaciones e importaciones", t:"Exportaciones e importaciones de bienes", st:"Acumulado 12 meses, miles de millones de dólares", d:x=>x.doce, tipo:"line", u:"US$ mil M", dec:1, rango:"5A"},
-          {n:"Saldo comercial", t:"Saldo comercial mensual", st:"Millones de dólares", d:x=>x.saldo, tipo:"bar", u:"US$ M", dec:0, rango:"2A", signo:true},
+          {n:"Saldo comercial", t:"Saldo comercial mensual", st:"Millones de dólares · la línea es el saldo energético", d:x=>x.saldo, tipo:"bar", u:"US$ M", dec:0, rango:"2A", signo:true, lineas:["Saldo energético"]},
           {n:"Exportaciones por rubro", t:"Exportaciones por rubro", st:"Acumulado 12 meses, miles de millones de dólares", d:x=>x.rubros, tipo:"line", u:"US$ mil M", dec:1, rango:"5A"},
-          {n:"Importaciones por uso", t:"Importaciones por uso económico", st:"Acumulado 12 meses, miles de millones de dólares", d:x=>x.usos, tipo:"line", u:"US$ mil M", dec:1, rango:"5A"}],
-    nota:"El acumulado de 12 meses suaviza la estacionalidad de la cosecha y permite ver la tendencia del comercio."},
-  "agro": {sub:"Precios internacionales de granos, liquidación de divisas, exportaciones y producción", fuente:"CBOT (Yahoo Finance), BCRA, INDEC y MAGyP",
-    ultimo:k=>k.soja.fecha,
-    kpis:k=>[["Soja","USc "+fnum(k.soja.valor,0),`por bushel · ${fsig(k.soja_ytd)}% en el año`],
-             ["Maíz","USc "+fnum(k.maiz.valor,0),`por bushel · ${fsig(k.maiz_ytd)}% en el año`],
-             ["Liquidación del agro",k.divisas?"US$ "+fnum(k.divisas.valor,0)+" M":"—",k.divisas?`${fsig(k.divisas_ia)}% interanual · ${mesAnio(k.divisas.fecha)}`:""],
-             ["Exportaciones del agro",k.expo_anio?"US$ "+fnum(k.expo_anio.valor,1)+" mil M":"—",k.expo_anio?`${k.expo_anio.fecha.slice(0,4)} · ${fsig(k.expo_anio_ia)}% interanual`:""]],
-    tabs:[{n:"Precios", t:"Precios de granos y derivados", st:"Bolsa de Chicago · índice base 100 = inicio del período elegido", d:x=>x.precios, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
-          {n:"Liquidación de divisas", t:"Divisas que liquida el agro", st:"Cobros de exportaciones del sector oleaginoso y cerealero, millones de dólares por mes", d:x=>x.divisas, tipo:"bar", u:"US$ M", dec:0, rango:"5A"},
-          {n:"Exportaciones", t:"Exportaciones agroindustriales por rubro", st:"Miles de millones de dólares por año", d:x=>x.exportaciones, tipo:"line", u:"US$ mil M", dec:1, rango:"Todo"},
-          {n:"Producción", t:"Producción de granos por campaña", st:"Millones de toneladas · el año es el de la cosecha (2024 = campaña 2023/24)", d:x=>x.produccion, tipo:"line", u:"M t", dec:1, rango:"Todo"}],
-    nota:"Los precios son contratos a futuro de la Bolsa de Chicago: soja, maíz y trigo en centavos de dólar por bushel; aceite de soja en centavos por libra; harina de soja en dólares por tonelada corta. El dato mensual del sector es la liquidación de divisas; las exportaciones por rubro se publican por año."},
-  "mineria": {sub:"Precios de los metales, exportaciones mineras y producción de oro y litio", fuente:"COMEX (Yahoo Finance), INDEC, BCRA y CAEM",
-    ultimo:k=>k.oro.fecha,
-    kpis:k=>[["Oro","US$ "+fnum(k.oro.valor,0),`por onza · ${fsig(k.oro_ytd)}% en el año`],
-             ["Cobre","US$ "+fnum(k.cobre.valor,2),`por libra · ${fsig(k.cobre_ytd)}% en el año`],
-             ["Exportaciones de oro y plata",k.expo12?"US$ "+fnum(k.expo12.valor,1)+" mil M":"—",k.expo12?`12 meses a ${mesAnio(k.expo12.fecha)} · ${fsig(k.expo12_ia)}% interanual`:""],
-             ["Producción de litio",k.litio?fnum(k.litio.valor,1)+" mil t":"—",k.litio?`LCE · ${k.litio.fecha.slice(0,4)} · ${fsig(k.litio_ia,0)}% interanual`:""]],
-    tabs:[{n:"Precios", t:"Precios de los metales", st:"Índice base 100 = inicio del período elegido", d:x=>x.precios, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
-          {n:"Exportaciones", t:"Exportaciones de oro y plata", st:"Piedras y metales preciosos, acumulado 12 meses, miles de millones de dólares", d:x=>x.exportaciones, tipo:"line", u:"US$ mil M", dec:2, rango:"5A"},
-          {n:"Por mineral", t:"Exportaciones mineras por mineral", st:"Millones de dólares por año", d:x=>x.por_mineral, tipo:"line", u:"US$ M", dec:0, rango:"Todo"},
-          {n:"Litio", t:"Producción de litio", st:"Miles de toneladas de carbonato de litio equivalente (LCE) por año", d:x=>x.litio, tipo:"bar", u:"mil t", dec:1, rango:"Todo"},
-          {n:"Oro", t:"Producción de oro", st:"Miles de onzas por año", d:x=>x.oro, tipo:"bar", u:"mil oz", dec:0, rango:"Todo"},
-          {n:"Liquidación de divisas", t:"Divisas que liquida la minería", st:"Cobros de exportaciones del sector, millones de dólares por mes", d:x=>x.divisas, tipo:"bar", u:"US$ M", dec:0, rango:"5A"}],
-    nota:"Producción y exportaciones por mineral: CAEM en base a reportes de empresas y a la Secretaría de Minería, con datos anuales hasta 2025. El litio no tiene un precio diario de referencia público, por eso no figura en Precios: según CAEM, su precio de exportación cayó 28% en 2025."},
-  "energia": {sub:"Precios del petróleo y el gas, producción, no convencional y balanza energética", fuente:"NYMEX e ICE (Yahoo Finance), Secretaría de Energía, INDEC y BCRA",
-    ultimo:k=>k.brent.fecha,
-    kpis:k=>[["Petróleo Brent","US$ "+fnum(k.brent.valor,1),`por barril · ${fsig(k.brent_ytd)}% en el año`],
-             ["Producción de petróleo",fnum(k.petroleo.valor,0)+" mil b/d",`${fsig(k.petroleo_ia)}% interanual · ${fnum(k.petroleo_nc,0)}% no convencional · ${mesAnio(k.petroleo.fecha)}`],
-             ["Producción de gas",fnum(k.gas.valor,1)+" M m³/d",`${fsig(k.gas_ia)}% interanual · ${mesAnio(k.gas.fecha)}`],
-             ["Saldo energético",k.saldo12?"US$ "+fnum(k.saldo12.valor,1)+" mil M":"—",k.saldo12?`12 meses a ${mesAnio(k.saldo12.fecha)}`:""]],
-    tabs:[{n:"Precios", t:"Precios del petróleo y el gas", st:"Índice base 100 = inicio del período elegido", d:x=>x.precios, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
-          {n:"Petróleo", t:"Producción de petróleo", st:"Miles de barriles por día · no convencional: shale y tight, sobre todo Vaca Muerta", d:x=>x.petroleo, tipo:"line", u:"mil b/d", dec:0, rango:"Todo"},
-          {n:"Gas", t:"Producción de gas natural", st:"Millones de metros cúbicos por día · no convencional: shale y tight", d:x=>x.gas, tipo:"line", u:"M m³/d", dec:1, rango:"Todo"},
-          {n:"Balanza energética", t:"Saldo comercial energético", st:"Exportaciones de combustibles y energía menos importaciones de combustibles y lubricantes, millones de dólares por mes", d:x=>x.balanza, tipo:"bar", u:"US$ M", dec:0, rango:"5A", signo:true},
-          {n:"Liquidación de divisas", t:"Divisas que liquidan el petróleo y el gas", st:"Cobros de exportaciones de los sectores petrolero y gasífero, millones de dólares por mes", d:x=>x.divisas, tipo:"bar", u:"US$ M", dec:0, rango:"5A"}],
-    nota:"No convencional: shale y tight, sobre todo de Vaca Muerta, en la cuenca Neuquina. La producción sale de las declaraciones juradas de las empresas ante la Secretaría de Energía (Capítulo IV), que se publican con dos o tres meses de demora."},
+          {n:"Importaciones por uso", t:"Importaciones por uso económico", st:"Acumulado 12 meses, miles de millones de dólares", d:x=>x.usos, tipo:"line", u:"US$ mil M", dec:1, rango:"5A"},
+          {n:"Liquidación de divisas", t:"Liquidación de divisas por sector", st:"Cobros de exportaciones de bienes, millones de dólares por mes", d:x=>x.divisas, tipo:"line", u:"US$ M", dec:0, rango:"5A"}],
+    nota:"El acumulado de 12 meses suaviza la estacionalidad de la cosecha y permite ver la tendencia del comercio. El saldo energético es la exportación de combustibles y energía menos la importación de combustibles y lubricantes. La liquidación de divisas son los cobros de exportaciones que informa el BCRA, con uno o dos meses de demora."},
   "monetarias": {sub:"Reservas, mercado de cambios, tasas de interés, crédito y depósitos", fuente:"BCRA e INDEC",
     ultimo:k=>k.reservas.fecha,
     kpis:k=>[["Reservas","US$ "+fnum(k.reservas.valor,0)+" M",fecha(k.reservas.fecha)],
@@ -406,11 +362,13 @@ const DEF = {
     kpis:k=>[["Fondos federales",fnum(k.fed.valor,2)+"%","tasa efectiva de la Fed"],["Tesoro 10 años",fnum(k.ust10.valor,2)+"%","rendimiento · "+fecha(k.ust10.fecha)],
              ["Petróleo Brent","US$ "+fnum(k.brent.valor,1),`${fsig(k.brent_ytd)}% en el año`],["Soja","USc "+fnum(k.soja.valor,0),`por bushel · ${fsig(k.soja_ytd)}% en el año`]],
     tabs:[{n:"Tasas de EE.UU.", t:"Tasas de interés de Estados Unidos", st:"%, datos diarios", d:x=>x.tasas, tipo:"line", u:"%", dec:2, rango:"2A"},
-          {n:"Commodities", t:"Precios de commodities", st:"Índice base 100 = inicio del período elegido", d:x=>x.commodities, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
+          {n:"Commodities agrícolas", t:"Granos y derivados de la soja", st:"Bolsa de Chicago · índice base 100 = inicio del período elegido", d:x=>x.commodities, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
+          {n:"Metales", t:"Oro, plata y cobre", st:"Índice base 100 = inicio del período elegido", d:x=>x.metales, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
+          {n:"Petróleo y gas", t:"Petróleo y gas natural", st:"Índice base 100 = inicio del período elegido", d:x=>x.energia, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
           {n:"Monedas", t:"Dólar global y monedas", st:"Índice base 100 = inicio del período elegido", d:x=>x.monedas, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
           {n:"Bolsas", t:"Bolsas de EE.UU. y Brasil", st:"Índice base 100 = inicio del período elegido", d:x=>x.bolsas, tipo:"line", u:"", dec:1, rango:"1A", rebase:true},
           {n:"Países G20", t:"Países del G20", tipo:"g20", fuente:"FMI (World Economic Outlook)"}],
-    nota:"En commodities, monedas y bolsas cada serie arranca en 100 al inicio del período elegido, para comparar variaciones. En G20, los datos anuales son del FMI y desde el año en curso son proyecciones."},
+    nota:"En commodities, metales, petróleo y gas, monedas y bolsas cada serie arranca en 100 al inicio del período elegido, para comparar variaciones. En G20, los datos anuales son del FMI y desde el año en curso son proyecciones."},
 };
 
 // ---------- navegación ----------
@@ -560,6 +518,9 @@ function dibujarSolapa(){
     if (tab.bandas && tab.bandas.includes(n))
       return {label:n, data:ys, borderColor:"#b8874a", borderDash:[5,4], borderWidth:1.4, pointRadius:0, pointHoverRadius:3,
               backgroundColor:"rgba(184,135,74,.09)", fill:n===tab.bandas[0] ? "+1" : false, tension:0, spanGaps:false, order:3};
+    // tab.lineas: series que van en línea dentro de un gráfico de barras (delante de las barras)
+    if (tab.lineas && tab.lineas.includes(n))
+      return {type:"line", label:n, data:ys, borderColor:"#b8874a", backgroundColor:"#b8874a", borderWidth:2, pointRadius:0, pointHoverRadius:4, tension:0, spanGaps:true, order:0};
     // tab.barras: series que van en barras dentro de un gráfico de líneas (detrás de las líneas)
     if (tab.barras && tab.barras.includes(n))
       return {type:"bar", label:n, data:ys, backgroundColor:CSSV("--bar-soft"), borderWidth:0, borderRadius:3, order:2};
