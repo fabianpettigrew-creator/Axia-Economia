@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-11 11:27",
+ "actualizado": "2026-11-11 11:52",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -63,16 +63,14 @@
  ],
  "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": [
-  "AVISO: no se pudo bajar ipim (indec_api ipim): API del INDEC, sipm_precios_mayoristas: HTTP 503 {\"code\":\"PGRST002\",\"details\":null,\"hint\":null,\"message\":\"Could not query the database for the schema cache. Retrying.\"}",
-  "AVISO: no se pudo bajar ipib (indec_api ipib): API del INDEC, sipm_precios_mayoristas: HTTP 503 {\"code\":\"PGRST002\",\"details\":null,\"hint\":null,\"message\":\"Could not query the database for the schema cache. Retrying.\"}",
-  "AVISO: no se pudo bajar ipp (indec_api ipp): API del INDEC, sipm_precios_mayoristas: HTTP 503 {\"code\":\"PGRST002\",\"details\":null,\"hint\":null,\"message\":\"Could not query the database for the schema cache. Retrying.\"}",
-  "AVISO: no se pudo bajar icc (indec_api icc): API del INDEC, icc_precios_construccion: HTTP 503 {\"code\":\"PGRST002\",\"details\":null,\"hint\":null,\"message\":\"Could not query the database for the schema cache. Retrying.\"}",
-  "AVISO: no se pudo bajar icc_mat (indec_api icc_mat): API del INDEC, icc_precios_construccion: HTTP 503 {\"code\":\"PGRST002\",\"details\":null,\"hint\":null,\"message\":\"Could not query the database for the schema cache. Retrying.\"}",
-  "AVISO: no se pudo bajar icc_mo (indec_api icc_mo): API del INDEC, icc_precios_construccion: HTTP 503 {\"code\":\"PGRST002\",\"details\":null,\"hint\":null,\"message\":\"Could not query the database for the schema cache. Retrying.\"}",
-  "AVISO: no se pudo bajar icc_gg (indec_api icc_gg): API del INDEC, icc_precios_construccion: HTTP 503 {\"code\":\"PGRST002\",\"details\":null,\"hint\":null,\"message\":\"Could not query the database for the schema cache. Retrying.\"}",
-  "AVISO: no se pudo bajar cba (indec_api cba): API del INDEC, valorizacion_canastas_cba_cbt: HTTP 503 {\"code\":\"PGRST002\",\"details\":null,\"hint\":null,\"message\":\"Could not query the database for the schema cache. Retrying.\"}",
-  "AVISO: no se pudo bajar cbt (indec_api cbt): API del INDEC, valorizacion_canastas_cba_cbt: HTTP 503 {\"code\":\"PGRST002\",\"details\":null,\"hint\":null,\"message\":\"Could not query the database for the schema cache. Retrying.\"}",
-  "AVISO: la Secretaría de Energía no respondió (ConnectTimeout); se usa la copia energia_petroleo.csv",
-  "AVISO: la Secretaría de Energía no respondió (ConnectTimeout); se usa la copia energia_gas.csv"
+  "AVISO: no se pudo bajar ipim (indec_api ipim): API del INDEC, sipm_precios_mayoristas: HTTP 502 <html>",
+  "AVISO: no se pudo bajar ipib (indec_api ipib): API del INDEC, sipm_precios_mayoristas: HTTP 502 <html>",
+  "AVISO: no se pudo bajar ipp (indec_api ipp): API del INDEC, sipm_precios_mayoristas: HTTP 502 <html>",
+  "AVISO: no se pudo bajar icc (indec_api icc): API del INDEC, icc_precios_construccion: HTTP 502 <html>",
+  "AVISO: no se pudo bajar icc_mat (indec_api icc_mat): API del INDEC, icc_precios_construccion: HTTP 502 <html>",
+  "AVISO: no se pudo bajar icc_mo (indec_api icc_mo): API del INDEC, icc_precios_construccion: HTTP 502 <html>",
+  "AVISO: no se pudo bajar icc_gg (indec_api icc_gg): API del INDEC, icc_precios_construccion: HTTP 502 <html>",
+  "AVISO: no se pudo bajar cba (indec_api cba): API del INDEC, valorizacion_canastas_cba_cbt: HTTP 502 <html>",
+  "AVISO: no se pudo bajar cbt (indec_api cbt): API del INDEC, valorizacion_canastas_cba_cbt: HTTP 502 <html>"
  ]
 }
