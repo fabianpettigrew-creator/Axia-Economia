@@ -39,6 +39,7 @@ Fecha: 2026-11-09
 Tipo: Informe citado (Fabián Pettigrew para CAPeCA)
 Tipo EN: Report cited (Fabián Pettigrew for CAPeCA)
 Formato: gráfico
+Logo: forbes-argentina.png
 Enlace: https://www.forbesargentina.com/negocios/langostino-calamar-merluza-reyes-mar-argentino-generan-negocio-us-2000-millones-ano-n102074
 ---
 
