@@ -32,6 +32,16 @@
 # Las líneas que empiezan con # no se muestran en la web.
 # Si el archivo no tiene ningún bloque cargado, la sección no aparece en la web.
 
+Medio: Forbes Argentina
+Título: Langostino, calamar y merluza, los reyes del mar argentino que generan un negocio de US$ 2.000 millones al año
+Title: Shrimp, squid and hake, the kings of the Argentine sea that generate a US$2 billion business a year
+Fecha: 2026-11-09
+Tipo: Informe citado (Fabián Pettigrew para CAPeCA)
+Tipo EN: Report cited (Fabián Pettigrew for CAPeCA)
+Formato: gráfico
+Enlace: https://www.forbesargentina.com/negocios/langostino-calamar-merluza-reyes-mar-argentino-generan-negocio-us-2000-millones-ano-n102074
+---
+
 Medio: CAMPO total
 Título: Créditos: ¿un buen momento para financiarse?
 Title: Credit: is this a good time to borrow?
