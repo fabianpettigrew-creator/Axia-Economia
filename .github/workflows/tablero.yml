@@ -55,6 +55,9 @@ jobs:
       - name: Bajar datos y regenerar el tablero
         env:
           TZ: America/Argentina/Buenos_Aires
+          # Clave personal de la API del INDEC (secreto del repositorio). Si falta, el cliente
+          # la da por ausente y el tablero sigue con las otras fuentes, como hasta ahora.
+          INDEC_API_TOKEN: ${{ secrets.INDEC_API_TOKEN }}
         run: python tablero/actualizar_diario.py --sitio .. --sin-git
 
       - name: Publicar
