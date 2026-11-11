@@ -299,6 +299,44 @@ def capacidad() -> dict:
     return {clave: [_serie(x, filas, c)] for clave, c in cols.items()}
 
 
+RAMAS_BIENES = ["agricultura, ganaderia, caza y silvicultura", "pesca", "explotacion de minas y canteras",
+                "industria manufacturera", "electricidad, gas y agua", "construccion"]
+RAMAS_SERVICIOS = ["comercio mayorista, minorista y reparaciones", "hoteles y restaurantes",
+                   "transporte, almacenamiento y comunicaciones", "intermediacion financiera",
+                   "actividades inmobiliarias, empresariales y de alquiler", "administracion publica y defensa",
+                   "ensenanza", "servicios sociales y de salud",
+                   "otras actividades de servicios comunitarias, sociales y personales",
+                   "hogares privados con servicio domestico"]
+
+
+def vab_trimestral() -> dict:
+    """VAB a precios básicos por rama, millones de pesos de 2004, trimestral (Cuadro 3 de sh_VBP_VAB_MM_AA.xls).
+    Claves: nombre de la rama normalizado (las 16 letras de la CIIU), más 'bienes' y 'servicios' (suma de ramas).
+    Agregado el 02/11/2026: la API de datos.gob.ar devuelve vacías servicios, salud y otros servicios (6.2_*)."""
+    x = _excel(_vinculo("3/9/47", r"sh_VBP_VAB_\d\d_\d\d"), "Cuadro 3")
+    fila_anio = next(i for i in range(10) if any(re.match(r"^\d{4}", str(v)) for v in x.iloc[i, 1:]))
+    cols, anio = {}, None
+    for c in range(1, x.shape[1]):
+        m = re.match(r"^(\d{4})", str(x.iat[fila_anio, c]))
+        if m:
+            anio = int(m.group(1))
+        q = re.match(r"^([1-4])", _norm(x.iat[fila_anio + 1, c]))
+        if anio and q and "trim" in _norm(x.iat[fila_anio + 1, c]):
+            cols[c] = pd.Timestamp(anio, 3 * int(q.group(1)) - 2, 1)
+    ramas = {}
+    for i in range(fila_anio + 2, len(x)):
+        k = _norm(x.iat[i, 0])
+        if k.startswith("administracion publica y defensa"):
+            k = "administracion publica y defensa"
+        if k in RAMAS_BIENES + RAMAS_SERVICIOS and k not in ramas:
+            ramas[k] = pd.Series({f: pd.to_numeric(x.iat[i, c], errors="coerce") for c, f in cols.items()}).dropna().sort_index()
+    out = {k: [s] for k, s in ramas.items()}
+    for clave, lista in (("bienes", RAMAS_BIENES), ("servicios", RAMAS_SERVICIOS)):
+        if all(k in ramas for k in lista):
+            out[clave] = [pd.concat([ramas[k] for k in lista], axis=1).dropna().sum(axis=1)]
+    return out
+
+
 LECTORES = {"IPC": ipc, "EMAE": emae, "IPI, ISAC y supermercados": ipi_isac_super, "comercio exterior": comercio,
             "salarios": salarios, "EPH": eph, "pobreza": pobreza, "capacidad instalada": capacidad}
 

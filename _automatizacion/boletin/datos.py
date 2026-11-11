@@ -145,6 +145,42 @@ def api_argdatos(ruta: str) -> pd.Series:
     return s.sort_index()[DESDE:]
 
 
+# ---------- Secretaría de Energía: producción de petróleo y gas por cuenca y tipo de recurso (Capítulo IV)
+# Dos planillas chicas (unos 30 KB) que la SE actualiza cada mes en datos.energia.gob.ar, con la apertura
+# convencional / no convencional. En el catálogo el id es "archivo:columna", por ejemplo "petroleo:kbbl_diario".
+ENERGIA = {
+    "petroleo": "http://datos.energia.gob.ar/dataset/c846e79c-026c-4040-897f-1ad3543b407c/resource/"
+                "af8c50bb-fde0-43b7-98eb-7cd14daf586c/download/"
+                "serie-histrica-de-produccin-de-petrleo-por-cuenca-y-sub-tipo-de-recurso-captulo-iv-.csv",
+    "gas": "http://datos.energia.gob.ar/dataset/c846e79c-026c-4040-897f-1ad3543b407c/resource/"
+           "a3244ddd-38bc-4800-a700-360b649d2f3a/download/"
+           "serie-histrica-de-produccin-de-gas-natural-por-cuenca-y-sub-tipo-de-recurso-captulo-iv-.csv",
+}
+_ENERGIA: dict[str, pd.DataFrame] = {}   # cada planilla se baja una sola vez por corrida
+
+
+def api_energia(ident: str) -> pd.Series:
+    """Una columna de las planillas de producción de la Secretaría de Energía (mensual)."""
+    archivo, col = ident.split(":")
+    if archivo not in _ENERGIA:
+        r = _get(ENERGIA[archivo], {}, headers=H)
+        df = pd.read_csv(io.BytesIO(r.content), encoding="utf-8-sig")
+        df.index = pd.to_datetime(df["indice_tiempo"].astype(str) + "-01")
+        _ENERGIA[archivo] = df
+    return pd.to_numeric(_ENERGIA[archivo][col], errors="coerce").dropna()[DESDE:]
+
+
+# ---------- Datos cargados a mano (datos_locales/), para lo que no tiene descarga automática: por ejemplo la
+# producción minera que publica CAEM una vez por año. En el catálogo el id es "archivo:columna".
+DATOS_LOCALES = AQUI.parent / "datos_locales"
+
+
+def api_local(ident: str) -> pd.Series:
+    archivo, col = ident.split(":")
+    df = pd.read_csv(DATOS_LOCALES / archivo, comment="#", parse_dates=["fecha"]).set_index("fecha")
+    return pd.to_numeric(df[col], errors="coerce").dropna()
+
+
 def rem() -> pd.DataFrame:
     """Medianas de la última planilla del REM (BCRA): bloque, período, mediana."""
     html = requests.get("https://www.bcra.gob.ar/relevamiento-expectativas-mercado-rem/",
@@ -281,7 +317,9 @@ def descargar() -> pd.DataFrame:
         for clave, sid in ser.id.items():
             agregar(clave, df[sid])
     fetch = {"bcra": lambda i: api_bcra(int(i)), "fred": api_fred, "yahoo": api_yahoo,
-             "argdatos": api_argdatos, "libro": lambda i: pobreza(), "byma": lambda i: merval_msci()}
+             "argdatos": api_argdatos, "libro": lambda i: pobreza(), "byma": lambda i: merval_msci(),
+             "indec_api": lambda i: __import__("indec_api").serie(i),   # API del INDEC (02/11/2026)
+             "energia": api_energia, "local": api_local}                # Agro, Minería y Energía (10/11/2026)
     for clave, fila in cat[cat.fuente != "series"].iterrows():
         try:
             agregar(clave, fetch[fila.fuente](fila.id))

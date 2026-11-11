@@ -120,3 +120,45 @@ ucii_minerales,series,M,31.3_UMNM_2004_M_27,Minerales no metálicos,% de uso,cap
 ucii_metales,series,M,31.3_UIMB_2004_M_33,Metálicas básicas,% de uso,capacidad,INDEC
 ucii_automotriz,series,M,31.3_UV_2004_M_25,Automotriz,% de uso,capacidad,INDEC
 ucii_metalmec,series,M,31.3_UMNIA_2004_M_42,Metalmecánica sin automotriz,% de uso,capacidad,INDEC
+ipim,indec_api,M,ipim,Precios internos al por mayor (IPIM),índice dic-15=100,precios,INDEC
+ipib,indec_api,M,ipib,Precios internos básicos al por mayor (IPIB),índice dic-15=100,precios,INDEC
+ipp,indec_api,M,ipp,Precios básicos del productor (IPP),índice dic-15=100,precios,INDEC
+icc,indec_api,M,icc,Costo de la construcción (ICC) nivel general,índice ene-22=100,precios,INDEC
+icc_mat,indec_api,M,icc_mat,Costo de la construcción: materiales,índice ene-22=100,precios,INDEC
+icc_mo,indec_api,M,icc_mo,Costo de la construcción: mano de obra,índice ene-22=100,precios,INDEC
+icc_gg,indec_api,M,icc_gg,Costo de la construcción: gastos generales,índice ene-22=100,precios,INDEC
+cba,indec_api,M,cba,Canasta básica alimentaria (GBA),$ por adulto equivalente,precios,INDEC
+cbt,indec_api,M,cbt,Canasta básica total (GBA),$ por adulto equivalente,precios,INDEC
+aceite_soja,yahoo,D,ZL=F,Aceite de soja (Chicago),USc por libra,agro,Yahoo Finance
+harina_soja,yahoo,D,ZM=F,Harina de soja (Chicago),USD por tonelada corta,agro,Yahoo Finance
+xa_oleag,series,A,75.1_IESFO_0_A_45,Exportaciones de semillas y frutos oleaginosos,millones de USD,agro,INDEC
+xa_aceites,series,A,75.1_IGA_0_A_18,Exportaciones de grasas y aceites,millones de USD,agro,INDEC
+xa_harinas,series,A,75.1_IRDIA_0_A_47,Exportaciones de residuos de la industria alimenticia (harinas y pellets),millones de USD,agro,INDEC
+xa_cereales,series,A,75.1_IEC_0_A_26,Exportaciones de cereales,millones de USD,agro,INDEC
+xa_carnes,series,A,75.1_IC_0_A_10,Exportaciones de carnes,millones de USD,agro,INDEC
+cob_agro,series,M,184.1_BIENES_COBROS_0_M_36,Cobros de exportaciones del sector oleaginoso y cerealero,millones de USD,agro,BCRA
+prod_soja,series,A,AGRO_A_Soja_0003,Producción de soja,toneladas,agro,MAGyP
+prod_maiz,series,A,AGRO_A_Maiz_0003,Producción de maíz,toneladas,agro,MAGyP
+prod_trigo,series,A,AGRO_A_Trigo_0003,Producción de trigo,toneladas,agro,MAGyP
+prod_girasol,series,A,AGRO_A_Girasol_0003,Producción de girasol,toneladas,agro,MAGyP
+plata,yahoo,D,SI=F,Plata,USD por onza,mineria,Yahoo Finance
+cobre,yahoo,D,HG=F,Cobre,USD por libra,mineria,Yahoo Finance
+aluminio,yahoo,D,ALI=F,Aluminio,USD por tonelada,mineria,Yahoo Finance
+x_metprec,series,M,75.3_IPMP_0_M_29,Exportaciones de piedras y metales preciosos (oro y plata),millones de USD,mineria,INDEC
+cob_mineria,series,M,184.1_BIENES_COBRIA_0_M_21,Cobros de exportaciones de la minería,millones de USD,mineria,BCRA
+min_oro_prod,local,A,mineria_caem.csv:oro_prod,Producción de oro,miles de onzas,mineria,CAEM en base a reportes de empresas
+min_plata_prod,local,A,mineria_caem.csv:plata_prod,Producción de plata,millones de onzas,mineria,CAEM en base a reportes de empresas
+min_litio_prod,local,A,mineria_caem.csv:litio_prod,Producción de litio,miles de toneladas LCE,mineria,CAEM en base a reportes de empresas
+min_oro_expo,local,A,mineria_caem.csv:oro_expo,Exportaciones de oro,millones de USD,mineria,CAEM en base a Secretaría de Minería
+min_plata_expo,local,A,mineria_caem.csv:plata_expo,Exportaciones de plata,millones de USD,mineria,CAEM en base a Secretaría de Minería
+min_litio_expo,local,A,mineria_caem.csv:litio_expo,Exportaciones de litio,millones de USD,mineria,CAEM en base a Secretaría de Minería
+min_litio_precio,local,A,mineria_caem.csv:litio_precio,Precio de exportación del litio,miles de USD por tonelada LCE,mineria,CAEM en base a Secretaría de Minería
+wti,yahoo,D,CL=F,Petróleo WTI,USD por barril,energia,Yahoo Finance
+gas_hh,yahoo,D,NG=F,Gas natural Henry Hub,USD por MMBtu,energia,Yahoo Finance
+pet_kbbl,energia,M,petroleo:kbbl_diario,Producción de petróleo,miles de barriles por día,energia,Secretaría de Energía
+pet_noconv,energia,M,petroleo:part_no_conv,Petróleo no convencional,% de la producción,energia,Secretaría de Energía
+gas_diario,energia,M,gas:produccion_gas_natural_total_diario,Producción de gas natural,millones de m3 por día,energia,Secretaría de Energía
+gas_noconv,energia,M,gas:participacion_no_convencional,Gas no convencional,% de la producción,energia,Secretaría de Energía
+x_crudo,series,M,75.3_IPC_0_M_18,Exportaciones de petróleo crudo,millones de USD,energia,INDEC
+cob_petroleo,series,M,184.1_BIENES_COBLEO_0_M_22,Cobros de exportaciones del sector petrolero,millones de USD,energia,BCRA
+cob_gas,series,M,184.1_BIENES_COBON_0_M_56,Cobros de exportaciones del sector gas,millones de USD,energia,BCRA

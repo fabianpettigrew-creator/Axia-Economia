@@ -14,6 +14,9 @@ Pasos: 1) vintage del día del Boletín (APIs), 2) preparar_datos.py, 3) control
 En la computadora deja un registro en tablero/logs/AAAA-MM-DD.log (se guardan los últimos 30).
 """
 from __future__ import annotations
+# --- Raiz de OneDrive: B:\Onedrive en pc-casa, C:\Users\fmpet\OneDrive en la notebook ---
+from pathlib import Path as _Path
+ONEDRIVE = next((_p for _p in (_Path(r"B:\Onedrive"), _Path.home() / "OneDrive") if _p.is_dir()), _Path(r"B:\Onedrive"))
 
 import argparse
 import datetime as dt
@@ -26,7 +29,7 @@ import traceback
 from pathlib import Path
 
 AQUI = Path(__file__).parent
-SITIO = Path("B:/Onedrive/Logos/Fabian Pettigrew/Sitio web AXIA")
+SITIO = Path(str(ONEDRIVE / r"Logos/Fabian Pettigrew/Sitio web AXIA"))
 LOGS = AQUI / "logs"
 SEMILLA = AQUI.parent / "semilla"   # solo en _automatizacion/: último vintage conocido, para el primer uso en GitHub
 sys.path.insert(0, str(AQUI.parent / "boletin"))

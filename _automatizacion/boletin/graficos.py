@@ -246,7 +246,7 @@ def columnas_grupo(cats: list[str], series: list[dict], unidad="%", alto=230, an
 
 def barras_h(cats: list[str], vals: list[float], unidad="%", ancho=640, dec=1, titulo_aria="",
              notas: dict | None = None, ml=230) -> str:
-    """Barras horizontales con polaridad (azul positivo, rojo negativo), ordenadas."""
+    """Barras horizontales con polaridad (verde positivo, teja negativo, como pide el manual de marca), ordenadas."""
     notas = notas or {}
     fila = 22
     mr, mt, mb = 60, 6, 22

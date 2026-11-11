@@ -432,6 +432,7 @@ def valores_laboral(c) -> dict:
     sp = d["sipa_priv"].dropna()
     ts = sp.index[-1]
     v["sipa_mes"] = C.mes(ts)
+    v["sipa_mes_c"] = C.mes(ts, corto=True)
     v["sipa_priv"] = C.num(sp.iloc[-1], 0) + " mil"
     dif = sp.iloc[-1] - sp.iloc[-13]
     v["sipa_priv_var12"] = C.num(dif, 0, True) + " mil"
@@ -493,7 +494,7 @@ def html_laboral(c) -> str:
                     "Sector registrado. No incluye el índice de salarios no registrados, que refleja con 5 meses de rezago.")
             + c.M("laboral_2")
             + N.fig("Empleo asalariado registrado en el sector privado", "Miles de personas, serie sin estacionalidad", g_sipa,
-                    "Axia en base a datos del SIPA (Ministerio de Capital Humano)")
+                    "AXIA en base a datos del SIPA (Ministerio de Capital Humano)")
             + N.cuadro("Principales tasas del mercado de trabajo", "% de la población, 31 aglomerados urbanos", G_tabla(filas, col),
                        c.fuente(["eph_desoc"]))
             + c.M("laboral_3")
@@ -558,10 +559,10 @@ def html_internacional(c) -> str:
             + N.fig("Tasas de interés de Estados Unidos", "%, datos diarios", g_tasas, c.fuente(["fed"]))
             + c.M("internacional_2")
             + N.fig("Precios internacionales de commodities", f"Índice 31-dic-{str(hoy.year - 1)[2:]} = 100, datos diarios", g_com,
-                    "Axia en base a datos de CME Group y ICE (vía Yahoo Finance)")
+                    "AXIA en base a datos de CME Group y ICE (vía Yahoo Finance)")
             + N.cuadro("Mercados internacionales", f"Último dato al {C.fecha_larga(hoy)}",
                        G_tabla(filas, ["Último", "Var. 1 mes", "Var. en el año", "Var. 12 meses"]),
-                       "Axia en base a datos de la Reserva Federal (FRED) y Yahoo Finance",
+                       "AXIA en base a datos de la Reserva Federal (FRED) y Yahoo Finance",
                        "Tasas: variaciones en puntos porcentuales. Resto: variaciones %.")
             + c.pyme("internacional_pyme"))
 
@@ -624,13 +625,13 @@ def html_mercados(c) -> str:
                       [C.num(d[k].dropna().iloc[-1], 0), C.num(m1, 1, True), C.num(ytd, 1, True), C.num(a12, 1, True)], ""))
     return (c.M("mercados_1")
             + N.fig("Riesgo país", "Puntos básicos (EMBI Argentina), datos diarios", g_r,
-                    "Axia en base a datos de JP Morgan (vía ArgentinaDatos)")
+                    "AXIA en base a datos de JP Morgan (vía ArgentinaDatos)")
             + c.M("mercados_2")
             + N.fig("S&P Merval en dólares", "Índice convertido al dólar contado con liquidación", g_m,
-                    "Axia en base a datos de BYMA y ArgentinaDatos")
+                    "AXIA en base a datos de BYMA y ArgentinaDatos")
             + N.cuadro("Acciones líderes", "Precio en pesos y rendimiento % en dólares CCL",
                        G_tabla(filas, ["Precio ($)", "1 mes", "En el año", "12 meses"]),
-                       "Axia en base a datos de BYMA (vía Yahoo Finance) y ArgentinaDatos",
+                       "AXIA en base a datos de BYMA (vía Yahoo Finance) y ArgentinaDatos",
                        "Precios ajustados por dividendos y splits. Ordenado por rendimiento en el año.")
             + c.pyme("mercados_pyme"))
 
@@ -708,11 +709,11 @@ def html_proyecciones(c) -> str:
         mod = [D[t]["combinado"] for t in trims] + [D[str(y)]["combinado"], D[str(y + 1)]["combinado"]]
         remv = [D[t]["rem"] for t in trims] + [rem(R, "PIB a precios constantes", y), rem(R, "PIB a precios constantes", y + 1)]
         remv = [None if (x is None or pd.isna(x)) else float(x) for x in remv]
-        g = G.columnas_grupo(cats, [{"nombre": "Modelo Axia", "v": [float(x) for x in mod], "color": "var(--s1)"},
+        g = G.columnas_grupo(cats, [{"nombre": "Modelo AXIA", "v": [float(x) for x in mod], "color": "var(--s1)"},
                                     {"nombre": "REM (mediana)", "v": remv, "color": "var(--s2)"}],
                              titulo_aria="Pronósticos del PIB: modelo Axia y REM")
         partes.append(N.fig("Pronósticos de crecimiento del PIB", "Var. % trimestral desestacionalizada y var. % anual",
-                            g, "Axia en base a modelo propio y REM del BCRA",
+                            g, "AXIA en base a modelo propio y REM del BCRA",
                             f"Modelo Axia: combinación de modelos autorregresivo, puente con el EMAE y de factores dinámicos (corte {C.mes(c.modelo['corte'], corto=True)})."))
     obs = C.var(d["ipc"]).dropna()[-13:]
     tray = R[R.bloque.str.contains("IPC nivel general") & R.periodo.str.match(r"^\d{4}-\d{2}$")].sort_values("periodo")
@@ -724,7 +725,7 @@ def html_proyecciones(c) -> str:
                      titulo_aria="Inflación mensual observada y esperada", leyenda=True)
     partes.append(c.M("proyecciones_2"))
     partes.append(N.fig("Inflación mensual: observada y esperada", "IPC nacional, var. % mensual", g_ipc,
-                        "Axia en base a datos de INDEC y REM del BCRA", "Esperada: mediana del REM."))
+                        "AXIA en base a datos de INDEC y REM del BCRA", "Esperada: mediana del REM."))
     filas = []
     for b, n, dec, div in REM_TABLA:
         vals = []
@@ -739,7 +740,7 @@ def html_proyecciones(c) -> str:
         D = c.modelo["datos"]
         filas.insert(1, ("PIB · Modelo Axia <small>(var. % real)</small>", [C.num(D[str(y)]["combinado"], 1), C.num(D[str(y + 1)]["combinado"], 1)], "sub"))
     partes.append(N.cuadro("Expectativas macroeconómicas", f"Mediana del REM del BCRA ({c.v['rem_edicion']})",
-                           G_tabla(filas, [str(y), str(y + 1)]), "Axia en base a REM del BCRA y modelo propio"))
+                           G_tabla(filas, [str(y), str(y + 1)]), "AXIA en base a REM del BCRA y modelo propio"))
     partes.append(c.pyme("proyecciones_pyme"))
     return "".join(partes)
 

@@ -1,0 +1,17 @@
+# Producción y exportaciones mineras, anuales. Fuente: CAEM, Informe productivo de la minería argentina
+# (mayo 2026, datos 2025), en base a reportes de empresas y a la Secretaría de Minería. Se carga a mano
+# una vez por año, cuando sale el informe. Unidades: oro_prod miles de onzas; plata_prod millones de onzas;
+# litio_prod miles de toneladas LCE; *_expo millones de USD; litio_precio miles de USD por tonelada LCE.
+fecha,oro_prod,oro_expo,plata_prod,plata_expo,litio_prod,litio_expo,litio_precio
+2014-01-01,1894,1769,,444,,,
+2015-01-01,2038,2275,,431,,91,4.6
+2016-01-01,1836,2039,,449,30.0,192,6.7
+2017-01-01,1930,2258,,450,30.5,224,7.5
+2018-01-01,1865,2203,32.71,389,34.1,275,8.6
+2019-01-01,1626,2156,33.84,623,33.7,195,6.1
+2020-01-01,1120,1763,23.96,592,31.1,129,4.5
+2021-01-01,1183,2006,27.69,835,31.8,208,6.7
+2022-01-01,1304,2159,28.87,802,35.0,696,22.8
+2023-01-01,1238,2294,26.43,678,45.9,835,27.5
+2024-01-01,1259,3141,23.97,641,74.6,631,12.2
+2025-01-01,1184,4094,22.1,785,116.6,911,8.7

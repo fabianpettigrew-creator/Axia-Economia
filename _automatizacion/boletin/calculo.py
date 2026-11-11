@@ -185,20 +185,44 @@ def indicadores(d: dict[str, pd.Series], cat: pd.DataFrame) -> dict:
     v["rem12_hace6"] = pct(hace6.iloc[-1], signo=False) if len(hace6) else "s.d."
     v["rem12_hace6_mes"] = mes(hace6.index[-1], anio=False) if len(hace6) else "s.d."
 
+    # Precios mayoristas, construcción y canastas (API del INDEC, desde nov-26; ediciones viejas no las tienen)
+    if all(k in d and len(d[k].dropna()) > 13 for k in ("ipim", "ipib", "ipp", "icc", "cba", "cbt")):
+        for k in ("ipim", "ipib", "ipp", "icc", "icc_mat", "icc_mo", "icc_gg", "cba", "cbt"):
+            s = d[k].dropna()
+            v[f"{k}_mm"] = pct(var(s).iloc[-1])
+            v[f"{k}_mm_ant"] = pct(var(s).iloc[-2])
+            v[f"{k}_ia"] = pct(ia(s).iloc[-1], signo=False)
+            v[f"{k}_acum"] = pct(acum_anio(s).iloc[-1], signo=False)
+        v["may_mes"] = mes(ult(d["ipim"]))
+        v["icc_mes"] = mes(ult(d["icc"]))
+        v["can_mes"] = mes(ult(d["cbt"]))
+        v["cba_valor"] = "$ " + num(d["cba"].dropna().iloc[-1], 0)
+        v["cbt_valor"] = "$ " + num(d["cbt"].dropna().iloc[-1], 0)
+        # comparaciones con el IPC en el mismo mes (el último en común)
+        t = min(ult(d["ipim"]), ult(p))
+        v["ipim_vs_ipc_ia"] = num(ia(d["ipim"])[t] - ia(p)[t], 1, True) + " p.p."
+        v["icc_vs_ipc_ia"] = num(ia(d["icc"])[t] - ia(p)[t], 1, True) + " p.p." if t in d["icc"].index else "s.d."
+        tc = min(ult(d["cbt"]), ult(p))
+        v["cbt_vs_ipc_mm"] = num(var(d["cbt"])[tc] - var(p)[tc], 1, True) + " p.p."
+        v["cbt_vs_ipc_ia"] = num(ia(d["cbt"])[tc] - ia(p)[tc], 1, True) + " p.p."
+
     # Laboral, externo, fiscal, monetario (tablero)
     w = d["salarios"]
     v["sal_ia"] = pct(ia(w).iloc[-1], signo=False)
     v["sal_real_ia"] = pct(real(ia(w), p).iloc[-1])
     v["sal_mes"] = mes(ult(w))
+    v["sal_mes_c"] = mes(ult(w), corto=True)
     sal = (d["expo"] - d["impo"]).dropna()
     v["saldo_com"] = "US$ " + num(sal.iloc[-1], 0) + " M"
     v["saldo_com_acum"] = "US$ " + num(sal[sal.index.year == sal.index[-1].year].sum(), 0) + " M"
     v["expo_ia"] = pct(ia(d["expo"]).iloc[-1])
     v["impo_ia"] = pct(ia(d["impo"]).iloc[-1])
     v["com_mes"] = mes(ult(sal))
+    v["com_mes_c"] = mes(ult(sal), corto=True)
     rec = d["recaudacion"] * 100
     v["rec_ia"] = pct(rec.iloc[-1])
     v["rec_mes"] = mes(ult(rec))
+    v["rec_mes_c"] = mes(ult(rec), corto=True)
     tc = d["tc_may"]
     tcm = mensual(tc)
     v["tc"] = "$ " + num(tc.iloc[-1], 2)
