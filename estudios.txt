@@ -53,6 +53,17 @@
 # Las líneas que empiezan con # no se muestran en la web.
 # No nombres clientes sin su permiso.
 
+Título: Los estratos socioeconómicos, del 3T-2025 al 2T-2026
+Title: Socioeconomic strata, Q3 2025 to Q2 2026
+Año: 2026
+Sector: Consumo y comercio minorista
+Sector EN: Consumer and retail
+Resumen: Cuántos hogares hay en cada estrato socioeconómico y cuánto ingresan, trimestre a trimestre. Entre el tercer trimestre de 2025 y el segundo de 2026 el ingreso real del hogar cayó 12,6% y, con umbrales de ingreso fijos en términos reales, el estrato Marginal sumó 789 mil hogares mientras el Medio y el Medio Bajo perdieron 917 mil. Sobre la Encuesta Permanente de Hogares del INDEC, con el ingreso corregido por subdeclaración.
+Summary: How many households are in each socioeconomic stratum and how much they earn, quarter by quarter. Between Q3 2025 and Q2 2026 real household income fell 12.6% and, with income thresholds fixed in real terms, the Marginal stratum gained 789,000 households while the Middle and Lower-middle strata lost 917,000. Based on INDEC's household survey, with income adjusted for under-reporting.
+Imagen: estratos-socioeconomicos.webp
+Visor: estratos-socioeconomicos
+---
+
 Título: Canasta del hogar porteño: monitor semanal de precios
 Title: Buenos Aires household basket: weekly price monitor
 Año: 2026
