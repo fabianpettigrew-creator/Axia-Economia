@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-11 00:11",
+ "actualizado": "2026-11-11 11:18",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -63,6 +63,16 @@
  ],
  "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": [
-  "AVISO: no se pudo leer el indice de BYMA: list index out of range"
+  "AVISO: no se pudo bajar ipim (indec_api ipim): falta la clave de la API del INDEC (variable de entorno INDEC_API_TOKEN)",
+  "AVISO: no se pudo bajar ipib (indec_api ipib): falta la clave de la API del INDEC (variable de entorno INDEC_API_TOKEN)",
+  "AVISO: no se pudo bajar ipp (indec_api ipp): falta la clave de la API del INDEC (variable de entorno INDEC_API_TOKEN)",
+  "AVISO: no se pudo bajar icc (indec_api icc): falta la clave de la API del INDEC (variable de entorno INDEC_API_TOKEN)",
+  "AVISO: no se pudo bajar icc_mat (indec_api icc_mat): falta la clave de la API del INDEC (variable de entorno INDEC_API_TOKEN)",
+  "AVISO: no se pudo bajar icc_mo (indec_api icc_mo): falta la clave de la API del INDEC (variable de entorno INDEC_API_TOKEN)",
+  "AVISO: no se pudo bajar icc_gg (indec_api icc_gg): falta la clave de la API del INDEC (variable de entorno INDEC_API_TOKEN)",
+  "AVISO: no se pudo bajar cba (indec_api cba): falta la clave de la API del INDEC (variable de entorno INDEC_API_TOKEN)",
+  "AVISO: no se pudo bajar cbt (indec_api cbt): falta la clave de la API del INDEC (variable de entorno INDEC_API_TOKEN)",
+  "AVISO: la Secretaría de Energía no respondió (ConnectTimeout); se usa la copia energia_petroleo.csv",
+  "AVISO: la Secretaría de Energía no respondió (ConnectTimeout); se usa la copia energia_gas.csv"
  ]
 }
