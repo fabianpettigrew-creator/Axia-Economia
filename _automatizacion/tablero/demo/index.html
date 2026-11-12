@@ -523,12 +523,12 @@ function dibujarSolapa(){
               backgroundColor:"rgba(184,135,74,.09)", fill:n===tab.bandas[0] ? "+1" : false, tension:0, spanGaps:false, order:3};
     // tab.lineas: series que van en línea dentro de un gráfico de barras (delante de las barras)
     if (tab.lineas && tab.lineas.includes(n))
-      return {type:"line", label:n, data:ys, borderColor:"#b8874a", backgroundColor:"#b8874a", borderWidth:2, pointRadius:0, pointHoverRadius:4, tension:0, spanGaps:true, order:0};
+      return {type:"line", label:n, data:ys, borderColor:"#b8874a", backgroundColor:"#b8874a", borderWidth:2.75, pointRadius:0, pointHoverRadius:4, tension:0, spanGaps:true, order:0};
     // tab.barras: series que van en barras dentro de un gráfico de líneas (detrás de las líneas)
     if (tab.barras && tab.barras.includes(n))
       return {type:"bar", label:n, data:ys, backgroundColor:CSSV("--bar-soft"), borderWidth:0, borderRadius:3, order:2};
     return {label:n, data:ys, borderColor:colL?colL[n]:cols[j], backgroundColor:tab.tipo==="bar"?barCol:(colL?colL[n]:cols[j]),
-            borderWidth:tab.tipo==="bar"?0:2, pointRadius:0, pointHoverRadius:4, tension:0, spanGaps:true, borderRadius:tab.tipo==="bar"?3:0, order:1};
+            borderWidth:tab.tipo==="bar"?0:2.75, pointRadius:0, pointHoverRadius:4, tension:0, spanGaps:true, borderRadius:tab.tipo==="bar"?3:0, order:1};
   });
   grafico = new Chart(ctx, {type:tab.tipo, data:{labels:etiquetas, datasets:sets},
     options:{...base, interaction:{mode:"index", intersect:false},
@@ -702,7 +702,7 @@ function dibujarBrechas(B){
     tit.innerHTML = `Precios relativos: componente / nivel general<small>${lugar} · base ${BASES[g.base]} = 100 · por encima de 100, el componente se encareció más que el promedio · tocá la leyenda para ocultar series</small>`;
     lienzo.style.height = "";
     const sets = cs.map((c,k)=>({label:c, data:xs.map((_,i)=>R.comp[c][b+i]==null || R.comp[c][b]==null ? null : R.comp[c][b+i]/R.comp[c][b] / (R.general[b+i]/R.general[b]) * 100), spanGaps:true,
-      borderColor:B_COL[k%B_COL.length], backgroundColor:B_COL[k%B_COL.length], borderWidth:2, pointRadius:0, pointHoverRadius:4, tension:0}));
+      borderColor:B_COL[k%B_COL.length], backgroundColor:B_COL[k%B_COL.length], borderWidth:2.75, pointRadius:0, pointHoverRadius:4, tension:0}));
     sets.push({label:"Nivel general", data:xs.map(()=>100), borderColor:"#9aa0a8", borderDash:[5,4], borderWidth:1.5, pointRadius:0, pointHoverRadius:0});
     grafico = new Chart(ctx, {type:"line", data:{labels:xs, datasets:sets},
       options:{responsive:true, maintainAspectRatio:false, animation:{duration:250}, interaction:{mode:"index", intersect:false},
