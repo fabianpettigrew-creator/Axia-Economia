@@ -23,15 +23,40 @@
   html{scroll-behavior:smooth;background:#f7f4ee}
   body{background:#f7f4ee;color:#232b3b;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
   ul{list-style:none}
-  a{color:#b8874a;text-decoration:none}
+  a{color:#845b2c;text-decoration:none}
   a:hover{color:#8f6531}
-  .scp0:hover{color:#b8874a !important}
-  .scp1:hover{border-color:#b8874a !important;color:#b8874a !important}
+  .scp0:hover{color:#845b2c !important}
+  .scp1:hover{border-color:#b8874a !important;color:#845b2c !important}
   .scp2:hover{background:#b8874a !important;color:#fff !important}
   [data-en]{display:none}
   html[data-lang="en"] [data-es]{display:none}
   html[data-lang="en"] [data-en]{display:revert}
   [hidden]{display:none !important}
+
+  /* Menú: hasta 1040 px los enlaces van en un panel que abre el botón Menú */
+  #nav-enlaces{display:flex;align-items:center;gap:inherit}
+  #menu-btn{display:none}
+  @media (max-width:1040px){
+    #menu-btn{display:inline-flex;align-items:center;gap:9px;border:1px solid #273146;background:transparent;border-radius:2px;
+      padding:7px 12px;color:#f2ede4;font:inherit;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+    #menu-btn:hover{border-color:#c99a5f;color:#ddb27a}
+    #menu-btn .m-cerrar{display:none}
+    header.menu-abierto #menu-btn .m-abrir{display:none}
+    header.menu-abierto #menu-btn .m-cerrar{display:inline}
+    #nav-enlaces{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
+      background:#151d2b;border-bottom:1px solid #273146;padding:6px clamp(20px,5vw,56px) 18px;
+      max-height:calc(100vh - 64px);overflow:auto;box-shadow:0 18px 30px rgba(10,14,22,.35)}
+    header.menu-abierto #nav-enlaces{display:flex}
+    #nav-enlaces a{display:flex !important;align-items:center;gap:9px;font-size:16px !important;padding:14px 0;border-bottom:1px solid #273146}
+    #nav-enlaces a:last-child{border-bottom:0}
+  }
+  @media (max-width:760px){
+    header > div{height:64px !important}
+    header a[aria-label="AXIA"] img{width:140px !important;margin:-13px -12px -13px -9px !important}
+  }
+  /* Foco de teclado visible y de la marca */
+  :focus-visible{outline:2px solid #b8874a;outline-offset:3px}
+  header :focus-visible,footer :focus-visible,#inicio :focus-visible{outline-color:#c99a5f}
 
   /* Celular */
   /* el enlace Experiencia se oculta en pantallas medias para que el menú no se desborde */
@@ -41,12 +66,7 @@
   /* antes de esconder nada, el menu se achica */
   @media (max-width:1180px){ header nav{gap:15px !important} header nav a{font-size:13.5px !important} }
   @media (max-width:1080px){ header nav{gap:12px !important} header nav a{font-size:12.5px !important} }
-  @media (max-width:1040px){ .ax-nav-extra{display:none !important} }
-  @media (max-width:900px){ header nav a{font-size:12px !important} header nav{gap:10px !important} }
-  /* con Partners en el menu, entre 760 y 820 px hace falta un escalon mas */
-  @media (max-width:820px){ header nav a{font-size:11.5px !important} header nav{gap:7px !important} }
   @media (max-width:760px){
-    nav a{display:none !important}
     [style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr) !important}
     [style*="clamp(48px, 6vw, 86px)"],[style*="clamp(48px,6vw,86px)"]{grid-template-columns:40px minmax(0,1fr) !important;row-gap:10px !important}
     [style*="clamp(48px, 6vw, 86px)"] > :last-child,[style*="clamp(48px,6vw,86px)"] > :last-child{grid-column:2}
@@ -73,7 +93,7 @@
   #vs-num{flex:0 0 auto;font-size:13px;letter-spacing:.06em;color:#9aa4b6;font-variant-numeric:tabular-nums}
   .vs-b{flex:0 0 auto;width:38px;height:38px;background:none;border:1px solid rgba(255,255,255,.22);
         border-radius:2px;color:#dfe4ec;font:inherit;font-size:18px;line-height:1;cursor:pointer}
-  .vs-b:hover{border-color:#b8874a;color:#b8874a}
+  .vs-b:hover{border-color:#b8874a;color:#c99a5f}
   .vs-b[disabled]{opacity:.28;cursor:default;border-color:rgba(255,255,255,.14);color:#dfe4ec}
   #vs-esc{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;
           gap:clamp(6px,2vw,18px);padding:clamp(10px,2vw,22px);background:#2c3446}
@@ -107,6 +127,7 @@
     html.vs-open #vs-print{display:block;padding:48px;font-family:Georgia,serif;font-size:15px;color:#1a2233}
   }
   header .scp0:hover,footer .scp0:hover{color:#ddb27a !important}
+  header .scp1:hover{border-color:#c99a5f !important;color:#ddb27a !important}
   #inicio .scp2:hover{background:#ddb27a !important;color:#151d2b !important}
 
   /* WhatsApp flotante */
@@ -177,10 +198,10 @@ body{hanging-punctuation:first last}
 /* la franja de datos */
 #pulso .dato{border-left:1px solid #ddd6c9;padding-left:clamp(12px,1.6vw,20px)}
 #pulso .dato:first-child{border-left:0;padding-left:0}
-#pulso .rotulo{display:block;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6a7382}
+#pulso .rotulo{display:block;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#5a6271}
 #pulso .cifra{display:block;font-family:'Sora', Arial, sans-serif;font-size:clamp(20px,2.26vw,28px);line-height:1.1;color:#1a2233;margin:7px 0 3px;font-weight:600;letter-spacing:-0.015em}
-#pulso .periodo{display:block;font-size:11.5px;color:#6a7382}
-.pulso-ir:hover .cifra{color:#b8874a}
+#pulso .periodo{display:block;font-size:11.5px;color:#5a6271}
+.pulso-ir:hover .cifra{color:#845b2c}
 @media (max-width:900px){
   #pulso > div{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
   #pulso .dato:nth-child(3){border-left:0;padding-left:0}
@@ -198,7 +219,8 @@ body{hanging-punctuation:first last}
       <a href="#inicio" aria-label="AXIA" style="display: flex; align-items: center; text-decoration: none;">
         <img src="marca/logo-axia-horizontal-negativo.png" width="180" height="99" alt="AXIA Consultora Económica" style="display:block;width:180px;height:auto;margin:-16px -16px -16px -11px">
       </a>
-      <nav style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px);">
+      <nav aria-label="Principal" style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px);">
+        <div id="nav-enlaces">
         <a href="#boletin" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Panorama</span><span data-en>Panorama</span></a>
         <a href="tablero/" class="scp0 ax-monitor" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span class="ax-vivo" aria-hidden="true"></span><span class="ax-brillo"><span data-es>Monitor Macro</span><span data-en>Macro Monitor</span></span></a>
         <a href="#estudios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Estudios</span><span data-en>Studies</span></a>
@@ -208,9 +230,23 @@ body{hanging-punctuation:first last}
         <a href="#trayectoria" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Equipo</span><span data-en>Team</span></a>
         <a href="#partners" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Partners</span><span data-en>Partners</span></a>
         <a href="#contacto" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Contacto</span><span data-en>Contact</span></a>
+        </div>
+        <button id="menu-btn" type="button" aria-expanded="false" aria-controls="nav-enlaces"><svg class="m-abrir" width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path d="M0 1h16M0 6h16M0 11h16" stroke="currentColor" stroke-width="1.5"/></svg><svg class="m-cerrar" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5"/></svg><span data-es>Menú</span><span data-en>Menu</span></button>
         <button id="lang" type="button" class="scp1" style="border: 1px solid #273146; background: transparent; border-radius: 2px; padding: 6px 11px; font-style: inherit; font-variant: inherit; font-weight: 600; font-stretch: inherit; font-size: 11px; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; letter-spacing: 0.14em; color: #f2ede4; cursor: pointer;"><span data-es>EN</span><span data-en>ES</span></button>
       </nav>
     </div>
+    <script>
+    (function(){
+      var h = document.currentScript.closest('header'), b = document.getElementById('menu-btn');
+      if (!h || !b) return;
+      function poner(abrir){ h.classList.toggle('menu-abierto', abrir); b.setAttribute('aria-expanded', abrir ? 'true' : 'false'); }
+      b.addEventListener('click', function(){ poner(!h.classList.contains('menu-abierto')); });
+      document.getElementById('nav-enlaces').addEventListener('click', function(e){ if (e.target.closest('a')) poner(false); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && h.classList.contains('menu-abierto')) { poner(false); b.focus(); } });
+      document.addEventListener('click', function(e){ if (!h.contains(e.target)) poner(false); });
+      window.addEventListener('resize', function(){ if (window.innerWidth > 1040) poner(false); });
+    })();
+    </script>
   </header>
 
   <main>
@@ -228,7 +264,7 @@ body{hanging-punctuation:first last}
             <span data-en>We help companies and organizations anticipate the economic outlook, understand their markets, assess investments and compete in international trade.</span>
           </p>
           <a href="#contacto" class="scp2" style="display: inline-flex; align-items: center; gap: 12px; margin-top: clamp(28px, 3.6vw, 44px); padding: 15px 28px; background: #c99a5f; color: #151d2b; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border-radius: 2px;">
-            <span data-es>Hablemos</span><span data-en>Get in touch</span>
+            <span data-es>Escríbanos</span><span data-en>Get in touch</span>
             <span aria-hidden="true" style="font-size: 15px;">→</span>
           </a>
         </div>
@@ -238,7 +274,7 @@ body{hanging-punctuation:first last}
             <span style="display: block; margin-top: 6px; font-size: 12.5px; color: #c3cad6;"><span data-es>años de experiencia profesional</span><span data-en>years of professional experience</span></span>
           </li>
           <li>
-            <span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 27px; line-height: 1; color: #f2ede4;font-weight:600;letter-spacing:-0.015em">05</span>
+            <span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 27px; line-height: 1; color: #f2ede4;font-weight:600;letter-spacing:-0.015em">5</span>
             <span style="display: block; margin-top: 6px; font-size: 12.5px; color: #c3cad6;"><span data-es>líneas de trabajo</span><span data-en>practice areas</span></span>
           </li>
           <li style="border-top: 1px solid #273146; padding-top: 18px;">
@@ -253,8 +289,8 @@ body{hanging-punctuation:first last}
       <div style="max-width:1160px;margin:0 auto;padding:clamp(20px,2.4vw,28px) clamp(20px,5vw,56px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:clamp(12px,2vw,30px);align-items:center">
         <div id="pulso-datos" style="display:contents"></div>
         <a href="tablero/" class="pulso-ir" style="justify-self:end;text-align:right;text-decoration:none;color:#1a2233">
-          <span style="display:block;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#b8874a"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span> <span aria-hidden="true">&#8594;</span></span>
-          <span id="pulso-hora" style="display:block;font-size:11.5px;color:#6a7382;margin-top:5px"></span>
+          <span style="display:block;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#845b2c"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span> <span aria-hidden="true">&#8594;</span></span>
+          <span id="pulso-hora" style="display:block;font-size:11.5px;color:#5a6271;margin-top:5px"></span>
         </a>
       </div>
     </section>
@@ -263,7 +299,7 @@ body{hanging-punctuation:first last}
       <div style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 116px) clamp(20px, 5vw, 56px);">
         <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
           <div>
-            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Panorama AXIA</span><span data-en>Panorama AXIA</span></span>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #845b2c; margin-bottom: 18px;"><span data-es>Panorama AXIA</span><span data-en>Panorama AXIA</span></span>
             <h2 id="bol-edicion" style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(25px, 3.28vw, 41px); line-height: 1.08; letter-spacing: -0.01em;"></h2>
           </div>
           <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
@@ -275,17 +311,17 @@ body{hanging-punctuation:first last}
           <div>
             <h3 id="bol-titular" style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(19px, 1.87vw, 25px); line-height: 1.16; text-wrap: balance;;letter-spacing:-0.015em"></h3>
             <p id="bol-bajada" style="margin-top: 16px; font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"></p>
-            <span id="bol-corte" style="display: block; margin-top: 14px; font-size: 12.5px; color: rgb(106, 115, 130);"></span>
+            <span id="bol-corte" style="display: block; margin-top: 14px; font-size: 12.5px; color: #5a6271;"></span>
             <div style="margin-top: clamp(22px, 3vw, 32px); display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center;">
               <a id="bol-leer" href="boletin/" class="scp2" style="display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border-radius: 2px;"><span data-es>Leer Panorama AXIA</span><span data-en>Read Panorama AXIA</span><span aria-hidden="true">→</span></a>
-              <a id="bol-pdf" href="#" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↓</span><span style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Descargar PDF</span><span data-en>Download PDF</span></span></a>
-              <a href="tablero/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" class="ax-flecha" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: rgb(184, 135, 74); font-size: 12px;">↗</span><span class="ax-brillo-osc" style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span></span></a>
+              <a id="bol-pdf" href="#" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: #845b2c; font-size: 12px;">↓</span><span style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Descargar PDF</span><span data-en>Download PDF</span></span></a>
+              <a href="tablero/" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgb(26, 34, 51); text-decoration: none;"><span aria-hidden="true" class="ax-flecha" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 1px solid rgb(184, 135, 74); border-radius: 2px; color: #845b2c; font-size: 12px;">↗</span><span class="ax-brillo-osc" style="border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Ver el Monitor Macro</span><span data-en>Open the Macro Monitor</span></span></a>
             </div>
           </div>
           <ul id="bol-indicadores" style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 0px 28px;"></ul>
         </div>
         <div id="bol-archivo" hidden style="margin-top: clamp(36px, 5vw, 56px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(22px, 3vw, 30px);">
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-bottom: 14px;"><span data-es>Ediciones de muestra</span><span data-en>Sample issues</span></span>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #5a6271; margin-bottom: 14px;"><span data-es>Ediciones de muestra</span><span data-en>Sample issues</span></span>
           <ul id="bol-ediciones" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 0px 40px;"></ul>
         </div>
       </div>
@@ -296,7 +332,7 @@ body{hanging-punctuation:first last}
         <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
           <div>
             <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="display: block; margin-bottom: 20px;"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.15"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Estudios</span><span data-en>Studies</span></span>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #845b2c; margin-bottom: 18px;"><span data-es>Estudios</span><span data-en>Studies</span></span>
             <h2 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(25px, 3.28vw, 41px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>Estudios realizados</span><span data-en>Selected work</span></h2>
           </div>
           <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
@@ -306,9 +342,9 @@ body{hanging-punctuation:first last}
         </div>
         <figure style="margin:clamp(34px,4.6vw,56px) 0 0;padding:0">
           <figcaption style="max-width:62ch">
-            <span style="display:block;font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#b8874a;margin-bottom:12px"><span data-es>Del Monitor Macro</span><span data-en>From the Macro Monitor</span></span>
+            <span style="display:block;font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#845b2c;margin-bottom:12px"><span data-es>Del Monitor Macro</span><span data-en>From the Macro Monitor</span></span>
             <h3 style="font-family:'Sora', Arial, sans-serif;font-weight:600;color:#1a2233;font-size:clamp(18px,1.87vw,25px);line-height:1.14;letter-spacing:-.008em;text-wrap:balance"><span data-es>La inflaci&#243;n mensual se acomod&#243; debajo del 2 %</span><span data-en>Monthly inflation settled below 2%</span></h3>
-            <p style="margin-top:8px;font-size:14.5px;color:#6a7382"><span data-es>&#205;ndice de precios al consumidor, variaci&#243;n mensual en %</span><span data-en>Consumer price index, monthly change in %</span></p>
+            <p style="margin-top:8px;font-size:14.5px;color:#5a6271"><span data-es>&#205;ndice de precios al consumidor, variaci&#243;n mensual en %</span><span data-en>Consumer price index, monthly change in %</span></p>
           </figcaption>
           <!-- grafico-destacado -->
 <svg viewBox="0 0 1000 400" role="img" aria-label="Inflaci&#243;n mensual de los &#250;ltimos dos a&#241;os, en porcentaje; el &#250;ltimo dato es de sep-26" style="display:block;width:100%;height:auto;margin:clamp(14px,2vw,22px) 0 10px;font-family:Manrope,system-ui,sans-serif">
@@ -460,11 +496,11 @@ body{hanging-punctuation:first last}
 <text class="gd-mes gd-es" x="972.2" y="366">S</text><text class="gd-mes gd-en" x="972.2" y="366">S</text>
 </svg>
           <!-- /grafico-destacado -->
-          <p style="font-size:12.5px;color:#6a7382;border-top:1px solid #ddd6c9;padding-top:9px"><span data-es>Fuente: AXIA en base a INDEC.</span><span data-en>Source: AXIA based on INDEC.</span></p>
+          <p style="font-size:12.5px;color:#5a6271;border-top:1px solid #ddd6c9;padding-top:9px"><span data-es>Fuente: AXIA en base a INDEC.</span><span data-en>Source: AXIA based on INDEC.</span></p>
         </figure>
 
         <div id="estudios-lista" style="margin-top: clamp(36px, 5vw, 64px);"></div>
-        <p id="estudios-todos" hidden style="margin-top: clamp(26px, 3vw, 36px); font-size: 15px;"><a href="publicaciones/" style="display:inline-flex;align-items:center;gap:9px;font-weight:600;color:#b8874a;text-decoration:none;border-bottom:1px solid #ddd6c9"><span data-es>Ver todos los estudios</span><span data-en>See all studies</span><span aria-hidden="true">→</span></a></p>
+        <p id="estudios-todos" hidden style="margin-top: clamp(26px, 3vw, 36px); font-size: 15px;"><a href="publicaciones/" style="display:inline-flex;align-items:center;gap:9px;font-weight:600;color:#845b2c;text-decoration:none;border-bottom:1px solid #ddd6c9"><span data-es>Ver todos los estudios</span><span data-en>See all studies</span><span aria-hidden="true">→</span></a></p>
       </div>
     </section>
 
@@ -473,7 +509,7 @@ body{hanging-punctuation:first last}
         <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
           <div>
             <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="display: block; margin-bottom: 20px;"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.15"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Medios</span><span data-en>Media</span></span>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #845b2c; margin-bottom: 18px;"><span data-es>Medios</span><span data-en>Media</span></span>
             <h2 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(25px, 3.28vw, 41px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>AXIA en los medios</span><span data-en>AXIA in the media</span></h2>
           </div>
           <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
@@ -483,12 +519,12 @@ body{hanging-punctuation:first last}
         </div>
 
         <div id="medios-graficos" hidden style="margin-top: clamp(36px, 5vw, 64px);">
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); padding-bottom: 14px; border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Medios gráficos y digitales</span><span data-en>Print and digital</span></span>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #5a6271; padding-bottom: 14px; border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Medios gráficos y digitales</span><span data-en>Print and digital</span></span>
           <div id="medios-graficos-lista" style="margin-top: clamp(18px, 2vw, 26px); display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: clamp(14px, 1.8vw, 22px);"></div>
         </div>
 
         <div id="medios-av" hidden style="margin-top: clamp(34px, 4.5vw, 58px);">
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); padding-bottom: 14px; border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Radio, televisión y streaming</span><span data-en>Radio, television and streaming</span></span>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #5a6271; padding-bottom: 14px; border-bottom: 1px solid rgb(221, 214, 201);"><span data-es>Radio, televisión y streaming</span><span data-en>Radio, television and streaming</span></span>
           <div id="medios-av-lista" style="margin-top: clamp(18px, 2vw, 26px); display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: clamp(14px, 1.8vw, 22px);"></div>
         </div>
       </div>
@@ -497,7 +533,7 @@ body{hanging-punctuation:first last}
     <section id="suscripcion" style="background: rgb(239, 234, 225); border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
       <div style="max-width: 1160px; margin: 0px auto; padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 56px); display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.1fr); gap: clamp(28px, 5vw, 64px); align-items: start;">
         <div>
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Suscripción</span><span data-en>Subscribe</span></span>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #845b2c; margin-bottom: 18px;"><span data-es>Suscripción</span><span data-en>Subscribe</span></span>
           <h2 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(23px, 2.96vw, 36px); line-height: 1.08; letter-spacing: -0.01em; max-width: 20ch;"><span data-es>Reciba Panorama AXIA por correo</span><span data-en>Get Panorama AXIA by email</span></h2>
           <p style="margin-top: 18px; font-size: 16.5px; color: rgb(93, 102, 118); max-width: 48ch; text-wrap: pretty;">
             <span data-es>Cada edición, con los principales indicadores de la economía argentina y análisis propio. Le enviamos un correo para confirmar su dirección: la suscripción queda activa recién cuando usted hace clic en ese enlace.</span>
@@ -505,15 +541,15 @@ body{hanging-punctuation:first last}
           </p>
         </div>
         <form id="form-boletin" action="https://assets.mailerlite.com/jsonp/2718598/forms/201512522929407662/subscribe" method="post" target="ml-boletin" style="display: grid; gap: 14px; background: rgb(247, 244, 238); border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: clamp(22px, 3vw, 32px);">
-          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
+          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #5a6271;">
             <span data-es>Nombre</span><span data-en>Name</span>
             <input type="text" name="fields[name]" autocomplete="name" required style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
           </label>
-          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
+          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #5a6271;">
             <span data-es>Correo</span><span data-en>Email</span>
             <input type="email" name="fields[email]" autocomplete="email" required style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
           </label>
-          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130);">
+          <label style="display: grid; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #5a6271;">
             <span data-es>Empresa o sector (opcional)</span><span data-en>Company or sector (optional)</span>
             <input type="text" name="fields[company]" autocomplete="organization" style="font: inherit; font-size: 15px; letter-spacing: normal; text-transform: none; color: rgb(26, 34, 51); background: #fff; border: 1px solid rgb(221, 214, 201); border-radius: 2px; padding: 13px 15px;">
           </label>
@@ -522,7 +558,7 @@ body{hanging-punctuation:first last}
           <input type="text" name="sitio-web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;">
           <button type="submit" class="scp2" style="justify-self: start; margin-top: 4px; display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; background: rgb(26, 34, 51); color: rgb(247, 244, 238); font: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; border: 0px; border-radius: 2px; cursor: pointer;"><span data-es>Suscribirme</span><span data-en>Subscribe</span><span aria-hidden="true">&#8594;</span></button>
           <p id="form-boletin-aviso" role="status" aria-live="polite" style="margin: 0px; min-height: 20px; font-size: 14px; color: rgb(93, 102, 118);"></p>
-          <p style="margin: 0px; font-size: 12.5px; color: rgb(106, 115, 130); text-wrap: pretty;">
+          <p style="margin: 0px; font-size: 12.5px; color: #5a6271; text-wrap: pretty;">
             <span data-es>Usamos sus datos solo para enviarle Panorama AXIA. Puede darse de baja cuando quiera desde el pie de cualquier envío. Si usa bloqueador de publicidad, es posible que el enlace del correo le aparezca bloqueado: elija Continuar y la confirmación sigue igual.</span>
             <span data-en>We use your details only to send you Panorama AXIA. You can unsubscribe at any time from the footer of any issue. If you use an ad blocker, the link in the email may appear blocked: choose Continue and the confirmation works as usual.</span>
           </p>
@@ -533,7 +569,7 @@ body{hanging-punctuation:first last}
     <section id="servicios" style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 120px) clamp(20px, 5vw, 56px);">
       <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
         <div>
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Servicios</span><span data-en>Services</span></span>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #845b2c; margin-bottom: 18px;"><span data-es>Servicios</span><span data-en>Services</span></span>
           <h2 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(25px, 3.28vw, 41px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>Cinco líneas de trabajo</span><span data-en>Five practice areas</span></h2>
         </div>
         <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
@@ -544,33 +580,33 @@ body{hanging-punctuation:first last}
 
       <ul style="margin-top: clamp(40px, 6vw, 72px); display: grid; gap: 0px;">
         <li style="display: grid; grid-template-columns: clamp(48px, 6vw, 86px) minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(16px, 3vw, 44px); padding: clamp(26px, 3vw, 38px) 0px; border-top: 1px solid rgb(221, 214, 201);">
-          <span class="ax-servicio-ico" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgb(26, 34, 51);"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:block"><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><polygon points="176 80 112 112 80 176 144 144 176 80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg><span style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 17px; color: rgb(184, 135, 74); line-height: 1.3;font-weight:600">01</span></span>
+          <span class="ax-servicio-ico" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgb(26, 34, 51);"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:block"><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><polygon points="176 80 112 112 80 176 144 144 176 80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg><span style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 17px; color: #845b2c; line-height: 1.3;font-weight:600">01</span></span>
           <h3 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(18px, 1.64vw, 23px); line-height: 1.18; letter-spacing: -0.005em;"><span data-es>Coyuntura macroeconómica y escenarios</span><span data-en>Macroeconomic outlook and scenarios</span></h3>
-          <div><span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-style:normal; font-size: 16px; line-height: 1.3; color: rgb(154, 107, 51); margin-bottom: 8px;font-weight:500"><span data-es>Una lectura clara de la economía para decidir con fundamento.</span><span data-en>A clear reading of the economy to make well-founded decisions.</span></span>
+          <div><span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-style:normal; font-size: 16px; line-height: 1.3; color: #845b2c; margin-bottom: 8px;font-weight:500"><span data-es>Una lectura clara de la economía para decidir con fundamento.</span><span data-en>A clear reading of the economy to make well-founded decisions.</span></span>
           <p style="font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Informes de coyuntura económica con nuestra visión del escenario más probable y escenarios alternativos, <a href="tablero/" style="color: rgb(26, 34, 51); text-decoration: none; border-bottom: 1px solid rgb(184, 135, 74); font-weight: 600;">Monitor Macro</a> diario y proyección de variables económicas. Presentaciones in company y en instituciones y cámaras empresariales.</span><span data-en>Economic outlook reports with our view of the most likely scenario and alternative scenarios, a daily <a href="tablero/?lang=en" style="color: rgb(26, 34, 51); text-decoration: none; border-bottom: 1px solid rgb(184, 135, 74); font-weight: 600;">Macro Monitor</a> and forecasts of economic variables. Presentations in-company and at institutions and business chambers.</span></p></div>
         </li>
         <li style="display: grid; grid-template-columns: clamp(48px, 6vw, 86px) minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(16px, 3vw, 44px); padding: clamp(26px, 3vw, 38px) 0px; border-top: 1px solid rgb(221, 214, 201);">
-          <span class="ax-servicio-ico" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgb(26, 34, 51);"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:block"><line x1="104" y1="88" x2="152" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M229.59,154.32,185.94,55A24,24,0,0,0,152,55V168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M104,168V55a24,24,0,0,0-33.94,0L26.41,154.32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="64" cy="168" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="192" cy="168" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg><span style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 17px; color: rgb(184, 135, 74); line-height: 1.3;font-weight:600">02</span></span>
+          <span class="ax-servicio-ico" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgb(26, 34, 51);"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:block"><line x1="104" y1="88" x2="152" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M229.59,154.32,185.94,55A24,24,0,0,0,152,55V168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M104,168V55a24,24,0,0,0-33.94,0L26.41,154.32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="64" cy="168" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="192" cy="168" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg><span style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 17px; color: #845b2c; line-height: 1.3;font-weight:600">02</span></span>
           <h3 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(18px, 1.64vw, 23px); line-height: 1.18; letter-spacing: -0.005em;"><span data-es>Estudios de mercado, sectoriales y comercio exterior</span><span data-en>Market, sector and foreign trade studies</span></h3>
-          <div><span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-style:normal; font-size: 16px; line-height: 1.3; color: rgb(154, 107, 51); margin-bottom: 8px;font-weight:500"><span data-es>Para conocer dónde están las oportunidades, en Argentina o en el exterior.</span><span data-en>To find where the opportunities are, in Argentina or abroad.</span></span>
+          <div><span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-style:normal; font-size: 16px; line-height: 1.3; color: #845b2c; margin-bottom: 8px;font-weight:500"><span data-es>Para conocer dónde están las oportunidades, en Argentina o en el exterior.</span><span data-en>To find where the opportunities are, in Argentina or abroad.</span></span>
           <p style="font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Tamaño de mercado, demanda, segmentación NSE y consumo de los hogares, precios y análisis de la competencia, con fuentes primarias y secundarias. Para empresas exportadoras, análisis de mercados de destino, precios de exportación e identificación de potenciales compradores.</span><span data-en>Market size, demand, socioeconomic segmentation and household consumption, prices and competitor analysis, using primary and secondary sources. For exporters: analysis of target markets, export prices and identification of potential buyers.</span></p></div>
         </li>
         <li style="display: grid; grid-template-columns: clamp(48px, 6vw, 86px) minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(16px, 3vw, 44px); padding: clamp(26px, 3vw, 38px) 0px; border-top: 1px solid rgb(221, 214, 201);">
-          <span class="ax-servicio-ico" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgb(26, 34, 51);"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:block"><rect x="80" y="64" width="96" height="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><rect x="32" y="48" width="192" height="160" rx="8" transform="translate(256) rotate(90)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="88" cy="148" r="10"/><circle cx="128" cy="148" r="10"/><circle cx="168" cy="148" r="10"/><circle cx="88" cy="188" r="10"/><circle cx="128" cy="188" r="10"/><circle cx="168" cy="188" r="10"/></svg><span style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 17px; color: rgb(184, 135, 74); line-height: 1.3;font-weight:600">03</span></span>
+          <span class="ax-servicio-ico" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgb(26, 34, 51);"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:block"><rect x="80" y="64" width="96" height="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><rect x="32" y="48" width="192" height="160" rx="8" transform="translate(256) rotate(90)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="88" cy="148" r="10"/><circle cx="128" cy="148" r="10"/><circle cx="168" cy="148" r="10"/><circle cx="88" cy="188" r="10"/><circle cx="128" cy="188" r="10"/><circle cx="168" cy="188" r="10"/></svg><span style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 17px; color: #845b2c; line-height: 1.3;font-weight:600">03</span></span>
           <h3 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(18px, 1.64vw, 23px); line-height: 1.18; letter-spacing: -0.005em;"><span data-es>Evaluación de proyectos de inversión y valuación de empresas</span><span data-en>Investment appraisal and business valuation</span></h3>
-          <div><span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-style:normal; font-size: 16px; line-height: 1.3; color: rgb(154, 107, 51); margin-bottom: 8px;font-weight:500"><span data-es>Para invertir, comprar o vender con números sólidos.</span><span data-en>To invest, buy or sell on solid numbers.</span></span>
+          <div><span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-style:normal; font-size: 16px; line-height: 1.3; color: #845b2c; margin-bottom: 8px;font-weight:500"><span data-es>Para invertir, comprar o vender con números sólidos.</span><span data-en>To invest, buy or sell on solid numbers.</span></span>
           <p style="font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Estudios de prefactibilidad y factibilidad, flujos de fondos, VAN, TIR y análisis de sensibilidad, valuación de empresas y participaciones societarias.</span><span data-en>Pre-feasibility and feasibility studies, cash flows, NPV, IRR and sensitivity analysis, valuation of companies and equity stakes.</span></p></div>
         </li>
         <li style="display: grid; grid-template-columns: clamp(48px, 6vw, 86px) minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(16px, 3vw, 44px); padding: clamp(26px, 3vw, 38px) 0px; border-top: 1px solid rgb(221, 214, 201);">
-          <span class="ax-servicio-ico" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgb(26, 34, 51);"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:block"><rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="176" y1="24" x2="176" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="80" y1="24" x2="80" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="40" y1="88" x2="216" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><polyline points="92 152 116 176 164 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg><span style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 17px; color: rgb(184, 135, 74); line-height: 1.3;font-weight:600">04</span></span>
+          <span class="ax-servicio-ico" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgb(26, 34, 51);"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:block"><rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="176" y1="24" x2="176" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="80" y1="24" x2="80" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="40" y1="88" x2="216" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><polyline points="92 152 116 176 164 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg><span style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 17px; color: #845b2c; line-height: 1.3;font-weight:600">04</span></span>
           <h3 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(18px, 1.64vw, 23px); line-height: 1.18; letter-spacing: -0.005em;"><span data-es>Planificación financiera para pymes y mercado de capitales</span><span data-en>Financial planning for SMEs and capital markets</span></h3>
-          <div><span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-style:normal; font-size: 16px; line-height: 1.3; color: rgb(154, 107, 51); margin-bottom: 8px;font-weight:500"><span data-es>Herramientas de las grandes empresas al alcance de las pymes.</span><span data-en>Big-company tools within reach of SMEs.</span></span>
+          <div><span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-style:normal; font-size: 16px; line-height: 1.3; color: #845b2c; margin-bottom: 8px;font-weight:500"><span data-es>Herramientas de las grandes empresas al alcance de las pymes.</span><span data-en>Big-company tools within reach of SMEs.</span></span>
           <p style="font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Presupuesto, cash flow y control de gestión, estructura de financiamiento, relaciones con entidades financieras, SGR y ALyC. Gestión de tesorería y alternativas de financiamiento a través del mercado de capitales. Diseño y administración de carteras de inversión, gestionadas por el agente productor (AP) matrícula N.º 3009 de la CNV.</span><span data-en>Budgeting, cash flow and management control, funding structure, relations with banks, mutual guarantee companies (SGR) and brokers (ALyC). Treasury management and funding alternatives through the capital market. Design and management of investment portfolios, handled by a CNV-registered producing agent (AP), license no. 3009.</span></p></div>
         </li>
         <li style="display: grid; grid-template-columns: clamp(48px, 6vw, 86px) minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(16px, 3vw, 44px); padding: clamp(26px, 3vw, 38px) 0px; border-top: 1px solid rgb(221, 214, 201); border-bottom: 1px solid rgb(221, 214, 201);">
-          <span class="ax-servicio-ico" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgb(26, 34, 51);"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:block"><rect x="50.75" y="44.69" width="106.51" height="38.63" rx="8" transform="translate(-14.79 92.28) rotate(-45)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><rect x="138.75" y="132.69" width="106.51" height="38.63" rx="8" transform="translate(-51.24 180.28) rotate(-45)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="145.66" y1="49.66" x2="206.34" y2="110.34" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="89.66" y1="105.66" x2="150.34" y2="166.34" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M132,148,61,219a17,17,0,0,1-24,0h0a17,17,0,0,1,0-24l71-71" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg><span style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 17px; color: rgb(184, 135, 74); line-height: 1.3;font-weight:600">05</span></span>
+          <span class="ax-servicio-ico" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: rgb(26, 34, 51);"><svg width="28" height="28" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:block"><rect x="50.75" y="44.69" width="106.51" height="38.63" rx="8" transform="translate(-14.79 92.28) rotate(-45)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><rect x="138.75" y="132.69" width="106.51" height="38.63" rx="8" transform="translate(-51.24 180.28) rotate(-45)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="145.66" y1="49.66" x2="206.34" y2="110.34" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="89.66" y1="105.66" x2="150.34" y2="166.34" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M132,148,61,219a17,17,0,0,1-24,0h0a17,17,0,0,1,0-24l71-71" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg><span style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: 17px; color: #845b2c; line-height: 1.3;font-weight:600">05</span></span>
           <h3 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(18px, 1.64vw, 23px); line-height: 1.18; letter-spacing: -0.005em;"><span data-es>Defensa de la competencia y regulación</span><span data-en>Competition and regulation</span></h3>
-          <div><span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-style:normal; font-size: 16px; line-height: 1.3; color: rgb(154, 107, 51); margin-bottom: 8px;font-weight:500"><span data-es>Para operar en mercados regulados con respaldo técnico.</span><span data-en>To operate in regulated markets with sound technical support.</span></span>
+          <div><span style="display: block; font-family: &quot;Sora&quot;, Arial, sans-serif; font-style:normal; font-size: 16px; line-height: 1.3; color: #845b2c; margin-bottom: 8px;font-weight:500"><span data-es>Para operar en mercados regulados con respaldo técnico.</span><span data-en>To operate in regulated markets with sound technical support.</span></span>
           <p style="font-size: 16px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Análisis económico de concentraciones y conductas anticompetitivas, definición de mercados relevantes, presentaciones ante la autoridad de competencia y capacitación de equipos.</span><span data-en>Economic analysis of mergers and anticompetitive conduct, relevant market definition, filings before the competition authority and team training.</span></p></div>
         </li>
       </ul>
@@ -582,7 +618,7 @@ body{hanging-punctuation:first last}
     <section id="experiencia" style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 120px) clamp(20px, 5vw, 56px);">
       <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
         <div>
-          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Experiencia</span><span data-en>Experience</span></span>
+          <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #845b2c; margin-bottom: 18px;"><span data-es>Experiencia</span><span data-en>Experience</span></span>
           <h2 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(25px, 3.28vw, 41px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>Trabajos representativos</span><span data-en>Representative work</span></h2>
         </div>
         <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
@@ -592,47 +628,47 @@ body{hanging-punctuation:first last}
       </div>
       <div style="margin-top: clamp(32px, 4vw, 52px); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0px clamp(32px, 5vw, 64px);">
           <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
-            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Pesca y agroindustria</span><span data-en>Fisheries and agribusiness</span></span>
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #845b2c;"><span data-es>Pesca y agroindustria</span><span data-en>Fisheries and agribusiness</span></span>
             <h3 style="margin-top: 10px; font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(16px, 1.48vw, 20px); line-height: 1.2;"><span data-es>Perjuicio económico de una zona de exclusión</span><span data-en>Economic damage from an exclusion zone</span></h3>
             <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Cuantificación del impacto de una restricción a la operación sobre la flota centollera y su cadena de valor: lucro cesante, pérdida de ingresos y efectos sobre la industria en tierra.</span><span data-en>Quantification of the impact of an operating restriction on the king crab fleet and its value chain: lost profits, revenue losses and onshore processing effects.</span></p>
           </article>
           <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
-            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Consumo y comercio minorista</span><span data-en>Consumer and retail</span></span>
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #845b2c;"><span data-es>Consumo y comercio minorista</span><span data-en>Consumer and retail</span></span>
             <h3 style="margin-top: 10px; font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(16px, 1.48vw, 20px); line-height: 1.2;"><span data-es>Ingresos y gastos de los hogares</span><span data-en>Household income and expenditure</span></h3>
             <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Análisis nacional y regional de la estructura de gasto de los hogares sobre la Encuesta Permanente de Hogares y la Encuesta Nacional de Gastos de los Hogares del INDEC, para dimensionar mercado y poder de compra por región.</span><span data-en>National and regional analysis of household spending structure based on INDEC's Permanent Household Survey and National Household Expenditure Survey, to size the market and purchasing power by region.</span></p>
           </article>
           <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
-            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Infraestructura y construcción</span><span data-en>Infrastructure and construction</span></span>
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #845b2c;"><span data-es>Infraestructura y construcción</span><span data-en>Infrastructure and construction</span></span>
             <h3 style="margin-top: 10px; font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(16px, 1.48vw, 20px); line-height: 1.2;"><span data-es>Impacto económico de la inversión pública</span><span data-en>Economic impact of public investment</span></h3>
             <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Evaluación de cuatro casos de inversión en infraestructura y desarrollo urbano, con estimación de efectos sobre actividad, empleo y valor del suelo.</span><span data-en>Assessment of four infrastructure and urban development cases, estimating effects on activity, employment and land value.</span></p>
           </article>
           <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
-            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Infraestructura y transporte</span><span data-en>Infrastructure and transport</span></span>
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #845b2c;"><span data-es>Infraestructura y transporte</span><span data-en>Infrastructure and transport</span></span>
             <h3 style="margin-top: 10px; font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(16px, 1.48vw, 20px); line-height: 1.2;"><span data-es>Ecuación económica de un contrato internacional</span><span data-en>Economic balance of an international contract</span></h3>
             <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Recálculo del valor actual neto y la tasa interna de retorno de un paso fronterizo internacional, y apoyo técnico a la negociación para restablecer el equilibrio del contrato según un laudo arbitral.</span><span data-en>Recalculation of the net present value and internal rate of return of an international border crossing, and technical support to the negotiation that restored the contract's economic balance under an arbitral award.</span></p>
           </article>
           <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
-            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Turismo</span><span data-en>Tourism</span></span>
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #845b2c;"><span data-es>Turismo</span><span data-en>Tourism</span></span>
             <h3 style="margin-top: 10px; font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(16px, 1.48vw, 20px); line-height: 1.2;"><span data-es>Plan de desarrollo territorial y turístico</span><span data-en>Territorial and tourism development plan</span></h3>
             <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Relevamiento de actores, análisis de flujos y movilidad, escenarios de demanda, segmentación de públicos e indicadores de gestión para un corredor turístico.</span><span data-en>Stakeholder fieldwork, flow and mobility analysis, demand scenarios, audience segmentation and management indicators for a tourism corridor.</span></p>
           </article>
           <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
-            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Industria</span><span data-en>Industry</span></span>
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #845b2c;"><span data-es>Industria</span><span data-en>Industry</span></span>
             <h3 style="margin-top: 10px; font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(16px, 1.48vw, 20px); line-height: 1.2;"><span data-es>Mercado internacional y factibilidad exportadora</span><span data-en>International market and export feasibility</span></h3>
             <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Análisis de los principales mercados productores y consumidores de cemento portland, sus perspectivas de evolución y la factibilidad de exportar cemento argentino.</span><span data-en>Analysis of the main producing and consuming markets for portland cement, their outlook and the feasibility of exporting Argentine cement.</span></p>
           </article>
           <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
-            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Defensa de la competencia</span><span data-en>Competition</span></span>
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #845b2c;"><span data-es>Defensa de la competencia</span><span data-en>Competition</span></span>
             <h3 style="margin-top: 10px; font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(16px, 1.48vw, 20px); line-height: 1.2;"><span data-es>Monitoreo de una desinversión de activos</span><span data-en>Monitoring of an asset divestiture</span></h3>
             <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Integrante del equipo que controló el cumplimiento de una desinversión ordenada por la autoridad de competencia tras una adquisición internacional.</span><span data-en>Member of the team that monitored compliance with a divestiture ordered by the competition authority following an international acquisition.</span></p>
           </article>
           <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
-            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Mercado de trabajo</span><span data-en>Labor market</span></span>
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #845b2c;"><span data-es>Mercado de trabajo</span><span data-en>Labor market</span></span>
             <h3 style="margin-top: 10px; font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(16px, 1.48vw, 20px); line-height: 1.2;"><span data-es>Oferta laboral del AMBA</span><span data-en>Labor supply in Greater Buenos Aires</span></h3>
             <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Estudio de la oferta de trabajo y del impacto de la pandemia en el Área Metropolitana de Buenos Aires, con financiamiento de un organismo multilateral.</span><span data-en>Study of labor supply and the impact of the pandemic in the Buenos Aires metropolitan area, funded by a multilateral organization.</span></p>
           </article>
           <article style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(22px, 2.6vw, 30px) 0px;">
-            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(184, 135, 74);"><span data-es>Comercio exterior</span><span data-en>Foreign trade</span></span>
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #845b2c;"><span data-es>Comercio exterior</span><span data-en>Foreign trade</span></span>
             <h3 style="margin-top: 10px; font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(16px, 1.48vw, 20px); line-height: 1.2;"><span data-es>Apoyo a negociaciones agrícolas</span><span data-en>Support to agricultural negotiations</span></h3>
             <p style="margin-top: 10px; font-size: 15.5px; color: rgb(93, 102, 118); text-wrap: pretty;"><span data-es>Análisis de subsidios y políticas agrícolas de socios comerciales y su impacto en el sector exportador argentino, en apoyo de negociaciones multilaterales.</span><span data-en>Analysis of trading partners' agricultural subsidies and policies and their impact on Argentine exporters, in support of multilateral negotiations.</span></p>
           </article>
@@ -697,7 +733,7 @@ body{hanging-punctuation:first last}
         <div style="display: grid; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1.35fr); gap: clamp(28px, 5vw, 64px); align-items: end;">
           <div>
             <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="display: block; margin-bottom: 20px;"><circle cx="23" cy="23" r="21" fill="none" stroke="#1a2233" stroke-width="1.15"></circle><path d="M14 27 L23 15 L32 27" fill="none" stroke="#b8874a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Partners</span><span data-en>Partners</span></span>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #845b2c; margin-bottom: 18px;"><span data-es>Partners</span><span data-en>Partners</span></span>
             <h2 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(25px, 3.28vw, 41px); line-height: 1.08; letter-spacing: -0.01em;"><span data-es>Partners estratégicos</span><span data-en>Strategic partners</span></h2>
           </div>
           <p style="font-size: 16.5px; color: rgb(93, 102, 118); max-width: 58ch; text-wrap: pretty;">
@@ -715,12 +751,12 @@ body{hanging-punctuation:first last}
             </a>
             <div style="padding: clamp(22px, 3vw, 32px);">
               <h3 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: #1a2233; font-size: 20px; line-height: 1.2;">Equanzia</h3>
-              <span style="display: block; margin-top: 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #6a7382;">Silvia Marino &amp; Asociados</span>
+              <span style="display: block; margin-top: 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #5a6271;">Silvia Marino &amp; Asociados</span>
               <p style="margin-top: 14px; font-size: 15px; color: #5d6676; text-wrap: pretty;">
                 <span data-es>Consultoría para la alta gerencia: estrategia corporativa, gestión del cambio, cultura organizacional y estrategia comunicacional.</span>
                 <span data-en>Consulting for senior management: corporate strategy, change management, organizational culture and communication strategy.</span>
               </p>
-              <a href="https://equanzia.com/" target="_blank" rel="noopener" style="display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 600; color: #b8874a; text-decoration: none;"><span data-es>Visitar equanzia.com</span><span data-en>Visit equanzia.com</span> <span aria-hidden="true">↗</span></a>
+              <a href="https://equanzia.com/" target="_blank" rel="noopener" style="display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 600; color: #845b2c; text-decoration: none;"><span data-es>Visitar equanzia.com</span><span data-en>Visit equanzia.com</span> <span aria-hidden="true">↗</span></a>
             </div>
           </li>
         </ul>
@@ -728,34 +764,34 @@ body{hanging-punctuation:first last}
     </section>
 
     <section id="contacto" style="max-width: 1160px; margin: 0px auto; padding: clamp(64px, 9vw, 124px) clamp(20px, 5vw, 56px);">
-      <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(184, 135, 74); margin-bottom: 18px;"><span data-es>Contacto</span><span data-en>Contact</span></span>
+      <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #845b2c; margin-bottom: 18px;"><span data-es>Contacto</span><span data-en>Contact</span></span>
       <h2 style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-weight: 600; color: rgb(26, 34, 51); font-size: clamp(25px, 3.59vw, 44px); line-height: 1.06; letter-spacing: -0.01em; max-width: 24ch;"><span data-es>¿Tiene un proyecto en mente?</span><span data-en>Have a project in mind?</span></h2>
       <p style="margin-top: 20px; font-size: 16.5px; color: rgb(93, 102, 118); max-width: 46ch;"><span data-es>Escríbanos y le responderemos a la brevedad.</span><span data-en>Write to us and we will get back to you shortly.</span></p>
       <div style="margin-top: clamp(32px, 4vw, 52px); display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(20px, 3vw, 40px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(26px, 3vw, 38px);">
         <div style="display: flex; align-items: flex-start; gap: 16px;">
           <svg width="34" height="34" viewBox="0 0 256 256" aria-hidden="true" style="flex: 0 0 auto; margin-top: 2px;"><path d="M32,56H224a0,0,0,0,1,0,0V192a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V56A0,0,0,0,1,32,56Z" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><polyline points="224 56 128 144 32 56" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg>
           <div style="min-width: 0px;">
-            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-bottom: 10px;"><span data-es>Correo</span><span data-en>Email</span></span>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #5a6271; margin-bottom: 10px;"><span data-es>Correo</span><span data-en>Email</span></span>
             <a href="mailto:info@axiaeconomia.ar" class="scp0" style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: clamp(19px, 2.03vw, 25px); color: rgb(26, 34, 51); text-decoration: none; border-bottom: 1px solid rgb(184, 135, 74); padding-bottom: 3px;font-weight:600;letter-spacing:-0.015em">info@axiaeconomia.ar</a>
           </div>
         </div>
         <div style="display: flex; align-items: flex-start; gap: 16px;">
           <svg width="34" height="34" viewBox="0 0 256 256" aria-hidden="true" style="flex: 0 0 auto; margin-top: 2px;"><rect x="32" y="32" width="192" height="192" rx="8" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="120" y1="112" x2="120" y2="176" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="88" y1="112" x2="88" y2="176" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M120,140a28,28,0,0,1,56,0v36" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="88" cy="84" r="10" fill="#1a2233"/></svg>
           <div style="min-width: 0px;">
-            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-bottom: 10px;">LinkedIn</span>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #5a6271; margin-bottom: 10px;">LinkedIn</span>
             <a href="https://www.linkedin.com/company/axia-consultora-econ%C3%B3mica/" target="_blank" rel="noopener" class="scp0" style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: clamp(19px, 2.03vw, 25px); color: rgb(26, 34, 51); text-decoration: none; border-bottom: 1px solid rgb(184, 135, 74); padding-bottom: 3px;font-weight:600;letter-spacing:-0.015em">AXIA Consultora Económica</a>
           </div>
         </div>
         <div style="display: flex; align-items: flex-start; gap: 16px;">
           <svg width="34" height="34" viewBox="0 0 256 256" aria-hidden="true" style="flex: 0 0 auto; margin-top: 2px;"><path d="M72,104a32,32,0,0,1,32-32l16,32-12.32,18.47a48.19,48.19,0,0,0,25.85,25.85L152,136l32,16a32,32,0,0,1-32,32A80,80,0,0,1,72,104Z" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M79.93,211.11a96,96,0,1,0-35-35h0L32.42,213.46a8,8,0,0,0,10.12,10.12l37.39-12.47Z" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg>
           <div style="min-width: 0px;">
-            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-bottom: 10px;">WhatsApp</span>
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #5a6271; margin-bottom: 10px;">WhatsApp</span>
             <a id="wa" href="https://wa.me/5491137602415?text=Hola%2C%20me%20comunico%20desde%20AXIA" target="_blank" rel="noopener" class="scp0" style="font-family: &quot;Sora&quot;, Arial, sans-serif; font-size: clamp(19px, 2.03vw, 25px); color: rgb(26, 34, 51); text-decoration: none; border-bottom: 1px solid rgb(184, 135, 74); padding-bottom: 3px; white-space: nowrap;font-weight:600;letter-spacing:-0.015em">+54 9 11 3760-2415</a>
           </div>
         </div>
       </div>
       <div id="redes" style="margin-top: clamp(30px, 3.4vw, 44px); display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px;">
-        <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(106, 115, 130); margin-right: 8px;"><span data-es>Síganos</span><span data-en>Follow us</span></span>
+        <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #5a6271; margin-right: 8px;"><span data-es>Síganos</span><span data-en>Follow us</span></span>
         <a href="https://www.instagram.com/consultoraaxia/" target="_blank" rel="noopener" class="scp1" style="display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border: 1px solid rgb(221, 214, 201); border-radius: 2px; color: rgb(26, 34, 51); font-size: 14px; font-weight: 500; text-decoration: none;"><svg width="18" height="18" viewBox="0 0 256 256" aria-hidden="true"><circle cx="128" cy="128" r="40" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><rect x="32" y="32" width="192" height="192" rx="48" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="180" cy="76" r="10" fill="#1a2233"/></svg><span>@consultoraaxia</span></a>
         <a href="https://x.com/AxiaEconomica" target="_blank" rel="noopener" class="scp1" style="display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border: 1px solid rgb(221, 214, 201); border-radius: 2px; color: rgb(26, 34, 51); font-size: 14px; font-weight: 500; text-decoration: none;"><svg width="18" height="18" viewBox="0 0 256 256" aria-hidden="true"><polygon points="48 40 96 40 208 216 160 216 48 40" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="113.88" y1="143.53" x2="48" y2="216" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="208" y1="40" x2="142.12" y2="112.47" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg><span>@AxiaEconomica</span></a>
         <a href="https://www.linkedin.com/company/axia-consultora-econ%C3%B3mica/" target="_blank" rel="noopener" class="scp1" style="display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border: 1px solid rgb(221, 214, 201); border-radius: 2px; color: rgb(26, 34, 51); font-size: 14px; font-weight: 500; text-decoration: none;"><svg width="18" height="18" viewBox="0 0 256 256" aria-hidden="true"><rect x="32" y="32" width="192" height="192" rx="8" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="120" y1="112" x2="120" y2="176" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="88" y1="112" x2="88" y2="176" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M120,140a28,28,0,0,1,56,0v36" fill="none" stroke="#1a2233" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><circle cx="88" cy="84" r="10" fill="#1a2233"/></svg><span>AXIA Consultora Económica</span></a>
@@ -848,9 +884,9 @@ body{hanging-punctuation:first last}
       if (b.pdf) { botonPdf.href = b.pdf; } else { botonPdf.hidden = true; }
       document.getElementById('bol-indicadores').innerHTML = (b.indicadores || []).map(function(x, i){
         return '<li style="padding:18px 16px 18px 0;border-top:' + (i < 2 ? '0' : '1px solid #ddd6c9') + ';min-width:0">' +
-          '<span style="display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#6a7382">' + dosIdiomas(x.etiqueta, ETIQUETA_EN[x.etiqueta] || x.etiqueta) + '</span>' +
+          '<span style="display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5a6271">' + dosIdiomas(x.etiqueta, ETIQUETA_EN[x.etiqueta] || x.etiqueta) + '</span>' +
           '<span style="display:block;margin-top:8px;font-family:\'Sora\', Arial, sans-serif;font-size:clamp(19px,1.79vw,24px);line-height:1.05;color:#1a2233;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap;font-weight:600;letter-spacing:-0.015em">' + dosIdiomas(x.valor, numeroEN(x.valor)) + '</span>' +
-          '<span style="display:block;margin-top:6px;font-size:12.5px;color:#6a7382">' + dosIdiomas(x.detalle, periodoEN(x.detalle)) + '</span></li>';
+          '<span style="display:block;margin-top:6px;font-size:12.5px;color:#5a6271">' + dosIdiomas(x.detalle, periodoEN(x.detalle)) + '</span></li>';
       }).join('');
       document.getElementById('boletin').hidden = false;
       // ediciones anteriores (todas menos la última)
@@ -861,8 +897,8 @@ body{hanging-punctuation:first last}
         document.getElementById('bol-ediciones').innerHTML = prev.map(function(e){
           return '<li style="display:flex;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px solid #e6dfd2;min-width:0">' +
             '<a href="' + esc(e.url) + '" data-libre="1" style="flex:0 0 auto;min-width:9.5em;font-family:\'Sora\', Arial, sans-serif;font-size:16px;color:#1a2233;text-decoration:none;border-bottom:1px solid #b8874a;font-weight:500">' + esc(e.edicion) + '</a>' +
-            '<span class="bol-tit" style="flex:1 1 auto;min-width:0;font-size:13px;color:#6a7382;line-height:1.4">' + dosIdiomas(e.titular, e.titular_en || e.titular) + '</span>' +
-            (e.pdf ? '<a href="' + esc(e.pdf) + '" data-libre="1" aria-label="PDF ' + esc(e.edicion) + '" style="flex:0 0 auto;font-size:12px;font-weight:600;color:#b8874a;text-decoration:none">PDF ↓</a>' : '') + '</li>';
+            '<span class="bol-tit" style="flex:1 1 auto;min-width:0;font-size:13px;color:#5a6271;line-height:1.4">' + dosIdiomas(e.titular, e.titular_en || e.titular) + '</span>' +
+            (e.pdf ? '<a href="' + esc(e.pdf) + '" data-libre="1" aria-label="PDF ' + esc(e.edicion) + '" style="flex:0 0 auto;font-size:12px;font-weight:600;color:#845b2c;text-decoration:none">PDF ↓</a>' : '') + '</li>';
         }).join('');
         document.getElementById('bol-archivo').hidden = false;
       }).catch(function(){});
@@ -900,7 +936,7 @@ body{hanging-punctuation:first last}
         return nombres.map(function(n){
           var etiqueta = nombres.length > 1 ? n.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ') : txt;
           return '<a href="estudios/' + encodeURIComponent(n) + '" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;font-weight:600;color:#1a2233;text-decoration:none">' +
-            '<span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid #b8874a;border-radius:2px;color:#b8874a;font-size:12px">↓</span>' +
+            '<span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid #b8874a;border-radius:2px;color:#845b2c;font-size:12px">↓</span>' +
             '<span style="border-bottom:1px solid #ddd6c9">' + esc(etiqueta) + esc(tipo(n)) + '</span></a>';
         }).join('');
       };
@@ -909,7 +945,7 @@ body{hanging-punctuation:first last}
       var releva = function(o){
         if (!o['relevamiento']) return '';
         var f = fechaLarga(o['relevamiento']), d = 'font-weight:600;color:#1a2233';
-        return '<span style="display:block;margin-top:9px;font-size:13px;color:#6a7382">' +
+        return '<span style="display:block;margin-top:9px;font-size:13px;color:#5a6271">' +
           '<span data-es>&Uacute;ltimo relevamiento: <span style="' + d + '">' + esc(f[0]) + '</span></span>' +
           '<span data-en>Latest survey: <span style="' + d + '">' + esc(f[1]) + '</span></span></span>';
       };
@@ -917,14 +953,15 @@ body{hanging-punctuation:first last}
       // y un lector de pantalla lo leeria dos veces.
       var mini = function(o){
         if (!o['imagen']) return '';
-        return '<img src="portadas/' + encodeURIComponent(o['imagen']) + '" width="900" height="900" loading="lazy" decoding="async" alt=""' +
+        var im = encodeURIComponent(o['imagen']), chica = im.replace(/\.[a-z]+$/i, '') + '.webp';
+        return '<img src="portadas/mini/' + chica + '" onerror="this.onerror=null;this.src=\'portadas/' + im + '\'" width="240" height="240" loading="lazy" decoding="async" alt=""' +
           ' style="display:block;width:100%;height:auto;margin-top:12px;border:1px solid #ddd6c9;border-radius:2px">';
       };
       var visor = function(o){
         if (!o['visor']) return '';
         return '<div style="margin-top:14px"><button type="button" class="scp2" data-visor="' + esc(o['visor']) +
           '" data-vt-es="' + esc(o['titulo']) + '" data-vt-en="' + esc(o['title'] || o['titulo']) + '"' +
-          ' style="display:inline-flex;align-items:center;gap:9px;background:none;border:1px solid #b8874a;border-radius:2px;color:#b8874a;font:inherit;font-size:14px;font-weight:600;padding:9px 16px;cursor:pointer">' +
+          ' style="display:inline-flex;align-items:center;gap:9px;background:none;border:1px solid #b8874a;border-radius:2px;color:#845b2c;font:inherit;font-size:14px;font-weight:600;padding:9px 16px;cursor:pointer">' +
           '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13.5" rx="1"></rect><path d="M9 21h6"></path><path d="M12 17.5V21"></path></svg>' +
           '<span data-es>Ver el estudio online</span><span data-en>View the study online</span></button></div>';
       };
@@ -948,14 +985,14 @@ body{hanging-punctuation:first last}
         var asunto = encodeURIComponent('Consulta sobre el estudio: ' + o['titulo']);
         var last = idx === items.length - 1 ? ';border-bottom:1px solid #ddd6c9' : '';
         return '<article class="est-fila" style="' + row + last + '">' +
-          '<div><span style="display:block;font-family:\'Sora\', Arial, sans-serif;font-size:17px;color:#b8874a;line-height:1.3;font-weight:600">' + anio + '</span>' + mini(o) + '</div>' +
+          '<div><span style="display:block;font-family:\'Sora\', Arial, sans-serif;font-size:17px;color:#845b2c;line-height:1.3;font-weight:600">' + anio + '</span>' + mini(o) + '</div>' +
           '<div><h3 style="font-family:\'Sora\', Arial, sans-serif;font-weight:600;color:#1a2233;font-size:clamp(17px,1.56vw,21px);line-height:1.18">' +
             '<span data-es>' + tEs + '</span><span data-en>' + tEn + '</span></h3>' +
-            '<span style="display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6a7382">' +
+            '<span style="display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#5a6271">' +
             '<span data-es>' + sEs + '</span><span data-en>' + sEn + '</span></span>' + releva(o) + '</div>' +
           '<div><p style="font-size:16px;color:#5d6676;text-wrap:pretty"><span data-es>' + rEs + '</span><span data-en>' + rEn + '</span></p>' +
             visor(o) + archivos(o) +
-            '<a href="mailto:info@axiaeconomia.ar?subject=' + asunto + '" style="display:inline-block;margin-top:14px;font-size:14px;font-weight:600;color:#b8874a;text-decoration:none">' +
+            '<a href="mailto:info@axiaeconomia.ar?subject=' + asunto + '" style="display:inline-block;margin-top:14px;font-size:14px;font-weight:600;color:#845b2c;text-decoration:none">' +
             '<span data-es>Consultar por este estudio →</span><span data-en>Ask about this study →</span></a></div>' +
           '</article>';
       }).join('');
@@ -1018,16 +1055,16 @@ body{hanging-punctuation:first last}
         // si el medio tiene logo cargado, va el logo; si no, el icono y el nombre
         var marca = o['logo']
           ? '<img src="medios/' + esc(o['logo']) + '" alt="' + esc(o['medio']) + '" style="flex:0 0 auto;height:38px;width:auto;max-width:48%;object-fit:contain;display:block">' + '<span style="flex:1 1 auto"></span>'
-          : '<span aria-hidden="true" style="flex:0 0 auto;display:inline-flex;color:#b8874a">' + ICONO[clase] + '</span>' + '<span style="flex:1 1 auto;min-width:0;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1a2233;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(o['medio']) + '</span>';
+          : '<span aria-hidden="true" style="flex:0 0 auto;display:inline-flex;color:#845b2c">' + ICONO[clase] + '</span>' + '<span style="flex:1 1 auto;min-width:0;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1a2233;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(o['medio']) + '</span>';
         return '<article style="display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid #ddd6c9;border-radius:2px;padding:clamp(18px,2vw,24px)">' +
           '<div style="display:flex;align-items:center;gap:9px;min-width:0">' +
             marca +
-            '<span style="flex:0 0 auto;font-size:12px;color:#6a7382;font-variant-numeric:tabular-nums"><span data-es>' + esc(o._fEs) + '</span><span data-en>' + esc(o._fEn) + '</span></span>' +
+            '<span style="flex:0 0 auto;font-size:12px;color:#5a6271;font-variant-numeric:tabular-nums"><span data-es>' + esc(o._fEs) + '</span><span data-en>' + esc(o._fEn) + '</span></span>' +
           '</div>' +
           '<h3 style="font-family:\'Sora\', Arial, sans-serif;font-weight:600;color:#1a2233;font-size:clamp(15px,1.4vw,18px);line-height:1.2;text-wrap:pretty">' +
             '<span data-es>' + esc(o['titulo']) + '</span><span data-en>' + esc(o['title'] || o['titulo']) + '</span></h3>' +
-          '<span style="font-size:13px;color:#6a7382"><span data-es>' + esc(bajoEs) + '</span><span data-en>' + esc(bajoEn) + '</span></span>' +
-          (enlace ? '<a href="' + esc(enlace) + '" target="_blank" rel="noopener" style="margin-top:auto;padding-top:4px;font-size:13.5px;font-weight:600;color:#b8874a;text-decoration:none">' +
+          '<span style="font-size:13px;color:#5a6271"><span data-es>' + esc(bajoEs) + '</span><span data-en>' + esc(bajoEn) + '</span></span>' +
+          (enlace ? '<a href="' + esc(enlace) + '" target="_blank" rel="noopener" style="margin-top:auto;padding-top:4px;font-size:13.5px;font-weight:600;color:#845b2c;text-decoration:none">' +
             (o._av ? '<span data-es>Ver o escuchar →</span><span data-en>Watch or listen →</span>'
                    : '<span data-es>Leer la nota →</span><span data-en>Read the article →</span>') + '</a>' : '') +
           '</article>';

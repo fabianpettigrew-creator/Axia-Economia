@@ -24,15 +24,40 @@
   html{scroll-behavior:smooth;background:#f7f4ee}
   body{background:#f7f4ee;color:#232b3b;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
   ul{list-style:none}
-  a{color:#b8874a;text-decoration:none}
+  a{color:#845b2c;text-decoration:none}
   a:hover{color:#8f6531}
-  .scp0:hover{color:#b8874a !important}
-  .scp1:hover{border-color:#b8874a !important;color:#b8874a !important}
+  .scp0:hover{color:#845b2c !important}
+  .scp1:hover{border-color:#b8874a !important;color:#845b2c !important}
   .scp2:hover{background:#b8874a !important;color:#fff !important}
   [data-en]{display:none}
   html[data-lang="en"] [data-es]{display:none}
   html[data-lang="en"] [data-en]{display:revert}
   [hidden]{display:none !important}
+
+  /* Menú: hasta 1040 px los enlaces van en un panel que abre el botón Menú */
+  #nav-enlaces{display:flex;align-items:center;gap:inherit}
+  #menu-btn{display:none}
+  @media (max-width:1040px){
+    #menu-btn{display:inline-flex;align-items:center;gap:9px;border:1px solid #273146;background:transparent;border-radius:2px;
+      padding:7px 12px;color:#f2ede4;font:inherit;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+    #menu-btn:hover{border-color:#c99a5f;color:#ddb27a}
+    #menu-btn .m-cerrar{display:none}
+    header.menu-abierto #menu-btn .m-abrir{display:none}
+    header.menu-abierto #menu-btn .m-cerrar{display:inline}
+    #nav-enlaces{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
+      background:#151d2b;border-bottom:1px solid #273146;padding:6px clamp(20px,5vw,56px) 18px;
+      max-height:calc(100vh - 64px);overflow:auto;box-shadow:0 18px 30px rgba(10,14,22,.35)}
+    header.menu-abierto #nav-enlaces{display:flex}
+    #nav-enlaces a{display:flex !important;align-items:center;gap:9px;font-size:16px !important;padding:14px 0;border-bottom:1px solid #273146}
+    #nav-enlaces a:last-child{border-bottom:0}
+  }
+  @media (max-width:760px){
+    header > div{height:64px !important}
+    header a[aria-label="AXIA"] img{width:140px !important;margin:-13px -12px -13px -9px !important}
+  }
+  /* Foco de teclado visible y de la marca */
+  :focus-visible{outline:2px solid #b8874a;outline-offset:3px}
+  header :focus-visible,footer :focus-visible,#inicio :focus-visible{outline-color:#c99a5f}
 
   /* Celular */
   /* el enlace Experiencia se oculta en pantallas medias para que el menú no se desborde */
@@ -42,12 +67,7 @@
   /* antes de esconder nada, el menu se achica */
   @media (max-width:1180px){ header nav{gap:15px !important} header nav a{font-size:13.5px !important} }
   @media (max-width:1080px){ header nav{gap:12px !important} header nav a{font-size:12.5px !important} }
-  @media (max-width:1040px){ .ax-nav-extra{display:none !important} }
-  @media (max-width:900px){ header nav a{font-size:12px !important} header nav{gap:10px !important} }
-  /* con Partners en el menu, entre 760 y 820 px hace falta un escalon mas */
-  @media (max-width:820px){ header nav a{font-size:11.5px !important} header nav{gap:7px !important} }
   @media (max-width:760px){
-    nav a{display:none !important}
     [style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr) !important}
     [style*="clamp(48px, 6vw, 86px)"],[style*="clamp(48px,6vw,86px)"]{grid-template-columns:40px minmax(0,1fr) !important;row-gap:10px !important}
     [style*="clamp(48px, 6vw, 86px)"] > :last-child,[style*="clamp(48px,6vw,86px)"] > :last-child{grid-column:2}
@@ -74,7 +94,7 @@
   #vs-num{flex:0 0 auto;font-size:13px;letter-spacing:.06em;color:#9aa4b6;font-variant-numeric:tabular-nums}
   .vs-b{flex:0 0 auto;width:38px;height:38px;background:none;border:1px solid rgba(255,255,255,.22);
         border-radius:2px;color:#dfe4ec;font:inherit;font-size:18px;line-height:1;cursor:pointer}
-  .vs-b:hover{border-color:#b8874a;color:#b8874a}
+  .vs-b:hover{border-color:#b8874a;color:#c99a5f}
   .vs-b[disabled]{opacity:.28;cursor:default;border-color:rgba(255,255,255,.14);color:#dfe4ec}
   #vs-esc{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;
           gap:clamp(6px,2vw,18px);padding:clamp(10px,2vw,22px);background:#2c3446}
@@ -108,6 +128,7 @@
     html.vs-open #vs-print{display:block;padding:48px;font-family:Georgia,serif;font-size:15px;color:#1a2233}
   }
   header .scp0:hover,footer .scp0:hover{color:#ddb27a !important}
+  header .scp1:hover{border-color:#c99a5f !important;color:#ddb27a !important}
   #inicio .scp2:hover{background:#ddb27a !important;color:#151d2b !important}
 
   /* WhatsApp flotante */
@@ -178,10 +199,10 @@ body{hanging-punctuation:first last}
 /* la franja de datos */
 #pulso .dato{border-left:1px solid #ddd6c9;padding-left:clamp(12px,1.6vw,20px)}
 #pulso .dato:first-child{border-left:0;padding-left:0}
-#pulso .rotulo{display:block;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6a7382}
+#pulso .rotulo{display:block;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#5a6271}
 #pulso .cifra{display:block;font-family:'Sora', Arial, sans-serif;font-size:clamp(20px,2.26vw,28px);line-height:1.1;color:#1a2233;margin:7px 0 3px;font-weight:600;letter-spacing:-0.015em}
-#pulso .periodo{display:block;font-size:11.5px;color:#6a7382}
-.pulso-ir:hover .cifra{color:#b8874a}
+#pulso .periodo{display:block;font-size:11.5px;color:#5a6271}
+.pulso-ir:hover .cifra{color:#845b2c}
 @media (max-width:900px){
   #pulso > div{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
   #pulso .dato:nth-child(3){border-left:0;padding-left:0}
@@ -193,10 +214,10 @@ body{hanging-punctuation:first last}
 
   <style>
     .pub-envoltorio{max-width:860px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,5vw,56px)}
-    .pub-volver{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#b8874a;text-decoration:none}
-    .pub-sector{display:block;margin-top:clamp(28px,4vw,44px);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#b8874a}
+    .pub-volver{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#845b2c;text-decoration:none}
+    .pub-sector{display:block;margin-top:clamp(28px,4vw,44px);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#845b2c}
     .pub-titulo{margin-top:14px;font-family:"Sora", Arial, sans-serif;font-weight:600;color:#1a2233;font-size:clamp(23px,3.43vw,39px);line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
-    .pub-fecha{display:block;margin-top:14px;font-size:13px;color:#6a7382;letter-spacing:.04em}
+    .pub-fecha{display:block;margin-top:14px;font-size:13px;color:#5a6271;letter-spacing:.04em}
     .pub-resumen{margin-top:clamp(24px,3vw,34px);font-size:clamp(17px,1.4vw,19px);color:#49536a;line-height:1.75;text-wrap:pretty}
     .pub-cuerpo{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(22px,3vw,40px);align-items:start;margin-top:clamp(24px,3vw,34px)}
     .pub-cuerpo.con-portada{grid-template-columns:minmax(0,1fr) minmax(0,.62fr)}
@@ -207,19 +228,19 @@ body{hanging-punctuation:first last}
       .pub-portada{max-width:420px;order:-1}
     }
     .pub-acciones{margin-top:clamp(28px,3.4vw,40px);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-    .pub-boton{display:inline-flex;align-items:center;gap:9px;border:1px solid #b8874a;border-radius:2px;color:#b8874a;font-size:14px;font-weight:600;padding:11px 18px;text-decoration:none;background:none}
-    .pub-boton:hover{background:#b8874a;color:#fff}
-    .pub-nota{margin-top:clamp(36px,4vw,52px);padding-top:22px;border-top:1px solid #ddd6c9;font-size:14px;color:#6a7382;text-wrap:pretty}
+    .pub-boton{display:inline-flex;align-items:center;gap:9px;border:1px solid #b8874a;border-radius:2px;color:#845b2c;font-size:14px;font-weight:600;padding:11px 18px;text-decoration:none;background:none}
+    .pub-boton:hover{background:#845b2c;border-color:#845b2c;color:#fff}
+    .pub-nota{margin-top:clamp(36px,4vw,52px);padding-top:22px;border-top:1px solid #ddd6c9;font-size:14px;color:#5a6271;text-wrap:pretty}
     .pub-lista{max-width:1160px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,5vw,56px)}
     .pub-fila{display:grid;grid-template-columns:clamp(64px,11vw,140px) minmax(0,1fr) minmax(0,1.35fr);gap:clamp(16px,3vw,44px);padding:clamp(26px,3vw,38px) 0;border-top:1px solid #ddd6c9;align-items:start}
     .pub-fila:last-child{border-bottom:1px solid #ddd6c9}
-    .pub-anio{display:block;font-family:"Sora", Arial, sans-serif;font-size:17px;color:#b8874a;line-height:1.3;font-weight:600}
+    .pub-anio{display:block;font-family:"Sora", Arial, sans-serif;font-size:17px;color:#845b2c;line-height:1.3;font-weight:600}
     .pub-mini{display:block;width:100%;height:auto;margin-top:12px;border:1px solid #ddd6c9;border-radius:2px}
     .pub-fila h2{font-family:"Sora", Arial, sans-serif;font-weight:600;color:#1a2233;font-size:clamp(17px,1.56vw,21px);line-height:1.18}
     .pub-fila h2 a{color:inherit;text-decoration:none;border-bottom:1px solid #ddd6c9}
     .pub-fila h2 a:hover{border-bottom-color:#b8874a}
-    .pub-rel{display:block;margin-top:9px;font-size:13px;color:#6a7382}
-    .pub-fila .sec{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6a7382}
+    .pub-rel{display:block;margin-top:9px;font-size:13px;color:#5a6271}
+    .pub-fila .sec{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#5a6271}
     .pub-fila p{font-size:16px;color:#5d6676;text-wrap:pretty}
     @media (max-width:760px){
       .pub-fila{grid-template-columns:76px minmax(0,1fr);row-gap:10px}
@@ -235,7 +256,8 @@ body{hanging-punctuation:first last}
       <a href="../" aria-label="AXIA" style="display: flex; align-items: center; text-decoration: none;">
         <img src="../marca/logo-axia-horizontal-negativo.png" width="180" height="99" alt="AXIA Consultora Económica" style="display:block;width:180px;height:auto;margin:-16px -16px -16px -11px">
       </a>
-      <nav style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px);">
+      <nav aria-label="Principal" style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px);">
+        <div id="nav-enlaces">
         <a href="../#boletin" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Panorama</span><span data-en>Panorama</span></a>
         <a href="../tablero/" class="scp0 ax-monitor" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span class="ax-vivo" aria-hidden="true"></span><span class="ax-brillo"><span data-es>Monitor Macro</span><span data-en>Macro Monitor</span></span></a>
         <a href="../#estudios" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Estudios</span><span data-en>Studies</span></a>
@@ -245,9 +267,23 @@ body{hanging-punctuation:first last}
         <a href="../#trayectoria" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Equipo</span><span data-en>Team</span></a>
         <a href="../#partners" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Partners</span><span data-en>Partners</span></a>
         <a href="../#contacto" class="scp0" style="font-size: 14px; font-weight: 500; color: #f2ede4; text-decoration: none;"><span data-es>Contacto</span><span data-en>Contact</span></a>
+        </div>
+        <button id="menu-btn" type="button" aria-expanded="false" aria-controls="nav-enlaces"><svg class="m-abrir" width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path d="M0 1h16M0 6h16M0 11h16" stroke="currentColor" stroke-width="1.5"/></svg><svg class="m-cerrar" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5"/></svg><span data-es>Menú</span><span data-en>Menu</span></button>
         <button id="lang" type="button" class="scp1" style="border: 1px solid #273146; background: transparent; border-radius: 2px; padding: 6px 11px; font-style: inherit; font-variant: inherit; font-weight: 600; font-stretch: inherit; font-size: 11px; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; letter-spacing: 0.14em; color: #f2ede4; cursor: pointer;"><span data-es>EN</span><span data-en>ES</span></button>
       </nav>
     </div>
+    <script>
+    (function(){
+      var h = document.currentScript.closest('header'), b = document.getElementById('menu-btn');
+      if (!h || !b) return;
+      function poner(abrir){ h.classList.toggle('menu-abierto', abrir); b.setAttribute('aria-expanded', abrir ? 'true' : 'false'); }
+      b.addEventListener('click', function(){ poner(!h.classList.contains('menu-abierto')); });
+      document.getElementById('nav-enlaces').addEventListener('click', function(e){ if (e.target.closest('a')) poner(false); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && h.classList.contains('menu-abierto')) { poner(false); b.focus(); } });
+      document.addEventListener('click', function(e){ if (!h.contains(e.target)) poner(false); });
+      window.addEventListener('resize', function(){ if (window.innerWidth > 1040) poner(false); });
+    })();
+    </script>
   </header>
 <main>
   <div class="pub-lista">
@@ -257,7 +293,7 @@ body{hanging-punctuation:first last}
     <p class="pub-resumen" style="max-width:62ch"><span data-es>Resúmenes de los estudios realizados por AXIA. Cada ficha enlaza al resumen completo; el informe original se entrega al cliente del trabajo.</span><span data-en>Summaries of the studies carried out by AXIA. Each entry links to the full summary; the original report is delivered to the client of the engagement.</span></p>
     <div style="margin-top:clamp(32px,4vw,52px)">
       <article class="pub-fila">
-        <div><span class="pub-anio">2026</span><a href="estratos-socioeconomicos.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" src="../portadas/estratos-socioeconomicos.webp" width="900" height="900" loading="lazy" decoding="async" alt=""></a></div>
+        <div><span class="pub-anio">2026</span><a href="estratos-socioeconomicos.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" src="../portadas/mini/estratos-socioeconomicos.webp" width="240" height="240" loading="lazy" decoding="async" alt=""></a></div>
         <div>
           <h2><a href="estratos-socioeconomicos.html"><span data-es>Los estratos socioeconómicos, del 3T-2025 al 2T-2026</span><span data-en>Socioeconomic strata, Q3 2025 to Q2 2026</span></a></h2>
           <span class="sec"><span data-es>Consumo y comercio minorista</span><span data-en>Consumer and retail</span></span>
@@ -265,7 +301,7 @@ body{hanging-punctuation:first last}
         <p><span data-es>Cuántos hogares hay en cada estrato socioeconómico y cuánto ingresan, trimestre a trimestre. Entre el tercer trimestre de 2025 y el segundo de 2026 el ingreso real del hogar cayó 12,6% y, con umbrales de ingreso fijos en términos reales, el estrato Marginal sumó 789 mil hogares mientras el Medio y el Medio Bajo perdieron 917 mil. Sobre la Encuesta Permanente de Hogares del INDEC, con el ingreso corregido por subdeclaración.</span><span data-en>How many households are in each socioeconomic stratum and how much they earn, quarter by quarter. Between Q3 2025 and Q2 2026 real household income fell 12.6% and, with income thresholds fixed in real terms, the Marginal stratum gained 789,000 households while the Middle and Lower-middle strata lost 917,000. Based on INDEC&#x27;s household survey, with income adjusted for under-reporting.</span></p>
       </article>
       <article class="pub-fila">
-        <div><span class="pub-anio">2026</span><a href="canasta-caba-semanal.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" src="../portadas/canasta-caba-semanal.webp" width="900" height="900" loading="lazy" decoding="async" alt=""></a></div>
+        <div><span class="pub-anio">2026</span><a href="canasta-caba-semanal.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" src="../portadas/mini/canasta-caba-semanal.webp" width="240" height="240" loading="lazy" decoding="async" alt=""></a></div>
         <div>
           <h2><a href="canasta-caba-semanal.html"><span data-es>Canasta del hogar porteño: monitor semanal de precios</span><span data-en>Buenos Aires household basket: weekly price monitor</span></a></h2>
           <span class="sec"><span data-es>Consumo y comercio minorista</span><span data-en>Consumer and retail</span></span>
@@ -274,7 +310,7 @@ body{hanging-punctuation:first last}
         <p><span data-es>Qué cuesta por mes la canasta de consumo de un hogar porteño de nivel medio —alimentos, bebidas, limpieza y cuidado personal— con precios relevados por AXIA en supermercados de la Ciudad de Buenos Aires. Variación semanal por rubro y por producto, y la incidencia de cada rubro.</span><span data-en>What the monthly consumption basket of a middle-income Buenos Aires household costs —food, drinks, cleaning and personal care— with prices surveyed by AXIA in the city&#x27;s supermarkets. Weekly change by category and product, and each category&#x27;s contribution.</span></p>
       </article>
       <article class="pub-fila">
-        <div><span class="pub-anio">2026</span><a href="hogares-ingresos-consumo.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" src="../portadas/hogares-ingresos-consumo.webp" width="900" height="900" loading="lazy" decoding="async" alt=""></a></div>
+        <div><span class="pub-anio">2026</span><a href="hogares-ingresos-consumo.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" src="../portadas/mini/hogares-ingresos-consumo.webp" width="240" height="240" loading="lazy" decoding="async" alt=""></a></div>
         <div>
           <h2><a href="hogares-ingresos-consumo.html"><span data-es>Cuánto ganan y en qué gastan los hogares argentinos</span><span data-en>How much Argentine households earn and what they spend it on</span></a></h2>
           <span class="sec"><span data-es>Consumo y comercio minorista</span><span data-en>Consumer and retail</span></span>
@@ -282,7 +318,7 @@ body{hanging-punctuation:first last}
         <p><span data-es>Ingreso de los hogares corregido por subdeclaración, cinco estratos socioeconómicos, estructura del gasto por rubro y por región, y mercado de trabajo, sobre la Encuesta Permanente de Hogares y la Encuesta Nacional de Gastos del INDEC. Datos al segundo trimestre de 2026.</span><span data-en>Household income adjusted for under-reporting, five socioeconomic strata, the structure of spending by category and region, and the labour market, based on INDEC&#x27;s household income and expenditure surveys. Data up to the second quarter of 2026.</span></p>
       </article>
       <article class="pub-fila">
-        <div><span class="pub-anio">2026</span><a href="langostino-argentino.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" src="../portadas/langostino-argentino.webp" width="900" height="900" loading="lazy" decoding="async" alt=""></a></div>
+        <div><span class="pub-anio">2026</span><a href="langostino-argentino.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" src="../portadas/mini/langostino-argentino.webp" width="240" height="240" loading="lazy" decoding="async" alt=""></a></div>
         <div>
           <h2><a href="langostino-argentino.html"><span data-es>Langostino argentino: precio, comercio y posición competitiva</span><span data-en>Argentine red shrimp: price, trade and competitive position</span></a></h2>
           <span class="sec"><span data-es>Pesca y agroindustria</span><span data-en>Fisheries and agribusiness</span></span>
@@ -290,7 +326,7 @@ body{hanging-punctuation:first last}
         <p><span data-es>Estudio de mercado del langostino salvaje argentino: evolución de la captura y de los precios, mercados de destino y competencia del langostino de cultivo. Dónde está el valor del producto y cómo defenderlo.</span><span data-en>Market study of Argentine wild red shrimp: catch and price trends, destination markets and competition from farmed shrimp. Where the product&#x27;s value lies and how to defend it.</span></p>
       </article>
       <article class="pub-fila">
-        <div><span class="pub-anio">2026</span><a href="canasta-cuatro-ciudades.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" src="../portadas/canasta-cuatro-ciudades.webp" width="900" height="900" loading="lazy" decoding="async" alt=""></a></div>
+        <div><span class="pub-anio">2026</span><a href="canasta-cuatro-ciudades.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" src="../portadas/mini/canasta-cuatro-ciudades.webp" width="240" height="240" loading="lazy" decoding="async" alt=""></a></div>
         <div>
           <h2><a href="canasta-cuatro-ciudades.html"><span data-es>Cuánto cuesta llenar el mismo changuito en cuatro ciudades</span><span data-en>What the same basket of goods costs in four cities</span></a></h2>
           <span class="sec"><span data-es>Consumo y comercio minorista</span><span data-en>Consumer and retail</span></span>

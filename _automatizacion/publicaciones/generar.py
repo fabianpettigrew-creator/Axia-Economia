@@ -157,10 +157,10 @@ GUION_IDIOMA = """
 ESTILO_PAGINA = """
   <style>
     .pub-envoltorio{max-width:860px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,5vw,56px)}
-    .pub-volver{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#b8874a;text-decoration:none}
-    .pub-sector{display:block;margin-top:clamp(28px,4vw,44px);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#b8874a}
+    .pub-volver{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#845b2c;text-decoration:none}
+    .pub-sector{display:block;margin-top:clamp(28px,4vw,44px);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#845b2c}
     .pub-titulo{margin-top:14px;font-family:"Sora", Arial, sans-serif;font-weight:600;color:#1a2233;font-size:clamp(23px,3.43vw,39px);line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
-    .pub-fecha{display:block;margin-top:14px;font-size:13px;color:#6a7382;letter-spacing:.04em}
+    .pub-fecha{display:block;margin-top:14px;font-size:13px;color:#5a6271;letter-spacing:.04em}
     .pub-resumen{margin-top:clamp(24px,3vw,34px);font-size:clamp(17px,1.4vw,19px);color:#49536a;line-height:1.75;text-wrap:pretty}
     .pub-cuerpo{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(22px,3vw,40px);align-items:start;margin-top:clamp(24px,3vw,34px)}
     .pub-cuerpo.con-portada{grid-template-columns:minmax(0,1fr) minmax(0,.62fr)}
@@ -171,19 +171,19 @@ ESTILO_PAGINA = """
       .pub-portada{max-width:420px;order:-1}
     }
     .pub-acciones{margin-top:clamp(28px,3.4vw,40px);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-    .pub-boton{display:inline-flex;align-items:center;gap:9px;border:1px solid #b8874a;border-radius:2px;color:#b8874a;font-size:14px;font-weight:600;padding:11px 18px;text-decoration:none;background:none}
-    .pub-boton:hover{background:#b8874a;color:#fff}
-    .pub-nota{margin-top:clamp(36px,4vw,52px);padding-top:22px;border-top:1px solid #ddd6c9;font-size:14px;color:#6a7382;text-wrap:pretty}
+    .pub-boton{display:inline-flex;align-items:center;gap:9px;border:1px solid #b8874a;border-radius:2px;color:#845b2c;font-size:14px;font-weight:600;padding:11px 18px;text-decoration:none;background:none}
+    .pub-boton:hover{background:#845b2c;border-color:#845b2c;color:#fff}
+    .pub-nota{margin-top:clamp(36px,4vw,52px);padding-top:22px;border-top:1px solid #ddd6c9;font-size:14px;color:#5a6271;text-wrap:pretty}
     .pub-lista{max-width:1160px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,5vw,56px)}
     .pub-fila{display:grid;grid-template-columns:clamp(64px,11vw,140px) minmax(0,1fr) minmax(0,1.35fr);gap:clamp(16px,3vw,44px);padding:clamp(26px,3vw,38px) 0;border-top:1px solid #ddd6c9;align-items:start}
     .pub-fila:last-child{border-bottom:1px solid #ddd6c9}
-    .pub-anio{display:block;font-family:"Sora", Arial, sans-serif;font-size:17px;color:#b8874a;line-height:1.3;font-weight:600}
+    .pub-anio{display:block;font-family:"Sora", Arial, sans-serif;font-size:17px;color:#845b2c;line-height:1.3;font-weight:600}
     .pub-mini{display:block;width:100%;height:auto;margin-top:12px;border:1px solid #ddd6c9;border-radius:2px}
     .pub-fila h2{font-family:"Sora", Arial, sans-serif;font-weight:600;color:#1a2233;font-size:clamp(17px,1.56vw,21px);line-height:1.18}
     .pub-fila h2 a{color:inherit;text-decoration:none;border-bottom:1px solid #ddd6c9}
     .pub-fila h2 a:hover{border-bottom-color:#b8874a}
-    .pub-rel{display:block;margin-top:9px;font-size:13px;color:#6a7382}
-    .pub-fila .sec{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6a7382}
+    .pub-rel{display:block;margin-top:9px;font-size:13px;color:#5a6271}
+    .pub-fila .sec{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#5a6271}
     .pub-fila p{font-size:16px;color:#5d6676;text-wrap:pretty}
     @media (max-width:760px){
       .pub-fila{grid-template-columns:76px minmax(0,1fr);row-gap:10px}
@@ -292,9 +292,14 @@ def miniatura(e):
     orden de tabulacion y sin alt: el titulo, al lado, ya es el enlace."""
     if not e.get("imagen"):
         return ""
+    chica = os.path.splitext(e["imagen"])[0] + ".webp"
+    if os.path.exists(os.path.join(RAIZ, "portadas", "mini", chica)):
+        src, lado = "../portadas/mini/" + chica, 240
+    else:
+        src, lado = "../portadas/" + e["imagen"], 900
     return ('<a href="{s}.html" tabindex="-1" aria-hidden="true"><img class="pub-mini" '
-            'src="../portadas/{a}" width="900" height="900" loading="lazy" decoding="async" alt=""></a>'
-            ).format(s=esc(e["slug"]), a=esc(e["imagen"]))
+            'src="{src}" width="{l}" height="{l}" loading="lazy" decoding="async" alt=""></a>'
+            ).format(s=esc(e["slug"]), src=esc(src), l=lado)
 
 
 def cuerpo_indice(estudios):
@@ -356,11 +361,35 @@ def actualizar_sitemap(estudios):
     return len(filas)
 
 
+def hacer_miniaturas(estudios):
+    """portadas/mini/<nombre>.webp de 240 px: la portada y el listado muestran la imagen
+    a menos de 120 px y no hace falta bajar la de 900. Se rehace si la portada cambio."""
+    try:
+        from PIL import Image
+    except ImportError:
+        print("AVISO: sin Pillow no se hacen las miniaturas; se usa la imagen grande")
+        return
+    carpeta = os.path.join(RAIZ, "portadas", "mini")
+    os.makedirs(carpeta, exist_ok=True)
+    for e in estudios:
+        if not e.get("imagen"):
+            continue
+        origen = os.path.join(RAIZ, "portadas", e["imagen"])
+        destino = os.path.join(carpeta, os.path.splitext(e["imagen"])[0] + ".webp")
+        if not os.path.exists(origen):
+            continue
+        if os.path.exists(destino) and os.path.getmtime(destino) >= os.path.getmtime(origen):
+            continue
+        Image.open(origen).convert("RGB").resize((240, 240), Image.LANCZOS).save(destino, "WEBP", quality=82, method=6)
+        print("miniatura:", os.path.relpath(destino, RAIZ))
+
+
 def main():
     estudios = leer_estudios(os.path.join(RAIZ, "estudios.txt"))
     if not estudios:
         print("estudios.txt no tiene ningun estudio cargado. No se genero nada.")
         return
+    hacer_miniaturas(estudios)
     cabeza, encabezado, pie = piezas_de_la_portada()
     os.makedirs(SALIDA, exist_ok=True)
 
