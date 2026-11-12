@@ -1,9 +1,10 @@
 {
- "actualizado": "2026-11-11 19:54",
+ "actualizado": "2026-11-11 21:13",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
   "brl",
+  "cobre",
   "dxy",
   "emae",
   "emae_de",
@@ -11,6 +12,7 @@
   "eurusd",
   "expo",
   "financiero",
+  "gas_hh",
   "impo",
   "ipc",
   "ipc_est",
@@ -23,6 +25,7 @@
   "m_pzas",
   "merval",
   "oro",
+  "plata",
   "rec_comb",
   "rec_iva",
   "s_adm",
@@ -56,11 +59,19 @@
   "ucii_refinacion",
   "ucii_tabaco",
   "ucii_textil",
+  "wti",
   "x_cye",
   "x_moa",
   "x_moi",
   "x_pp"
  ],
- "series_con_dato_nuevo_del_indec": [],
+ "series_con_dato_nuevo_del_indec": [
+  "m_bk con dato a 2026-09 (la API llegaba a 2026-08)",
+  "m_bi con dato a 2026-09 (la API llegaba a 2026-08)",
+  "m_cyl con dato a 2026-09 (la API llegaba a 2026-08)",
+  "m_pzas con dato a 2026-09 (la API llegaba a 2026-08)",
+  "m_bc con dato a 2026-09 (la API llegaba a 2026-08)",
+  "m_auto con dato a 2026-09 (la API llegaba a 2026-08)"
+ ],
  "otros_avisos": []
 }
