@@ -332,7 +332,7 @@ const DEF = {
           {n:"Saldo comercial", t:"Saldo comercial mensual", st:"Millones de dólares · la línea es el saldo energético", d:x=>x.saldo, tipo:"bar", u:"US$ M", dec:0, rango:"2A", signo:true, lineas:["Saldo energético"]},
           {n:"Exportaciones por rubro", t:"Exportaciones por rubro", st:"Acumulado 12 meses, miles de millones de dólares", d:x=>x.rubros, tipo:"line", u:"US$ mil M", dec:1, rango:"5A"},
           {n:"Importaciones por uso", t:"Importaciones por uso económico", st:"Acumulado 12 meses, miles de millones de dólares", d:x=>x.usos, tipo:"line", u:"US$ mil M", dec:1, rango:"5A"},
-          {n:"Liquidación de divisas", t:"Liquidación de divisas por sector", st:"Cobros de exportaciones de bienes, millones de dólares por mes", d:x=>x.divisas, tipo:"line", u:"US$ M", dec:0, rango:"5A"}],
+          {n:"Liquidación de divisas", t:"Liquidación de divisas por sector", st:"Cobros de exportaciones de bienes, millones de dólares por mes", d:x=>x.divisas, tipo:"line", u:"US$ M", dec:0, rango:"5A", barras:["Agro (oleaginosas y cereales)"]}],
     nota:"El acumulado de 12 meses suaviza la estacionalidad de la cosecha y permite ver la tendencia del comercio. El saldo energético es la exportación de combustibles y energía menos la importación de combustibles y lubricantes. La liquidación de divisas son los cobros de exportaciones que informa el BCRA, con uno o dos meses de demora."},
   "monetarias": {sub:"Reservas, mercado de cambios, tasas de interés, crédito y depósitos", fuente:"BCRA e INDEC",
     ultimo:k=>k.reservas.fecha,
