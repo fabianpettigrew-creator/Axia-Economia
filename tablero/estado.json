@@ -1,7 +1,8 @@
 {
- "actualizado": "2026-11-11 21:13",
+ "actualizado": "2026-11-11 22:31",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
+  "aceite_soja",
   "brent",
   "brl",
   "cobre",
@@ -13,6 +14,7 @@
   "expo",
   "financiero",
   "gas_hh",
+  "harina_soja",
   "impo",
   "ipc",
   "ipc_est",
@@ -21,8 +23,13 @@
   "ipi",
   "ipi_de",
   "isac",
+  "m_auto",
+  "m_bc",
+  "m_bi",
+  "m_bk",
   "m_cyl",
   "m_pzas",
+  "maiz",
   "merval",
   "oro",
   "plata",
@@ -47,7 +54,9 @@
   "sal_priv",
   "sal_pub",
   "salarios",
+  "soja",
   "super",
+  "trigo",
   "ucii",
   "ucii_alim",
   "ucii_caucho",
@@ -65,13 +74,6 @@
   "x_moi",
   "x_pp"
  ],
- "series_con_dato_nuevo_del_indec": [
-  "m_bk con dato a 2026-09 (la API llegaba a 2026-08)",
-  "m_bi con dato a 2026-09 (la API llegaba a 2026-08)",
-  "m_cyl con dato a 2026-09 (la API llegaba a 2026-08)",
-  "m_pzas con dato a 2026-09 (la API llegaba a 2026-08)",
-  "m_bc con dato a 2026-09 (la API llegaba a 2026-08)",
-  "m_auto con dato a 2026-09 (la API llegaba a 2026-08)"
- ],
+ "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": []
 }
