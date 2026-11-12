@@ -189,9 +189,11 @@ def comercio() -> dict:
     filas = _filas_mensuales(x, 0, 1)
     out["expo"] = [_serie(x, filas, _col(x, 2, "exportaciones"))]
     out["impo"] = [_serie(x, filas, _col(x, 2, "importaciones"))]
-    for patron, mapa, col_mes in ((r"expo_grandes_rubros_\d{4}_\d{4}", RUBROS_EXPO, 1),
-                                  (r"impo_uso_economico_\d{4}_\d{4}", USOS_IMPO, 0)):
+    for patron, mapa in ((r"expo_grandes_rubros_\d{4}_\d{4}", RUBROS_EXPO),
+                         (r"impo_uso_economico_\d{4}_\d{4}", USOS_IMPO)):
         t = _excel(_vinculo("3/2/40", patron), 0)
+        # columna de los meses: la que tiene más etiquetas de mes (el INDEC la movió de la A a la B en nov-2026)
+        col_mes = max(range(min(4, t.shape[1])), key=lambda c: sum(_mes(v) is not None for v in t.iloc[:, c]))
         fila_anio = next(i for i in range(15) if any(re.match(r"ano \d{4}", _norm(v)) for v in t.iloc[i]))
         rubro = None
         series = {}
