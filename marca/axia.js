@@ -7,13 +7,14 @@
 (function(){
   var estilo = document.createElement("style");
   // Spectral tiene mayusculas mas bajas que Sora y Manrope a igual cuerpo: se agranda un
-  // poco para que AXIA no quede mas chica que las palabras de al lado.
-  estilo.textContent = '.axia{font-family:"Spectral",Georgia,serif;font-weight:700;font-style:normal;' +
+  // poco para que AXIA no quede mas chica que las palabras de al lado. Va con "span." porque
+  // el encabezado de Panorama es <header class="axia"> y sin eso tomaba todo en Spectral.
+  estilo.textContent = 'span.axia{font-family:"Spectral",Georgia,serif;font-weight:700;font-style:normal;' +
                        'letter-spacing:.045em;font-size:1.06em;line-height:1}';
   document.head.appendChild(estilo);
 
   var PALABRA = /\bAXIA\b/;
-  var EXCLUIR = "script,style,textarea,title,noscript,svg,canvas,option,.axia,[contenteditable]";
+  var EXCLUIR = "script,style,textarea,title,noscript,svg,canvas,option,span.axia,[contenteditable]";
 
   function envolverNodo(n){
     var p = n.parentElement;
