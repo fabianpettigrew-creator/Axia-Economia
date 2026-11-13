@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-12 18:30",
+ "actualizado": "2026-11-12 23:41",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -65,11 +65,6 @@
   "x_moi",
   "x_pp"
  ],
- "series_con_dato_nuevo_del_indec": [
-  "ipc con dato a 2026-10 (la API llegaba a 2026-09)",
-  "ipc_nucleo con dato a 2026-10 (la API llegaba a 2026-09)",
-  "ipc_reg con dato a 2026-10 (la API llegaba a 2026-09)",
-  "ipc_est con dato a 2026-10 (la API llegaba a 2026-09)"
- ],
+ "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": []
 }
