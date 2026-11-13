@@ -33,6 +33,17 @@
 # Si el archivo no tiene ningún bloque cargado, la sección no aparece en la web.
 
 Medio: Wapa Stream
+Título: Cómo influyen las elecciones de Brasil, Estados Unidos e Israel en la economía argentina
+Title: How elections in Brazil, the United States and Israel affect the Argentine economy
+Fecha: 2026-11-11
+Tipo: Entrevista a José Tonelli (desde el minuto 21)
+Tipo EN: Interview with José Tonelli (from minute 21)
+Programa: Algorímetro
+Formato: audiovisual
+Enlace: https://www.youtube.com/watch?v=UncKBbuUmpE&t=1260s
+---
+
+Medio: Wapa Stream
 Título: ¿Está barato el dólar? Las claves para entender la economía argentina
 Title: Is the dollar cheap? Keys to understanding the Argentine economy
 Fecha: 2026-11-05
