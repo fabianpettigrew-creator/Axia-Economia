@@ -288,11 +288,18 @@ def merval_msci() -> pd.Series:
     if MERVAL_CSV.exists():
         d = pd.read_csv(MERVAL_CSV, parse_dates=["fecha"])
         hist = pd.Series(d.valor.values, index=d.fecha)
+        hist = hist[hist > 0]   # un 0 guardado de una corrida anterior no es un cierre
     try:
         js = _get("https://open.bymadata.com.ar/vanoms-be-core/rest/api/bymadata/free/index-price",
                   {}, verify=False, cuerpo={}, headers={"Referer": "https://open.bymadata.com.ar/"}).json()
         fila = [x for x in js.get("results", js.get("data", [])) if x.get("symbol") == "MMSCI"][0]
-        hist.loc[pd.Timestamp(fila["date"])] = float(fila["closingPrice"])
+        cierre = float(fila.get("closingPrice") or 0)
+        # con la rueda abierta BYMA da closingPrice 0: no es un cierre y no se guarda
+        # (el 12/11/2026 la portada mostro el Merval en dolares en -100%)
+        if cierre > 0:
+            hist.loc[pd.Timestamp(fila["date"])] = cierre
+        else:
+            print("AVISO: BYMA todavia no tiene el cierre del Merval de %s" % fila.get("date"))
     except Exception as e:  # noqa: BLE001
         print("AVISO: no se pudo leer el indice de BYMA: %s" % e)
     hist = hist[~hist.index.duplicated(keep="last")].sort_index()
