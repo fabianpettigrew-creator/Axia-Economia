@@ -1,0 +1,16 @@
+{
+ "titulo": "Precios agropecuarios y costos de producción",
+ "paginas": 7,
+ "archivos": [
+  "p01.dat",
+  "p02.dat",
+  "p03.dat",
+  "p04.dat",
+  "p05.dat",
+  "p06.dat",
+  "p07.dat"
+ ],
+ "ancho": 1800,
+ "alto": 2650,
+ "v": 1
+}

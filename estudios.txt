@@ -53,6 +53,17 @@
 # Las líneas que empiezan con # no se muestran en la web.
 # No nombres clientes sin su permiso.
 
+Título: Precios agropecuarios y costos de producción
+Title: Farm prices and production costs
+Año: 2026
+Sector: Agro y agroindustria
+Sector EN: Agriculture and agribusiness
+Resumen: Cómo evolucionaron los precios internos de los granos y de la hacienda frente a sus costos de producción, el dólar oficial y la inflación, entre octubre de 2025 y septiembre de 2026. La soja y el maíz subieron 15,8% y 15,2%, por debajo de la inflación (30,3%) y de sus costos, que AXIA estima en 21,1%; el trigo acompañó a la inflación y el girasol subió 58,5%. Los insumos importados siguieron al dólar (+5,7%), mientras combustibles y fletes subieron 48,0% y 36,8%. En ganadería, el novillo de Cañuelas subió 28,2%, apenas por encima de sus costos (23,7%).
+Summary: How domestic grain and cattle prices moved against production costs, the official exchange rate and inflation between October 2025 and September 2026. Soybean and maize prices rose 15.8% and 15.2%, below inflation (30.3%) and below their costs, estimated by AXIA at 21.1%; wheat kept pace with inflation and sunflower rose 58.5%. Imported inputs tracked the dollar (+5.7%), while fuel and freight rose 48.0% and 36.8%. In cattle, the Cañuelas steer price rose 28.2%, just above its costs (23.7%).
+Imagen: precios-agro-costos.webp
+Visor: precios-agro-costos
+---
+
 Título: Los estratos socioeconómicos, del 3T-2025 al 2T-2026
 Title: Socioeconomic strata, Q3 2025 to Q2 2026
 Año: 2026
