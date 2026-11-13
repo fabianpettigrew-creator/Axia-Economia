@@ -32,6 +32,17 @@
 # Las líneas que empiezan con # no se muestran en la web.
 # Si el archivo no tiene ningún bloque cargado, la sección no aparece en la web.
 
+Medio: Wapa Stream
+Título: ¿Está barato el dólar? Las claves para entender la economía argentina
+Title: Is the dollar cheap? Keys to understanding the Argentine economy
+Fecha: 2026-11-05
+Tipo: Entrevista a José Tonelli (desde el minuto 12)
+Tipo EN: Interview with José Tonelli (from minute 12)
+Programa: Algorímetro
+Formato: audiovisual
+Enlace: https://www.youtube.com/watch?v=0N4YIN0RuMs&t=720s
+---
+
 Medio: Forbes Argentina
 Título: Langostino, calamar y merluza, los reyes del mar argentino que generan un negocio de US$ 2.000 millones al año
 Title: Shrimp, squid and hake, the kings of the Argentine sea that generate a US$2 billion business a year
