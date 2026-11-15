@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-14 06:03",
+ "actualizado": "2026-11-14 23:06",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -52,6 +52,6 @@
  ],
  "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": [
-  "AVISO: no se pudo leer el indice de BYMA: 'date'"
+  "AVISO: no se pudo leer el indice de BYMA: 502 Server Error: Bad Gateway for url: https://open.bymadata.com.ar/vanoms-be-core/rest/api/bymadata/free/index-price"
  ]
 }
