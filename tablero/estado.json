@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-18 07:30",
+ "actualizado": "2026-11-18 19:10",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -53,6 +53,6 @@
  ],
  "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": [
-  "AVISO: no se pudo leer el indice de BYMA: HTTPSConnectionPool(host='open.bymadata.com.ar', port=443): Max retries exceeded with url: /vanoms-be-core/rest/api/bymadata/free/index-price (Caused by ConnectTimeoutError(<HTTPSConnection(host='open.bymadata.com.ar', port=443) at 0x752e83d22fd0>, 'Connection to open.bymadata.com.ar timed out. (connect timeout=90)'))"
+  "AVISO: no se pudo leer el indice de BYMA: HTTPSConnectionPool(host='open.bymadata.com.ar', port=443): Max retries exceeded with url: /vanoms-be-core/rest/api/bymadata/free/index-price (Caused by ConnectTimeoutError(<HTTPSConnection(host='open.bymadata.com.ar', port=443) at 0x7fec5929efd0>, 'Connection to open.bymadata.com.ar timed out. (connect timeout=90)'))"
  ]
 }
