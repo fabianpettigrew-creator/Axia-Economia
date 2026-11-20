@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Spectral:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="i18n_en.js?v=eb9a6dd9"></script>
-<script src="datos.js?v=00e63737"></script>
+<script src="i18n_en.js?v=5fa2d1ff"></script>
+<script src="datos.js?v=a53d493c"></script>
 <style>
 /* Editorial: navegación superior en píldoras, indicadores grandes, gráfico a todo el ancho */
 :root{
@@ -104,6 +104,7 @@ h1{font-family:var(--display);font-weight:600;font-size:clamp(27px,3.59vw,42px);
 .btn:hover{border-color:var(--gold);color:var(--gold)}
 /* G20 */
 .g20ctl{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+.g20ctl[hidden]{display:none}  /* sin esto los controles de Brechas quedaban a la vista en las otras solapas */
 .g20ctl .fila{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
 .g20ctl label{font-size:12.5px;color:var(--ink-3);display:inline-flex;align-items:center;gap:8px}
 .g20ctl select{font:inherit;font-size:13px;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:5px 8px;max-width:100%}
@@ -296,7 +297,7 @@ const DEF = {
     nota:"La serie desestacionalizada permite comparar un mes con el anterior; la tendencia-ciclo filtra la volatilidad y muestra la dirección de fondo."},
   "precios": {sub:"Índice de precios al consumidor del INDEC: nivel general, núcleo y regulados, y precios mayoristas (IPIM)", fuente:"INDEC", mensual:true,
     ultimo:k=>k.mensual.fecha,
-    kpis:k=>[["Inflación mensual",fnum(k.mensual.valor)+"%",mesAnio(k.mensual.fecha)],["Interanual",fnum(k.interanual.valor)+"%",mesAnio(k.interanual.fecha)],
+    kpis:k=>[["Minorista mensual",fnum(k.mensual.valor)+"%",mesAnio(k.mensual.fecha)+" · IPC, precios al consumidor"],["Minorista interanual",fnum(k.interanual.valor)+"%",mesAnio(k.interanual.fecha)+" · IPC"],
              ["Núcleo mensual",fnum(k.nucleo.valor)+"%",mesAnio(k.nucleo.fecha)+" · sin regulados ni estacionales"],["Regulados mensual",k.regulados?fnum(k.regulados.valor)+"%":"—",k.regulados?mesAnio(k.regulados.fecha)+" · tarifas y precios regulados":""]],
     tabs:[{n:"Mensual", t:"Inflación mensual", st:"IPC nacional, variación % mensual", d:x=>x.mensual, tipo:"bar", u:"%", dec:1, rango:"5A"},
           {n:"Por categoría", t:"Inflación por categoría", st:()=>`IPC ${regionCat==="Nacional" ? "total nacional" : "región " + regionCat}, variación % interanual`,
