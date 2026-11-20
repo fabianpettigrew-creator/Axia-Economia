@@ -93,6 +93,7 @@ window.EN = {
   "La serie desestacionalizada permite comparar un mes con el anterior; la tendencia-ciclo filtra la volatilidad y muestra la dirección de fondo.": "The seasonally adjusted series allows month-on-month comparisons; the trend-cycle filters out volatility and shows the underlying direction.",
 
   // ---------- Precios
+  "Índice de precios al consumidor del INDEC: nivel general, núcleo y regulados, y precios mayoristas (IPIM)": "INDEC consumer price index: headline, core and regulated prices, and wholesale prices (IPIM)",
   "Índice de precios al consumidor del INDEC: nivel general, núcleo y regulados": "INDEC consumer price index: headline, core and regulated prices",
   "INDEC": "INDEC",
   "Inflación mensual": "Monthly inflation",
@@ -110,6 +111,13 @@ window.EN = {
   "región": "region",
   "Brechas": "Gaps",
   "Brechas con el nivel general": "Gaps with headline inflation",
+  "Precios mayoristas y al consumidor, interanual": "Wholesale and consumer prices, year on year",
+  "Precios mayoristas y al consumidor": "Wholesale and consumer prices",
+  "IPIM e IPC nacional, variación % mensual · en barras, los mayoristas": "IPIM and national CPI, monthly % change · bars show wholesale prices",
+  "IPIM e IPC nacional, variación % interanual": "IPIM and national CPI, year-on-year % change",
+  "Mayoristas interanual": "Wholesale y/y",
+  "Mayoristas (IPIM)": "Wholesale (IPIM)", "Consumidor (IPC)": "Consumer (CPI)",
+  "Mayoristas": "Wholesale",
   "La núcleo excluye regulados (tarifas, combustibles) y estacionales (frutas, verduras, ropa): es la mejor medida de la tendencia.": "Core inflation excludes regulated prices (utilities, fuel) and seasonal items (fruit, vegetables, clothing): it is the best gauge of the trend.",
   "Último mes": "Latest month",
   "Precios relativos": "Relative prices",

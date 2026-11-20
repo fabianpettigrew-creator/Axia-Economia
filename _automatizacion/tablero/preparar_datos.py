@@ -242,9 +242,15 @@ def main():
     ipc = d["ipc"]
     sec["precios"] = {
         "kpis": {"mensual": kv(ipc.index[-1], C.var(ipc).iloc[-1]), "interanual": kv(ipc.index[-1], C.ia(ipc).iloc[-1]),
-                 "nucleo": ult(C.var(d["ipc_nucleo"])), "regulados": ult(C.var(d["ipc_reg"]))},
+                 "nucleo": ult(C.var(d["ipc_nucleo"])), "regulados": ult(C.var(d["ipc_reg"])),
+                 "ipim": ult(C.var(d["ipim"].dropna()))},
         "mensual": {"Nivel general": serie(C.var(ipc)["2017":], 1)},
         "brechas": brechas(d),
+        # precios mayoristas (IPIM, INDEC) contra el IPC: variación mensual
+        "mayoristas": {"Mayoristas (IPIM)": serie(C.var(d["ipim"].dropna())["2017":], 1),
+                       "Consumidor (IPC)": serie(C.var(ipc)["2017":], 1)},
+        "mayoristas_ia": {"Mayoristas (IPIM)": serie(C.ia(d["ipim"].dropna())["2017":], 1),
+                          "Consumidor (IPC)": serie(C.ia(ipc)["2017":], 1)},
     }
 
     # ================= actividad
