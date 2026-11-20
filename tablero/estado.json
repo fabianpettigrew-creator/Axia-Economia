@@ -1,7 +1,19 @@
 {
- "actualizado": "2026-11-19 19:23",
+ "actualizado": "2026-11-20 00:33",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
+  "a_alua",
+  "a_bbar",
+  "a_bma",
+  "a_cepu",
+  "a_ggal",
+  "a_loma",
+  "a_pamp",
+  "a_supv",
+  "a_teco",
+  "a_tgs",
+  "a_txar",
+  "a_ypf",
   "brent",
   "brl",
   "cny",
@@ -16,6 +28,12 @@
   "ipc_nucleo",
   "ipc_reg",
   "isac",
+  "m_auto",
+  "m_bc",
+  "m_bi",
+  "m_bk",
+  "m_cyl",
+  "m_pzas",
   "merval",
   "oro",
   "s_adm",
@@ -49,23 +67,14 @@
   "ucii_quimicos",
   "ucii_refinacion",
   "ucii_tabaco",
-  "ucii_textil"
+  "ucii_textil",
+  "x_cye",
+  "x_moa",
+  "x_moi",
+  "x_pp"
  ],
- "series_con_dato_nuevo_del_indec": [
-  "expo con dato a 2026-10 (la API llegaba a 2026-09)",
-  "impo con dato a 2026-10 (la API llegaba a 2026-09)",
-  "x_pp con dato a 2026-10 (la API llegaba a 2026-09)",
-  "x_moa con dato a 2026-10 (la API llegaba a 2026-09)",
-  "x_moi con dato a 2026-10 (la API llegaba a 2026-09)",
-  "x_cye con dato a 2026-10 (la API llegaba a 2026-09)",
-  "m_bk con dato a 2026-10 (la API llegaba a 2026-09)",
-  "m_bi con dato a 2026-10 (la API llegaba a 2026-09)",
-  "m_cyl con dato a 2026-10 (la API llegaba a 2026-09)",
-  "m_pzas con dato a 2026-10 (la API llegaba a 2026-09)",
-  "m_bc con dato a 2026-10 (la API llegaba a 2026-09)",
-  "m_auto con dato a 2026-10 (la API llegaba a 2026-09)"
- ],
+ "series_con_dato_nuevo_del_indec": [],
  "otros_avisos": [
-  "AVISO: no se pudo leer el indice de BYMA: HTTPSConnectionPool(host='open.bymadata.com.ar', port=443): Max retries exceeded with url: /vanoms-be-core/rest/api/bymadata/free/index-price (Caused by ConnectTimeoutError(<HTTPSConnection(host='open.bymadata.com.ar', port=443) at 0x778fb05cefd0>, 'Connection to open.bymadata.com.ar timed out. (connect timeout=90)'))"
+  "AVISO: no se pudo leer el indice de BYMA: HTTPSConnectionPool(host='open.bymadata.com.ar', port=443): Max retries exceeded with url: /vanoms-be-core/rest/api/bymadata/free/index-price (Caused by ConnectTimeoutError(<HTTPSConnection(host='open.bymadata.com.ar', port=443) at 0x78db6a7a2fd0>, 'Connection to open.bymadata.com.ar timed out. (connect timeout=90)'))"
  ]
 }
