@@ -128,6 +128,8 @@ def ipc() -> dict:
         fila0 = x.index[x.iloc[:, 0].astype(str).str.strip() == "Total nacional"][0]
         fin = x.index[x.iloc[:, 0].astype(str).str.startswith("Región")][0]
         fechas = pd.to_datetime(x.iloc[fila0, 1:], errors="coerce")
+        # 15/11/2026: el encabezado de marzo de 2026 del cuadro viene fechado el día 26 (error del archivo): al primer día
+        fechas = fechas.map(lambda d: d.replace(day=1) if pd.notna(d) else d)
         for clave, etiqueta in (("ipc_nucleo", "Núcleo"), ("ipc_reg", "Regulados"), ("ipc_est", "Estacional")):
             f = x.loc[fila0:fin][x.loc[fila0:fin].iloc[:, 0].astype(str).str.strip() == etiqueta].iloc[0]
             s = pd.Series(pd.to_numeric(f.iloc[1:].values, errors="coerce"), index=fechas.values)
@@ -343,6 +345,129 @@ LECTORES = {"IPC": ipc, "EMAE": emae, "IPI, ISAC y supermercados": ipi_isac_supe
             "salarios": salarios, "EPH": eph, "pobreza": pobreza, "capacidad instalada": capacidad}
 
 
+# ---------- regla de fuentes (Fabián, 15/11/2026)
+# 1. Dato que está en la API del INDEC (indec_api.LECTORES): sale de la API; el archivo del sitio queda de respaldo
+#    (API caída, clave que la API no trae, API atrasada respecto del archivo o que no coincide con él).
+# 2. Dato que no está en la API del INDEC: API del Estado (datos.gob.ar), controlada contra el archivo (con_archivo).
+_LEIDO: dict = {}
+_ARCHIVO: dict = {}
+
+
+def _ts(i) -> pd.Timestamp:
+    return i.to_timestamp() if hasattr(i, "to_timestamp") else pd.Timestamp(i)
+
+
+def _archivo(tema: str) -> dict:
+    """Lector del archivo del INDEC, una sola vez por proceso."""
+    if tema not in _ARCHIVO:
+        _ARCHIVO[tema] = LECTORES[tema]()
+    return _ARCHIVO[tema]
+
+
+def leer(tema: str, log=print) -> dict:
+    """{clave: [series]} de un tema con la regla de fuentes: API del INDEC primero, archivo de respaldo."""
+    if tema in _LEIDO:
+        return _LEIDO[tema]
+    import os
+    import sys
+    aqui = os.path.dirname(os.path.abspath(__file__))
+    if aqui not in sys.path:
+        sys.path.insert(0, aqui)
+    import indec_api
+    api, arch, e_api, e_arch = {}, {}, None, None
+    if tema in indec_api.LECTORES:
+        try:
+            api = indec_api.LECTORES[tema]()
+        except Exception as e:  # noqa: BLE001
+            e_api = e
+            log(f"AVISO: INDEC {tema}: la API del INDEC no respondió ({e.__class__.__name__}: {str(e)[:120]}); "
+                "se usa el archivo")
+    try:
+        arch = _archivo(tema)
+    except Exception as e:  # noqa: BLE001
+        e_arch = e
+        if not api:
+            raise
+        log(f"AVISO: INDEC {tema}: no se pudo leer el archivo ({e.__class__.__name__}); queda solo la API del INDEC")
+    out, de_api, de_arch = {}, [], []
+    for k in dict.fromkeys(list(api) + list(arch)):
+        a = api.get(k) or []
+        a = a[0].dropna() if a and a[0] is not None and len(a[0]) else None
+        f = [c.dropna() for c in (arch.get(k) or []) if c is not None and len(c)]
+        if a is None or a.empty:
+            if f:
+                out[k] = f
+                if tema in indec_api.LECTORES and e_api is None:
+                    de_arch.append(f"{k} (no está en la API)")
+            continue
+        if f:
+            ult_a, ult_f = _ts(a.index[-1]), max(_ts(c.index[-1]) for c in f)
+            if ult_a < ult_f:
+                out[k] = f
+                de_arch.append(f"{k} (la API llega a {ult_a:%Y-%m}; el archivo, a {ult_f:%Y-%m})")
+                continue
+            # meses que el archivo tiene y la API no, dentro de la cobertura de la API (p. ej. filas perdidas al paginar)
+            ia = {_ts(i) for i in a.index}
+            huecos = min(sum(1 for i in c.index if _ts(i) >= min(ia) and _ts(i) not in ia) for c in f)
+            if huecos:
+                out[k] = f
+                de_arch.append(f"{k} (a la API le faltan {huecos} mes(es) que el archivo tiene)")
+                continue
+            difs = [d for c in f if (d := _coincide(pd.Series(a.values, index=[_ts(i) for i in a.index]),
+                                                    pd.Series(c.values, index=[_ts(i) for i in c.index]))) is not None]
+            if difs and min(difs) > 0.02:
+                out[k] = f
+                de_arch.append(f"{k} (la API no coincide con el archivo: dif. mediana {100 * min(difs):.1f}%)")
+                continue
+        out[k] = [c.dropna() for c in api[k] if c is not None and len(c)]
+        de_api.append(k)
+    if de_api:
+        log(f"INDEC {tema}: API del INDEC ({', '.join(de_api)})")
+    if de_arch:
+        log(f"INDEC {tema}: archivo del INDEC ({'; '.join(de_arch)})")
+    _LEIDO[tema] = out
+    return out
+
+
+def con_archivo(s: pd.Series, tema: str, clave: str, nombre: str = "", log=print, tolerancia=0.02) -> pd.Series:
+    """Punto 2 de la regla: `s` viene de la API del Estado (datos.gob.ar) y el dato no está en la API del INDEC. Si el
+    archivo del INDEC trae meses más nuevos o valores revisados, se usan los del archivo en toda su cobertura (la
+    historia anterior queda como estaba) y se avisa. Si el archivo no se puede leer o no coincide, queda `s`."""
+    nombre = nombre or clave
+    try:
+        cands = [c.dropna() for c in (_archivo(tema).get(clave) or []) if c is not None and len(c)]
+    except Exception as e:  # noqa: BLE001
+        log(f"AVISO: {nombre}: no se pudo controlar contra el archivo del INDEC ({e.__class__.__name__}: {str(e)[:100]})")
+        return s
+    if not cands or s.dropna().empty:
+        return s
+    ref = s.dropna()
+    periodos = isinstance(ref.index, pd.PeriodIndex)
+    r = pd.Series(ref.values, index=[_ts(i) for i in ref.index])
+    evaluadas = [(d, pd.Series(c.values, index=[_ts(i) for i in c.index])) for c in cands
+                 if (d := _coincide(pd.Series(c.values, index=[_ts(i) for i in c.index]), r)) is not None]
+    if not evaluadas or min(evaluadas, key=lambda x: x[0])[0] > tolerancia:
+        log(f"AVISO: {nombre}: el archivo del INDEC no coincide con la API del Estado; queda la API del Estado")
+        return s
+    f = min(evaluadas, key=lambda x: x[0])[1]
+    comun = r.index.intersection(f.index)
+    revisados = comun[((f[comun] - r[comun]).abs() > 1e-6 * r[comun].abs().clip(lower=1e-9))]
+    nuevos = f.index[f.index > r.index[-1]]
+    if not len(revisados) and not len(nuevos):
+        return s
+    nueva = pd.concat([r[r.index < f.index[0]], f]).sort_index()
+    nueva = nueva[~nueva.index.duplicated(keep="last")]
+    partes = []
+    if len(nuevos):
+        partes.append(f"atrasada (llega a {r.index[-1]:%Y-%m}; el archivo, a {f.index[-1]:%Y-%m})")
+    if len(revisados):
+        partes.append(f"sin la revisión de {len(revisados)} mes(es) ({revisados[0]:%Y-%m} a {revisados[-1]:%Y-%m})")
+    log(f"{nombre}: la API del Estado está {' y '.join(partes)}; se usa el archivo del INDEC")
+    if periodos:
+        nueva.index = pd.PeriodIndex(nueva.index, freq=ref.index.freq)
+    return nueva.rename(s.name)
+
+
 # ---------- integración con el vintage
 def _coincide(cand: pd.Series, ref: pd.Series) -> float | None:
     """Diferencia relativa mediana en los meses en común (los últimos 24); None si hay menos de 4 en común."""
@@ -358,12 +483,12 @@ def integrar(df: pd.DataFrame, claves_indec: list[str], tolerancia=0.02) -> pd.D
     INDEC cuando coinciden con la cargada; la historia anterior a la cobertura del archivo queda como estaba."""
     df = df.assign(fecha=pd.to_datetime(df.fecha))
     candidatas = {}
-    for tema, f in LECTORES.items():
+    for tema in LECTORES:          # regla de fuentes del 15/11/2026: API del INDEC primero, archivo de respaldo (leer)
         try:
-            for k, v in f().items():
+            for k, v in leer(tema).items():
                 candidatas.setdefault(k, []).extend(v)
         except Exception as e:
-            print(f"AVISO: INDEC {tema}: no se pudo leer el archivo ({e.__class__.__name__}: {e}); se usa la API")
+            print(f"AVISO: INDEC {tema}: sin API del INDEC ni archivo ({e.__class__.__name__}: {e}); queda la API del Estado")
     partes, reemplazadas = [df], set()
     for clave in claves_indec:
         cands = [c for c in candidatas.get(clave, []) if len(c)]
@@ -374,7 +499,7 @@ def integrar(df: pd.DataFrame, claves_indec: list[str], tolerancia=0.02) -> pd.D
             continue
         evaluadas = [(d, c) for c in cands if (d := _coincide(c, ref)) is not None]
         if not evaluadas or min(evaluadas, key=lambda t: t[0])[0] > tolerancia:
-            print(f"AVISO: INDEC {clave}: el archivo no coincide con la serie cargada; se deja la de la API")
+            print(f"AVISO: INDEC {clave}: el INDEC (API o archivo) no coincide con la serie cargada; se deja la de la API del Estado")
             continue
         mejor = min(evaluadas, key=lambda t: t[0])[1]
         nueva = pd.concat([ref[ref.index < mejor.index[0]], mejor]).sort_index()

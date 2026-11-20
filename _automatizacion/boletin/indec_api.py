@@ -103,7 +103,52 @@ def salarios() -> dict:
     return {"salarios": s("0"), "sal_priv": s("110"), "sal_pub": s("120"), "sal_nreg": s("200")}
 
 
-LECTORES = {"IPC": ipc, "EMAE": emae, "IPI, ISAC y supermercados": ipi, "comercio exterior": comercio, "salarios": salarios}
+# 15/11/2026 (regla de fuentes): rubros de exportación, usos de importación, EPH y pobreza.
+RUBROS_EXPO = {"1": "x_pp", "2": "x_moa", "3": "x_moi", "4": "x_cye"}
+USOS_IMPO = {"1": "m_bk", "2": "m_bi", "3": "m_cyl", "4": "m_pzas", "5": "m_bc", "6": "m_auto"}
+
+
+def comercio_aperturas() -> dict:
+    """Exportaciones por grandes rubros e importaciones por uso económico, millones de US$. Ojo: en las exportaciones
+    la API tiene un rubro 9 (confidencial, por secreto estadístico) que el cuadro publicado reparte entre los rubros:
+    las sumas por rubro de la API quedan por debajo del cuadro. indec.leer() lo detecta y usa el archivo."""
+    out = {}
+    for conjunto, col, campo, mapa in (("comercio_exterior_exportacion_bienes", "rubro_cod", "valor_FOB", RUBROS_EXPO),
+                                       ("comercio_exterior_importacion_bienes", "uso_economico_cod", "valor_CIF", USOS_IMPO)):
+        filas = consultar(conjunto, select=f"Periodo,{col},v:{campo}.sum()", order=f"Periodo.asc,{col}.asc")
+        for cod, clave in mapa.items():
+            out[clave] = [_serie([f for f in filas if str(f[col]) == cod], fecha="Periodo", valor="v", escala=1e-6)]
+    return out
+
+
+def comercio_completo() -> dict:
+    return {**comercio(), **comercio_aperturas()}
+
+
+def eph() -> dict:
+    """Tasas de actividad, empleo y desocupación del total de 31 aglomerados, trimestrales, en %."""
+    filas = consultar("mercado_trabajo_eph", select="periodo,anio,trimestre,tasa_de_actividad,tasa_de_empleo,tasa_de_desocupacion",
+                      area_geografica_nom="eq.T_31_A", order="periodo.asc")
+    out = {}
+    for clave, campo in (("eph_activ", "tasa_de_actividad"), ("eph_empleo", "tasa_de_empleo"), ("eph_desoc", "tasa_de_desocupacion")):
+        d = {pd.Timestamp(int(f["anio"]), 3 * (int(f["trimestre"]) - 1) + 1, 1): float(f[campo])
+             for f in filas if f.get(campo) is not None}
+        s = pd.Series(d, dtype=float).sort_index()
+        out[clave] = [s, s / 100]                       # igual que el lector del archivo: en % y en proporción
+    return out
+
+
+def pobreza() -> dict:
+    """Pobreza de personas, total de 31 aglomerados, semestral, en %."""
+    filas = consultar("pobreza_eph", select="anio,semestre,tasa_pobreza_personas", area_geografica_nom="eq.T_31_A",
+                      order="periodo.asc")
+    d = {pd.Timestamp(int(f["anio"]), 1 if int(f["semestre"]) == 1 else 7, 1): float(f["tasa_pobreza_personas"])
+         for f in filas if f.get("tasa_pobreza_personas") is not None}
+    return {"pobreza": [pd.Series(d, dtype=float).sort_index()]}
+
+
+LECTORES = {"IPC": ipc, "EMAE": emae, "IPI, ISAC y supermercados": ipi, "comercio exterior": comercio_completo,
+            "salarios": salarios, "EPH": eph, "pobreza": pobreza}
 
 
 # ---------- series del catálogo del Boletín con fuente = indec_api (02/11/2026): id = clave de SERIES
