@@ -96,6 +96,8 @@ window.EN = {
   "Índice de precios al consumidor del INDEC: nivel general, núcleo y regulados, y precios mayoristas (IPIM)": "INDEC consumer price index: headline, core and regulated prices, and wholesale prices (IPIM)",
   "Índice de precios al consumidor del INDEC: nivel general, núcleo y regulados": "INDEC consumer price index: headline, core and regulated prices",
   "INDEC": "INDEC",
+  "Minorista mensual": "Retail, monthly", "Minorista interanual": "Retail, year on year",
+  " · IPC, precios al consumidor": " · CPI, consumer prices", " · IPC": " · CPI",
   "Inflación mensual": "Monthly inflation",
   "Interanual": "Year-on-year",
   "Núcleo mensual": "Core, monthly",

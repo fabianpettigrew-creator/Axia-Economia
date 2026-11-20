@@ -296,7 +296,7 @@ const DEF = {
     nota:"La serie desestacionalizada permite comparar un mes con el anterior; la tendencia-ciclo filtra la volatilidad y muestra la dirección de fondo."},
   "precios": {sub:"Índice de precios al consumidor del INDEC: nivel general, núcleo y regulados, y precios mayoristas (IPIM)", fuente:"INDEC", mensual:true,
     ultimo:k=>k.mensual.fecha,
-    kpis:k=>[["Inflación mensual",fnum(k.mensual.valor)+"%",mesAnio(k.mensual.fecha)],["Interanual",fnum(k.interanual.valor)+"%",mesAnio(k.interanual.fecha)],
+    kpis:k=>[["Minorista mensual",fnum(k.mensual.valor)+"%",mesAnio(k.mensual.fecha)+" · IPC, precios al consumidor"],["Minorista interanual",fnum(k.interanual.valor)+"%",mesAnio(k.interanual.fecha)+" · IPC"],
              ["Núcleo mensual",fnum(k.nucleo.valor)+"%",mesAnio(k.nucleo.fecha)+" · sin regulados ni estacionales"],["Regulados mensual",k.regulados?fnum(k.regulados.valor)+"%":"—",k.regulados?mesAnio(k.regulados.fecha)+" · tarifas y precios regulados":""]],
     tabs:[{n:"Mensual", t:"Inflación mensual", st:"IPC nacional, variación % mensual", d:x=>x.mensual, tipo:"bar", u:"%", dec:1, rango:"5A"},
           {n:"Por categoría", t:"Inflación por categoría", st:()=>`IPC ${regionCat==="Nacional" ? "total nacional" : "región " + regionCat}, variación % interanual`,
