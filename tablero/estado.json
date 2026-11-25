@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-25 08:39",
+ "actualizado": "2026-11-25 20:13",
  "origen": "GitHub Actions",
  "series_rellenas_con_el_dia_anterior": [
   "brent",
@@ -58,8 +58,10 @@
   "x_moi",
   "x_pp"
  ],
- "series_con_dato_nuevo_del_indec": [],
+ "series_con_dato_nuevo_del_indec": [
+  "super con dato a 2026-09 (la API llegaba a 2026-08)"
+ ],
  "otros_avisos": [
-  "AVISO: no se pudo leer el indice de BYMA: HTTPSConnectionPool(host='open.bymadata.com.ar', port=443): Max retries exceeded with url: /vanoms-be-core/rest/api/bymadata/free/index-price (Caused by ConnectTimeoutError(<HTTPSConnection(host='open.bymadata.com.ar', port=443) at 0x7583f13002d0>, 'Connection to open.bymadata.com.ar timed out. (connect timeout=90)'))"
+  "AVISO: no se pudo leer el indice de BYMA: 400 Client Error:  for url: https://open.bymadata.com.ar/vanoms-be-core/rest/api/bymadata/free/index-price"
  ]
 }
